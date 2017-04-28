@@ -24,6 +24,8 @@ public class Hero extends Sprite {
     public static final int POSX = 50;
     public static final int POSY = 50;
 
+    public static final int MIN_HEALTH = 1;
+    public static final int MAX__HEALTH = 10;
 
     //Standing Textures
     private TextureRegion standRight;
@@ -58,7 +60,7 @@ public class Hero extends Sprite {
         heroAnimations(screen);
 
         //Hero Definition
-        heroBody = new HeroBody(world,POSX,POSY);
+        heroBody = new HeroBody(world, this,POSX,POSY);
 
         standLeft = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
         standBack = new TextureRegion(screen.getAtlas().findRegion("hero_back"), 1, 1, 16, 21);
@@ -144,5 +146,14 @@ public class Hero extends Sprite {
 
     public HeroBody getHeroBody() {
         return heroBody;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int hitbySpikes(){
+        health-=1;
+        return 1;
     }
 }

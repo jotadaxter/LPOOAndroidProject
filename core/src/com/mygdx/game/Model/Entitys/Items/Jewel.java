@@ -20,7 +20,14 @@ public class Jewel extends Item {
     public Jewel(int value, MyScreen screen, float x, float y) {
         super(screen, x, y);
         this.value=value;
+
+        //Texture Dimentions
+        if(value>1 && value<50)
+            setBounds(getX(),getY(), 7*MyGame.PIXEL_TO_METER,14*MyGame.PIXEL_TO_METER);
+        else
+            setBounds(getX(),getY(), 12*MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
         defineTexture(value);
+
         jewelBody= new JewelBody(world, this, value, x,y);
     }
 
@@ -57,11 +64,7 @@ public class Jewel extends Item {
     @Override
     public void defineItem() {
         type="jewel";
-        //Texture Dimentions
-        if(value>1 && value<50)
-            setBounds(getX(),getY(), 7*MyGame.PIXEL_TO_METER,14*MyGame.PIXEL_TO_METER);
-        else
-            setBounds(getX(),getY(), 12*MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
+
 
 
     }

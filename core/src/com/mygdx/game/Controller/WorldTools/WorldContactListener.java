@@ -1,10 +1,11 @@
-package com.mygdx.game.View.WorldTools;
+package com.mygdx.game.Controller.WorldTools;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Model.Entitys.Items.Item;
@@ -35,7 +36,12 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((Item) fixB.getUserData()).use((Hero) fixA.getUserData());
                 break;
-
+            case MyGame.HERO_BIT |  MyGame.SPIKES_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT)
+                    ((Hero) fixA.getUserData()).hitbySpikes();
+                else
+                    ((Hero) fixB.getUserData()).hitbySpikes();
+                break;
         }
 
     }

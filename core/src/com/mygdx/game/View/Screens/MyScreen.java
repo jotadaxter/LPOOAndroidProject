@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
+import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Heart;
@@ -25,8 +26,8 @@ import com.mygdx.game.Model.Entitys.Items.ItemDef;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
-import com.mygdx.game.View.WorldTools.WorldContactListener;
-import com.mygdx.game.View.WorldTools.WorldCreator;
+import com.mygdx.game.Controller.WorldTools.WorldContactListener;
+import com.mygdx.game.Controller.WorldTools.WorldCreator;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -66,6 +67,7 @@ public class MyScreen implements Screen{
     //Sprites
     private Hero player;
     private Boulder boulder;
+    private Spikes spikes;
 
     private Array<Item> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
@@ -92,7 +94,7 @@ public class MyScreen implements Screen{
         //Sprites
         player=new Hero(this);
         boulder= new Boulder(this);
-
+        spikes= new Spikes(this);
         //Items
         items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
@@ -120,6 +122,7 @@ public class MyScreen implements Screen{
         //Sprites Update
         player.update(dt);
         boulder.update(dt);
+        spikes.update(dt);
 
         //Items Update
         for(Item item : items)
@@ -178,6 +181,8 @@ public class MyScreen implements Screen{
         game.batch.begin();
         player.draw(game.batch);
         boulder.draw(game.batch);
+        spikes.draw(game.batch);
+
         for(Item item : items)
             item.draw(game.batch);
         game.batch.end();
@@ -185,6 +190,7 @@ public class MyScreen implements Screen{
         //HUD Rendering
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        hud.heartStage.draw();
 
         //Controller
         if(Gdx.app.getType() == Application.ApplicationType.Android)

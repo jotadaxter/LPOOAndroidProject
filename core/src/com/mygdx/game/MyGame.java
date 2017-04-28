@@ -15,6 +15,7 @@ public class MyGame extends Game {
 	public static final short ENEMY_BIT =4;
 	public static final short ITEM_BIT =8;
 	public static final short OBJECT_BIT =16;
+	public static final short SPIKES_BIT =32;
 
 	public SpriteBatch batch;
 

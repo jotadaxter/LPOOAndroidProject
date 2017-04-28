@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
@@ -21,53 +23,87 @@ import com.mygdx.game.View.Screens.MyScreen;
  */
 
 public class Hud implements Disposable{
+    public static final int HEART_WIDTH = 10;
+    public static final int HEART_HEIGTH = 10;
+    public static final int HEART_X = 5;
+    public static final int HEART_Y = 145;
+
+    public static final int RUPEE_WIDTH = 10;
+    public static final int RUPEE_HEIGTH = 20;
+    public static final int RUPEE_X = 190;
+    public static final int RUPEE_Y = 135;
+
     public Stage stage;
+    public Stage heartStage;
     private Viewport viewport;
     private BitmapFont font;
 
     private Integer health;
+    private Integer previousHealth;
     private Integer score;
 
     private Label scoreLabel;
-    private Texture heart_full;
-    private Texture heart_empty;
-    private Texture heart_half;
-    private Texture heart_quarter;
-    private Texture heart_three_quarts;
-    private TextureRegion rupee;
+    private Image heart_full;
+    private Image heart_empty;
+    private Image heart_half;
+    private Image heart_quarter;
+    private Image heart_three_quarts;
+    private Image rupee;
 
-    public Hud(SpriteBatch sb, MyScreen screen){
-        score=0;
-        health=3;
-
-        viewport=new FitViewport(MyGame.VIEWPORT_WIDTH,MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
+    public Hud(SpriteBatch sb, MyScreen screen) {
+        score = 0;
+        health = 3;
+        previousHealth=health;
+        viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
+        heartStage = new Stage(viewport, sb);
         font = new BitmapFont(Gdx.files.internal("myFont.fnt"));
 
-        //Label and Table creation
+        //Label creation
         labels();
 
-        //Texture Load
-        textureLoad(screen);
-        
-        //Hearts Display
+        //Image Load and display
+        Table heartTable = new Table();
+        textureLoad(screen, heartTable);
+    
         displayHearts();
-        
-        //Rupee Display
-        
-        
     }
 
     private void displayHearts() {
+        //stage.addActor(heart_full);
+        int i=0;
+        while (i<health){
+            Image new_heart= new Image(new Texture(Gdx.files.internal("heart_full.png")));
+            new_heart.setBounds(HEART_X+12*i,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
+            heartStage.addActor(new_heart);
+            i++;
+        }
+        //heart_full.setBounds(HEART_X + 10,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
+        //stage.addActor(heart_full);
+
     }
 
-    private void textureLoad(MyScreen screen) {
-        heart_full= new Texture(Gdx.files.internal("heart_full.png"));
-        heart_empty= new Texture(Gdx.files.internal("heart_empty.png"));
-        heart_half= new Texture(Gdx.files.internal("heart_half.png"));
-        heart_quarter= new Texture(Gdx.files.internal("heart_quarter.png"));
-        heart_three_quarts= new Texture(Gdx.files.internal("heart_three_quarts.png"));
-        rupee = new TextureRegion(screen.getAtlas().findRegion("green_rupee"), 0,0,7,14);
+    private void textureLoad(MyScreen screen, Table table) {
+        //Rupee image
+        rupee = new Image(new TextureRegion(screen.getAtlas().findRegion("green_rupee"), 0,0,7,14));
+        rupee.setBounds(RUPEE_X,RUPEE_Y,RUPEE_WIDTH,RUPEE_HEIGTH);
+        stage.addActor(rupee);
+
+        //Heart images
+        heart_full=new Image(new Texture(Gdx.files.internal("heart_full.png")));
+        heart_full.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
+
+        heart_empty= new Image(new Texture(Gdx.files.internal("heart_empty.png")));
+        heart_empty.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
+
+        heart_half= new Image(new Texture(Gdx.files.internal("heart_half.png")));
+        heart_half.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
+
+        heart_quarter= new Image(new Texture(Gdx.files.internal("heart_quarter.png")));
+        heart_quarter.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
+
+        heart_three_quarts= new Image(new Texture(Gdx.files.internal("heart_three_quarts.png")));
+        heart_three_quarts.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
     }
 
     private void labels() {
@@ -78,7 +114,7 @@ public class Hud implements Disposable{
 
         scoreLabel= new Label(String.format("%03d", score), new Label.LabelStyle(font, Color.WHITE));
         scoreLabel.setSize(5,5);
-        table.setScale(5,10);
+
         table.add(scoreLabel).width(35).height(25);
         stage.addActor(table);
     }
@@ -92,5 +128,22 @@ public class Hud implements Disposable{
     public void update(float dt, MyScreen screen){
         this.score=screen.getHero().getScore();
         scoreLabel.setText(String.format("%03d", score));
+        this.health=screen.getHero().getHealth();
+        updateHearts();
+        previousHealth=health;
+    }
+
+    private void updateHearts() {
+        int delta = health-previousHealth;
+        int i = 0;
+        heartStage.clear();
+        //redesenhar corações
+        while (i<health){
+            Image new_heart= new Image(new Texture(Gdx.files.internal("heart_full.png")));
+            new_heart.setBounds(HEART_X+12*i,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
+            heartStage.addActor(new_heart);
+            i++;
+        }
+
     }
 }

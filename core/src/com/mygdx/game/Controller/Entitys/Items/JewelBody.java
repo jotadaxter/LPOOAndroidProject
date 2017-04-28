@@ -28,7 +28,7 @@ public class JewelBody {
 
         //Fisical Dimentions
         if(value>1 && value<50)
-            shape.setAsBox(6*MyGame.PIXEL_TO_METER,8*MyGame.PIXEL_TO_METER);
+            shape.setAsBox(4*MyGame.PIXEL_TO_METER,6*MyGame.PIXEL_TO_METER);
         else
             shape.setAsBox(7*MyGame.PIXEL_TO_METER,8*MyGame.PIXEL_TO_METER);
         fdef.filter.categoryBits = MyGame.ITEM_BIT;

@@ -20,12 +20,13 @@ public class HeroBody {
     public static final float DAMPING_ICE=0.5f;
     public boolean isInIce;
     public Body b2body;
+    private FixtureDef fdef;
 
     public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT};
     public State currentState;
     public State previousState;
 
-    public HeroBody(World world, int x, int y) {
+    public HeroBody(World world, Hero hero, int x, int y) {
         currentState = State.STAND_DOWN;
         previousState = State.STAND_DOWN;
 
@@ -36,13 +37,13 @@ public class HeroBody {
         b2body=world.createBody(bdef);
         //b2body.setGravityScale(0);
 
-        FixtureDef fdef = new FixtureDef();
+        fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(5*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER);
         fdef.filter.categoryBits= MyGame.HERO_BIT;
-        fdef.filter.maskBits = MyGame.ITEM_BIT | MyGame.DEFAULT_BIT | MyGame.OBJECT_BIT;
+        fdef.filter.maskBits = MyGame.ITEM_BIT | MyGame.DEFAULT_BIT | MyGame.OBJECT_BIT | MyGame.SPIKES_BIT;
         fdef.shape= shape;
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData(hero);
 
         //Edgeshapes (contact lines)
         //Up Contact Line
@@ -195,5 +196,12 @@ public class HeroBody {
             }
             else b2body.setLinearVelocity(0, 0);
         }
+    }
+    public Body getBody() {
+        return b2body;
+    }
+
+    public FixtureDef getFdef() {
+        return fdef;
     }
 }
