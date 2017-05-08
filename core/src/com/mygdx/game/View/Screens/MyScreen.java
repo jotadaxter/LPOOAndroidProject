@@ -17,7 +17,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
+import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
+import com.mygdx.game.Model.Entitys.Items.Key;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Heart;
@@ -68,6 +70,8 @@ public class MyScreen implements Screen{
     private Hero player;
     private Boulder boulder;
     private Spikes spikes;
+    private PressingPlate pp;
+    private Key key;
 
     private Array<Item> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
@@ -95,12 +99,15 @@ public class MyScreen implements Screen{
         player=new Hero(this);
         boulder= new Boulder(this);
         spikes= new Spikes(this);
+        pp= new PressingPlate(this);
+
+
         //Items
         items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
         spawnItem(new ItemDef(new Vector2(150,150), Jewel.class));
         spawnItem(new ItemDef(new Vector2(200,150), Heart.class));
-
+        spawnItem(new ItemDef(new Vector2(80,30), Key.class));
         //Contact Listener
         world.setContactListener(new WorldContactListener());
 
@@ -123,6 +130,7 @@ public class MyScreen implements Screen{
         player.update(dt);
         boulder.update(dt);
         spikes.update(dt);
+        pp.update(dt, this);
 
         //Items Update
         for(Item item : items)
@@ -155,6 +163,9 @@ public class MyScreen implements Screen{
             else if(idef.type== Heart.class){
                 items.add(new Heart(this, idef.position.x, idef.position.y));
             }
+            else if(idef.type==Key.class){
+                items.add(new Key(this, idef.position.x,idef.position.y));
+            }
         }
     }
 
@@ -179,9 +190,13 @@ public class MyScreen implements Screen{
 
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
-        player.draw(game.batch);
-        boulder.draw(game.batch);
+
+
         spikes.draw(game.batch);
+        pp.draw(game.batch);
+
+        boulder.draw(game.batch);
+        player.draw(game.batch);
 
         for(Item item : items)
             item.draw(game.batch);

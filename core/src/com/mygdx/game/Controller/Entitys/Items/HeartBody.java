@@ -32,7 +32,12 @@ public class HeartBody {
 
         //Contact Filters
         fdef.filter.categoryBits = MyGame.ITEM_BIT;
-        fdef.filter.maskBits =  MyGame.HERO_BIT | MyGame.ITEM_BIT;
+        fdef.filter.maskBits =  MyGame.HERO_BIT
+                | MyGame.ITEM_BIT
+                | MyGame.BOULDER_BIT
+                | MyGame.SPIKES_BIT
+                | MyGame.DEFAULT_BIT
+                | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;
         body.createFixture(fdef).setUserData(heart);
     }

@@ -43,7 +43,7 @@ public class Hero extends Sprite {
     public World world;
     private HeroBody heroBody;
     private int score;
-
+    private int keys;
     private int health;//entre 0 e 10
 
     public Hero(MyScreen screen){
@@ -51,6 +51,7 @@ public class Hero extends Sprite {
         this.world=screen.getWorld();
         this.score=0;
         this.health=3;
+        this.keys=0;
         //Movement States
 
         upDownTimer=0;
@@ -111,6 +112,12 @@ public class Hero extends Sprite {
         else if(item.getType()=="heart"){
             health+=1;
             Gdx.app.log("Hero got 1 hearth.\n Current health: ","");
+            String v = Integer.toString(health);
+            Gdx.app.log(v,"");
+        }
+        else if(item.getType()=="key"){
+            keys++;
+            Gdx.app.log("Hero got key.\n","");
             String v = Integer.toString(health);
             Gdx.app.log(v,"");
         }

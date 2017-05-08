@@ -41,6 +41,13 @@ public abstract class StaticTileObject {
         bdef.position.set((bounds.getX() + bounds.getWidth()/2)* MyGame.PIXEL_TO_METER, (bounds.getY() + bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
         body=world.createBody(bdef);
         shape.setAsBox((bounds.getWidth()/2)*MyGame.PIXEL_TO_METER, (bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
+        fdef.filter.categoryBits= MyGame.DEFAULT_BIT;
+        fdef.filter.maskBits = MyGame.ITEM_BIT
+                | MyGame.DEFAULT_BIT
+                | MyGame.SPIKES_BIT
+                | MyGame.HERO_BIT
+                | MyGame.BOULDER_BIT
+                | MyGame.PRESSING_PLATE_BIT;;
         fdef.shape=shape;
         body.createFixture(fdef);
     }

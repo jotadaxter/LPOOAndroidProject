@@ -41,13 +41,19 @@ public class HeroBody {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(5*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER);
         fdef.filter.categoryBits= MyGame.HERO_BIT;
-        fdef.filter.maskBits = MyGame.ITEM_BIT | MyGame.DEFAULT_BIT | MyGame.OBJECT_BIT | MyGame.SPIKES_BIT;
+        fdef.filter.maskBits = MyGame.ITEM_BIT
+                | MyGame.DEFAULT_BIT
+                | MyGame.SPIKES_BIT
+                | MyGame.BOULDER_BIT
+                | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;
         b2body.createFixture(fdef).setUserData(hero);
 
+        /*
         //Edgeshapes (contact lines)
         //Up Contact Line
-        /*EdgeShape upContact= new EdgeShape();
+
+        EdgeShape upContact= new EdgeShape();
         upContact.set(new Vector2(-4,10), new Vector2(4,10));
         fdef.shape=upContact;
         fdef.isSensor=true;
