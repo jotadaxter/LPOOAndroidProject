@@ -39,42 +39,42 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class MyScreen implements Screen{
     //Rupee Info
-    public static final int GREEN_RUPEE =1;
-    public static final int BLUE_RUPEE =5;
-    public static final int RED_RUPEE =20;
-    public static final int BIG_GREEN_RUPEE =50;
-    public static final int BIG_BLUE_RUPEE =100;
-    public static final int BIG_RED_RUPEE =200;
+    protected static final int GREEN_RUPEE =1;
+    protected static final int BLUE_RUPEE =5;
+    protected static final int RED_RUPEE =20;
+    protected static final int BIG_GREEN_RUPEE =50;
+    protected static final int BIG_BLUE_RUPEE =100;
+    protected static final int BIG_RED_RUPEE =200;
 
-    private MyGame game;
-    private TextureAtlas atlas;
-    private OrthographicCamera gameCam;
-    private Viewport viewPort;
-    private Hud hud;
-    private Stage stage;
-    private float accumulator;
+    protected MyGame game;
+    protected TextureAtlas atlas;
+    protected OrthographicCamera gameCam;
+    protected Viewport viewPort;
+    protected Hud hud;
+    protected Stage stage;
+    protected float accumulator;
 
     //Controllers
-    private Controller controller;
+    protected Controller controller;
 
     //Tiled Map Variables
-    private TmxMapLoader mapLoader;
-    private TiledMap tiledMap;
-    private OrthogonalTiledMapRenderer renderer;
+    protected TmxMapLoader mapLoader;
+    protected TiledMap tiledMap;
+    protected OrthogonalTiledMapRenderer renderer;
 
     //Box2d Variables
-    private World world;
-    private Box2DDebugRenderer b2dr;
+    protected World world;
+    protected Box2DDebugRenderer b2dr;
 
     //Sprites
-    private Hero player;
-    private Boulder boulder;
-    private Spikes spikes;
-    private PressingPlate pp;
-    private Key key;
+    protected Hero player;
+    protected Boulder boulder;
+    protected Spikes spikes;
+    protected PressingPlate pp;
+    protected Key key;
 
-    private Array<Item> items;
-    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
+    protected Array<Item> items;
+    protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     public MyScreen(MyGame game) {
         atlas=new TextureAtlas("link_and_objects.pack");
@@ -111,7 +111,7 @@ public class MyScreen implements Screen{
         //Contact Listener
         world.setContactListener(new WorldContactListener());
 
-
+        Gdx.input.setInputProcessor(this.controller.getStage());
     }
 
     public void update(float dt){
