@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.View.Screens.MainMenu;
 import com.mygdx.game.View.Screens.MyScreen;
 
 public class MyGame extends Game {
@@ -23,7 +24,7 @@ public class MyGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new MyScreen(this));
+		setScreen(new MainMenu(this));
 	}
 
 	@Override
