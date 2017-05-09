@@ -1,12 +1,9 @@
 package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.mygdx.game.Controller.Entitys.Items.HeartBody;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 
 /**
@@ -16,7 +13,7 @@ import com.mygdx.game.Model.Entitys.Hero.Hero;
 public class Heart extends Item {
     private HeartBody heartBody;
 
-    public Heart(MyScreen screen, float x, float y) {
+    public Heart(GameScreen screen, float x, float y) {
         super(screen, x, y);
         heartBody=new HeartBody(world,this, x,y);
         setRegion(screen.getAtlas().findRegion("heart"), 0,0,15,15);

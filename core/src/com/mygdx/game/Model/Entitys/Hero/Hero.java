@@ -4,16 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 
 /**
@@ -46,7 +42,7 @@ public class Hero extends Sprite {
     private int keys;
     private int health;//entre 0 e 10
 
-    public Hero(MyScreen screen){
+    public Hero(GameScreen screen){
         super(screen.getAtlas().findRegion("hero_front"));
         this.world=screen.getWorld();
         this.score=0;
@@ -72,7 +68,7 @@ public class Hero extends Sprite {
         //setRegion(standFront);
     }
 
-    private void heroAnimations(MyScreen screen) {
+    private void heroAnimations(GameScreen screen) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         //Up Animation
 

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -16,7 +15,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 21/04/2017.
@@ -50,7 +49,7 @@ public class Hud implements Disposable{
     private Image heart_three_quarts;
     private Image rupee;
 
-    public Hud(SpriteBatch sb, MyScreen screen) {
+    public Hud(SpriteBatch sb, GameScreen screen) {
         score = 0;
         health = 3;
         previousHealth=health;
@@ -83,7 +82,7 @@ public class Hud implements Disposable{
 
     }
 
-    private void textureLoad(MyScreen screen, Table table) {
+    private void textureLoad(GameScreen screen, Table table) {
         //Rupee image
         rupee = new Image(new TextureRegion(screen.getAtlas().findRegion("green_rupee"), 0,0,7,14));
         rupee.setBounds(RUPEE_X,RUPEE_Y,RUPEE_WIDTH,RUPEE_HEIGTH);
@@ -125,7 +124,7 @@ public class Hud implements Disposable{
 
     }
 
-    public void update(float dt, MyScreen screen){
+    public void update(float dt, GameScreen screen){
         this.score=screen.getHero().getScore();
         scoreLabel.setText(String.format("%03d", score));
         this.health=screen.getHero().getHealth();

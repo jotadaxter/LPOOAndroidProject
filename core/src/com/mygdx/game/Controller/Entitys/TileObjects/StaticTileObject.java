@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Utilizador on 06-04-2017.
@@ -24,10 +24,10 @@ public abstract class StaticTileObject {
     protected Rectangle bounds;
     protected Body body;
     protected BodyDef bdef;
-    protected MyScreen screen;
+    protected GameScreen screen;
     protected MapObject object;
 
-    public StaticTileObject(MyScreen screen, MapObject object) {
+    public StaticTileObject(GameScreen screen, MapObject object) {
         this.screen=screen;
         this.object=object;
         this.bounds =((RectangleMapObject) object).getRectangle();

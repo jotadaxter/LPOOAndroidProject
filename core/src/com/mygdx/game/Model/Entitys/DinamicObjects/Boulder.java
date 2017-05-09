@@ -2,15 +2,10 @@ package com.mygdx.game.Model.Entitys.DinamicObjects;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.BoulderBody;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Utilizador on 06-04-2017.
@@ -25,7 +20,7 @@ public class Boulder extends Sprite{
 
     private BoulderBody boulderBody;
 
-    public Boulder(MyScreen screen) {
+    public Boulder(GameScreen screen) {
         super(screen.getAtlas().findRegion("boulder"));
         this.world=screen.getWorld();
 

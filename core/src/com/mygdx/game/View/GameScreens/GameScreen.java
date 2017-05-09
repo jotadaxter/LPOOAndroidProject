@@ -1,4 +1,4 @@
-package com.mygdx.game.View.Screens;
+package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
@@ -37,7 +37,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Created by Jotadaxter on 04/04/2017.
  */
 
-public abstract class MyScreen implements Screen{
+public abstract class GameScreen implements Screen{
     //Rupee Info
     protected static final int GREEN_RUPEE =1;
     protected static final int BLUE_RUPEE =5;
@@ -76,7 +76,7 @@ public abstract class MyScreen implements Screen{
     protected Array<Item> items;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
-    public MyScreen(MyGame game) {
+    public GameScreen(MyGame game) {
 
         atlas=new TextureAtlas("link_and_objects.pack");
         this.game=game;

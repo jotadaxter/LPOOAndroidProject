@@ -2,10 +2,8 @@ package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 
 /**
@@ -13,13 +11,13 @@ import com.mygdx.game.Model.Entitys.Hero.Hero;
  */
 
 public abstract class Item extends Sprite {
-    protected MyScreen screen;
+    protected GameScreen screen;
     protected World world;
     protected boolean toDestroy;
     protected boolean destroyed;
     protected String type;
 
-    public Item(MyScreen screen, float x, float y){
+    public Item(GameScreen screen, float x, float y){
         this.screen=screen;
         this.world=screen.getWorld();
         type="";

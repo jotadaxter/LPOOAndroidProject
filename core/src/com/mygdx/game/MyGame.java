@@ -1,9 +1,14 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.View.Screens.MainMenu;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.Model.States.GameState;
+import com.mygdx.game.Model.States.GameStateManager;
+import com.mygdx.game.View.GameScreens.DemoScreen;
+import com.mygdx.game.View.MenuScreens.MainMenu;
+
+import java.util.Stack;
 
 public class MyGame extends Game {
     public static final int VIEWPORT_WIDTH =240;//GameBoy Advance settings
@@ -20,17 +25,18 @@ public class MyGame extends Game {
 	public static final short PRESSING_PLATE_BIT=64;
 
 	public SpriteBatch batch;
+	public GameStateManager gameStateManager;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new MainMenu(this));
+		gameStateManager= new GameStateManager(this);
+
 	}
 
 	@Override
 	public void render () {
 		super.render();
 	}
-	
 
 }

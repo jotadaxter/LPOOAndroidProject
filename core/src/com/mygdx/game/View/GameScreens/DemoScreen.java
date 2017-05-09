@@ -1,28 +1,19 @@
-package com.mygdx.game.View.Screens;
+package com.mygdx.game.View.GameScreens;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Controller.WorldTools.WorldContactListener;
-import com.mygdx.game.Controller.WorldTools.WorldCreator;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
-import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Model.Entitys.Items.Heart;
 import com.mygdx.game.Model.Entitys.Items.ItemDef;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
-import com.mygdx.game.Model.Entitys.Items.Key;
 import com.mygdx.game.MyGame;
 
 /**
  * Created by Utilizador on 08-05-2017.
  */
 
-public class DemoScreen extends MyScreen {
+public class DemoScreen extends GameScreen {
 
     public DemoScreen(MyGame game) {
         super(game);

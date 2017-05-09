@@ -4,11 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.PressingPlateBody;
-import com.mygdx.game.Controller.Entitys.DinamicObjects.SpikesBody;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
-
-import static com.badlogic.gdx.Gdx.app;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 02/05/2017.
@@ -28,7 +25,7 @@ public class PressingPlate extends Sprite {
 
     private PressingPlateBody pressingPlateBody;
 
-    public PressingPlate(MyScreen screen) {
+    public PressingPlate(GameScreen screen) {
         super(screen.getAtlas().findRegion("pressing_plate_not_pressed"));
         this.world=screen.getWorld();
         ispressed=0;
@@ -43,14 +40,14 @@ public class PressingPlate extends Sprite {
         setRegion(notpressedTex);
     }
 
-    public void update(float dt, MyScreen screen){
+    public void update(float dt, GameScreen screen){
         setPosition(pressingPlateBody.getBody().getPosition().x-getWidth()/2, pressingPlateBody.getBody().getPosition().y-getHeight()/2);
         setRegion(pressingPlateBody.getFrame(this,dt));
         action(dt, screen);
     }
 
     //Efetua a acao designada pelo pressionar da placa
-    public void action(float dt, MyScreen screen){
+    public void action(float dt, GameScreen screen){
       /* if(press_and_hold){
            if(ispressed)
                app.log("Placa premida - com acao\n","");

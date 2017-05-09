@@ -1,13 +1,10 @@
 package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.Controller.Entitys.Items.JewelBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Utilizador on 06-04-2017.
@@ -17,7 +14,7 @@ public class Jewel extends Item {
     private int value;
     private JewelBody jewelBody;
 
-    public Jewel(int value, MyScreen screen, float x, float y) {
+    public Jewel(int value, GameScreen screen, float x, float y) {
         super(screen, x, y);
         this.value=value;
 

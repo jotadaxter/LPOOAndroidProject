@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 22/04/2017.
@@ -29,7 +29,7 @@ public class Controller {
     private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed;
     private OrthographicCamera cam;
 
-    public Controller(SpriteBatch sb, MyScreen screen){
+    public Controller(SpriteBatch sb, GameScreen screen){
         cam = new OrthographicCamera();
         viewport = new FitViewport(VIEWPORT_WIDTH,VIEWPORT_HEIGHT,cam);
         stage= new Stage(viewport,sb);

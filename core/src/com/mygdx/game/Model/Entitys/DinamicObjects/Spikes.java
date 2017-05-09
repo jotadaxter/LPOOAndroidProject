@@ -3,10 +3,9 @@ package com.mygdx.game.Model.Entitys.DinamicObjects;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Controller.Entitys.DinamicObjects.BoulderBody;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.SpikesBody;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.Screens.MyScreen;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 28/04/2017.
@@ -21,7 +20,7 @@ public class Spikes extends Sprite {
 
     private SpikesBody spikesBody;
 
-    public Spikes(MyScreen screen) {
+    public Spikes(GameScreen screen) {
         super(screen.getAtlas().findRegion("spikes"));
         this.world=screen.getWorld();
 
