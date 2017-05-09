@@ -26,6 +26,7 @@ public abstract class StaticTileObject {
     protected BodyDef bdef;
     protected GameScreen screen;
     protected MapObject object;
+    protected FixtureDef fdef;
 
     public StaticTileObject(GameScreen screen, MapObject object) {
         this.screen=screen;
@@ -34,21 +35,21 @@ public abstract class StaticTileObject {
         this.map=screen.getMap();
         this.world=screen.getWorld();
         bdef= new BodyDef();
-        FixtureDef fdef = new FixtureDef();
+        fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
 
         bdef.type = BodyDef.BodyType.StaticBody;
         bdef.position.set((bounds.getX() + bounds.getWidth()/2)* MyGame.PIXEL_TO_METER, (bounds.getY() + bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
         body=world.createBody(bdef);
         shape.setAsBox((bounds.getWidth()/2)*MyGame.PIXEL_TO_METER, (bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
-        fdef.filter.categoryBits= MyGame.DEFAULT_BIT;
-        fdef.filter.maskBits = MyGame.ITEM_BIT
-                | MyGame.DEFAULT_BIT
-                | MyGame.SPIKES_BIT
-                | MyGame.HERO_BIT
-                | MyGame.BOULDER_BIT
-                | MyGame.PRESSING_PLATE_BIT;;
+
+        fisicFilter(fdef);
         fdef.shape=shape;
         body.createFixture(fdef);
     }
+
+    public abstract void fisicFilter(FixtureDef fdef);
+
+   // public abstract void warp();
+
 }

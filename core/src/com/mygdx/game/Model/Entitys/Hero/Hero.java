@@ -73,7 +73,7 @@ public class Hero extends Sprite {
         //Up Animation
 
         for (int i = 0; i < 9; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("hero_walk_up"), i * 18, 0, 18, 26));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("hero_walk_up"), i * 18, 0, 18, 24));
         }
         heroWalkUp = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();

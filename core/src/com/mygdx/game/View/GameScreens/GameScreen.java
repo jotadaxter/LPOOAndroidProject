@@ -251,4 +251,7 @@ public abstract class GameScreen implements Screen{
 
     public abstract String getMapName();
 
+    public MyGame getGame() {
+        return game;
+    }
 }

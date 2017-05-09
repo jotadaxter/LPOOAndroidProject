@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.mygdx.game.Controller.Entitys.TileObjects.Door;
+import com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.MyGame;
@@ -55,6 +57,12 @@ public class WorldContactListener implements ContactListener {
                     ((PressingPlate) fixA.getUserData()).incIsPressed();
                 else
                     ((PressingPlate) fixB.getUserData()).incIsPressed();
+                break;
+            case MyGame.WARP_OBJECT | MyGame.HERO_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.WARP_OBJECT)
+                    ((Door) fixA.getUserData()).warp();
+                else
+                    ((Door) fixB.getUserData()).warp();
                 break;
         }
 

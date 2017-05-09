@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Controller.Entitys.TileObjects.Door;
+import com.mygdx.game.Controller.Entitys.TileObjects.Stairs;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Controller.Entitys.TileObjects.Obstacle;
 
@@ -32,6 +34,16 @@ public class WorldCreator {
         //Obstacle Fixtures
         for(MapObject object : tiledMap.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             new Obstacle(screen, object);
+        }
+
+        //Stairs Fixtures
+        for(MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+            new Stairs(screen, object);
+        }
+
+        //Doors Fixtures
+        for(MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+            new Door(screen, object);
         }
     }
 }

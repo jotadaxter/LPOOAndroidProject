@@ -45,6 +45,7 @@ public class HeroBody {
                 | MyGame.DEFAULT_BIT
                 | MyGame.SPIKES_BIT
                 | MyGame.BOULDER_BIT
+                | MyGame.WARP_OBJECT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;
         b2body.createFixture(fdef).setUserData(hero);
