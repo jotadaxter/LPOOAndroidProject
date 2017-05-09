@@ -37,7 +37,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Created by Jotadaxter on 04/04/2017.
  */
 
-public class MyScreen implements Screen{
+public abstract class MyScreen implements Screen{
     //Rupee Info
     protected static final int GREEN_RUPEE =1;
     protected static final int BLUE_RUPEE =5;
@@ -77,13 +77,17 @@ public class MyScreen implements Screen{
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     public MyScreen(MyGame game) {
+
         atlas=new TextureAtlas("link_and_objects.pack");
         this.game=game;
         float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
         viewPort= new FitViewport(MyGame.VIEWPORT_WIDTH*MyGame.PIXEL_TO_METER,MyGame.VIEWPORT_HEIGHT*MyGame.PIXEL_TO_METER, gameCam);
+
+        //Map Load
+        String mapName = getMapName();
         mapLoader = new TmxMapLoader();
-        tiledMap = mapLoader.load("level1.tmx");
+        tiledMap = mapLoader.load(mapName);
         renderer = new OrthogonalTiledMapRenderer(tiledMap, 1*MyGame.PIXEL_TO_METER);
         gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
         hud= new Hud(game.batch, this);
@@ -92,27 +96,23 @@ public class MyScreen implements Screen{
         //box2d
         world= new World(new Vector2(0,0), true);
         b2dr= new Box2DDebugRenderer();
-
         new WorldCreator(this);
-
-        //Sprites
-        player=new Hero(this);
-        boulder= new Boulder(this);
-        spikes= new Spikes(this);
-        pp= new PressingPlate(this);
-
 
         //Items
         items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
-        spawnItem(new ItemDef(new Vector2(150,150), Jewel.class));
-        spawnItem(new ItemDef(new Vector2(200,150), Heart.class));
-        spawnItem(new ItemDef(new Vector2(80,30), Key.class));
+
+        //Sprites
+        player=new Hero(this);
+        objectLoad();
+
         //Contact Listener
         world.setContactListener(new WorldContactListener());
 
-        Gdx.input.setInputProcessor(this.controller.getStage());
+
     }
+
+    protected abstract void objectLoad();
 
     public void update(float dt){
         handleSpawningItems();
@@ -128,9 +128,8 @@ public class MyScreen implements Screen{
 
         //Sprites Update
         player.update(dt);
-        boulder.update(dt);
-        spikes.update(dt);
-        pp.update(dt, this);
+        objectsUpdate(dt);
+
 
         //Items Update
         for(Item item : items)
@@ -144,6 +143,7 @@ public class MyScreen implements Screen{
         renderer.setView(gameCam);
     }
 
+    protected abstract void objectsUpdate(float dt);
 
 
     public TextureAtlas getAtlas(){
@@ -158,13 +158,10 @@ public class MyScreen implements Screen{
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef= itemsToSpawn.poll();
             if(idef.type == Jewel.class){
-            items.add(new Jewel(BLUE_RUPEE, this, idef.position.x, idef.position.y));
+                items.add(new Jewel(BLUE_RUPEE, this, idef.position.x, idef.position.y));
             }
             else if(idef.type== Heart.class){
                 items.add(new Heart(this, idef.position.x, idef.position.y));
-            }
-            else if(idef.type==Key.class){
-                items.add(new Key(this, idef.position.x,idef.position.y));
             }
         }
     }
@@ -191,11 +188,7 @@ public class MyScreen implements Screen{
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
 
-
-        spikes.draw(game.batch);
-        pp.draw(game.batch);
-
-        boulder.draw(game.batch);
+        objactsDraw();
         player.draw(game.batch);
 
         for(Item item : items)
@@ -211,6 +204,8 @@ public class MyScreen implements Screen{
         if(Gdx.app.getType() == Application.ApplicationType.Android)
             controller.draw();
     }
+
+    protected abstract void objactsDraw();
 
     public TiledMap getMap(){
         return tiledMap;
@@ -253,4 +248,7 @@ public class MyScreen implements Screen{
     public Hero getHero(){
         return this.player;
     }
+
+    public abstract String getMapName();
+
 }

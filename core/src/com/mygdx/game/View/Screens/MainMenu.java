@@ -98,7 +98,7 @@ public class MainMenu implements Screen{
 
 
         if(arcadeButton.isPressed()){
-            game.setScreen(new MyScreen(game));
+            game.setScreen(new DemoScreen(game));
         }
     }
 
