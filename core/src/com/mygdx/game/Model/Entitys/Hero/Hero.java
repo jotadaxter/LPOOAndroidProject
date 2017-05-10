@@ -17,9 +17,6 @@ import com.mygdx.game.Model.Entitys.Items.Jewel;
  */
 
 public class Hero extends Sprite {
-    public static final int POSX = 50;
-    public static final int POSY = 50;
-
     public static final int MIN_HEALTH = 1;
     public static final int MAX__HEALTH = 10;
 
@@ -42,7 +39,7 @@ public class Hero extends Sprite {
     private int keys;
     private int health;//entre 0 e 10
 
-    public Hero(GameScreen screen){
+    public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
         this.world=screen.getWorld();
         this.score=0;
@@ -57,7 +54,7 @@ public class Hero extends Sprite {
         heroAnimations(screen);
 
         //Hero Definition
-        heroBody = new HeroBody(world, this,POSX,POSY);
+        heroBody = new HeroBody(world, this,x,y);
 
         standLeft = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
         standBack = new TextureRegion(screen.getAtlas().findRegion("hero_back"), 1, 1, 16, 21);

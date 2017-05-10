@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -50,36 +51,45 @@ public class HeroBody {
         fdef.shape= shape;
         b2body.createFixture(fdef).setUserData(hero);
 
-        /*
-        //Edgeshapes (contact lines)
-        //Up Contact Line
 
+        //Edgeshapes (contact lines) - Surfaces to detect contact with Tiled objects
+        FixtureDef sensorfix= new FixtureDef();
+        sensorfix.filter.categoryBits= MyGame.DEFAULT_BIT;
+        sensorfix.filter.maskBits = MyGame.ITEM_BIT
+                | MyGame.DEFAULT_BIT
+                | MyGame.SPIKES_BIT
+                | MyGame.BOULDER_BIT
+                | MyGame.WARP_OBJECT
+                | MyGame.PRESSING_PLATE_BIT;
+        sensorfix.shape= shape;
+
+        //Up Contact Line
         EdgeShape upContact= new EdgeShape();
-        upContact.set(new Vector2(-4,10), new Vector2(4,10));
-        fdef.shape=upContact;
-        fdef.isSensor=true;
-        b2body.createFixture(fdef).setUserData("upContact");
+        upContact.set(new Vector2(-4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER), new Vector2(4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER));
+        sensorfix.shape=upContact;
+        sensorfix.isSensor=true;
+        b2body.createFixture(sensorfix).setUserData("upContact");
 
         //Down Contact Line
         EdgeShape downContact= new EdgeShape();
-        downContact.set(new Vector2(-4,-10), new Vector2(4,-10));
-        fdef.shape=downContact;
-        fdef.isSensor=true;
-        b2body.createFixture(fdef).setUserData("downContact");
+        downContact.set(new Vector2(-4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER), new Vector2(4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER));
+        sensorfix.shape=downContact;
+        sensorfix.isSensor=true;
+        b2body.createFixture(sensorfix).setUserData("downContact");
 
         //Left Contact Line
         EdgeShape leftContact= new EdgeShape();
-        leftContact.set(new Vector2(5,-5), new Vector2(5,5));
-        fdef.shape=leftContact;
-        fdef.isSensor=true;
-        b2body.createFixture(fdef).setUserData("leftContact");
+        leftContact.set(new Vector2(5*MyGame.PIXEL_TO_METER,-5*MyGame.PIXEL_TO_METER), new Vector2(5*MyGame.PIXEL_TO_METER,5*MyGame.PIXEL_TO_METER));
+        sensorfix.shape=leftContact;
+        sensorfix.isSensor=true;
+        b2body.createFixture(sensorfix).setUserData("leftContact");
 
         //Down Contact Line
         EdgeShape rightContact= new EdgeShape();
-        rightContact.set(new Vector2(-5, -5), new Vector2(-5, 5));
-        fdef.shape=rightContact;
-        fdef.isSensor=true;
-        b2body.createFixture(fdef).setUserData("rightContact");*/
+        rightContact.set(new Vector2(-5*MyGame.PIXEL_TO_METER, -5*MyGame.PIXEL_TO_METER), new Vector2(-5*MyGame.PIXEL_TO_METER, 5*MyGame.PIXEL_TO_METER));
+        sensorfix.shape=rightContact;
+        sensorfix.isSensor=true;
+        b2body.createFixture(sensorfix).setUserData("rightContact");
     }
 
     public State getState() {

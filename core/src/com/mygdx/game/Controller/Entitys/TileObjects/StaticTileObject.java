@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -27,6 +28,7 @@ public abstract class StaticTileObject {
     protected GameScreen screen;
     protected MapObject object;
     protected FixtureDef fdef;
+    protected Fixture fixture;
 
     public StaticTileObject(GameScreen screen, MapObject object) {
         this.screen=screen;
@@ -43,12 +45,11 @@ public abstract class StaticTileObject {
         body=world.createBody(bdef);
         shape.setAsBox((bounds.getWidth()/2)*MyGame.PIXEL_TO_METER, (bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
 
-        fisicFilter(fdef);
         fdef.shape=shape;
-        body.createFixture(fdef);
+
+        fixture=body.createFixture(fdef);
     }
 
-    public abstract void fisicFilter(FixtureDef fdef);
 
    // public abstract void warp();
 

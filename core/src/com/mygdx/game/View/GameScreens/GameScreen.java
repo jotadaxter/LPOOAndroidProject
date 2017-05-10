@@ -20,6 +20,7 @@ import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.Items.Key;
+import com.mygdx.game.Model.States.WarpEvent;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Heart;
@@ -61,6 +62,7 @@ public abstract class GameScreen implements Screen{
     protected TmxMapLoader mapLoader;
     protected TiledMap tiledMap;
     protected OrthogonalTiledMapRenderer renderer;
+    protected Class<?> type;
 
     //Box2d Variables
     protected World world;
@@ -75,12 +77,12 @@ public abstract class GameScreen implements Screen{
 
     protected Array<Item> items;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
+    protected Array<WarpEvent> warpEvents;
 
-    public GameScreen(MyGame game) {
+    public GameScreen(MyGame game, int hero_x, int hero_y) {
 
         atlas=new TextureAtlas("link_and_objects.pack");
         this.game=game;
-        float ratio = ((float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth());
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
         viewPort= new FitViewport(MyGame.VIEWPORT_WIDTH*MyGame.PIXEL_TO_METER,MyGame.VIEWPORT_HEIGHT*MyGame.PIXEL_TO_METER, gameCam);
 
@@ -103,16 +105,17 @@ public abstract class GameScreen implements Screen{
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
 
         //Sprites
-        player=new Hero(this);
+        player=new Hero(this, hero_x,hero_y);
         objectLoad();
+        warpEvents= new Array<WarpEvent>();
 
         //Contact Listener
         world.setContactListener(new WorldContactListener());
 
-
+        Gdx.input.setInputProcessor(controller.getStage());
     }
 
-    protected abstract void objectLoad();
+    public abstract void objectLoad();
 
     public void update(float dt){
         handleSpawningItems();
@@ -143,7 +146,7 @@ public abstract class GameScreen implements Screen{
         renderer.setView(gameCam);
     }
 
-    protected abstract void objectsUpdate(float dt);
+    public abstract void objectsUpdate(float dt);
 
 
     public TextureAtlas getAtlas(){
@@ -188,7 +191,7 @@ public abstract class GameScreen implements Screen{
         game.batch.setProjectionMatrix(gameCam.combined);
         game.batch.begin();
 
-        objactsDraw();
+        objectsDraw();
         player.draw(game.batch);
 
         for(Item item : items)
@@ -205,7 +208,7 @@ public abstract class GameScreen implements Screen{
             controller.draw();
     }
 
-    protected abstract void objactsDraw();
+    public abstract void objectsDraw();
 
     public TiledMap getMap(){
         return tiledMap;
@@ -254,4 +257,17 @@ public abstract class GameScreen implements Screen{
     public MyGame getGame() {
         return game;
     }
+
+    public Array<WarpEvent> getWarpEvents() {
+        return warpEvents;
+    }
+
+    public Class<?> getType() {
+        return type;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
 }

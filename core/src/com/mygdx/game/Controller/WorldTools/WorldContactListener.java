@@ -27,10 +27,10 @@ public class WorldContactListener implements ContactListener {
 
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
-        /*impactVerify("upContact", fixA, fixB);
+        impactVerify("upContact", fixA, fixB);
         impactVerify("downContact", fixA, fixB);
         impactVerify("leftContact", fixA, fixB);
-        impactVerify("leftContact", fixA, fixB);*/
+        impactVerify("leftContact", fixA, fixB);
 
         //Collision Verify
         switch(cDef){
@@ -58,23 +58,19 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((PressingPlate) fixB.getUserData()).incIsPressed();
                 break;
-            case MyGame.WARP_OBJECT | MyGame.HERO_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.WARP_OBJECT)
-                    ((Door) fixA.getUserData()).warp();
-                else
-                    ((Door) fixB.getUserData()).warp();
-                break;
+
         }
 
     }
 
     private void impactVerify(String surfaceName, Fixture fixA, Fixture fixB) {
         if(fixA.getUserData()==surfaceName || fixB.getUserData() == surfaceName){
-            Fixture surface = fixA.getUserData() ==surfaceName ? fixA : fixB;
+            Fixture surface = fixA.getUserData()==surfaceName ? fixA : fixB;
             Fixture object = surface == fixA ? fixB : fixA;
 
-            if(object.getUserData() instanceof Item){
-                ((Item) object.getUserData()).pickedUp();
+            if(object.getUserData() instanceof StaticTileObject){
+                if(object.getUserData() instanceof Door)
+                    ((Door)object.getUserData()).warp();
             }
         }
 

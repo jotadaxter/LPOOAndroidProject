@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
+import com.mygdx.game.View.GameScreens.FreeWorld;
 
 /**
  * Created by Utilizador on 08-05-2017.
@@ -54,7 +55,7 @@ public class MainMenu extends MenuScreen {
 
 
         if(arcadeButton.isPressed()){
-            game.gameStateManager.states.push(new GameState(new DemoScreen(game)));
+            game.gameStateManager.states.push(new GameState(new FreeWorld(game)));
             game.setScreen(game.gameStateManager.states.peek().getGameScreen());
             //game.gameStateManager.push(new DemoScreen(game));
 

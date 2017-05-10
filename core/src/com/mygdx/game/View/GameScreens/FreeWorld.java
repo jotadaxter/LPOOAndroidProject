@@ -15,53 +15,40 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.MenuScreens.MainMenu;
 
 /**
- * Created by Utilizador on 08-05-2017.
+ * Created by Utilizador on 10-05-2017.
  */
 
-public class DemoScreen extends GameScreen {
+public class FreeWorld extends GameScreen {
     //Hero Info
-    public static final int POSX = 247;
+    public static final int POSX = 30;
     public static final int POSY = 30;
 
-    public static final int DOOR_ID=2;
+    public static final int DOOR_ID=1;
 
-    public DemoScreen(MyGame game) {
+    public FreeWorld(MyGame game) {
         super(game, POSX, POSY);
-        type= DemoScreen.class;
-        //warpEvents.add(new WarpEvent(DOOR_ID,Door.class, new GameState(new FreeWorld(game))));
+        type= FreeWorld.class;
+        warpEvents.add(new WarpEvent(DOOR_ID,Door.class, new GameState(new DemoScreen(game))));
         Gdx.input.setInputProcessor(controller.getStage());
-
-    }
-
-    @Override
-    public void objectLoad() {
-        boulder= new Boulder(this);
-        spikes= new Spikes(this);
-        spikes= new Spikes(this);
-        pp= new PressingPlate(this);
-
-        //Items
-        spawnItem(new ItemDef(new Vector2(150,150), Jewel.class));
-        spawnItem(new ItemDef(new Vector2(200,150), Heart.class));
     }
 
     @Override
     public String getMapName() {
-        return "level1.tmx";
+        return "free_world.tmx";
+    }
+
+    @Override
+    public void objectLoad() {
+
     }
 
     @Override
     public void objectsUpdate(float dt) {
-        boulder.update(dt);
-        spikes.update(dt);
-        spikes.update(dt);
-        pp.update(dt, this);
+
     }
 
     @Override
     public void objectsDraw() {
-        spikes.draw(game.batch);
-        pp.draw(game.batch);
-        boulder.draw(game.batch);
+
     }
 }

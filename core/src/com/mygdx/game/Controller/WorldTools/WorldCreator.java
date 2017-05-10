@@ -1,5 +1,6 @@
 package com.mygdx.game.Controller.WorldTools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -18,6 +19,7 @@ import com.mygdx.game.Controller.Entitys.TileObjects.Obstacle;
  */
 
 public class WorldCreator {
+
     public WorldCreator(GameScreen screen) {
         World world=screen.getWorld();
         TiledMap tiledMap= screen.getMap();
@@ -43,7 +45,11 @@ public class WorldCreator {
 
         //Doors Fixtures
         for(MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            new Door(screen, object);
+            String name="";
+            name= (String)object.getProperties().get("Id");
+            new Door(screen, object, Integer.parseInt(name));
+            Gdx.app.log("DoorId",name);
+
         }
     }
 }

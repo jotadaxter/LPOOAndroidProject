@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="63">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="65">
  <tileset firstgid="1" name="azviu-jdl8t" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="481" columns="37">
   <image source="azviu-jdl8t.jpg" width="672" height="240"/>
  </tileset>
@@ -12,7 +12,7 @@
  <tileset firstgid="2163" name="cave" tilewidth="16" tileheight="16" tilecount="928" columns="8">
   <image source="cave.png" width="128" height="1856"/>
  </tileset>
- <layer name="background" width="20" height="20">
+ <layer name="Background" width="20" height="20">
   <data encoding="csv">
 38,39,230,81,82,83,83,83,83,83,83,83,83,83,83,83,83,83,147,148,
 75,76,230,118,119,120,120,120,120,120,120,120,120,120,120,120,120,120,184,185,
@@ -36,13 +36,13 @@
 477,478,478,478,478,478,478,478,478,478,478,478,478,478,478,477,478,479,480,481
 </data>
  </layer>
- <objectgroup name="obstacles">
+ <objectgroup name="Obstacles">
   <object id="37" x="144.667" y="48.3333" width="14.6667" height="14.2917"/>
   <object id="38" x="240.25" y="48.6667" width="15.25" height="13.5833"/>
   <object id="39" x="240.583" y="192.708" width="30.9167" height="29.2917"/>
   <object id="40" x="49.1667" y="208.292" width="46.2917" height="46.2083"/>
  </objectgroup>
- <objectgroup name="wall">
+ <objectgroup name="Wall">
   <object id="3" x="298.182" y="0.272727" width="21.7273" height="319.455"/>
   <object id="14" x="0" y="283" width="53.4091" height="37.0909"/>
   <object id="16" x="0" y="64.2727" width="27" height="218.273"/>
@@ -56,6 +56,13 @@
   <object id="54" x="67.2727" y="111.818" width="11.0909" height="8.72727"/>
  </objectgroup>
  <objectgroup name="Door">
-  <object id="62" x="236.75" y="298.75" width="19.5" height="5"/>
+  <properties>
+   <property name="Id" type="int" value="1"/>
+  </properties>
+  <object id="62" x="236.75" y="298.75" width="19.5" height="5">
+   <properties>
+    <property name="Id" value="2"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
