@@ -40,7 +40,7 @@ public class HeroBody {
 
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(5*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER);
+        shape.setAsBox(4*MyGame.PIXEL_TO_METER,6.5f*MyGame.PIXEL_TO_METER);
         fdef.filter.categoryBits= MyGame.HERO_BIT;
         fdef.filter.maskBits = MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT

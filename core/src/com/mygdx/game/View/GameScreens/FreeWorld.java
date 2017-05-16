@@ -39,16 +39,19 @@ public class FreeWorld extends GameScreen {
 
     @Override
     public void objectLoad() {
-
+        boulder= new Boulder(this);
+        pp= new PressingPlate(this);
     }
 
     @Override
     public void objectsUpdate(float dt) {
-
+        boulder.update(dt);
+        pp.update(dt, this);
     }
 
     @Override
     public void objectsDraw() {
-
+        pp.draw(game.batch);
+        boulder.draw(game.batch);
     }
 }
