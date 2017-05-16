@@ -55,9 +55,7 @@ public class MainMenu extends MenuScreen {
 
 
         if(arcadeButton.isPressed()){
-            game.gameStateManager.states.push(new GameState(new FreeWorld(game)));
-            game.setScreen(game.gameStateManager.states.peek().getGameScreen());
-            //game.gameStateManager.push(new DemoScreen(game));
+          game.gsm.push(new FreeWorld(game));
 
         }
     }

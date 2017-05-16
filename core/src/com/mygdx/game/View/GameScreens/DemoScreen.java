@@ -21,14 +21,13 @@ import com.mygdx.game.View.MenuScreens.MainMenu;
 public class DemoScreen extends GameScreen {
     //Hero Info
     public static final int POSX = 247;
-    public static final int POSY = 30;
+    public static final int POSY = 35;
 
     public static final int DOOR_ID=2;
 
     public DemoScreen(MyGame game) {
         super(game, POSX, POSY);
         type= DemoScreen.class;
-        //warpEvents.add(new WarpEvent(DOOR_ID,Door.class, new GameState(new FreeWorld(game))));
         Gdx.input.setInputProcessor(controller.getStage());
 
     }

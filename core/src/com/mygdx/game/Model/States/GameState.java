@@ -11,15 +11,21 @@ import com.mygdx.game.View.MenuScreens.MenuScreen;
 public class GameState {
     private GameScreen gameScreen;
     private MenuScreen menuScreen;
+    private boolean isGameScreen;
+    private boolean isMenuScreen;
 
     public GameState(GameScreen gamescreen){
         this.gameScreen=gamescreen;
         this.menuScreen=null;
+        isGameScreen=true;
+        isMenuScreen=false;
     }
 
     public GameState(MenuScreen menuscreen){
         this.menuScreen=menuscreen;
         this.gameScreen=null;
+        isGameScreen=false;
+        isMenuScreen=true;
     }
 
     public GameScreen getGameScreen(){
@@ -28,5 +34,12 @@ public class GameState {
     public MenuScreen getMenuScreen(){
         return menuScreen;
     }
+    public boolean isGameScreen() {
+        return isGameScreen;
+    }
+    public boolean isMenuScreen() {
+        return isMenuScreen;
+    }
+
 
 }

@@ -112,7 +112,7 @@ public abstract class GameScreen implements Screen{
         //Contact Listener
         world.setContactListener(new WorldContactListener());
 
-        Gdx.input.setInputProcessor(controller.getStage());
+        //Gdx.input.setInputProcessor(controller.getStage());
     }
 
     public abstract void objectLoad();

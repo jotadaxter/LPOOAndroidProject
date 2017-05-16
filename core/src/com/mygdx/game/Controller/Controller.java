@@ -242,4 +242,13 @@ public class Controller {
     public Stage getStage() {
         return stage;
     }
+
+    public void reset() {
+        upPressed = false;
+        downPressed= false;
+        leftPressed= false;
+        rightPressed= false;
+        aPressed= false;
+        bPressed= false;
+    }
 }

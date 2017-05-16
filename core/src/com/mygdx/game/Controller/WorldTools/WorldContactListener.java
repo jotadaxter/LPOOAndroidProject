@@ -1,5 +1,6 @@
 package com.mygdx.game.Controller.WorldTools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -63,14 +64,16 @@ public class WorldContactListener implements ContactListener {
 
     }
 
-    private void impactVerify(String surfaceName, Fixture fixA, Fixture fixB) {
+    private void impactVerify(String surfaceName, Fixture fixA, Fixture fixB)  {
         if(fixA.getUserData()==surfaceName || fixB.getUserData() == surfaceName){
             Fixture surface = fixA.getUserData()==surfaceName ? fixA : fixB;
             Fixture object = surface == fixA ? fixB : fixA;
 
             if(object.getUserData() instanceof StaticTileObject){
-                if(object.getUserData() instanceof Door)
-                    ((Door)object.getUserData()).warp();
+                if(object.getUserData() instanceof Door) {
+                    Gdx.app.log("door touched" , surfaceName);
+                    ((Door) object.getUserData()).warp();
+                }
             }
         }
 

@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.Model.States.GameStateManager;
 import com.mygdx.game.View.GameScreens.DemoScreen;
@@ -27,12 +28,13 @@ public class MyGame extends Game {
 
 
 	public SpriteBatch batch;
-	public GameStateManager gameStateManager;
+	public GameStateManager gsm;
+
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		gameStateManager= new GameStateManager(this);
+		gsm= new GameStateManager(this);
 
 	}
 

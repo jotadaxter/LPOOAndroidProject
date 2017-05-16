@@ -27,19 +27,13 @@ public class Door extends StaticTileObject {
     }
 
     public void warp() {
-        Gdx.app.log("door touched", "");
         if(screen.getClass()==DemoScreen.class){
-            screen.getGame().gameStateManager.states.pop();
-            screen.getGame().setScreen(screen.getGame().gameStateManager.states.peek().getGameScreen());
-            Gdx.input.setInputProcessor(screen.getGame().gameStateManager.states.peek().getGameScreen().getController().getStage());
+            screen.getGame().gsm.pop();
         }
         else {
             for (WarpEvent warpEvent : screen.getWarpEvents())
                 if (warpEvent.id == this.id) {
-                    //screen.getGame().gameStateManager.states.pop();
-                    screen.getGame().gameStateManager.states.push(warpEvent.travelPoint);
-                    screen.getGame().setScreen(screen.getGame().gameStateManager.states.peek().getGameScreen());
-                    Gdx.input.setInputProcessor(warpEvent.travelPoint.getGameScreen().getController().getStage());
+                    screen.getGame().gsm.push(warpEvent.travelPoint);
                 }
         }
     }
