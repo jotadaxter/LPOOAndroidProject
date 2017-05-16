@@ -17,9 +17,6 @@ import com.mygdx.game.Model.Entitys.Items.Jewel;
  */
 
 public class Hero extends Sprite {
-    public static final int MIN_HEALTH = 1;
-    public static final int MAX__HEALTH = 10;
-
     //Standing Textures
     private TextureRegion standRight;
     private TextureRegion standLeft;
@@ -35,16 +32,12 @@ public class Hero extends Sprite {
 
     public World world;
     private HeroBody heroBody;
-    private int score;
-    private int keys;
-    private int health;//entre 0 e 10
+    private GameScreen screen;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
+        this.screen=screen;
         this.world=screen.getWorld();
-        this.score=0;
-        this.health=3;
-        this.keys=0;
         //Movement States
 
         upDownTimer=0;
@@ -99,19 +92,20 @@ public class Hero extends Sprite {
         if(item.getType()=="jewel"){
             addScore(((Jewel)item).getValue());
             Gdx.app.log("Hero got ","");
-            String v = Integer.toString(score);
+            String v = Integer.toString(getScore());
             Gdx.app.log(v,"");
         }
         else if(item.getType()=="heart"){
-            health+=1;
+            screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()+1);
             Gdx.app.log("Hero got 1 hearth.\n Current health: ","");
-            String v = Integer.toString(health);
+            String v = Integer.toString(getHealth());
             Gdx.app.log(v,"");
         }
         else if(item.getType()=="key"){
-            keys++;
+
+            screen.getGame().heroStats.setKeys(screen.getGame().heroStats.getKeys()+1);
             Gdx.app.log("Hero got key.\n","");
-            String v = Integer.toString(health);
+            String v = Integer.toString(getKeys());
             Gdx.app.log(v,"");
         }
         else{
@@ -121,11 +115,11 @@ public class Hero extends Sprite {
     }
 
     public void addScore(int value) {
-        score+=value;
+        screen.getGame().heroStats.setScore(screen.getGame().heroStats.getScore()+value);
     }
 
     public int getScore(){
-        return score;
+        return screen.getGame().heroStats.getScore();
     }
 
     public TextureRegion getStandRight(){
@@ -149,11 +143,15 @@ public class Hero extends Sprite {
     }
 
     public int getHealth() {
-        return health;
+        return screen.getGame().heroStats.getHearts();
     }
 
-    public int hitbySpikes(){
-        health-=1;
+    public int hitBySpikes(){
+        screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         return 1;
+    }
+
+    public int getKeys() {
+        return screen.getGame().heroStats.getKeys();
     }
 }

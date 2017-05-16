@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
+import com.mygdx.game.Model.Entitys.Hero.HeroStats;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.Model.States.GameStateManager;
 import com.mygdx.game.View.GameScreens.DemoScreen;
@@ -29,13 +30,14 @@ public class MyGame extends Game {
 
 	public SpriteBatch batch;
 	public GameStateManager gsm;
+	public HeroStats heroStats;
 
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		gsm= new GameStateManager(this);
-
+		heroStats= new HeroStats();
 	}
 
 	@Override
