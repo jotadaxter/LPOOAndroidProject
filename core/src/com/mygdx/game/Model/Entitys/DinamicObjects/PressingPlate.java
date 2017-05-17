@@ -7,6 +7,8 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.PressingPlateBody;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jotadaxter on 02/05/2017.
  */
@@ -19,6 +21,7 @@ public class PressingPlate extends Sprite {
     private TextureRegion pressedTex;
     private TextureRegion notpressedTex;
 
+    private ArrayList<PressingPlate> connections;
 
     private PressingPlateBody pressingPlateBody;
 
@@ -29,6 +32,7 @@ public class PressingPlate extends Sprite {
         press_and_hold=true;
         pressingPlateBody= new PressingPlateBody(world,this,x,y);
 
+        connections= new ArrayList<PressingPlate>();
 
         pressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_pressed"), 0,0,16,16);
         notpressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_not_pressed"), 0,0,16,16);
@@ -87,4 +91,11 @@ public class PressingPlate extends Sprite {
         press_and_hold=val;
     }
 
+    public void addConnection(PressingPlate connection){
+        connections.add(connection);
+    }
+
+    public int nConnections(){
+        return connections.size();
+    }
 }

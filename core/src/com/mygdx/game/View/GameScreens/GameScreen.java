@@ -19,8 +19,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
+import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.Items.Key;
-import com.mygdx.game.Model.States.WarpEvent;
+import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Heart;
@@ -75,6 +76,7 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<Spikes> spikes;
     protected ArrayList<PressingPlate> pps;
     protected ArrayList<Key> keys;
+    protected ArrayList<WayBlocker> wayblocks;
 
     protected Array<Item> items;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
@@ -111,6 +113,7 @@ public abstract class GameScreen implements Screen{
         spikes = new ArrayList<Spikes>();
         pps= new ArrayList<PressingPlate>();
         keys= new ArrayList<Key>();
+        wayblocks = new ArrayList<WayBlocker>();
         objectLoad();
         warpEvents= new Array<WarpEvent>();
 

@@ -1,6 +1,7 @@
-package com.mygdx.game.Model.States;
+package com.mygdx.game.Model.Events;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Model.States.GameState;
 
 /**
  * Created by Utilizador on 10-05-2017.

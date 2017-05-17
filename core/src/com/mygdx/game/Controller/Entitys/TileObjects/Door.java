@@ -1,17 +1,9 @@
 package com.mygdx.game.Controller.Entitys.TileObjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.google.gwt.user.client.rpc.core.java.lang.Integer_CustomFieldSerializer;
-import com.mygdx.game.Model.States.GameState;
-import com.mygdx.game.Model.States.WarpEvent;
-import com.mygdx.game.MyGame;
+import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.View.GameScreens.DemoScreen;
 import com.mygdx.game.View.GameScreens.GameScreen;
-import com.mygdx.game.View.MenuScreens.MainMenu;
-import com.mygdx.game.View.MenuScreens.MenuScreen;
 
 /**
  * Created by Utilizador on 09-05-2017.
