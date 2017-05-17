@@ -7,6 +7,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.Items.Heart;
+import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.Model.Entitys.Items.ItemDef;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 import com.mygdx.game.Model.States.GameState;
@@ -19,9 +20,15 @@ import com.mygdx.game.View.MenuScreens.MainMenu;
  */
 
 public class DemoScreen extends GameScreen {
-    //Hero Info
+    //Hero Position
     public static final int POSX = 247;
     public static final int POSY = 35;
+    //Boulder Position
+    public static final int BOULDER_X = 200;
+    public static final int BOULDER_Y = 200;
+    //PressingPlate Position
+    public static final int PP_X = 200;
+    public static final int PP_Y = 250;
 
     public static final int DOOR_ID=2;
 
@@ -34,10 +41,12 @@ public class DemoScreen extends GameScreen {
 
     @Override
     public void objectLoad() {
-        boulder= new Boulder(this);
-        spikes= new Spikes(this);
-        spikes= new Spikes(this);
-        pp= new PressingPlate(this);
+        Boulder boulder= new Boulder(this,BOULDER_X, BOULDER_Y);
+        boulders.add(boulder);
+        Spikes spike= new Spikes(this);
+        spikes.add(spike);
+        PressingPlate pp= new PressingPlate(this, PP_X, PP_Y);
+        pps.add(pp);
 
         //Items
         spawnItem(new ItemDef(new Vector2(150,150), Jewel.class));
@@ -51,16 +60,22 @@ public class DemoScreen extends GameScreen {
 
     @Override
     public void objectsUpdate(float dt) {
-        boulder.update(dt);
-        spikes.update(dt);
-        spikes.update(dt);
-        pp.update(dt, this);
+        for(Boulder boulder : boulders)
+            boulder.update(dt);
+        for(Spikes spike : spikes)
+            spike.update(dt);
+        for(PressingPlate pp : pps)
+            pp.update(dt,this);
     }
 
     @Override
     public void objectsDraw() {
-        spikes.draw(game.batch);
-        pp.draw(game.batch);
-        boulder.draw(game.batch);
+        for(Spikes spike : spikes)
+            spike.draw(game.batch);
+        for(PressingPlate pp : pps)
+            pp.draw(game.batch);
+        for(Boulder boulder : boulders)
+            boulder.draw(game.batch);
+
     }
 }

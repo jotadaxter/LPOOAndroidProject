@@ -32,6 +32,7 @@ import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Controller.WorldTools.WorldContactListener;
 import com.mygdx.game.Controller.WorldTools.WorldCreator;
 
+import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -70,10 +71,10 @@ public abstract class GameScreen implements Screen{
 
     //Sprites
     protected Hero player;
-    protected Boulder boulder;
-    protected Spikes spikes;
-    protected PressingPlate pp;
-    protected Key key;
+    protected ArrayList<Boulder> boulders;
+    protected ArrayList<Spikes> spikes;
+    protected ArrayList<PressingPlate> pps;
+    protected ArrayList<Key> keys;
 
     protected Array<Item> items;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
@@ -106,6 +107,10 @@ public abstract class GameScreen implements Screen{
 
         //Sprites
         player=new Hero(this, hero_x,hero_y);
+        boulders=new ArrayList<Boulder>();
+        spikes = new ArrayList<Spikes>();
+        pps= new ArrayList<PressingPlate>();
+        keys= new ArrayList<Key>();
         objectLoad();
         warpEvents= new Array<WarpEvent>();
 

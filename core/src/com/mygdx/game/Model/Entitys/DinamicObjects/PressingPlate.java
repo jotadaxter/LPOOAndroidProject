@@ -12,9 +12,6 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class PressingPlate extends Sprite {
-    public static final int POSX = 200;
-    public static final int POSY = 250;
-
     private World world;
     private int ispressed;//0 - false, >=1 - true
     private boolean press_and_hold;//indica se é necessário deixar algum peso em cima da placa para q funcione
@@ -25,17 +22,17 @@ public class PressingPlate extends Sprite {
 
     private PressingPlateBody pressingPlateBody;
 
-    public PressingPlate(GameScreen screen) {
+    public PressingPlate(GameScreen screen, int x, int y) {
         super(screen.getAtlas().findRegion("pressing_plate_not_pressed"));
         this.world=screen.getWorld();
         ispressed=0;
         press_and_hold=true;
-        pressingPlateBody= new PressingPlateBody(world,this,POSX,POSY);
+        pressingPlateBody= new PressingPlateBody(world,this,x,y);
 
 
         pressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_pressed"), 0,0,16,16);
         notpressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_not_pressed"), 0,0,16,16);
-        setPosition(POSX,POSY);
+        setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(notpressedTex);
     }

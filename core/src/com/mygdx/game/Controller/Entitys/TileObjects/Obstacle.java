@@ -11,9 +11,12 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class Obstacle extends StaticTileObject {
-    public Obstacle(GameScreen screen, MapObject object){
+    private String code;
+
+    public Obstacle(GameScreen screen, MapObject object, String code){
         super(screen, object);
         fixture.setUserData(this);
+        this.code=code;
     }
 
    // @Override

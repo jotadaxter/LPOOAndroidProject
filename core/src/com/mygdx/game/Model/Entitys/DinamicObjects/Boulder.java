@@ -12,22 +12,19 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class Boulder extends Sprite{
-    public static final int POSX = 200;
-    public static final int POSY = 200;
-
     private World world;
     private TextureRegion boulderFigure;
 
     private BoulderBody boulderBody;
 
-    public Boulder(GameScreen screen) {
+    public Boulder(GameScreen screen, int x, int y) {
         super(screen.getAtlas().findRegion("boulder"));
         this.world=screen.getWorld();
 
-        boulderBody= new BoulderBody(world,POSX,POSY);
+        boulderBody= new BoulderBody(world,x,y);
 
         boulderFigure = new TextureRegion(screen.getAtlas().findRegion("boulder"), 0,0,16,16);
-        setPosition(POSX,POSY);
+        setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(boulderFigure);
     }

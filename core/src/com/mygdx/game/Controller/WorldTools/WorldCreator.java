@@ -30,12 +30,16 @@ public class WorldCreator {
 
         //Wall Fixtures
         for(MapObject object : tiledMap.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            new Obstacle(screen, object);
+            String name="";
+            name= (String)object.getProperties().get("behaviour");
+            new Obstacle(screen, object, name);
         }
 
         //Obstacle Fixtures
         for(MapObject object : tiledMap.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
-            new Obstacle(screen, object);
+            String name="";
+            name= (String)object.getProperties().get("behaviour");
+            new Obstacle(screen, object, name);
         }
 
         //Stairs Fixtures

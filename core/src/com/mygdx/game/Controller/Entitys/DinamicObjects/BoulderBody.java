@@ -26,13 +26,14 @@ public class BoulderBody {
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(9.5f* MyGame.PIXEL_TO_METER);
+        shape.setRadius(7.5f* MyGame.PIXEL_TO_METER);
         fdef.filter.categoryBits= MyGame.BOULDER_BIT;
         fdef.filter.maskBits = MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.SPIKES_BIT
                 | MyGame.HERO_BIT
                 | MyGame.WARP_OBJECT
+                | MyGame.BOULDER_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape=shape;
         body.createFixture(fdef);
