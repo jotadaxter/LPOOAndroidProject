@@ -43,16 +43,16 @@ public class FreeWorld extends GameScreen {
     public static final int WB3_Y = 8+16*50;
     public static final int DOOR_ID=1;
 
-    private ArrayList<PressingEvent> pressingEvents;//element 0 - dungeon 1 entrance
+    private PressingEvent pressingEvent;
     private ArrayList<PressingPlate> dungeon1_plates;
+    public boolean d1blck;
 
     public FreeWorld(MyGame game) {
         super(game, POSX, POSY);
         type= FreeWorld.class;
         warpEvents.add(new WarpEvent(DOOR_ID,Door.class, new GameState(new DemoScreen(game))));
         Gdx.input.setInputProcessor(controller.getStage());
-        pressingEvents= new ArrayList<PressingEvent>();
-        dungeon1_plates= new ArrayList<PressingPlate>();
+        d1blck=true;
     }
 
     @Override
@@ -74,17 +74,24 @@ public class FreeWorld extends GameScreen {
         boulders.add(boulder2);
 
         PressingPlate pp1= new PressingPlate(this, PP1_X, PP1_Y);
-        //dungeon1_plates.add(pp1);
+
         PressingPlate pp2= new PressingPlate(this, PP2_X, PP2_Y);
-        //dungeon1_plates.add(pp2);
+
         PressingPlate pp3= new PressingPlate(this, PP3_X, PP3_Y);
-        //dungeon1_plates.add(pp3);
+
         PressingPlate pp4= new PressingPlate(this, PP4_X, PP4_Y);
-        //dungeon1_plates.add(pp4);
+
+        ArrayList<PressingPlate> dungeon1_plates= new ArrayList<PressingPlate>();
+        dungeon1_plates.add(pp1);//ordem: 1-4-2-3
+        dungeon1_plates.add(pp4);
+        dungeon1_plates.add(pp2);
+
         pps.add(pp1);
+        pps.add(pp4);
         pps.add(pp2);
         pps.add(pp3);
-        pps.add(pp4);
+        pressingEvent= new PressingEvent(dungeon1_plates, this);
+
 
 
        /* ArrayList<Boolean> order= new ArrayList<Boolean>();
@@ -101,15 +108,16 @@ public class FreeWorld extends GameScreen {
         int cnt=0;
         for(PressingPlate pp : pps) {
             pp.update(dt, this);
-            if (pp.isPressed() > 0) {
+            /*if (pp.isPressed() > 0) {
                 cnt++;
-            }
+            }*/
         }
         for(WayBlocker wb : wayblocks){
             wb.update(dt);
-            if(cnt==3)
+            if(!d1blck)
                 wb.destroy();
         }
+        pressingEvent.update(dt);
 
     }
 
@@ -122,4 +130,5 @@ public class FreeWorld extends GameScreen {
         for(Boulder boulder : boulders)
             boulder.draw(game.batch);
     }
+
 }

@@ -82,6 +82,7 @@ public abstract class GameScreen implements Screen{
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
     protected Array<WarpEvent> warpEvents;
 
+
     public GameScreen(MyGame game, int hero_x, int hero_y) {
 
         atlas=new TextureAtlas("link_and_objects.pack");
@@ -112,11 +113,12 @@ public abstract class GameScreen implements Screen{
         boulders=new ArrayList<Boulder>();
         spikes = new ArrayList<Spikes>();
         pps= new ArrayList<PressingPlate>();
+
         keys= new ArrayList<Key>();
         wayblocks = new ArrayList<WayBlocker>();
-        objectLoad();
-        warpEvents= new Array<WarpEvent>();
 
+        warpEvents= new Array<WarpEvent>();
+        objectLoad();
         //Contact Listener
         world.setContactListener(new WorldContactListener());
 
@@ -277,5 +279,4 @@ public abstract class GameScreen implements Screen{
     public Controller getController() {
         return controller;
     }
-
 }
