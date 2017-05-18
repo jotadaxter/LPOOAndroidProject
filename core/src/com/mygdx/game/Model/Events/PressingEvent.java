@@ -14,22 +14,19 @@ import java.util.ArrayList;
 
 public class PressingEvent {
     private ArrayList<PressingPlate> plates;
-    private ArrayList<Boolean> order;
-    private String code;
     private GameScreen screen;
 
-    public PressingEvent(ArrayList<PressingPlate> plates,ArrayList<Boolean> order, GameScreen screen, String code){
+    public PressingEvent(ArrayList<PressingPlate> plates,GameScreen screen){
         this.plates=plates;
         this.screen=screen;
-        this.code=code;
     }
 
     public boolean condition(){
-        for (int i = 0; i < order.size(); i++) {
+        /*for (int i = 0; i < order.size(); i++) {
             if(plates.get(i).isPressed()>0 || !order.get(i)){
                 return false;
             }
-        }
+        }*/
         return true;
     }
 

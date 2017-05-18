@@ -35,15 +35,15 @@ public class FreeWorld extends GameScreen {
     public static final int PP4_X = 200;
     public static final int PP4_Y = 520;
     //WayBlockers
-    public static final int WB1_X = (8+26*8)*2-7*8;
-    public static final int WB1_Y = (8+51*8)*2-3*8;
-    public static final int WB2_X = (8+26*8)*2+16-7*8;
-    public static final int WB2_Y = (8+51*8)*2-3*8;
-    public static final int WB3_X = (8+26*8)*2+32-7*8;
-    public static final int WB3_Y = (8+51*8)*2-3*8;
+    public static final int WB1_X = 8+16*23;//(8+26*8)*2-7*8;
+    public static final int WB1_Y = 8+16*50;//(8+51*8)*2-3*8;
+    public static final int WB2_X = 8+16*24;
+    public static final int WB2_Y = 8+16*50;
+    public static final int WB3_X = 8+16*25;
+    public static final int WB3_Y = 8+16*50;
     public static final int DOOR_ID=1;
 
-    private ArrayList<PressingEvent> pressingEvents;
+    private ArrayList<PressingEvent> pressingEvents;//element 0 - dungeon 1 entrance
     private ArrayList<PressingPlate> dungeon1_plates;
 
     public FreeWorld(MyGame game) {
@@ -81,14 +81,6 @@ public class FreeWorld extends GameScreen {
         //dungeon1_plates.add(pp3);
         PressingPlate pp4= new PressingPlate(this, PP4_X, PP4_Y);
         //dungeon1_plates.add(pp4);
-
-        pp1.addConnection(pp3);
-        pp1.addConnection(pp4);
-        pp3.addConnection(pp1);
-        pp3.addConnection(pp4);
-        pp4.addConnection(pp1);
-        pp4.addConnection(pp3);
-
         pps.add(pp1);
         pps.add(pp2);
         pps.add(pp3);

@@ -17,12 +17,8 @@ public class PressingPlate extends Sprite {
     private World world;
     private int ispressed;//0 - false, >=1 - true
     private boolean press_and_hold;//indica se é necessário deixar algum peso em cima da placa para q funcione
-
     private TextureRegion pressedTex;
     private TextureRegion notpressedTex;
-
-    private ArrayList<PressingPlate> connections;
-
     private PressingPlateBody pressingPlateBody;
 
     public PressingPlate(GameScreen screen, int x, int y) {
@@ -31,9 +27,6 @@ public class PressingPlate extends Sprite {
         ispressed=0;
         press_and_hold=true;
         pressingPlateBody= new PressingPlateBody(world,this,x,y);
-
-        connections= new ArrayList<PressingPlate>();
-
         pressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_pressed"), 0,0,16,16);
         notpressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_not_pressed"), 0,0,16,16);
         setPosition(x,y);
@@ -89,13 +82,5 @@ public class PressingPlate extends Sprite {
 
     public void setPressAndHold(boolean val){
         press_and_hold=val;
-    }
-
-    public void addConnection(PressingPlate connection){
-        connections.add(connection);
-    }
-
-    public int nConnections(){
-        return connections.size();
     }
 }
