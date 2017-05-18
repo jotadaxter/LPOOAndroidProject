@@ -202,7 +202,10 @@ public abstract class GameScreen implements Screen{
         game.batch.begin();
 
         objectsDraw();
+        if(player.getThrowBomb())
+            player.getBomb().draw(game.batch);
         player.draw(game.batch);
+
 
         for(Item item : items)
             item.draw(game.batch);

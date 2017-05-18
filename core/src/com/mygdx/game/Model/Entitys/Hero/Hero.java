@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
 import com.mygdx.game.Model.Entitys.Items.Item;
+import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
@@ -33,11 +34,14 @@ public class Hero extends Sprite {
     public World world;
     private HeroBody heroBody;
     private GameScreen screen;
+    private Bomb bomb;
+    private boolean throwBomb;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
         this.world=screen.getWorld();
+       // bomb= new Bomb(this.screen, 0,0);
         //Movement States
 
         upDownTimer=0;
@@ -86,6 +90,8 @@ public class Hero extends Sprite {
     public void update(float dt){
         setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
         setRegion(heroBody.getFrame(this,dt));
+        if(throwBomb)
+            bomb.update(dt);
     }
 
     public void addItem(Item item) {
@@ -153,5 +159,46 @@ public class Hero extends Sprite {
 
     public int getKeys() {
         return screen.getGame().heroStats.getKeys();
+    }
+
+    public void throwBomb() {
+        throwBomb=true;
+        float xx=0, yy=0;
+
+        switch(heroBody.currentState){
+            case STAND_UP:{
+                xx=getX();
+                yy=getY()+16;
+                bomb= new Bomb(this.screen, xx,yy);
+            }
+            break;
+            case STAND_DOWN:{
+                xx=getX();
+                yy=getY()-16;
+                bomb= new Bomb(screen, xx,yy);
+            }
+            break;
+            case STAND_RIGHT:{
+                xx=getX()+16;
+                yy=getY();
+                bomb= new Bomb(screen, xx,yy);
+            }break;
+            case STAND_LEFT:{
+                xx=getX()-16;
+                yy=getY();
+                bomb= new Bomb(screen, xx,yy);
+            }
+            break;
+
+        }
+
+    }
+
+    public Bomb getBomb() {
+        return bomb;
+    }
+
+    public boolean getThrowBomb() {
+        return throwBomb;
     }
 }

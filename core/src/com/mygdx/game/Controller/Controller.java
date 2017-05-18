@@ -26,7 +26,7 @@ public class Controller {
 
     private FitViewport viewport;
     private Stage stage;
-    private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed;
+    private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed;//z-a,x-b
     private OrthographicCamera cam;
 
     public Controller(SpriteBatch sb, GameScreen screen){
@@ -51,6 +51,9 @@ public class Controller {
                     case Input.Keys.RIGHT:
                         rightPressed = true;
                         break;
+                    case Input.Keys.X:
+                        bPressed=true;
+                        break;
                 }
                 return true;
             }
@@ -69,6 +72,9 @@ public class Controller {
                         break;
                     case Input.Keys.RIGHT:
                         rightPressed = false;
+                        break;
+                    case Input.Keys.X:
+                        bPressed=false;
                         break;
                 }
                 return true;
@@ -183,7 +189,7 @@ public class Controller {
                 aPressed=false;
             }
         });
-
+*/
         //B Button
         Image bImg = new Image(new Texture("b_button.png"));
         bImg.setSize(50,50);
@@ -199,7 +205,7 @@ public class Controller {
                 bPressed=false;
             }
         });
-*/
+
         table.add();
         table.add(upImg).size(upImg.getWidth(),upImg.getHeight());
         table.add();
@@ -233,6 +239,14 @@ public class Controller {
 
     public boolean isRightPressed() {
         return rightPressed;
+    }
+
+    public boolean isaPressed() {
+        return aPressed;
+    }
+
+    public boolean isbPressed() {
+        return bPressed;
     }
 
     public void resize(int width, int height){

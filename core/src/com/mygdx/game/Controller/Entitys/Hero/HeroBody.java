@@ -22,6 +22,7 @@ public class HeroBody {
     public boolean isInIce;
     public Body b2body;
     private FixtureDef fdef;
+    private Hero hero;
 
     public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT};
     public State currentState;
@@ -30,7 +31,7 @@ public class HeroBody {
     public HeroBody(World world, Hero hero, int x, int y) {
         currentState = State.STAND_DOWN;
         previousState = State.STAND_DOWN;
-
+        this.hero=hero;
         BodyDef bdef =  new BodyDef();
         bdef.position.set(x*MyGame.PIXEL_TO_METER,y*MyGame.PIXEL_TO_METER);
         bdef.type=BodyDef.BodyType.DynamicBody;
@@ -207,6 +208,9 @@ public class HeroBody {
             b2body.applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
         else if(controller.isDownPressed())
             b2body.applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
+        else if(controller.isbPressed()){
+            this.hero.throwBomb();
+        }
         else {
             if(isInIce){
                 b2body.setLinearVelocity(0, 0);
