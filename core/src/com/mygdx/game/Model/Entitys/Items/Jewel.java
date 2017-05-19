@@ -61,9 +61,6 @@ public class Jewel extends Item {
     @Override
     public void defineItem() {
         type="jewel";
-
-
-
     }
 
     @Override

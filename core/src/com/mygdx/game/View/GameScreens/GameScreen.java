@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
@@ -78,7 +79,7 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<PressingPlate> pps;
     protected ArrayList<Key> keys;
     protected ArrayList<WayBlocker> wayblocks;
-
+   // protected Pool<Bomb> bombPool;
     protected Array<Item> items;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
     protected Array<WarpEvent> warpEvents;
@@ -117,7 +118,12 @@ public abstract class GameScreen implements Screen{
 
         keys= new ArrayList<Key>();
         wayblocks = new ArrayList<WayBlocker>();
-
+       /* bombPool = new Pool<Bomb>() {
+            @Override
+            protected Bomb newObject() {
+                return new Bomb(world,player,0,0);
+            }
+        };*/
         warpEvents= new Array<WarpEvent>();
         objectLoad();
         //Contact Listener
@@ -286,4 +292,8 @@ public abstract class GameScreen implements Screen{
     public Controller getController() {
         return controller;
     }
+
+    /*public Pool<Bomb> getBombPool() {
+        return bombPool;
+    }*/
 }

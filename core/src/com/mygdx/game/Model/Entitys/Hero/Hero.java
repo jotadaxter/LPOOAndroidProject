@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * Created by Utilizador on 05-04-2017.
  */
 
-public class Hero extends Sprite {
+public class Hero extends Sprite implements Disposable{
     //Standing Textures
     private TextureRegion standRight;
     private TextureRegion standLeft;
@@ -38,16 +39,21 @@ public class Hero extends Sprite {
     private GameScreen screen;
     private ArrayList<Bomb> bombs;
     private boolean throwBomb;
+    private boolean addBomb;
+    private Bomb bomb;
+    private float bombCount;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
         this.world=screen.getWorld();
+        bombCount=0;
         //Movement States
         this.bombs=new ArrayList<Bomb>();
         upDownTimer=0;
         leftRightTimer=0;
         throwBomb=false;
+        addBomb=true;
         //Animations
         heroAnimations(screen);
 
@@ -91,11 +97,22 @@ public class Hero extends Sprite {
     public void update(float dt){
         setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
         setRegion(heroBody.getFrame(this,dt));
-        if(throwBomb){
-            for(Bomb bomb: bombs)
-                bomb.update(dt);
+        if(!addBomb)
+            bombCount+=dt;
+        if(bombCount>=1){
+            bombCount=0;
+            addBomb=true;
         }
-
+        
+        if(throwBomb){
+            for(Bomb bomb: bombs){
+                bomb.update(dt);
+                /*if(bomb.exploded()) {
+                    bombs.remove(bomb);
+                    screen.getBombPool().free(bomb);
+//                }*/
+            }
+        }
     }
 
     public void addItem(Item item) {
@@ -157,7 +174,8 @@ public class Hero extends Sprite {
     }
 
     public int hitBySpikes(){
-        screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
+        if(bomb.getState()== Bomb.State.BOOM)
+            screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         return 1;
     }
 
@@ -166,9 +184,10 @@ public class Hero extends Sprite {
     }
 
     public void throwBomb() {
+        if(!addBomb)
+            return;
         throwBomb=true;
         float xx=heroBody.getBody().getPosition().x*16, yy=heroBody.getBody().getPosition().y*16;
-        System.out.println(xx + " - " + yy);
         switch(heroBody.currentState){
             case STAND_UP:{
                 yy+=16;
@@ -185,13 +204,28 @@ public class Hero extends Sprite {
                 xx-=16;
             }
             break;
+            case WALK_UP:{
+                yy+=16;
+            }
+            break;
+            case WALK_DOWN:{
+                yy-=16;
+            }
+            break;
+            case WALK_RIGHT:{
+                xx+=16;
+            }break;
+            case WALK_LEFT:{
+                xx-=16;
+            }
+            break;
 
         }
-        Bomb bomb= new Bomb(screen,0,0);
+        //bomb= screen.getBombPool().obtain();
+        bomb= new Bomb(world,this,0,0);
         bomb.setposition(xx*MyGame.PIXEL_TO_METER,yy*MyGame.PIXEL_TO_METER);
         bombs.add(bomb);
-        //
-        //bomb.setPosition(bomb.getBody().getPosition().x+xx, bomb.getBody().getPosition().y+yy);
+        addBomb=false;
     }
 
     public ArrayList<Bomb> getBombs() {
@@ -200,5 +234,23 @@ public class Hero extends Sprite {
 
     public boolean getThrowBomb() {
         return throwBomb;
+    }
+
+
+    @Override
+    public void dispose() {
+
+    }
+
+    public void switchAddBomb() {
+        addBomb=true;
+    }
+
+    public boolean getAddBomb() {
+        return addBomb;
+    }
+
+    public Bomb getBomb() {
+        return bomb;
     }
 }

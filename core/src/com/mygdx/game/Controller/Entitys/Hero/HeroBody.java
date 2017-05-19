@@ -48,6 +48,7 @@ public class HeroBody {
                 | MyGame.SPIKES_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.WARP_OBJECT
+                | MyGame.BOMB_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;
         b2body.createFixture(fdef).setUserData(hero);
@@ -200,15 +201,37 @@ public class HeroBody {
     }
 
     public void InputUpdate(Controller controller, float dt){
-        if(controller.isRightPressed())
+        if(controller.isRightPressed()){
             b2body.applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), b2body.getWorldCenter(), true);
-        else if(controller.isLeftPressed())
-            b2body.applyLinearImpulse(new Vector2(-MyGame.VELOCITY*dt,0), b2body.getWorldCenter(), true);
-        else if(controller.isUpPressed())
+            if(controller.isbPressed()){
+                if(hero.getAddBomb())
+                    this.hero.throwBomb();
+            }
+        }
+
+        else if(controller.isLeftPressed()) {
+            b2body.applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt, 0), b2body.getWorldCenter(), true);
+            if(controller.isbPressed()){
+                if(hero.getAddBomb())
+                    this.hero.throwBomb();
+            }
+        }
+        else if(controller.isUpPressed()){
             b2body.applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
-        else if(controller.isDownPressed())
+            if(controller.isbPressed()){
+                if(hero.getAddBomb())
+                    this.hero.throwBomb();
+            }
+        }
+        else if(controller.isDownPressed()){
             b2body.applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
+            if(controller.isbPressed()){
+                if(hero.getAddBomb())
+                    this.hero.throwBomb();
+            }
+        }
         else if(controller.isbPressed()){
+            if(hero.getAddBomb())
             this.hero.throwBomb();
         }
         else {

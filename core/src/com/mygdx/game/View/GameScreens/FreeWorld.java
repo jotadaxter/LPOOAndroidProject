@@ -1,10 +1,12 @@
 package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
+import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.Model.Events.PressingEvent;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.Model.Events.WarpEvent;
@@ -47,12 +49,14 @@ public class FreeWorld extends GameScreen {
     private ArrayList<PressingPlate> dungeon1_plates;
     public boolean d1blck;
 
+
     public FreeWorld(MyGame game) {
         super(game, POSX, POSY);
         type= FreeWorld.class;
         warpEvents.add(new WarpEvent(DOOR_ID,Door.class, new GameState(new DemoScreen(game))));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
+
     }
 
     @Override
