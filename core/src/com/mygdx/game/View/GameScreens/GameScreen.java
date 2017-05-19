@@ -21,6 +21,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.Items.Key;
+import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.Scenes.Hud;
@@ -202,8 +203,11 @@ public abstract class GameScreen implements Screen{
         game.batch.begin();
 
         objectsDraw();
-        if(player.getThrowBomb())
-            player.getBomb().draw(game.batch);
+        if(player.getThrowBomb()){
+            for(Bomb bombs: player.getBombs())
+                bombs.draw(game.batch);
+        }
+
         player.draw(game.batch);
 
 

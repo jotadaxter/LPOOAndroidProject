@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.Weapons.BombBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
@@ -40,13 +41,15 @@ public class Bomb extends Sprite{
         textureLoad();
         animationLoad();
         setRegion(blue);
+        setBounds(0, 0, 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
+
     }
 
     private void animationLoad() {
     }
 
     private void textureLoad() {
-        blue= new TextureRegion(new Texture(Gdx.files.internal("bomb_normal.png")));
+        blue= new TextureRegion(new Texture("bomb_normal.png"));
         red= new TextureRegion(new Texture(Gdx.files.internal("bomb_red.png")));
     }
 
@@ -65,6 +68,14 @@ public class Bomb extends Sprite{
     public void draw(Batch batch){
         if(!destroyed)
             super.draw(batch);
+    }
+
+    public Body getBody(){
+        return bombBody.getBody();
+    }
+
+    public void setposition(float x, float y){
+        bombBody.getBody().setTransform(x,y,0);
     }
 
 }

@@ -14,6 +14,7 @@ import com.mygdx.game.MyGame;
  */
 
 public class BombBody {
+    public static final float DAMPING_NORMAL= 3f;
     private BodyDef bdef;
     private Body body;
     private Bomb bomb;
@@ -24,6 +25,7 @@ public class BombBody {
         bdef= new BodyDef();
         bdef.position.set(x* MyGame.PIXEL_TO_METER, y*MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.linearDamping=DAMPING_NORMAL;
         body=world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
@@ -32,7 +34,7 @@ public class BombBody {
         shape.setRadius(4*MyGame.PIXEL_TO_METER);
 
         //Contact Filters
-        fdef.filter.categoryBits = MyGame.ITEM_BIT;
+        fdef.filter.categoryBits = MyGame.DEFAULT_BIT;
         fdef.filter.maskBits =  MyGame.HERO_BIT
                 | MyGame.ITEM_BIT
                 | MyGame.BOULDER_BIT

@@ -13,6 +13,8 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 
+import java.util.ArrayList;
+
 /**
  * Created by Utilizador on 05-04-2017.
  */
@@ -34,19 +36,18 @@ public class Hero extends Sprite {
     public World world;
     private HeroBody heroBody;
     private GameScreen screen;
-    private Bomb bomb;
+    private ArrayList<Bomb> bombs;
     private boolean throwBomb;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
         this.world=screen.getWorld();
-       // bomb= new Bomb(this.screen, 0,0);
         //Movement States
-
+        this.bombs=new ArrayList<Bomb>();
         upDownTimer=0;
         leftRightTimer=0;
-
+        throwBomb=false;
         //Animations
         heroAnimations(screen);
 
@@ -90,8 +91,11 @@ public class Hero extends Sprite {
     public void update(float dt){
         setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
         setRegion(heroBody.getFrame(this,dt));
-        if(throwBomb)
-            bomb.update(dt);
+        if(throwBomb){
+            for(Bomb bomb: bombs)
+                bomb.update(dt);
+        }
+
     }
 
     public void addItem(Item item) {
@@ -163,39 +167,35 @@ public class Hero extends Sprite {
 
     public void throwBomb() {
         throwBomb=true;
-        float xx=0, yy=0;
-
+        float xx=heroBody.getBody().getPosition().x*16, yy=heroBody.getBody().getPosition().y*16;
+        System.out.println(xx + " - " + yy);
         switch(heroBody.currentState){
             case STAND_UP:{
-                xx=getX();
-                yy=getY()+16;
-                bomb= new Bomb(this.screen, xx,yy);
+                yy+=16;
             }
             break;
             case STAND_DOWN:{
-                xx=getX();
-                yy=getY()-16;
-                bomb= new Bomb(screen, xx,yy);
+                yy-=16;
             }
             break;
             case STAND_RIGHT:{
-                xx=getX()+16;
-                yy=getY();
-                bomb= new Bomb(screen, xx,yy);
+                xx+=16;
             }break;
             case STAND_LEFT:{
-                xx=getX()-16;
-                yy=getY();
-                bomb= new Bomb(screen, xx,yy);
+                xx-=16;
             }
             break;
 
         }
-
+        Bomb bomb= new Bomb(screen,0,0);
+        bomb.setposition(xx*MyGame.PIXEL_TO_METER,yy*MyGame.PIXEL_TO_METER);
+        bombs.add(bomb);
+        //
+        //bomb.setPosition(bomb.getBody().getPosition().x+xx, bomb.getBody().getPosition().y+yy);
     }
 
-    public Bomb getBomb() {
-        return bomb;
+    public ArrayList<Bomb> getBombs() {
+        return bombs;
     }
 
     public boolean getThrowBomb() {
