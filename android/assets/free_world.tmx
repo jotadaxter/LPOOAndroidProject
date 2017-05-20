@@ -194,4 +194,5 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="PitFall"/>
 </map>

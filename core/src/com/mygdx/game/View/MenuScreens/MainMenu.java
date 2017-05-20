@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
+import com.mygdx.game.View.GameScreens.DungeonTest;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 
 /**
@@ -55,8 +56,8 @@ public class MainMenu extends MenuScreen {
 
 
         if(arcadeButton.isPressed()){
-          game.gsm.push(new FreeWorld(game));
-
+          //game.gsm.push(new FreeWorld(game));
+            game.gsm.push(new DungeonTest(game));
         }
     }
 

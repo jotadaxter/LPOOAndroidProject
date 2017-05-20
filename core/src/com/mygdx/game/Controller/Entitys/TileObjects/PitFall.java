@@ -7,7 +7,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -16,10 +15,10 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
- * Created by Utilizador on 06-04-2017.
+ * Created by Utilizador on 20-05-2017.
  */
 
-public abstract class StaticTileObject {
+public class PitFall {
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;
@@ -31,7 +30,7 @@ public abstract class StaticTileObject {
     protected FixtureDef fdef;
     protected Fixture fixture;
 
-    public StaticTileObject(GameScreen screen, MapObject object) {
+    public PitFall(GameScreen screen, MapObject object) {
         this.screen=screen;
         this.object=object;
         this.bounds =((RectangleMapObject) object).getRectangle();
@@ -49,7 +48,15 @@ public abstract class StaticTileObject {
         body=world.createBody(bdef);
         shape.setAsBox((bounds.getWidth()/2)*MyGame.PIXEL_TO_METER, (bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
         fdef.shape=shape;
+        fdef.filter.categoryBits=MyGame.PITFALL_BIT;
+        fdef.filter.maskBits = MyGame.HERO_BIT
+                | MyGame.BOULDER_BIT
+                | MyGame.ITEM_BIT
+                | MyGame.DEFAULT_BIT
+                | MyGame.PRESSING_PLATE_BIT;
+        fdef.isSensor=true;
         fixture=body.createFixture(fdef);
+        fixture.setUserData(this);
     }
 
 }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
-import com.mygdx.game.Controller.Entitys.TileObjects.Stairs;
+import com.mygdx.game.Controller.Entitys.TileObjects.PitFall;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Controller.Entitys.TileObjects.Obstacle;
 
@@ -28,13 +28,6 @@ public class WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-        //Wall Fixtures
-        for(MapObject object : tiledMap.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            String name="";
-            name= (String)object.getProperties().get("behaviour");
-            new Obstacle(screen, object, name);
-        }
-
         //Obstacle Fixtures
         for(MapObject object : tiledMap.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             String name="";
@@ -42,18 +35,25 @@ public class WorldCreator {
             new Obstacle(screen, object, name);
         }
 
-        //Stairs Fixtures
-        for(MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            new Stairs(screen, object);
+        //Wall Fixtures
+        for(MapObject object : tiledMap.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+            String name="";
+            name= (String)object.getProperties().get("behaviour");
+            new Obstacle(screen, object, name);
         }
 
         //Doors Fixtures
-        for(MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             String name="";
             name= (String)object.getProperties().get("Id");
             new Door(screen, object, Integer.parseInt(name));
             Gdx.app.log("DoorId",name);
-
         }
+
+        //PitFall Fixtures
+        for(MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+            new PitFall(screen, object);
+        }
+
     }
 }

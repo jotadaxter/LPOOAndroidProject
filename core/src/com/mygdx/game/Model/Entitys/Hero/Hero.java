@@ -11,6 +11,7 @@ import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.GameScreens.DungeonTest;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 
@@ -20,7 +21,10 @@ import java.util.ArrayList;
  * Created by Utilizador on 05-04-2017.
  */
 
-public class Hero extends Sprite implements Disposable{
+public class Hero extends Sprite{
+    public static final int RESET_POSX = 8+16*16;
+    public static final int RESET_POSY = 8+5;
+
     //Standing Textures
     private TextureRegion standRight;
     private TextureRegion standLeft;
@@ -180,11 +184,15 @@ public class Hero extends Sprite implements Disposable{
         return screen.getGame().heroStats.getHearts();
     }
 
-    public int hitBySpikes(){
+    public void hitBySpikes(){
         /*if(bombs.get(0).timer>2)
             System.out.println("hit");*/
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
-        return 1;
+    }
+
+    public void fall(){
+        screen.getGame().gsm.set(new DungeonTest(screen.getGame()));
+        screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
     }
 
     public int getKeys() {
@@ -242,12 +250,6 @@ public class Hero extends Sprite implements Disposable{
 
     public boolean getThrowBomb() {
         return throwBomb;
-    }
-
-
-    @Override
-    public void dispose() {
-
     }
 
     public void switchAddBomb() {

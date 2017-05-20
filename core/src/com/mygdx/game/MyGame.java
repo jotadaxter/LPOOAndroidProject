@@ -26,10 +26,10 @@ public class MyGame extends Game {
 	public static final short BOULDER_BIT =32;
 	public static final short PRESSING_PLATE_BIT=64;
 	public static final short MEGA_PRESSING_PLATE_BIT=128;
-	public static final short WARP_OBJECT=256;//DOORS AND STAIRS
+	public static final short WARP_OBJECT=256;//DOORS
 	public static final short DESTORYED_BIT=512;
 	public static final short BOMB_BIT=1024;
-
+	public static final short PITFALL_BIT=2048;
 
 	public SpriteBatch batch;
 	public GameStateManager gsm;

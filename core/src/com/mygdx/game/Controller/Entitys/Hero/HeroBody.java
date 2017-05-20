@@ -49,6 +49,7 @@ public class HeroBody {
                 | MyGame.BOULDER_BIT
                 | MyGame.WARP_OBJECT
                 | MyGame.BOMB_BIT
+                | MyGame.PITFALL_BIT
                 | MyGame.MEGA_PRESSING_PLATE_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;

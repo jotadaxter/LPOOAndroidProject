@@ -95,7 +95,12 @@ public class WorldContactListener implements ContactListener {
                     }
                 }
                 break;
-
+            case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT)
+                    ((Hero) fixA.getUserData()).fall();
+                else
+                    ((Hero) fixB.getUserData()).fall();
+                break;
 
 
         }
