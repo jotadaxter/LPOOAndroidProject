@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
+import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.Items.Heart;
@@ -52,6 +53,7 @@ public class FreeWorld extends GameScreen {
     public static final int DOOR_ID=1;
 
     private PressingEvent pressingEvent;
+    private PressingEvent megaPressingEvent;
     private ArrayList<PressingPlate> dungeon1_plates;
     public boolean d1blck;
 
@@ -62,7 +64,6 @@ public class FreeWorld extends GameScreen {
         warpEvents.add(new WarpEvent(DOOR_ID,Door.class, new GameState(new DemoScreen(game))));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
-
     }
 
     @Override
@@ -84,25 +85,28 @@ public class FreeWorld extends GameScreen {
         boulders.add(boulder2);
 
         PressingPlate pp1= new PressingPlate(this, PP1_X, PP1_Y);
-
         PressingPlate pp2= new PressingPlate(this, PP2_X, PP2_Y);
-
         PressingPlate pp3= new PressingPlate(this, PP3_X, PP3_Y);
-
         PressingPlate pp4= new PressingPlate(this, PP4_X, PP4_Y);
-
         ArrayList<PressingPlate> dungeon1_plates= new ArrayList<PressingPlate>();
         dungeon1_plates.add(pp1);//ordem: 1-4-2-3
         dungeon1_plates.add(pp4);
         dungeon1_plates.add(pp2);
-
         pps.add(pp1);
         pps.add(pp4);
         pps.add(pp2);
         pps.add(pp3);
-        pressingEvent= new PressingEvent(dungeon1_plates, this);
+        pressingEvent= new PressingEvent(dungeon1_plates, this, 0);
 
         fireGround= new FireGround(this, 80, 20);
+
+        MegaPressingPlate megapp= new MegaPressingPlate(this,60,150);
+        mpps.add(megapp);
+        megaPressingEvent= new PressingEvent(mpps,this);
+        Boulder boulder3= new Boulder(this,60, 100);
+        boulders.add(boulder3);
+        Boulder boulder4= new Boulder(this,30, 100);
+        boulders.add(boulder4);
 
         //Items
         spawnItem(new ItemDef(new Vector2(20,80), SpecialItem.class));
@@ -120,23 +124,19 @@ public class FreeWorld extends GameScreen {
 
     @Override
     public void objectsUpdate(float dt) {
-        for(WayBlocker wb : wayblocks)
-            wb.update(dt);
         for(Boulder boulder : boulders)
             boulder.update(dt);
-        int cnt=0;
-        for(PressingPlate pp : pps) {
+        for(PressingPlate pp : pps)
             pp.update(dt, this);
-            /*if (pp.isPressed() > 0) {
-                cnt++;
-            }*/
-        }
+        for(MegaPressingPlate mpp : mpps)
+            mpp.update(dt, this);
         for(WayBlocker wb : wayblocks){
             wb.update(dt);
             if(!d1blck)
                 wb.destroy();
         }
         pressingEvent.update(dt);
+        megaPressingEvent.update(dt);
         fireGround.update(dt);
 
     }
@@ -147,6 +147,8 @@ public class FreeWorld extends GameScreen {
             wb.draw(game.batch);
         for(PressingPlate pp : pps)
             pp.draw(game.batch);
+        for(MegaPressingPlate mpp : mpps)
+            mpp.draw(game.batch);
         for(Boulder boulder : boulders)
             boulder.draw(game.batch);
         fireGround.draw(game.batch);

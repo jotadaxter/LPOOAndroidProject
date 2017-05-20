@@ -32,6 +32,11 @@ public class Hud implements Disposable{
     public static final int RUPEE_X = 190;
     public static final int RUPEE_Y = 135;
 
+    public static final int RUBY_WIDTH = 10;
+    public static final int RUBY_HEIGTH = 10;
+    public static final int RUBY_X = 5;
+    public static final int RUBY_Y = 145-12;
+
     private MyGame game;
     public Stage stage;
     public Stage heartStage;
@@ -50,6 +55,7 @@ public class Hud implements Disposable{
     private Image heart_quarter;
     private Image heart_three_quarts;
     private Image rupee;
+    private Image ruby;
 
     public Hud(MyGame game, GameScreen screen) {
         this.game=game;
@@ -70,6 +76,7 @@ public class Hud implements Disposable{
         textureLoad(screen, heartTable);
     
         displayHearts();
+        displayVolcano_Ruby();
     }
 
     private void displayHearts() {
@@ -84,6 +91,11 @@ public class Hud implements Disposable{
         //heart_full.setBounds(HEART_X + 10,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
         //stage.addActor(heart_full);
 
+    }
+
+    private void displayVolcano_Ruby() {
+        ruby = new Image(new TextureRegion(new Texture("volcano_ruby.png")));
+        ruby.setBounds(RUBY_X,RUBY_Y,RUBY_WIDTH,RUBY_HEIGTH);
     }
 
     private void textureLoad(GameScreen screen, Table table) {
@@ -134,8 +146,14 @@ public class Hud implements Disposable{
         this.health=game.heroStats.getHearts();
         this.displayRuby=game.heroStats.displayVolcanoRuby();
         updateHearts();
+        updateRuby();
         previousHealth=health;
     }
+
+    private void updateRuby() {
+        if(displayRuby)
+            stage.addActor(ruby);
+}
 
     private void updateHearts() {
         int delta = health-previousHealth;

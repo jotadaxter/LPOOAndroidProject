@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
+import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
@@ -78,6 +79,7 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<Boulder> boulders;
     protected ArrayList<Spikes> spikes;
     protected ArrayList<PressingPlate> pps;
+    protected ArrayList<MegaPressingPlate>mpps;
     protected ArrayList<Key> keys;
     protected ArrayList<WayBlocker> wayblocks;
    // protected Pool<Bomb> bombPool;
@@ -117,7 +119,7 @@ public abstract class GameScreen implements Screen{
         boulders=new ArrayList<Boulder>();
         spikes = new ArrayList<Spikes>();
         pps= new ArrayList<PressingPlate>();
-
+        mpps = new ArrayList<MegaPressingPlate>();
         keys= new ArrayList<Key>();
         wayblocks = new ArrayList<WayBlocker>();
        /* bombPool = new Pool<Bomb>() {

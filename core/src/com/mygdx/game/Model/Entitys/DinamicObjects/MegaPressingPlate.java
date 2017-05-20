@@ -1,43 +1,48 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Controller.Entitys.DinamicObjects.MegaPressingPlateBody;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.PressingPlateBody;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
-import java.util.ArrayList;
-
 /**
- * Created by Jotadaxter on 02/05/2017.
+ * Created by Utilizador on 20-05-2017.
  */
 
-public class PressingPlate extends Sprite {
+public class MegaPressingPlate extends Sprite {
     private World world;
-    private int ispressed;//0 - false, >=1 - true
+    private int ispressed;//0 - false, >=2 - true
     private boolean press_and_hold;//indica se é necessário deixar algum peso em cima da placa para q funcione
     private TextureRegion pressedTex;
     private TextureRegion notpressedTex;
-    private PressingPlateBody pressingPlateBody;
+    private MegaPressingPlateBody megaPressingPlateBody;
 
-    public PressingPlate(GameScreen screen, int x, int y) {
+    public MegaPressingPlate(GameScreen screen, int x, int y) {
         super(screen.getAtlas().findRegion("pressing_plate_not_pressed"));
         this.world=screen.getWorld();
         ispressed=0;
         press_and_hold=true;
-        pressingPlateBody= new PressingPlateBody(world,this,x,y);
-        pressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_pressed"), 0,0,16,16);
-        notpressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_not_pressed"), 0,0,16,16);
+        megaPressingPlateBody= new MegaPressingPlateBody(world,this,x,y);
+
+        textureLoad();
+
         setPosition(x,y);
-        setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
+        setBounds(0,0,64* MyGame.PIXEL_TO_METER,64* MyGame.PIXEL_TO_METER);
         setRegion(notpressedTex);
     }
 
-    public void update(float dt, GameScreen screen){
-        setPosition(pressingPlateBody.getBody().getPosition().x-getWidth()/2, pressingPlateBody.getBody().getPosition().y-getHeight()/2);
-        setRegion(pressingPlateBody.getFrame(this,dt));
+    public void textureLoad(){
+        pressedTex = new TextureRegion(new Texture("mega_pressing_plates.png"), 64,0,64,64);
+        notpressedTex = new TextureRegion(new Texture("mega_pressing_plates.png"), 0,0,64,64);
+    }
 
+    public void update(float dt, GameScreen screen){
+        setPosition(megaPressingPlateBody.getBody().getPosition().x-getWidth()/2, megaPressingPlateBody.getBody().getPosition().y-getHeight()/2);
+        setRegion(megaPressingPlateBody.getFrame(this,dt));
     }
 
     public int isPressed() {
@@ -45,7 +50,7 @@ public class PressingPlate extends Sprite {
     }
 
     public void decIsPressed() {
-       ispressed--;
+        ispressed--;
     }
 
     public void incIsPressed() {

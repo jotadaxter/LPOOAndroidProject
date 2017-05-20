@@ -34,6 +34,7 @@ public class BoulderBody {
                 | MyGame.HERO_BIT
                 | MyGame.WARP_OBJECT
                 | MyGame.BOULDER_BIT
+                | MyGame.MEGA_PRESSING_PLATE_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape=shape;
         body.createFixture(fdef);

@@ -26,9 +26,6 @@ public class SpecialItem extends Item{
         type="volcano_ruby";
         //Texture Dimentions
         setBounds(getX(),getY(), 16* MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
-
-
-
     }
 
     @Override
