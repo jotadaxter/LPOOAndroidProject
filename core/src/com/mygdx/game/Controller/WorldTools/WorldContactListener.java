@@ -62,16 +62,14 @@ public class WorldContactListener implements ContactListener {
                 break;
             case MyGame.HERO_BIT | MyGame.BOMB_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.BOMB_BIT){
-
-
-                   if(((Hero)fixB.getUserData()).getBomb().getState()== Bomb.State.BOOM) {
+                   if(((Bomb)fixA.getUserData()).getState()== Bomb.State.BOOM) {
                        System.out.println("hit");
                        ((Hero) fixB.getUserData()).hitBySpikes();
                    }
 
                 }
                 else {
-                    if(((Hero)fixA.getUserData()).getBomb().getState()== Bomb.State.BOOM) {
+                    if(((Bomb)fixB.getUserData()).getState()== Bomb.State.BOOM) {
                         System.out.println("hit");
                         ((Hero) fixA.getUserData()).hitBySpikes();
                     }

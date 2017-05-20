@@ -3,24 +3,24 @@ package com.mygdx.game.Controller.Entitys.DinamicObjects;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.MyGame;
 
 /**
- * Created by Jotadaxter on 28/04/2017.
+ * Created by Utilizador on 20-05-2017.
  */
 
-public class SpikesBody {
+public class FireGroundBody {
     private Rectangle bounds;
     private Body body;
     private BodyDef bdef;
     private FixtureDef fdef;
 
-    public SpikesBody(World world, Spikes spikes, int x, int y) {
+    public FireGroundBody(World world, FireGround fireGround, int x, int y) {
         bdef = new BodyDef();
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;
@@ -36,7 +36,8 @@ public class SpikesBody {
                 | MyGame.DEFAULT_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;
-        body.createFixture(fdef).setUserData(spikes);
+        fdef.isSensor = true;
+        body.createFixture(fdef).setUserData(fireGround);
 
     }
 
@@ -47,4 +48,5 @@ public class SpikesBody {
     public FixtureDef getFdef() {
         return fdef;
     }
+
 }

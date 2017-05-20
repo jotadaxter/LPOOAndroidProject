@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
+import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
@@ -96,7 +97,7 @@ public class FreeWorld extends GameScreen {
         pps.add(pp3);
         pressingEvent= new PressingEvent(dungeon1_plates, this);
 
-
+        fireGround= new FireGround(this, 80, 20);
 
        /* ArrayList<Boolean> order= new ArrayList<Boolean>();
         order.add(true);order.add(false);order.add(true);order.add(true);
@@ -122,6 +123,7 @@ public class FreeWorld extends GameScreen {
                 wb.destroy();
         }
         pressingEvent.update(dt);
+        fireGround.update(dt);
 
     }
 
@@ -133,6 +135,7 @@ public class FreeWorld extends GameScreen {
             pp.draw(game.batch);
         for(Boulder boulder : boulders)
             boulder.draw(game.batch);
+        fireGround.draw(game.batch);
     }
 
 }

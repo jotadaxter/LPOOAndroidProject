@@ -38,16 +38,19 @@ public class Hero extends Sprite implements Disposable{
     private HeroBody heroBody;
     private GameScreen screen;
     private ArrayList<Bomb> bombs;
+    public Bomb bomb;
     private boolean throwBomb;
     private boolean addBomb;
-    private Bomb bomb;
     private float bombCount;
+    public boolean bombExploding;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
         this.world=screen.getWorld();
         bombCount=0;
+       // bomb= new Bomb(world,this,0,0);
+        setBombExploding(false);
         //Movement States
         this.bombs=new ArrayList<Bomb>();
         upDownTimer=0;
@@ -174,8 +177,9 @@ public class Hero extends Sprite implements Disposable{
     }
 
     public int hitBySpikes(){
-        if(bomb.getState()== Bomb.State.BOOM)
-            screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
+        /*if(bombs.get(0).timer>2)
+            System.out.println("hit");*/
+        screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         return 1;
     }
 
@@ -250,7 +254,11 @@ public class Hero extends Sprite implements Disposable{
         return addBomb;
     }
 
-    public Bomb getBomb() {
-        return bomb;
+    public boolean isBombExploding() {
+        return bombExploding;
+    }
+
+    public void setBombExploding(boolean bombExploding) {
+        this.bombExploding = bombExploding;
     }
 }

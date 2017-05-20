@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
+import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
@@ -83,6 +84,7 @@ public abstract class GameScreen implements Screen{
     protected Array<Item> items;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
     protected Array<WarpEvent> warpEvents;
+    protected FireGround fireGround;
 
 
     public GameScreen(MyGame game, int hero_x, int hero_y) {

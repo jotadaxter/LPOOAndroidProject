@@ -9,12 +9,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
 import com.mygdx.game.Controller.Entitys.Weapons.BombBody;
 import com.mygdx.game.Controller.Entitys.Weapons.ExplosionBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 18/05/2017.
@@ -64,7 +62,6 @@ public class Bomb extends Sprite{
 
     private void animationLoad() {
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        //Up Animation
         frames.add(blue);
         frames.add(red);
         tic_tac = new Animation<TextureRegion>(0.1f, frames);
@@ -123,11 +120,13 @@ public class Bomb extends Sprite{
 
     public State getState() {
         if(timer<2){
+            hero.bombExploding=false;
             return State.TIC_TAC;
         }
-        else
+        else {
+            hero.bombExploding=true;
             return State.BOOM;
-
+        }
     }
 
     public TextureRegion getFrame(float dt) {
