@@ -100,7 +100,7 @@ public abstract class GameScreen implements Screen{
         tiledMap = mapLoader.load(mapName);
         renderer = new OrthogonalTiledMapRenderer(tiledMap, 1*MyGame.PIXEL_TO_METER);
         gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
-        hud= new Hud(game.batch, this);
+        hud= new Hud(game, this);
         controller= new Controller(game.batch,this);
 
         //box2d
@@ -176,17 +176,7 @@ public abstract class GameScreen implements Screen{
         itemsToSpawn.add(idef);
     }
 
-    public void handleSpawningItems(){
-        if(!itemsToSpawn.isEmpty()){
-            ItemDef idef= itemsToSpawn.poll();
-            if(idef.type == Jewel.class){
-                items.add(new Jewel(BLUE_RUPEE, this, idef.position.x, idef.position.y));
-            }
-            else if(idef.type== Heart.class){
-                items.add(new Heart(this, idef.position.x, idef.position.y));
-            }
-        }
-    }
+    public abstract void handleSpawningItems();
 
     @Override
     public void show() {

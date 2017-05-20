@@ -11,11 +11,13 @@ public class HeroStats {
     private int score;
     private int hearts;
     private int keys;
+    private boolean volcanoRuby;//forestEmerald, oceanSaffire
 
     public HeroStats() {
         this.score=0;
         this.hearts=3;
         this.keys=0;
+        this.volcanoRuby=false;
     }
 
     //Sets
@@ -38,5 +40,13 @@ public class HeroStats {
     }
     public int getKeys() {
         return keys;
+    }
+
+    public void gotVolcanoRuby() {
+       volcanoRuby=true;
+    }
+
+    public boolean displayVolcanoRuby() {
+        return volcanoRuby;
     }
 }

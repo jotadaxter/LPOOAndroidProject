@@ -1,12 +1,17 @@
 package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
+import com.mygdx.game.Model.Entitys.Items.Heart;
+import com.mygdx.game.Model.Entitys.Items.ItemDef;
+import com.mygdx.game.Model.Entitys.Items.Jewel;
+import com.mygdx.game.Model.Entitys.Items.SpecialItem;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.Model.Events.PressingEvent;
 import com.mygdx.game.Model.States.GameState;
@@ -99,9 +104,18 @@ public class FreeWorld extends GameScreen {
 
         fireGround= new FireGround(this, 80, 20);
 
-       /* ArrayList<Boolean> order= new ArrayList<Boolean>();
-        order.add(true);order.add(false);order.add(true);order.add(true);
-        pressingEvents.add(new PressingEvent(dungeon1_plates, order , this, "disappear"));*/
+        //Items
+        spawnItem(new ItemDef(new Vector2(20,80), SpecialItem.class));
+    }
+
+    @Override
+    public void handleSpawningItems() {
+        if(!itemsToSpawn.isEmpty()){
+            ItemDef idef= itemsToSpawn.poll();
+            if(idef.type == SpecialItem.class) {
+                items.add(new SpecialItem(this, idef.position.x, idef.position.y));
+            }
+        }
     }
 
     @Override

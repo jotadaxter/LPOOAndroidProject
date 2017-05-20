@@ -138,6 +138,10 @@ public class Hero extends Sprite implements Disposable{
             String v = Integer.toString(getKeys());
             Gdx.app.log(v,"");
         }
+        else if(item.getType()=="volcano_ruby"){
+            screen.getGame().heroStats.gotVolcanoRuby();
+            Gdx.app.log("Picked Up Volcano Ruby", "");
+        }
         else{
             Gdx.app.log("Errror","");
         }

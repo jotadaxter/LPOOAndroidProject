@@ -32,6 +32,7 @@ public class Hud implements Disposable{
     public static final int RUPEE_X = 190;
     public static final int RUPEE_Y = 135;
 
+    private MyGame game;
     public Stage stage;
     public Stage heartStage;
     private Viewport viewport;
@@ -40,6 +41,7 @@ public class Hud implements Disposable{
     private Integer health;
     private Integer previousHealth;
     private Integer score;
+    private boolean displayRuby;
 
     private Label scoreLabel;
     private Image heart_full;
@@ -49,13 +51,15 @@ public class Hud implements Disposable{
     private Image heart_three_quarts;
     private Image rupee;
 
-    public Hud(SpriteBatch sb, GameScreen screen) {
-        score = 0;
-        health = 3;
+    public Hud(MyGame game, GameScreen screen) {
+        this.game=game;
+        score = game.heroStats.getScore();
+        health = game.heroStats.getHearts();
         previousHealth=health;
+        displayRuby=false;
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, sb);
-        heartStage = new Stage(viewport, sb);
+        stage = new Stage(viewport, game.batch);
+        heartStage = new Stage(viewport, game.batch);
         font = new BitmapFont(Gdx.files.internal("myFont.fnt"));
 
         //Label creation
@@ -125,9 +129,10 @@ public class Hud implements Disposable{
     }
 
     public void update(float dt, GameScreen screen){
-        this.score=screen.getHero().getScore();
+        this.score=game.heroStats.getScore();
         scoreLabel.setText(String.format("%03d", score));
-        this.health=screen.getHero().getHealth();
+        this.health=game.heroStats.getHearts();
+        this.displayRuby=game.heroStats.displayVolcanoRuby();
         updateHearts();
         previousHealth=health;
     }
