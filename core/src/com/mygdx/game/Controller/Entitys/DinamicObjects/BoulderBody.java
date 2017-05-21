@@ -13,7 +13,6 @@ import com.mygdx.game.MyGame;
  */
 
 public class BoulderBody {
-    private Rectangle bounds;
     private Body body;
     private BodyDef bdef;
 

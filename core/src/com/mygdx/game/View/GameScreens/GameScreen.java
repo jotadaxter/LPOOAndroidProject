@@ -24,6 +24,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
+import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.Items.Key;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.Model.Events.WarpEvent;
@@ -46,14 +47,6 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 
 public abstract class GameScreen implements Screen{
-    //Rupee Info
-    protected static final int GREEN_RUPEE =1;
-    protected static final int BLUE_RUPEE =5;
-    protected static final int RED_RUPEE =20;
-    protected static final int BIG_GREEN_RUPEE =50;
-    protected static final int BIG_BLUE_RUPEE =100;
-    protected static final int BIG_RED_RUPEE =200;
-
     protected MyGame game;
     protected TextureAtlas atlas;
     protected OrthographicCamera gameCam;
@@ -83,7 +76,7 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<MegaPressingPlate>mpps;
     protected ArrayList<Key> keys;
     protected ArrayList<WayBlocker> wayblocks;
-    //protected MovingPlatform movingPlatform;
+    protected ArrayList<Chest> chests;
     protected ArrayList<MovingPlatform> mps;
    // protected Pool<Bomb> bombPool;
     protected Array<Item> items;
@@ -106,7 +99,7 @@ public abstract class GameScreen implements Screen{
         renderer = new OrthogonalTiledMapRenderer(tiledMap, 1*MyGame.PIXEL_TO_METER);
         gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
         hud= new Hud(game, this);
-        controller= new Controller(game.batch,this);
+        controller= new Controller(game.batch);
 
         //box2d
         world= new World(new Vector2(0,0), true);
@@ -126,6 +119,7 @@ public abstract class GameScreen implements Screen{
         keys= new ArrayList<Key>();
         wayblocks = new ArrayList<WayBlocker>();
         mps=new ArrayList<MovingPlatform>();
+        chests= new ArrayList<Chest>();
        /* bombPool = new Pool<Bomb>() {
             @Override
             protected Bomb newObject() {
@@ -135,7 +129,7 @@ public abstract class GameScreen implements Screen{
         warpEvents= new Array<WarpEvent>();
         objectLoad();
         //Contact Listener
-        world.setContactListener(new WorldContactListener());
+        world.setContactListener(new WorldContactListener(game));
 
         //Gdx.input.setInputProcessor(controller.getStage());
     }
@@ -289,6 +283,10 @@ public abstract class GameScreen implements Screen{
 
     public Controller getController() {
         return controller;
+    }
+
+    public ArrayList<Chest> getChests() {
+        return chests;
     }
 
     /*public Pool<Bomb> getBombPool() {

@@ -49,6 +49,8 @@ public class Hero extends Sprite{
     public boolean bombExploding;
     public boolean isInPlatform;
     public boolean isInPitfall;
+    public boolean openChest;
+    private int openedChestId;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
@@ -57,6 +59,8 @@ public class Hero extends Sprite{
         bombCount=0;
         isInPlatform=false;
         isInPitfall=false;
+        openChest=false;
+        openedChestId=-1;
        // bomb= new Bomb(world,this,0,0);
         setBombExploding(false);
         //Movement States
@@ -129,22 +133,19 @@ public class Hero extends Sprite{
     public void addItem(Item item) {
         if(item.getType()=="jewel"){
             addScore(((Jewel)item).getValue());
-            Gdx.app.log("Hero got ","");
             String v = Integer.toString(getScore());
-            Gdx.app.log(v,"");
+            Gdx.app.log("Hero got ",v);
         }
         else if(item.getType()=="heart"){
             screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()+1);
-            Gdx.app.log("Hero got 1 hearth.\n Current health: ","");
             String v = Integer.toString(getHealth());
-            Gdx.app.log(v,"");
+            Gdx.app.log("Hero got 1 hearth.\n Current health: ",v);
         }
         else if(item.getType()=="key"){
 
             screen.getGame().heroStats.setKeys(screen.getGame().heroStats.getKeys()+1);
-            Gdx.app.log("Hero got key.\n","");
             String v = Integer.toString(getKeys());
-            Gdx.app.log(v,"");
+            Gdx.app.log("Hero got key.\n",v);
         }
         else if(item.getType()=="volcano_ruby"){
             screen.getGame().heroStats.gotVolcanoRuby();
@@ -278,5 +279,17 @@ public class Hero extends Sprite{
 
     public boolean getIsInPlatform(){
         return isInPlatform;
+    }
+
+    public void setOpenedChestId(int id) {
+        this.openedChestId=id;
+    }
+
+    public GameScreen getScreen() {
+        return screen;
+    }
+
+    public int getOpenedChestId() {
+        return openedChestId;
     }
 }

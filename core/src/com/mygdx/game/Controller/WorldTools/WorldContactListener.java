@@ -6,10 +6,12 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
+import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
@@ -20,6 +22,12 @@ import com.mygdx.game.Model.Entitys.Items.Item;
  */
 
 public class WorldContactListener implements ContactListener {
+    Controller controller;
+
+    public WorldContactListener(MyGame game) {
+        controller= new Controller(game.batch);
+    }
+
 
     @Override
     public void beginContact(Contact contact) {
@@ -116,6 +124,12 @@ public class WorldContactListener implements ContactListener {
                     ((Hero) fixB.getUserData()).setIsInPlatform(true);
                     System.out.println(((Hero) fixB.getUserData()).getIsInPlatform());
                 }
+                break;
+                case MyGame.HERO_BIT | MyGame.CHEST_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.CHEST_BIT)
+                    ((Hero) fixB.getUserData()).setOpenedChestId(((Chest) fixA.getUserData()).getId());
+                else
+                    ((Hero) fixA.getUserData()).setOpenedChestId(((Chest) fixB.getUserData()).getId());
                 break;
 
         }

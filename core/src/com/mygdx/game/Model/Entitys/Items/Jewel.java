@@ -86,4 +86,8 @@ public class Jewel extends Item {
     public int getValue(){
         return value;
     }
+
+    public JewelBody getJewelBody() {
+        return jewelBody;
+    }
 }

@@ -50,6 +50,7 @@ public class HeroBody {
                 | MyGame.WARP_OBJECT
                 | MyGame.BOMB_BIT
                 | MyGame.PITFALL_BIT
+                | MyGame.CHEST_BIT
                 | MyGame.MOVING_PLATFORM_BIT
                 | MyGame.MEGA_PRESSING_PLATE_BIT
                 | MyGame.PRESSING_PLATE_BIT;
@@ -210,6 +211,12 @@ public class HeroBody {
                 if(hero.getAddBomb())
                     this.hero.throwBomb();
             }
+            else if(controller.isaPressed()){
+                if(hero.getOpenedChestId()>-1) {
+                    hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
+                    hero.setOpenedChestId(-1);
+                }
+            }
         }
 
         else if(controller.isLeftPressed()) {
@@ -218,12 +225,24 @@ public class HeroBody {
                 if(hero.getAddBomb())
                     this.hero.throwBomb();
             }
+            else if(controller.isaPressed()){
+                if(hero.getOpenedChestId()>-1) {
+                    hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
+                    hero.setOpenedChestId(-1);
+                }
+            }
         }
         else if(controller.isUpPressed()){
             b2body.applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
             if(controller.isbPressed()){
                 if(hero.getAddBomb())
                     this.hero.throwBomb();
+            }
+            else if(controller.isaPressed()){
+                if(hero.getOpenedChestId()>-1) {
+                    hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
+                    hero.setOpenedChestId(-1);
+                }
             }
         }
         else if(controller.isDownPressed()){
@@ -232,10 +251,22 @@ public class HeroBody {
                 if(hero.getAddBomb())
                     this.hero.throwBomb();
             }
+            else if(controller.isaPressed()){
+                if(hero.getOpenedChestId()>-1) {
+                    hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
+                    hero.setOpenedChestId(-1);
+                }
+            }
         }
         else if(controller.isbPressed()){
             if(hero.getAddBomb())
             this.hero.throwBomb();
+        }
+        else if(controller.isaPressed()){
+            if(hero.getOpenedChestId()>-1) {
+                hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
+                hero.setOpenedChestId(-1);
+            }
         }
         else {
             if(isInIce){

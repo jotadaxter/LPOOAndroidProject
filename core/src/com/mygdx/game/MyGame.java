@@ -34,6 +34,13 @@ public class MyGame extends Game {
 	public static final short MOVING_PLATFORM_BIT =4096;
 	public static final short SAFE_GROUND_BIT=8192;
 
+	//Rupee Info
+	public static final int GREEN_RUPEE =1;
+	public static final int BLUE_RUPEE =5;
+	public static final int RED_RUPEE =20;
+	public static final int BIG_GREEN_RUPEE =50;
+	public static final int BIG_BLUE_RUPEE =100;
+	public static final int BIG_RED_RUPEE =200;
 
 	public SpriteBatch batch;
 	public GameStateManager gsm;

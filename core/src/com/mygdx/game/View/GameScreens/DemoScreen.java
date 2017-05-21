@@ -68,7 +68,7 @@ public class DemoScreen extends GameScreen {
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef= itemsToSpawn.poll();
             if(idef.type == Jewel.class){
-                items.add(new Jewel(BLUE_RUPEE, this, idef.position.x, idef.position.y));
+                items.add(new Jewel(MyGame.BLUE_RUPEE, this, idef.position.x, idef.position.y));
             }
             else if(idef.type== Heart.class){
                 items.add(new Heart(this, idef.position.x, idef.position.y));

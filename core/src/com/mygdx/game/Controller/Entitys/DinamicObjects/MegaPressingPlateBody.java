@@ -20,7 +20,9 @@ public class MegaPressingPlateBody {
     private Body body;
     private BodyDef bdef;
     private FixtureDef fdef;
+    private MegaPressingPlate megaPressingPlate;
     public MegaPressingPlateBody(World world, MegaPressingPlate megaPressingPlate, int x, int y) {
+        this.megaPressingPlate=megaPressingPlate;
         bdef = new BodyDef();
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;//ver solidez do objeto
@@ -46,7 +48,7 @@ public class MegaPressingPlateBody {
         return fdef;
     }
 
-    public TextureRegion getFrame(MegaPressingPlate megaPressingPlate, float dt) {
+    public TextureRegion getFrame(float dt) {
         TextureRegion region;
 
         if(megaPressingPlate.isPressed()>=2) {

@@ -29,7 +29,7 @@ public class Controller {
     private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed;//z-a,x-b
     private OrthographicCamera cam;
 
-    public Controller(SpriteBatch sb, GameScreen screen){
+    public Controller(SpriteBatch sb){
         cam = new OrthographicCamera();
         viewport = new FitViewport(VIEWPORT_WIDTH,VIEWPORT_HEIGHT,cam);
         stage= new Stage(viewport,sb);
@@ -54,6 +54,9 @@ public class Controller {
                     case Input.Keys.X:
                         bPressed=true;
                         break;
+                    case Input.Keys.Z:
+                        aPressed=true;
+                        break;
                 }
                 return true;
             }
@@ -75,6 +78,9 @@ public class Controller {
                         break;
                     case Input.Keys.X:
                         bPressed=false;
+                        break;
+                    case Input.Keys.Z:
+                        aPressed=false;
                         break;
                 }
                 return true;
@@ -173,7 +179,7 @@ public class Controller {
                 leftPressed=true;
             }
         });
-/*
+
         //A Button
         Image aImg = new Image(new Texture("a_button.png"));
         aImg.setSize(50,50);
@@ -189,7 +195,7 @@ public class Controller {
                 aPressed=false;
             }
         });
-*/
+
         //B Button
         Image bImg = new Image(new Texture("b_button.png"));
         bImg.setSize(50,50);

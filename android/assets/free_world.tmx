@@ -196,4 +196,5 @@
   </object>
  </objectgroup>
  <objectgroup name="PitFall"/>
+ <objectgroup name="Safeground"/>
 </map>

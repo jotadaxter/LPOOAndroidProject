@@ -41,7 +41,7 @@ public class MegaPressingPlate extends Sprite {
 
     public void update(float dt, GameScreen screen){
         setPosition(megaPressingPlateBody.getBody().getPosition().x-getWidth()/2, megaPressingPlateBody.getBody().getPosition().y-getHeight()/2);
-        setRegion(megaPressingPlateBody.getFrame(this,dt));
+        setRegion(megaPressingPlateBody.getFrame(dt));
     }
 
     public int isPressed() {
