@@ -13,6 +13,21 @@ public class DungeonTest extends GameScreen{
     public static final int POSX = 8+16*16;
     public static final int POSY = 8+5;
 
+    public static final int MOV_PLAT_X = 16+16*16;
+    public static final int MOV_PLAT_Y = 16+16*2;
+
+    public static final int P1_X = 17*16;
+    public static final int P1_Y = 16*3;
+
+    public static final int P2_X = 3*16;
+    public static final int P2_Y = 16*3;
+
+    public static final int P3_X = 3*16;
+    public static final int P3_Y = 16*11;
+
+    public static final int P4_X = 17*16;
+    public static final int P4_Y = 16*11;
+
     public DungeonTest(MyGame game) {
         super(game, POSX, POSY);
         Gdx.input.setInputProcessor(controller.getStage());
@@ -20,12 +35,16 @@ public class DungeonTest extends GameScreen{
 
     @Override
     public void objectLoad() {
-        movingPlatform= new MovingPlatform(this, 16+16*16,16+16*2);
+
+        MovingPlatform m1= new MovingPlatform(this, P1_X,P1_Y);
+        mps.add(m1);
+
     }
 
     @Override
     public void objectsUpdate(float dt) {
-        movingPlatform.update(dt);
+        for(MovingPlatform m : mps)
+            m.update(dt);
     }
 
     @Override
@@ -35,7 +54,8 @@ public class DungeonTest extends GameScreen{
 
     @Override
     public void objectsDraw() {
-        movingPlatform.draw(game.batch);
+        for(MovingPlatform m : mps)
+            m.draw(game.batch);
     }
 
     @Override

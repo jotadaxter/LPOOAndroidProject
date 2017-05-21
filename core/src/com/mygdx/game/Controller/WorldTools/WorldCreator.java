@@ -50,7 +50,7 @@ public class WorldCreator {
             new Door(screen, object, Integer.parseInt(name));
             Gdx.app.log("DoorId",name);
         }
-
+/*
         //PitFall Fixtures
         for(MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             new PitFall(screen, object);
@@ -60,6 +60,6 @@ public class WorldCreator {
         for(MapObject object : tiledMap.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             new SafeGround(screen, object);
         }
-
+*/
     }
 }

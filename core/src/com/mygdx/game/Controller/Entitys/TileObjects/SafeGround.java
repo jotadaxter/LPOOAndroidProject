@@ -48,13 +48,13 @@ public class SafeGround {
         body=world.createBody(bdef);
         shape.setAsBox((bounds.getWidth()/2)*MyGame.PIXEL_TO_METER, (bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
         fdef.shape=shape;
-        fdef.filter.categoryBits=MyGame.SAFE_GROUND;
+        fdef.filter.categoryBits=MyGame.SAFE_GROUND_BIT;
         fdef.filter.maskBits = MyGame.HERO_BIT
                 | MyGame.PITFALL_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT
-                | MyGame.MOVINGPLATFORM_BIT
+                | MyGame.MOVING_PLATFORM_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.isSensor=true;
         fixture=body.createFixture(fdef);

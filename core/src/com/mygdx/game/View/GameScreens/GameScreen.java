@@ -83,7 +83,8 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<MegaPressingPlate>mpps;
     protected ArrayList<Key> keys;
     protected ArrayList<WayBlocker> wayblocks;
-    protected MovingPlatform movingPlatform;
+    //protected MovingPlatform movingPlatform;
+    protected ArrayList<MovingPlatform> mps;
    // protected Pool<Bomb> bombPool;
     protected Array<Item> items;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
@@ -124,6 +125,7 @@ public abstract class GameScreen implements Screen{
         mpps = new ArrayList<MegaPressingPlate>();
         keys= new ArrayList<Key>();
         wayblocks = new ArrayList<WayBlocker>();
+        mps=new ArrayList<MovingPlatform>();
        /* bombPool = new Pool<Bomb>() {
             @Override
             protected Bomb newObject() {

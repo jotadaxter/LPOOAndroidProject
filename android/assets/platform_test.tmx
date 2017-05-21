@@ -28,7 +28,6 @@
 </data>
  </layer>
  <objectgroup name="Obstacles"/>
- <objectgroup name="Wall"/>
  <objectgroup name="Door"/>
  <objectgroup name="PitFall">
   <object id="4" x="290" y="175.875" width="45.875" height="32"/>

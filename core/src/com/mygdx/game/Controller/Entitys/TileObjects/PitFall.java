@@ -53,7 +53,7 @@ public class PitFall {
                 | MyGame.BOULDER_BIT
                 | MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT
-                | MyGame.MOVINGPLATFORM_BIT
+                | MyGame.MOVING_PLATFORM_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.isSensor=true;
         fixture=body.createFixture(fdef);

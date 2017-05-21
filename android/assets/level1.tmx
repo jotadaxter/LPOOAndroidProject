@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="65">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="66">
  <tileset firstgid="1" name="azviu-jdl8t" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="481" columns="37">
   <image source="azviu-jdl8t.jpg" width="672" height="240"/>
  </tileset>
@@ -41,16 +41,14 @@
   <object id="38" x="240.25" y="48.6667" width="15.25" height="13.5833"/>
   <object id="39" x="240.583" y="192.708" width="30.9167" height="29.2917"/>
   <object id="40" x="49.1667" y="208.292" width="46.2917" height="46.2083"/>
- </objectgroup>
- <objectgroup name="Wall">
+  <object id="19" x="64.3636" y="0" width="233.727" height="22"/>
   <object id="3" x="298.182" y="0.272727" width="21.7273" height="319.455"/>
+  <object id="58" x="256.5" y="296.75" width="41.5" height="23.25"/>
+  <object id="59" x="237.25" y="304" width="18.5" height="15.75"/>
+  <object id="57" x="54.25" y="296.25" width="182.5" height="23.5"/>
   <object id="14" x="0" y="283" width="53.4091" height="37.0909"/>
   <object id="16" x="0" y="64.2727" width="27" height="218.273"/>
   <object id="18" x="0" y="0.272727" width="64" height="63.7273"/>
-  <object id="19" x="64.3636" y="0" width="233.727" height="22"/>
-  <object id="57" x="54.25" y="296.25" width="182.5" height="23.5"/>
-  <object id="58" x="256.5" y="296.75" width="41.5" height="23.25"/>
-  <object id="59" x="237.25" y="304" width="18.5" height="15.75"/>
  </objectgroup>
  <objectgroup name="Door">
   <properties>

@@ -17,6 +17,7 @@ public class MyGame extends Game {
     public static final int VIEWPORT_HEIGHT =160;
     public static final float PIXEL_TO_METER = 0.0625f;
     public static final float VELOCITY= 10f;
+	public static final float PLATFORM_VELOCITY= 200f;//60f;
 
 	public static final short DEFAULT_BIT =1;
 	public static final short HERO_BIT =2;
@@ -27,11 +28,11 @@ public class MyGame extends Game {
 	public static final short PRESSING_PLATE_BIT=64;
 	public static final short MEGA_PRESSING_PLATE_BIT=128;
 	public static final short WARP_OBJECT=256;//DOORS
-	public static final short DESTORYED_BIT=512;
+	public static final short CHEST_BIT=512;
 	public static final short BOMB_BIT=1024;
 	public static final short PITFALL_BIT=2048;
-	public static final short MOVINGPLATFORM_BIT=4096;
-	public static final short SAFE_GROUND=8192;
+	public static final short MOVING_PLATFORM_BIT =4096;
+	public static final short SAFE_GROUND_BIT=8192;
 
 
 	public SpriteBatch batch;

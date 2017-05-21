@@ -8,8 +8,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject;
-import com.mygdx.game.Controller.Entitys.Weapons.BombBody;
-import com.mygdx.game.Controller.Entitys.Weapons.ExplosionBody;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
@@ -109,7 +107,7 @@ public class WorldContactListener implements ContactListener {
                     System.out.println(((Hero) fixB.getUserData()).getIsInPlatform());
                 }
                 break;
-            case MyGame.MOVINGPLATFORM_BIT | MyGame.HERO_BIT:
+            case MyGame.MOVING_PLATFORM_BIT | MyGame.HERO_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
                     ((Hero) fixA.getUserData()).setIsInPlatform(true);
                     System.out.println(((Hero) fixA.getUserData()).getIsInPlatform());
@@ -192,7 +190,7 @@ public class WorldContactListener implements ContactListener {
                     System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
                 }
                 break;
-            case MyGame.MOVINGPLATFORM_BIT | MyGame.HERO_BIT:
+            case MyGame.MOVING_PLATFORM_BIT | MyGame.HERO_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
                     if(((Hero) fixA.getUserData()).isInPitfall){
                         ((Hero) fixA.getUserData()).fall();
