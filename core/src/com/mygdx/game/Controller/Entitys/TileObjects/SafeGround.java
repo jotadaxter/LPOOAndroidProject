@@ -15,10 +15,10 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
- * Created by Utilizador on 20-05-2017.
+ * Created by Utilizador on 21-05-2017.
  */
 
-public class PitFall {
+public class SafeGround {
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;
@@ -30,7 +30,7 @@ public class PitFall {
     protected FixtureDef fdef;
     protected Fixture fixture;
 
-    public PitFall(GameScreen screen, MapObject object) {
+    public SafeGround(GameScreen screen, MapObject object) {
         this.screen=screen;
         this.object=object;
         this.bounds =((RectangleMapObject) object).getRectangle();
@@ -48,8 +48,9 @@ public class PitFall {
         body=world.createBody(bdef);
         shape.setAsBox((bounds.getWidth()/2)*MyGame.PIXEL_TO_METER, (bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
         fdef.shape=shape;
-        fdef.filter.categoryBits=MyGame.PITFALL_BIT;
+        fdef.filter.categoryBits=MyGame.SAFE_GROUND;
         fdef.filter.maskBits = MyGame.HERO_BIT
+                | MyGame.PITFALL_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT
@@ -59,5 +60,4 @@ public class PitFall {
         fixture=body.createFixture(fdef);
         fixture.setUserData(this);
     }
-
 }

@@ -1,6 +1,7 @@
 package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.MyGame;
 
 /**
@@ -19,12 +20,12 @@ public class DungeonTest extends GameScreen{
 
     @Override
     public void objectLoad() {
-
+        movingPlatform= new MovingPlatform(this, 16+16*16,16+16*2);
     }
 
     @Override
     public void objectsUpdate(float dt) {
-
+        movingPlatform.update(dt);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class DungeonTest extends GameScreen{
 
     @Override
     public void objectsDraw() {
-
+        movingPlatform.draw(game.batch);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class PressingPlateBody {
     public PressingPlateBody(World world, PressingPlate pressingPlate, int x, int y) {
         bdef = new BodyDef();
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);
-        bdef.type = BodyDef.BodyType.StaticBody;//ver solidez do objeto
+        bdef.type = BodyDef.BodyType.StaticBody;
         body = world.createBody(bdef);
 
         fdef= new FixtureDef();

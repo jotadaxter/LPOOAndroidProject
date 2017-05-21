@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Controller.Entitys.TileObjects.PitFall;
+import com.mygdx.game.Controller.Entitys.TileObjects.SafeGround;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Controller.Entitys.TileObjects.Obstacle;
 
@@ -53,6 +54,11 @@ public class WorldCreator {
         //PitFall Fixtures
         for(MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             new PitFall(screen, object);
+        }
+
+        //SafeGround Fixtures
+        for(MapObject object : tiledMap.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            new SafeGround(screen, object);
         }
 
     }

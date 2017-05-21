@@ -96,12 +96,29 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT)
-                    ((Hero) fixA.getUserData()).fall();
-                else
-                    ((Hero) fixB.getUserData()).fall();
+                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
+                   if(!((Hero) fixA.getUserData()).getIsInPlatform())
+                       ((Hero) fixA.getUserData()).fall();
+                    ((Hero) fixA.getUserData()).isInPitfall=true;
+                    System.out.println(((Hero) fixA.getUserData()).getIsInPlatform());
+                }
+                else {
+                    if(!((Hero) fixB.getUserData()).getIsInPlatform())
+                        ((Hero) fixB.getUserData()).fall();
+                    ((Hero) fixB.getUserData()).isInPitfall=true;
+                    System.out.println(((Hero) fixB.getUserData()).getIsInPlatform());
+                }
                 break;
-
+            case MyGame.MOVINGPLATFORM_BIT | MyGame.HERO_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
+                    ((Hero) fixA.getUserData()).setIsInPlatform(true);
+                    System.out.println(((Hero) fixA.getUserData()).getIsInPlatform());
+                }
+                else {
+                    ((Hero) fixB.getUserData()).setIsInPlatform(true);
+                    System.out.println(((Hero) fixB.getUserData()).getIsInPlatform());
+                }
+                break;
 
         }
 
@@ -173,6 +190,28 @@ public class WorldContactListener implements ContactListener {
                     if (((MegaPressingPlate) fixB.getUserData()).isPressAndHold() && ((MegaPressingPlate) fixB.getUserData()).isPressed()>2)
                         ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
                     System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
+                }
+                break;
+            case MyGame.MOVINGPLATFORM_BIT | MyGame.HERO_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
+                    if(((Hero) fixA.getUserData()).isInPitfall){
+                        ((Hero) fixA.getUserData()).fall();
+                    }
+                   ((Hero) fixA.getUserData()).setIsInPlatform(false);
+                }
+                else{
+                    if(((Hero) fixA.getUserData()).isInPitfall){
+                        ((Hero) fixB.getUserData()).fall();
+                    }
+                    ((Hero) fixB.getUserData()).setIsInPlatform(false);
+                }
+                break;
+            case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
+                    ((Hero) fixA.getUserData()).isInPitfall=false;
+                }
+                else {
+                    ((Hero) fixB.getUserData()).isInPitfall=false;
                 }
                 break;
 

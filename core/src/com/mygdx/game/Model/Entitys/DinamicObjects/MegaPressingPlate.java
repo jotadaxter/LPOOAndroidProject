@@ -22,7 +22,6 @@ public class MegaPressingPlate extends Sprite {
     private MegaPressingPlateBody megaPressingPlateBody;
 
     public MegaPressingPlate(GameScreen screen, int x, int y) {
-        super(screen.getAtlas().findRegion("pressing_plate_not_pressed"));
         this.world=screen.getWorld();
         ispressed=0;
         press_and_hold=true;

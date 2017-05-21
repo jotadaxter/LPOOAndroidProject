@@ -47,12 +47,16 @@ public class Hero extends Sprite{
     private boolean addBomb;
     private float bombCount;
     public boolean bombExploding;
+    public boolean isInPlatform;
+    public boolean isInPitfall;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
         this.world=screen.getWorld();
         bombCount=0;
+        isInPlatform=false;
+        isInPitfall=false;
        // bomb= new Bomb(world,this,0,0);
         setBombExploding(false);
         //Movement States
@@ -266,5 +270,13 @@ public class Hero extends Sprite{
 
     public void setBombExploding(boolean bombExploding) {
         this.bombExploding = bombExploding;
+    }
+
+    public void setIsInPlatform(boolean val){
+        isInPlatform=val;
+    }
+
+    public boolean getIsInPlatform(){
+        return isInPlatform;
     }
 }

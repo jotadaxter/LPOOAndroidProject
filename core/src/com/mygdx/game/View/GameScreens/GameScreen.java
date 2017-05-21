@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
+import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
@@ -82,6 +83,7 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<MegaPressingPlate>mpps;
     protected ArrayList<Key> keys;
     protected ArrayList<WayBlocker> wayblocks;
+    protected MovingPlatform movingPlatform;
    // protected Pool<Bomb> bombPool;
     protected Array<Item> items;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;

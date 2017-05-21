@@ -30,6 +30,9 @@ public class MyGame extends Game {
 	public static final short DESTORYED_BIT=512;
 	public static final short BOMB_BIT=1024;
 	public static final short PITFALL_BIT=2048;
+	public static final short MOVINGPLATFORM_BIT=4096;
+	public static final short SAFE_GROUND=8192;
+
 
 	public SpriteBatch batch;
 	public GameStateManager gsm;
