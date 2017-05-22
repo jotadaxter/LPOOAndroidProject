@@ -52,9 +52,9 @@ public class WorldContactListener implements ContactListener {
                 break;
             case MyGame.HERO_BIT | MyGame.SPIKES_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT)
-                    ((Hero) fixA.getUserData()).hitBySpikes();
+                    ((Hero) fixA.getUserData()).hit();
                 else
-                    ((Hero) fixB.getUserData()).hitBySpikes();
+                    ((Hero) fixB.getUserData()).hit();
                 break;
             case MyGame.HERO_BIT | MyGame.PRESSING_PLATE_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT)
@@ -92,13 +92,13 @@ public class WorldContactListener implements ContactListener {
                 if(fixA.getFilterData().categoryBits==MyGame.BOMB_BIT){
                    if(((Bomb)fixA.getUserData()).getState()== Bomb.State.BOOM) {
                        System.out.println("hit");
-                       ((Hero) fixB.getUserData()).hitBySpikes();
+                       ((Hero) fixB.getUserData()).hit();
                    }
                 }
                 else {
                     if(((Bomb)fixB.getUserData()).getState()== Bomb.State.BOOM) {
                         System.out.println("hit");
-                        ((Hero) fixA.getUserData()).hitBySpikes();
+                        ((Hero) fixA.getUserData()).hit();
                     }
                 }
                 break;

@@ -1,6 +1,7 @@
 package com.mygdx.game.Model.Entitys.Hero;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -35,6 +36,8 @@ public class Hero extends Sprite{
     public Animation<TextureRegion> heroWalkRight;
     public Animation<TextureRegion> heroWalkUp;
     public Animation<TextureRegion> heroWalkDown;
+    public Animation<TextureRegion> heroDying;
+    public Animation<TextureRegion> heroHurt;
     public float upDownTimer;
     public float leftRightTimer;
 
@@ -54,6 +57,7 @@ public class Hero extends Sprite{
     private boolean openLog;
     private int openedSignId;
     public boolean signWasOpened;
+    private boolean wasHit;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
@@ -67,6 +71,7 @@ public class Hero extends Sprite{
         openLog=false;
         openedSignId=-1;
         signWasOpened=false;
+        wasHit=false;
        // bomb= new Bomb(world,this,0,0);
         setBombExploding(false);
         //Movement States
@@ -112,6 +117,20 @@ public class Hero extends Sprite{
             frames.add(new TextureRegion(screen.getAtlas().findRegion("hero_walk_right"), i * 23, 0, 23, 23));
         }
         heroWalkRight = new Animation<TextureRegion>(0.1f, frames);
+        frames.clear();
+
+        //Hurt Animation
+        for (int i = 0; i < 2; i++) {
+            frames.add(new TextureRegion(new Texture("hero_hurt.png"), i * 31, 0, 31, 32));
+        }
+        heroHurt = new Animation<TextureRegion>(0.1f, frames);
+        frames.clear();
+
+        //Dying Animation
+        for (int i = 0; i < 5; i++) {
+            frames.add(new TextureRegion(new Texture("hero_dying.png"), i * 25, 0, 24, 25));
+        }
+        heroDying = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
     }
 
@@ -195,10 +214,11 @@ public class Hero extends Sprite{
         return screen.getGame().heroStats.getHearts();
     }
 
-    public void hitBySpikes(){
+    public void hit(){
         /*if(bombs.get(0).timer>2)
             System.out.println("hit");*/
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
+        wasHit=true;
     }
 
     public void fall(){
@@ -313,5 +333,13 @@ public class Hero extends Sprite{
 
     public void setOpenedSignId(int openedSignId) {
         this.openedSignId = openedSignId;
+    }
+
+    public boolean getWasHit() {
+        return wasHit;
+    }
+
+    public void setWasHit(boolean var) {
+        wasHit=var;
     }
 }

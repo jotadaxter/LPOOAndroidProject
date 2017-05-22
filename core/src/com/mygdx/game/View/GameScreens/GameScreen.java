@@ -39,6 +39,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Controller.WorldTools.WorldContactListener;
 import com.mygdx.game.Controller.WorldTools.WorldCreator;
+import com.mygdx.game.View.Scenes.TextLog;
 
 import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -53,6 +54,8 @@ public abstract class GameScreen implements Screen{
     protected OrthographicCamera gameCam;
     protected Viewport viewPort;
     protected Hud hud;
+    protected TextLog textlog;
+    protected boolean turnLogOn;
     protected Stage stage;
     protected float accumulator;
 
@@ -93,7 +96,7 @@ public abstract class GameScreen implements Screen{
         this.game=game;
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
         viewPort= new FitViewport(MyGame.VIEWPORT_WIDTH*MyGame.PIXEL_TO_METER,MyGame.VIEWPORT_HEIGHT*MyGame.PIXEL_TO_METER, gameCam);
-
+        turnLogOn=false;
         //Map Load
         String mapName = getMapName();
         mapLoader = new TmxMapLoader();
@@ -123,6 +126,7 @@ public abstract class GameScreen implements Screen{
         mps=new ArrayList<MovingPlatform>();
         chests= new ArrayList<Chest>();
         signs=new ArrayList<Sign>();
+        textlog=new TextLog(game,this,"");
        /* bombPool = new Pool<Bomb>() {
             @Override
             protected Bomb newObject() {
@@ -164,6 +168,8 @@ public abstract class GameScreen implements Screen{
         gameCam.position.x=player.getHeroBody().b2body.getPosition().x;
         gameCam.position.y=player.getHeroBody().b2body.getPosition().y;
         hud.update(dt,this);
+        if(turnLogOn)
+            textlog.update(dt);
         gameCam.update();
         renderer.setView(gameCam);
     }
@@ -220,7 +226,8 @@ public abstract class GameScreen implements Screen{
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         hud.heartStage.draw();
-
+        if(turnLogOn)
+            textlog.stage.draw();
         //Controller
         if(Gdx.app.getType() == Application.ApplicationType.Android)
             controller.draw();
@@ -294,6 +301,14 @@ public abstract class GameScreen implements Screen{
 
     public ArrayList<Sign> getSigns() {
         return signs;
+    }
+
+    public TextLog getTextLog() {
+        return textlog;
+    }
+
+    public void setTurnLogOn(boolean turnLogOn) {
+        this.turnLogOn = turnLogOn;
     }
 
     /*public Pool<Bomb> getBombPool() {

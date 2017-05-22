@@ -36,6 +36,7 @@ public class SpikesBody {
                 | MyGame.DEFAULT_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;
+        fdef.restitution = 3f;
         body.createFixture(fdef).setUserData(spikes);
 
     }

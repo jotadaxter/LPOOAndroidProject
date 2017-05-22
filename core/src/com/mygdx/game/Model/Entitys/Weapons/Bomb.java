@@ -155,7 +155,7 @@ public class Bomb extends Sprite{
     }
 
     public void hitHero() {
-        hero.hitBySpikes();
+        hero.hit();
     }
 
 

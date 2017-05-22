@@ -24,7 +24,7 @@ public class HeroBody {
     private FixtureDef fdef;
     private Hero hero;
 
-    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT};
+    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, DYING};
     public State currentState;
     public State previousState;
 
@@ -100,7 +100,13 @@ public class HeroBody {
     }
 
     public State getState() {
-        if (b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y == 0
+        if(hero.getHealth()==0){
+            return State.DYING;
+        }
+        else if(hero.getWasHit()){
+            return State.HURT;
+        }
+        else if (b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y == 0
                 || b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0
                 || b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y != 0) {
             if (Math.abs(b2body.getLinearVelocity().x) > Math.abs(b2body.getLinearVelocity().y)) {
@@ -136,44 +142,56 @@ public class HeroBody {
     public TextureRegion getFrame(Hero hero,float dt) {
         currentState = getState();
         TextureRegion region = new TextureRegion();
+
         switch (currentState) {
+            case HURT:{
+                hero.setBounds(hero.getX(), hero.getY(), 31 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
+                region = hero.heroHurt.getKeyFrame(hero.upDownTimer, false);
+                hero.setWasHit(false);
+            }
+            break;
+            case DYING:{
+                hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
+                region = hero.heroDying.getKeyFrame(hero.upDownTimer, false);
+            }
+            break;
             case STAND_UP: {
-                hero.setBounds(hero.getX(), hero.getY(), 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
-                region=hero.getStandBack();
+                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+                region = hero.getStandBack();
             }
             break;
             case STAND_DOWN: {
-                hero.setBounds(hero.getX(), hero.getY(), 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
-                region=hero.getStandFront();
+                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+                region = hero.getStandFront();
             }
             break;
             case STAND_LEFT: {
-                hero.setBounds(hero.getX(), hero.getY(), 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
-                region=hero.getStandLeft();
+                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+                region = hero.getStandLeft();
             }
             break;
             case STAND_RIGHT: {
-                hero.setBounds(hero.getX(), hero.getY(), 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
-                region=hero.getStandRight();
+                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+                region = hero.getStandRight();
             }
             break;
             case WALK_UP: {
-                hero.setBounds(hero.getX(), hero.getY(), 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
+                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
                 region = hero.heroWalkUp.getKeyFrame(hero.upDownTimer, true);
             }
             break;
             case WALK_DOWN: {
-                hero.setBounds(hero.getX(), hero.getY(), 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
-                region = hero.heroWalkDown.getKeyFrame(hero.upDownTimer,true);
+                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+                region = hero.heroWalkDown.getKeyFrame(hero.upDownTimer, true);
             }
             break;
             case WALK_LEFT: {
-                hero.setBounds(hero.getX(), hero.getY(), 23*MyGame.PIXEL_TO_METER, 23*MyGame.PIXEL_TO_METER);
+                hero.setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
                 region = hero.heroWalkRight.getKeyFrame(hero.leftRightTimer, true);
             }
             break;
             case WALK_RIGHT: {
-                hero.setBounds(hero.getX(), hero.getY(), 23*MyGame.PIXEL_TO_METER, 23*MyGame.PIXEL_TO_METER);
+                hero.setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
                 region = hero.heroWalkRight.getKeyFrame(hero.leftRightTimer, true);
             }
             break;
@@ -181,8 +199,6 @@ public class HeroBody {
                 region = hero.getStandFront();
                 break;
         }
-
-
 
         if((b2body.getLinearVelocity().x<0||currentState==State.WALK_LEFT)&&!region.isFlipX())
         {
@@ -224,13 +240,7 @@ public class HeroBody {
                 }
             }
         }
-        else if(controller.isEscPressed()){
-            hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(false);
-            hero.signWasOpened=false;
-            hero.setOpenedChestId(-1);
-        }
-
-        else if(controller.isLeftPressed()) {
+       else if(controller.isLeftPressed()) {
             b2body.applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt, 0), b2body.getWorldCenter(), true);
             if(controller.isbPressed()){
                 if(hero.getAddBomb())
@@ -290,6 +300,13 @@ public class HeroBody {
             }
             else if(hero.getOpenedSignId()>-1){
                 hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
+            }
+        }
+        else if(controller.isEscPressed()){
+            if(hero.getOpenedSignId()>-1){
+                hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(false);
+                hero.signWasOpened=false;
+                hero.setOpenedSignId(-1);
             }
         }
         else {

@@ -36,6 +36,7 @@ public class BoulderBody {
                 | MyGame.MEGA_PRESSING_PLATE_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape=shape;
+        fdef.restitution = 0f;
         body.createFixture(fdef);
     }
     public Body getBody(){

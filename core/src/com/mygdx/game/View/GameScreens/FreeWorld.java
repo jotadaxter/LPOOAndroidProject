@@ -99,9 +99,9 @@ public class FreeWorld extends GameScreen {
         pps.add(pp2);
         pps.add(pp3);
         pressingEvent= new PressingEvent(dungeon1_plates, this, 0);
-/*
-        fireGround= new FireGround(this, 80, 20);
 
+        fireGround= new FireGround(this, 80, 20);
+/*
         MegaPressingPlate megapp= new MegaPressingPlate(this,60,150);
         mpps.add(megapp);
         megaPressingEvent= new PressingEvent(mpps,this);
@@ -111,16 +111,27 @@ public class FreeWorld extends GameScreen {
         boulders.add(boulder4);
 
         //Items
-        spawnItem(new ItemDef(new Vector2(20,80), SpecialItem.class));*/
+        spawnItem(new ItemDef(new Vector2(20,80), SpecialItem.class));
 
         Chest c1= new Chest(this, 80,30);
         c1.addChestId(0);
         chests.add(c1);
 
-        Sign sign1= new Sign(this,30,80);
+        Sign sign1= new Sign(this,30,80, sign1Text());
         sign1.addSignId(0);
         signs.add(sign1);
+*/
+    }
 
+    private String sign1Text() {
+        String text=   "XXX     XXX\n"+
+                "X1X      X2X\n"+
+                "XXX     XXX\n"+
+                "     423   \n"+
+                "XXX     XXX\n"+
+                "X3 X     X4 X\n"+
+                "XXX     XXX\n";
+        return text;
     }
 
     @Override
@@ -151,8 +162,8 @@ public class FreeWorld extends GameScreen {
         for(Sign sign :signs)
             sign.update(dt);
         pressingEvent.update(dt);
-       /* megaPressingEvent.update(dt);
-        fireGround.update(dt);*/
+       // megaPressingEvent.update(dt);
+        fireGround.update(dt);
 
     }
 
@@ -170,7 +181,7 @@ public class FreeWorld extends GameScreen {
             chest.draw(game.batch);
         for(Sign sign :signs)
             sign.draw(game.batch);
-      //  fireGround.draw(game.batch);
+        fireGround.draw(game.batch);
     }
 
 }

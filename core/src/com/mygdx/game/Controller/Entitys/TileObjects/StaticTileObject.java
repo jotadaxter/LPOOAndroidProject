@@ -49,6 +49,7 @@ public abstract class StaticTileObject {
         body=world.createBody(bdef);
         shape.setAsBox((bounds.getWidth()/2)*MyGame.PIXEL_TO_METER, (bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
         fdef.shape=shape;
+        fdef.restitution = 0f;
         fixture=body.createFixture(fdef);
     }
 

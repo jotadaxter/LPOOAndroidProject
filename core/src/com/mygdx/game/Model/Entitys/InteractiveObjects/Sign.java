@@ -22,10 +22,12 @@ public class Sign extends Sprite{
     private SignBody signBody;
     private boolean openLog;
     private int id;
+    private String text;
 
-    public Sign(GameScreen screen, int x, int y) {
+    public Sign(GameScreen screen, int x, int y, String text) {
         this.world=screen.getWorld();
         this.screen=screen;
+        this.text=text;
         signBody= new SignBody(world,this,x,y);
         openLog=false;
         textureLoad();
@@ -41,14 +43,19 @@ public class Sign extends Sprite{
     public void update(float dt){
         setPosition(signBody.getBody().getPosition().x-getWidth()/2, signBody.getBody().getPosition().y-getHeight()/2);
         if(openLog){
-            logDisplay();
+            screen.setTurnLogOn(true);
+                logDisplay();
             System.out.println("Log display on");
         }
-        else System.out.println("Log display off");
+        else {
+            screen.setTurnLogOn(false);
+            System.out.println("Log display off");
+        }
 
     }
 
     private void logDisplay() {
+        screen.getTextLog().setText(text);
         System.out.println("Log display on");
     }
 
