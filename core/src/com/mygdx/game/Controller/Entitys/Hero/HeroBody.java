@@ -51,6 +51,7 @@ public class HeroBody {
                 | MyGame.BOMB_BIT
                 | MyGame.PITFALL_BIT
                 | MyGame.CHEST_BIT
+                | MyGame.SIGN_BIT
                 | MyGame.MOVING_PLATFORM_BIT
                 | MyGame.MEGA_PRESSING_PLATE_BIT
                 | MyGame.PRESSING_PLATE_BIT;
@@ -216,7 +217,17 @@ public class HeroBody {
                     hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
                     hero.setOpenedChestId(-1);
                 }
+                else if(hero.getOpenedSignId()>-1 && !hero.signWasOpened){
+                    hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
+                    hero.signWasOpened=true;
+
+                }
             }
+        }
+        else if(controller.isEscPressed()){
+            hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(false);
+            hero.signWasOpened=false;
+            hero.setOpenedChestId(-1);
         }
 
         else if(controller.isLeftPressed()) {
@@ -230,6 +241,9 @@ public class HeroBody {
                     hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
                     hero.setOpenedChestId(-1);
                 }
+                else if(hero.getOpenedSignId()>-1){
+                    hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
+                   }
             }
         }
         else if(controller.isUpPressed()){
@@ -242,6 +256,9 @@ public class HeroBody {
                 if(hero.getOpenedChestId()>-1) {
                     hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
                     hero.setOpenedChestId(-1);
+                }
+                else if(hero.getOpenedSignId()>-1){
+                    hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
                 }
             }
         }
@@ -256,16 +273,23 @@ public class HeroBody {
                     hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
                     hero.setOpenedChestId(-1);
                 }
+                else if(hero.getOpenedSignId()>-1){
+                    hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
+                }
             }
         }
         else if(controller.isbPressed()){
             if(hero.getAddBomb())
             this.hero.throwBomb();
         }
+
         else if(controller.isaPressed()){
             if(hero.getOpenedChestId()>-1) {
                 hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
+            }
+            else if(hero.getOpenedSignId()>-1){
+                hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
             }
         }
         else {

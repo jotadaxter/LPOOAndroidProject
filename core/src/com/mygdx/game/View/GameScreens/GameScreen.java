@@ -25,6 +25,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
+import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.Model.Entitys.Items.Key;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.Model.Events.WarpEvent;
@@ -80,6 +81,7 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<MovingPlatform> mps;
    // protected Pool<Bomb> bombPool;
     protected Array<Item> items;
+    protected ArrayList<Sign> signs;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
     protected Array<WarpEvent> warpEvents;
     protected FireGround fireGround;
@@ -120,6 +122,7 @@ public abstract class GameScreen implements Screen{
         wayblocks = new ArrayList<WayBlocker>();
         mps=new ArrayList<MovingPlatform>();
         chests= new ArrayList<Chest>();
+        signs=new ArrayList<Sign>();
        /* bombPool = new Pool<Bomb>() {
             @Override
             protected Bomb newObject() {
@@ -287,6 +290,10 @@ public abstract class GameScreen implements Screen{
 
     public ArrayList<Chest> getChests() {
         return chests;
+    }
+
+    public ArrayList<Sign> getSigns() {
+        return signs;
     }
 
     /*public Pool<Bomb> getBombPool() {

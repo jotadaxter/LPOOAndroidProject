@@ -33,7 +33,7 @@ public class MyGame extends Game {
 	public static final short PITFALL_BIT=2048;
 	public static final short MOVING_PLATFORM_BIT =4096;
 	public static final short SAFE_GROUND_BIT=8192;
-
+	public static final short SIGN_BIT = 16384;
 	//Rupee Info
 	public static final int GREEN_RUPEE =1;
 	public static final int BLUE_RUPEE =5;

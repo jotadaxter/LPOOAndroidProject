@@ -10,6 +10,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
+import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.Model.Entitys.Items.Heart;
 import com.mygdx.game.Model.Entitys.Items.ItemDef;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
@@ -115,6 +116,11 @@ public class FreeWorld extends GameScreen {
         Chest c1= new Chest(this, 80,30);
         c1.addChestId(0);
         chests.add(c1);
+
+        Sign sign1= new Sign(this,30,80);
+        sign1.addSignId(0);
+        signs.add(sign1);
+
     }
 
     @Override
@@ -142,6 +148,8 @@ public class FreeWorld extends GameScreen {
         }
         for(Chest chest : chests)
             chest.update(dt);
+        for(Sign sign :signs)
+            sign.update(dt);
         pressingEvent.update(dt);
        /* megaPressingEvent.update(dt);
         fireGround.update(dt);*/
@@ -160,6 +168,8 @@ public class FreeWorld extends GameScreen {
             boulder.draw(game.batch);
         for(Chest chest : chests)
             chest.draw(game.batch);
+        for(Sign sign :signs)
+            sign.draw(game.batch);
       //  fireGround.draw(game.batch);
     }
 

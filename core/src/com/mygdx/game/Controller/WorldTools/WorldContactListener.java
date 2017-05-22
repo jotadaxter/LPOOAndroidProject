@@ -12,6 +12,7 @@ import com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
+import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
@@ -130,6 +131,12 @@ public class WorldContactListener implements ContactListener {
                     ((Hero) fixB.getUserData()).setOpenedChestId(((Chest) fixA.getUserData()).getId());
                 else
                     ((Hero) fixA.getUserData()).setOpenedChestId(((Chest) fixB.getUserData()).getId());
+                break;
+            case MyGame.HERO_BIT | MyGame.SIGN_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.SIGN_BIT)
+                    ((Hero) fixB.getUserData()).setOpenedSignId(((Sign) fixA.getUserData()).getId());
+                else
+                    ((Hero) fixA.getUserData()).setOpenedSignId(((Sign) fixB.getUserData()).getId());
                 break;
 
         }

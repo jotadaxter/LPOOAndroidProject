@@ -26,7 +26,7 @@ public class Controller {
 
     private FitViewport viewport;
     private Stage stage;
-    private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed;//z-a,x-b
+    private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed, escPressed;//z-a,x-b
     private OrthographicCamera cam;
 
     public Controller(SpriteBatch sb){
@@ -57,6 +57,9 @@ public class Controller {
                     case Input.Keys.Z:
                         aPressed=true;
                         break;
+                    case Input.Keys.ESCAPE:
+                        escPressed=true;
+                        break;
                 }
                 return true;
             }
@@ -81,6 +84,9 @@ public class Controller {
                         break;
                     case Input.Keys.Z:
                         aPressed=false;
+                        break;
+                    case Input.Keys.ESCAPE:
+                        escPressed=false;
                         break;
                 }
                 return true;
@@ -255,6 +261,10 @@ public class Controller {
         return bPressed;
     }
 
+    public boolean isEscPressed() {
+        return escPressed;
+    }
+
     public void resize(int width, int height){
         viewport.update(width,height);
     }
@@ -270,5 +280,6 @@ public class Controller {
         rightPressed= false;
         aPressed= false;
         bPressed= false;
+        escPressed=false;
     }
 }

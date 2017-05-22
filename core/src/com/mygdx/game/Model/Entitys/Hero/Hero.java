@@ -51,6 +51,9 @@ public class Hero extends Sprite{
     public boolean isInPitfall;
     public boolean openChest;
     private int openedChestId;
+    private boolean openLog;
+    private int openedSignId;
+    public boolean signWasOpened;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
@@ -61,6 +64,9 @@ public class Hero extends Sprite{
         isInPitfall=false;
         openChest=false;
         openedChestId=-1;
+        openLog=false;
+        openedSignId=-1;
+        signWasOpened=false;
        // bomb= new Bomb(world,this,0,0);
         setBombExploding(false);
         //Movement States
@@ -291,5 +297,21 @@ public class Hero extends Sprite{
 
     public int getOpenedChestId() {
         return openedChestId;
+    }
+
+    public int getOpenedSignId() {
+        return openedSignId;
+    }
+
+    public boolean isOpenLog() {
+        return openLog;
+    }
+
+    public void setOpenLog(boolean openLog) {
+        this.openLog = openLog;
+    }
+
+    public void setOpenedSignId(int openedSignId) {
+        this.openedSignId = openedSignId;
     }
 }
