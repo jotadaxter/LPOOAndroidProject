@@ -26,6 +26,7 @@ public class Bomb extends Sprite{
     private boolean destroyed;
     private BombBody bombBody;
     private ExplosionBody exBody;
+    private Explosion explosion;
 
     public enum State {TIC_TAC, BOOM};
     public State currentState;

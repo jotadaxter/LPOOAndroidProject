@@ -35,7 +35,6 @@ public class MovingPlatformBody {
                 | MyGame.PITFALL_BIT
                 | MyGame.HERO_BIT;
         fdef.shape= shape;
-       // fdef.friction =  .5f;slippery
         fdef.isSensor = true;
         body.createFixture(fdef).setUserData(movingPlatform);
     }

@@ -2,6 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Model.Entitys.Hero.HeroStats;
@@ -13,11 +15,11 @@ import com.mygdx.game.View.MenuScreens.MainMenu;
 import java.util.Stack;
 
 public class MyGame extends Game {
-    public static final int VIEWPORT_WIDTH =240;//GameBoy Advance settings
-    public static final int VIEWPORT_HEIGHT =160;
+    public static final int VIEWPORT_WIDTH =480;//240;//GameBoy Advance settings
+    public static final int VIEWPORT_HEIGHT =320;//160;
     public static final float PIXEL_TO_METER = 0.0625f;
     public static final float VELOCITY= 10f;
-	public static final float PLATFORM_VELOCITY= 200f;//60f;
+	public static final float PLATFORM_VELOCITY= 60f;//60f;
 
 	public static final short DEFAULT_BIT =1;
 	public static final short HERO_BIT =2;
@@ -45,13 +47,33 @@ public class MyGame extends Game {
 	public SpriteBatch batch;
 	public GameStateManager gsm;
 	public HeroStats heroStats;
+	public AssetManager assetManager;
 
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		gsm= new GameStateManager(this);
+		assetManager = new AssetManager();
 		heroStats= new HeroStats();
+		//loadTextures();
+		loadMusic();
+	}
+
+	private void loadMusic() {
+		assetManager.load("Game/boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+		assetManager.load("boulder", Texture.class);
+	}
+
+	private void loadTextures() {
 	}
 
 	@Override
@@ -59,4 +81,10 @@ public class MyGame extends Game {
 		super.render();
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		batch.dispose();
+
+	}
 }

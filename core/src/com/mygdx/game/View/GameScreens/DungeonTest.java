@@ -37,6 +37,7 @@ public class DungeonTest extends GameScreen{
     public void objectLoad() {
 
         MovingPlatform m1= new MovingPlatform(this, P1_X,P1_Y);
+        m1.setId(0);
         mps.add(m1);
 
     }

@@ -40,86 +40,64 @@ public class MovingPlatform extends Sprite {
     private World world;
     private TextureRegion platformTex;
     private MovingPlatformBody platformBody;
-    private Vector2[] patrol;
-    private int prevWaypoint = 0;
-    private int nextWaypoint = 1;
-    private int patrolDir;
+    private int id;
+    public float lastPosX;
+    public float lastPosY;
+    public float currentPosX;
+    public float currentPosY;
 
     public MovingPlatform(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
         // Setup Waypoints
-        patrol = new Vector2[6];
-        patrol[0] = new Vector2(17,3);
-        patrol[1] = new Vector2(3,3);
-        patrol[2] = new Vector2(3,11);
-        patrol[3] = new Vector2(17,11);
-        patrolDir = 1;
+        id=0;
+        setPosition(x,y);
+        lastPosX=x;
+        lastPosY=y;
+        currentPosX=x;
+        currentPosY=y;
         platformBody= new MovingPlatformBody(world,this,x,y);
         platformTex = new TextureRegion(new Texture("moving_platform.png"), 0,0,32,32);
-        setPosition(x,y);
+
         setBounds(0,0,32* MyGame.PIXEL_TO_METER,32* MyGame.PIXEL_TO_METER);
         setRegion(platformTex);
     }
 
     public void update(float dt){
-        //patrolApply(dt);
-
-        if(platformBody.getBody().getPosition().y==3.0f && platformBody.getBody().getPosition().x>=3.0f){
+        lastPosX=currentPosX;
+        lastPosY=currentPosY;
+        if(platformBody.getBody().getPosition().y<=3.0f && platformBody.getBody().getPosition().x>=3.0f){
             platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY*dt,0));
         }
-        else if(platformBody.getBody().getPosition().x==3.0f && platformBody.getBody().getPosition().y<=11.0f){
+        else if(platformBody.getBody().getPosition().x<=3.0f && platformBody.getBody().getPosition().y<=11.0f){
             platformBody.getBody().setLinearVelocity(new Vector2(0,MyGame.PLATFORM_VELOCITY*dt));
         }
-        else if(platformBody.getBody().getPosition().y==11.0f && platformBody.getBody().getPosition().x<=17){
+        else if(platformBody.getBody().getPosition().y>=11.0f && platformBody.getBody().getPosition().x<=17){
             platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY*dt,0));
         }
-        else if(platformBody.getBody().getPosition().x==17.0f && platformBody.getBody().getPosition().y>=11.0f){
+        else if(platformBody.getBody().getPosition().x>=17.0f && platformBody.getBody().getPosition().y>=11.0f){
             platformBody.getBody().setLinearVelocity(new Vector2(0,-MyGame.PLATFORM_VELOCITY*dt));
         }
-        System.out.println(platformBody.getBody().getPosition().x + " - " + platformBody.getBody().getPosition().y);
         setPosition(platformBody.getBody().getPosition().x-getWidth()/2, platformBody.getBody().getPosition().y-getHeight()/2);
+        currentPosX=platformBody.getBody().getPosition().x;
+        currentPosY=platformBody.getBody().getPosition().y;
     }
 
-    private void patrolApply(float dt) {
-        for (int i = 0; i < patrol.length; i++) {
-            if (platformBody.getBody().getPosition().x == patrol[nextWaypoint].x && platformBody.getBody().getPosition().x == patrol[nextWaypoint].y) {
-
-                prevWaypoint = nextWaypoint;
-
-                if(patrolDir == 1){
-                    nextWaypoint++;
-                    if (nextWaypoint > patrol.length - 1){
-                        nextWaypoint = 0;
-                        prevWaypoint = patrol.length - 1;
-                    }
-                    break;
-                }
-
-                if(patrolDir == -1){
-                    nextWaypoint--;
-                    if (nextWaypoint < 0){
-                        nextWaypoint = patrol.length-1;
-                        prevWaypoint = 0;
-                    }
-                    break;
-                }
-
-            }
-        }
-
-        float prevX = patrol[prevWaypoint].x;
-        float prevY = patrol[prevWaypoint].y;
-        float nextX = patrol[nextWaypoint].x;
-        float nextY = patrol[nextWaypoint].y;
-
-        if (prevY > nextY)
-            platformBody.getBody().setLinearVelocity(new Vector2(0,MyGame.PLATFORM_VELOCITY*dt));
-        if (prevY < nextY)
-            platformBody.getBody().setLinearVelocity(new Vector2(0,-MyGame.PLATFORM_VELOCITY*dt));
-        if (prevX > nextX)
-            platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY*dt,0));
-        if (prevX < nextX)
-            platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY*dt,0));
+    public int getId() {
+        return id;
     }
 
+    public void setId(int n) {
+        id=n;
+    }
+
+    public MovingPlatformBody getPlatformBody() {
+        return platformBody;
+    }
+    public float getDeltaX(){
+        return currentPosX-lastPosX;
+    }
+
+    public float getDeltaY(){
+        return currentPosY-lastPosY;
+    }
 }

@@ -112,7 +112,7 @@ public class FreeWorld extends GameScreen {
 
         //Items
         spawnItem(new ItemDef(new Vector2(20,80), SpecialItem.class));
-
+*/
         Chest c1= new Chest(this, 80,30);
         c1.addChestId(0);
         chests.add(c1);
@@ -120,7 +120,7 @@ public class FreeWorld extends GameScreen {
         Sign sign1= new Sign(this,30,80, sign1Text());
         sign1.addSignId(0);
         signs.add(sign1);
-*/
+
     }
 
     private String sign1Text() {

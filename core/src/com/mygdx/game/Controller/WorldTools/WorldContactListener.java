@@ -10,6 +10,7 @@ import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
+import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
@@ -91,6 +92,7 @@ public class WorldContactListener implements ContactListener {
             case MyGame.HERO_BIT | MyGame.BOMB_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.BOMB_BIT){
                    if(((Bomb)fixA.getUserData()).getState()== Bomb.State.BOOM) {
+                       System.out.println(((Bomb)fixA.getUserData()));
                        System.out.println("hit");
                        ((Hero) fixB.getUserData()).hit();
                    }
@@ -107,23 +109,31 @@ public class WorldContactListener implements ContactListener {
                    if(!((Hero) fixA.getUserData()).getIsInPlatform())
                        ((Hero) fixA.getUserData()).fall();
                     ((Hero) fixA.getUserData()).isInPitfall=true;
-                    System.out.println(((Hero) fixA.getUserData()).getIsInPlatform());
+                    System.out.println("is in platform: "+((Hero) fixA.getUserData()).getIsInPlatform());
+                    System.out.println("is in pitfall: "+ ((Hero) fixA.getUserData()).isInPitfall);
                 }
                 else {
                     if(!((Hero) fixB.getUserData()).getIsInPlatform())
                         ((Hero) fixB.getUserData()).fall();
                     ((Hero) fixB.getUserData()).isInPitfall=true;
-                    System.out.println(((Hero) fixB.getUserData()).getIsInPlatform());
+                    System.out.println("is in platform: "+((Hero) fixB.getUserData()).getIsInPlatform());
+                    System.out.println("is in pitfall: "+ ((Hero) fixB.getUserData()).isInPitfall);
                 }
                 break;
             case MyGame.MOVING_PLATFORM_BIT | MyGame.HERO_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
                     ((Hero) fixA.getUserData()).setIsInPlatform(true);
-                    System.out.println(((Hero) fixA.getUserData()).getIsInPlatform());
+                    ((Hero) fixA.getUserData()).setPlatformId(((MovingPlatform) fixB.getUserData()).getId());
+                    ((Hero) fixA.getUserData()).isInPitfall=true;
+                    System.out.println("is in platform: "+((Hero) fixA.getUserData()).getIsInPlatform());
+                    System.out.println("is in pitfall: "+ ((Hero) fixA.getUserData()).isInPitfall);
                 }
                 else {
                     ((Hero) fixB.getUserData()).setIsInPlatform(true);
-                    System.out.println(((Hero) fixB.getUserData()).getIsInPlatform());
+                    ((Hero) fixB.getUserData()).setPlatformId(((MovingPlatform) fixA.getUserData()).getId());
+                    ((Hero) fixB.getUserData()).isInPitfall=true;
+                    System.out.println("is in platform: "+((Hero) fixB.getUserData()).getIsInPlatform());
+                    System.out.println("is in pitfall: "+ ((Hero) fixB.getUserData()).isInPitfall);
                 }
                 break;
                 case MyGame.HERO_BIT | MyGame.CHEST_BIT:
@@ -217,20 +227,30 @@ public class WorldContactListener implements ContactListener {
                         ((Hero) fixA.getUserData()).fall();
                     }
                    ((Hero) fixA.getUserData()).setIsInPlatform(false);
+                    ((Hero) fixA.getUserData()).setPlatformId(-1);
+                    System.out.println("is in platform: "+((Hero) fixA.getUserData()).getIsInPlatform());
+                    System.out.println("is in pitfall: "+ ((Hero) fixA.getUserData()).isInPitfall);
                 }
                 else{
                     if(((Hero) fixA.getUserData()).isInPitfall){
                         ((Hero) fixB.getUserData()).fall();
                     }
                     ((Hero) fixB.getUserData()).setIsInPlatform(false);
+                    ((Hero) fixB.getUserData()).setPlatformId(-1);
+                    System.out.println("is in platform: "+((Hero) fixB.getUserData()).getIsInPlatform());
+                    System.out.println("is in pitfall: "+ ((Hero) fixB.getUserData()).isInPitfall);
                 }
                 break;
             case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
                     ((Hero) fixA.getUserData()).isInPitfall=false;
+                    System.out.println("is in platform: "+((Hero) fixA.getUserData()).getIsInPlatform());
+                    System.out.println("is in pitfall: "+ ((Hero) fixA.getUserData()).isInPitfall);
                 }
                 else {
                     ((Hero) fixB.getUserData()).isInPitfall=false;
+                    System.out.println("is in platform: "+((Hero) fixB.getUserData()).getIsInPlatform());
+                    System.out.println("is in pitfall: "+ ((Hero) fixB.getUserData()).isInPitfall);
                 }
                 break;
 

@@ -51,6 +51,7 @@ public class Hero extends Sprite{
     private float bombCount;
     public boolean bombExploding;
     public boolean isInPlatform;
+    public int platformId;
     public boolean isInPitfall;
     public boolean openChest;
     private int openedChestId;
@@ -58,6 +59,7 @@ public class Hero extends Sprite{
     private int openedSignId;
     public boolean signWasOpened;
     private boolean wasHit;
+    private boolean fell;
 
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
@@ -72,6 +74,8 @@ public class Hero extends Sprite{
         openedSignId=-1;
         signWasOpened=false;
         wasHit=false;
+        platformId=-1;
+        fell=false;
        // bomb= new Bomb(world,this,0,0);
         setBombExploding(false);
         //Movement States
@@ -135,7 +139,16 @@ public class Hero extends Sprite{
     }
 
     public void update(float dt){
-        setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
+        if(fell){
+            heroBody.b2body.setTransform(16.5f , 1, 0);
+            fell=false;
+        }
+       /* else if(isInPlatform) {
+            setPosition(heroBody.b2body.getPosition().x - getWidth() / 2 + screen.getMovingPlatforms().get(0).getDeltaX()
+                    , heroBody.b2body.getPosition().y - getHeight() / 2+ screen.getMovingPlatforms().get(0).getDeltaY());
+        }*/
+        else setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
+
         setRegion(heroBody.getFrame(this,dt));
         if(!addBomb)
             bombCount+=dt;
@@ -222,8 +235,9 @@ public class Hero extends Sprite{
     }
 
     public void fall(){
-        screen.getGame().gsm.set(new DungeonTest(screen.getGame()));
+        System.out.println(heroBody.b2body.getPosition().x);
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
+        fell=true;
     }
 
     public int getKeys() {
@@ -342,4 +356,9 @@ public class Hero extends Sprite{
     public void setWasHit(boolean var) {
         wasHit=var;
     }
+
+    public void setPlatformId(int platformId) {
+        this.platformId = platformId;
+    }
+
 }
