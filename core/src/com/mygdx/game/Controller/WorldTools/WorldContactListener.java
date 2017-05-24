@@ -24,13 +24,6 @@ import com.mygdx.game.Model.Entitys.Items.Item;
  */
 
 public class WorldContactListener implements ContactListener {
-    Controller controller;
-
-    public WorldContactListener(MyGame game) {
-        controller= new Controller(game.batch);
-    }
-
-
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();

@@ -14,32 +14,32 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class MegaPressingPlate extends Sprite {
+    private GameScreen screen;
     private World world;
     private int ispressed;//0 - false, >=2 - true
-    private boolean press_and_hold;//indica se é necessário deixar algum peso em cima da placa para q funcione
+    private boolean press_and_hold;
     private TextureRegion pressedTex;
     private TextureRegion notpressedTex;
     private MegaPressingPlateBody megaPressingPlateBody;
 
     public MegaPressingPlate(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
+        this.screen=screen;
         ispressed=0;
         press_and_hold=true;
         megaPressingPlateBody= new MegaPressingPlateBody(world,this,x,y);
-
         textureLoad();
-
         setPosition(x,y);
         setBounds(0,0,64* MyGame.PIXEL_TO_METER,64* MyGame.PIXEL_TO_METER);
         setRegion(notpressedTex);
     }
 
     public void textureLoad(){
-        pressedTex = new TextureRegion(new Texture("mega_pressing_plates.png"), 64,0,64,64);
-        notpressedTex = new TextureRegion(new Texture("mega_pressing_plates.png"), 0,0,64,64);
+        pressedTex = new TextureRegion(screen.getGame().assetManager.get("Game/mega_pressing_plates.png", Texture.class), 64,0,64,64);
+        notpressedTex = new TextureRegion(screen.getGame().assetManager.get("Game/mega_pressing_plates.png", Texture.class), 0,0,64,64);
     }
 
-    public void update(float dt, GameScreen screen){
+    public void update(float dt){
         setPosition(megaPressingPlateBody.getBody().getPosition().x-getWidth()/2, megaPressingPlateBody.getBody().getPosition().y-getHeight()/2);
         setRegion(megaPressingPlateBody.getFrame(dt));
     }
@@ -66,9 +66,5 @@ public class MegaPressingPlate extends Sprite {
 
     public boolean isPressAndHold(){
         return press_and_hold;
-    }
-
-    public void setPressAndHold(boolean val){
-        press_and_hold=val;
     }
 }

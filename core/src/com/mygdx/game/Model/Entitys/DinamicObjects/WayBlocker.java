@@ -18,18 +18,16 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 public class WayBlocker extends Sprite{
     private World world;
     private TextureRegion blockFigure;
-    private String code;
     private boolean toDestroy;
     private boolean destroyed;
     private WayBlockerBody wayBlockerBody;
 
-    public WayBlocker(GameScreen screen, int x, int y, String code) {
+    public WayBlocker(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
         wayBlockerBody= new WayBlockerBody(world,this,x,y);
-        this.code= code;
         destroyed=false;
         toDestroy=false;
-        blockFigure = new TextureRegion(new Texture(Gdx.files.internal("way_blocker.png")));
+        blockFigure = new TextureRegion(screen.getGame().assetManager.get("Game/way_blocker.png", Texture.class));
         setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(blockFigure);

@@ -75,11 +75,11 @@ public class FreeWorld extends GameScreen {
 
     @Override
     public void objectLoad() {
-        WayBlocker wb =  new WayBlocker(this,WB1_X,WB1_Y,"dungeon1_block");
+        WayBlocker wb =  new WayBlocker(this,WB1_X,WB1_Y);
         wayblocks.add(wb);
-        WayBlocker wb2 =  new WayBlocker(this,WB2_X,WB2_Y,"dungeon1_block");
+        WayBlocker wb2 =  new WayBlocker(this,WB2_X,WB2_Y);
         wayblocks.add(wb2);
-        WayBlocker wb3 =  new WayBlocker(this,WB3_X,WB3_Y,"dungeon1_block");
+        WayBlocker wb3 =  new WayBlocker(this,WB3_X,WB3_Y);
         wayblocks.add(wb3);
         Boulder boulder1= new Boulder(this,BOULDER1_X, BOULDER1_Y);
         boulders.add(boulder1);

@@ -125,14 +125,14 @@ public class Hero extends Sprite{
 
         //Hurt Animation
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(new Texture("hero_hurt.png"), i * 31, 0, 31, 32));
+            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/hero_hurt.png", Texture.class), i * 31, 0, 31, 32));
         }
         heroHurt = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         //Dying Animation
         for (int i = 0; i < 5; i++) {
-            frames.add(new TextureRegion(new Texture("hero_dying.png"), i * 25, 0, 24, 25));
+            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/hero_dying.png", Texture.class), i * 25, 0, 24, 25));
         }
         heroDying = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -143,11 +143,7 @@ public class Hero extends Sprite{
             heroBody.b2body.setTransform(16.5f , 1, 0);
             fell=false;
         }
-       /* else if(isInPlatform) {
-            setPosition(heroBody.b2body.getPosition().x - getWidth() / 2 + screen.getMovingPlatforms().get(0).getDeltaX()
-                    , heroBody.b2body.getPosition().y - getHeight() / 2+ screen.getMovingPlatforms().get(0).getDeltaY());
-        }*/
-        else setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
+      else setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
 
         setRegion(heroBody.getFrame(this,dt));
         if(!addBomb)
@@ -283,7 +279,7 @@ public class Hero extends Sprite{
 
         }
         //bomb= screen.getBombPool().obtain();
-        bomb= new Bomb(world,this,0,0);
+        bomb= new Bomb(screen,this,0,0);
         bomb.setposition(xx*MyGame.PIXEL_TO_METER,yy*MyGame.PIXEL_TO_METER);
         bombs.add(bomb);
         addBomb=false;

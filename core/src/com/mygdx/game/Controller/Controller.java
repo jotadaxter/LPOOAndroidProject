@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
@@ -23,16 +24,17 @@ public class Controller {
     public static final int BTN_WIDTH = 20;
     public static final int BTN_HEIGTH = 20;
 
-
+    private MyGame game;
     private FitViewport viewport;
     private Stage stage;
     private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed, escPressed;//z-a,x-b
     private OrthographicCamera cam;
 
-    public Controller(SpriteBatch sb){
+    public Controller(MyGame game){
+        this.game=game;
         cam = new OrthographicCamera();
         viewport = new FitViewport(VIEWPORT_WIDTH,VIEWPORT_HEIGHT,cam);
-        stage= new Stage(viewport,sb);
+        stage= new Stage(viewport,game.batch);
 
         stage.addListener(new InputListener(){
 
@@ -103,7 +105,7 @@ public class Controller {
         table.left().bottom();
 
         //Down Arrow Button
-        Image downImg = new Image(new Texture("down_arrow.png"));
+        Image downImg = new Image(game.assetManager.get("Buttons/down_arrow.png", Texture.class));
         downImg.setSize(BTN_WIDTH,BTN_HEIGTH);
         downImg.addListener(new InputListener(){
             @Override
@@ -124,7 +126,7 @@ public class Controller {
         });
 
         //Up Arrow Button
-        Image upImg = new Image(new Texture("up_arrow.png"));
+        Image upImg =new Image(game.assetManager.get("Buttons/up_arrow.png", Texture.class));
         upImg.setSize(BTN_WIDTH,BTN_HEIGTH);
         upImg.addListener(new InputListener(){
             @Override
@@ -145,7 +147,7 @@ public class Controller {
         });
 
         //Right Arrow Button
-        Image rightImg = new Image(new Texture("right_arrow.png"));
+        Image rightImg =new Image(game.assetManager.get("Buttons/right_arrow.png", Texture.class));
         rightImg.setSize(BTN_WIDTH,BTN_HEIGTH);
         rightImg.addListener(new InputListener(){
             @Override
@@ -166,7 +168,7 @@ public class Controller {
         });
 
         //Left Arrow Button
-        Image leftImg = new Image(new Texture("left_arrow.png"));
+        Image leftImg = new Image(game.assetManager.get("Buttons/left_arrow.png", Texture.class));
         leftImg.setSize(BTN_WIDTH,BTN_HEIGTH);
         leftImg.addListener(new InputListener(){
             @Override
@@ -187,7 +189,7 @@ public class Controller {
         });
 
         //A Button
-        Image aImg = new Image(new Texture("a_button.png"));
+        Image aImg =new Image(game.assetManager.get("Buttons/a_button.png", Texture.class));
         aImg.setSize(50,50);
         aImg.addListener(new InputListener(){
             @Override
@@ -203,7 +205,7 @@ public class Controller {
         });
 
         //B Button
-        Image bImg = new Image(new Texture("b_button.png"));
+        Image bImg =new Image(game.assetManager.get("Buttons/b_button.png", Texture.class));
         bImg.setSize(50,50);
         bImg.addListener(new InputListener(){
             @Override

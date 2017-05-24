@@ -91,20 +91,19 @@ public abstract class GameScreen implements Screen{
 
 
     public GameScreen(MyGame game, int hero_x, int hero_y) {
-
-        atlas=new TextureAtlas("link_and_objects.pack");
+        atlas=game.assetManager.get("Game/link_and_objects.pack", TextureAtlas.class);
         this.game=game;
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
         viewPort= new FitViewport(MyGame.VIEWPORT_WIDTH*MyGame.PIXEL_TO_METER,MyGame.VIEWPORT_HEIGHT*MyGame.PIXEL_TO_METER, gameCam);
         turnLogOn=false;
         //Map Load
-        String mapName = getMapName();
+        String mapName = "Maps/" + getMapName();
         mapLoader = new TmxMapLoader();
         tiledMap = mapLoader.load(mapName);
         renderer = new OrthogonalTiledMapRenderer(tiledMap, 1*MyGame.PIXEL_TO_METER);
         gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
         hud= new Hud(game, this);
-        controller= new Controller(game.batch);
+        controller= new Controller(game);
 
         //box2d
         world= new World(new Vector2(0,0), true);
@@ -136,7 +135,7 @@ public abstract class GameScreen implements Screen{
         warpEvents= new Array<WarpEvent>();
         objectLoad();
         //Contact Listener
-        world.setContactListener(new WorldContactListener(game));
+        world.setContactListener(new WorldContactListener());
 
         //Gdx.input.setInputProcessor(controller.getStage());
     }

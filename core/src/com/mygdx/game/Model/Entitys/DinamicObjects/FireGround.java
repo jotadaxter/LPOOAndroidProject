@@ -16,8 +16,7 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class FireGround extends Sprite{
-    //public static final int POSX = 250;
-    //public static final int POSY = 200;
+    private GameScreen screen;
     private World world;
     private Animation<TextureRegion> fireAnimation;
     private FireGroundBody fireGroundBody;
@@ -25,18 +24,18 @@ public class FireGround extends Sprite{
 
     public FireGround(GameScreen screen, int x, int y) {
         super(screen.getAtlas().findRegion("spikes"));
+        this.screen=screen;
         this.world=screen.getWorld();
         fire_timer=0;
         fireGroundBody= new FireGroundBody(world,this,x,y);
         loadAnimation();
         setPosition(x,y);
-
     }
 
     private void loadAnimation() {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(new Texture("fire.png"), i * 16, 0, 16, 16));
+            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/fire.png", Texture.class), i * 16, 0, 16, 16));
         }
         fireAnimation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();

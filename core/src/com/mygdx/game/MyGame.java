@@ -4,7 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Model.Entitys.Hero.HeroStats;
 import com.mygdx.game.Model.States.GameState;
@@ -53,28 +55,68 @@ public class MyGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		gsm= new GameStateManager(this);
 		assetManager = new AssetManager();
 		heroStats= new HeroStats();
-		//loadTextures();
+		loadTextures();
 		loadMusic();
+		gsm= new GameStateManager(this);
 	}
 
 	private void loadMusic() {
-		assetManager.load("Game/boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
-		assetManager.load("boulder", Texture.class);
+
 	}
 
 	private void loadTextures() {
+		gameLoad();
+		fontsLoad();
+		buttonsLoad();
+		menusLoad();
+		texturePacksLoad();
+		assetManager.finishLoading();
 	}
+
+	private void texturePacksLoad() {
+		assetManager.load("Game/link_and_objects.pack", TextureAtlas.class);
+	}
+
+	private void menusLoad() {
+		assetManager.load("Menus/game_title.png", Texture.class);
+		assetManager.load("Menus/main_menu.jpg", Texture.class);
+	}
+
+	private void buttonsLoad() {
+		assetManager.load("Buttons/a_button.png", Texture.class);
+		assetManager.load("Buttons/b_button.png", Texture.class);
+		assetManager.load("Buttons/down_arrow.png", Texture.class);
+		assetManager.load("Buttons/up_arrow.png", Texture.class);
+		assetManager.load("Buttons/left_arrow.png", Texture.class);
+		assetManager.load("Buttons/right_arrow.png", Texture.class);
+		assetManager.load("Buttons/selection_button.png", Texture.class);
+		assetManager.load("Buttons/arcade_button.png", Texture.class);
+		assetManager.load("Buttons/options_menu.png", Texture.class);
+	}
+
+	private void fontsLoad() {
+		assetManager.load("Fonts/myFont.fnt", BitmapFont.class);
+		assetManager.load("Fonts/textFont.fnt", BitmapFont.class);
+	}
+
+	private void gameLoad() {
+		assetManager.load("Game/bombs.png", Texture.class);
+		assetManager.load("Game/explosion.png", Texture.class);
+		assetManager.load("Game/chests.png", Texture.class);
+		assetManager.load("Game/fire.png", Texture.class);
+		assetManager.load("Game/hero_dying.png", Texture.class);
+		assetManager.load("Game/hero_hurt.png", Texture.class);
+		assetManager.load("Game/life_hearts.png", Texture.class);
+		assetManager.load("Game/mega_pressing_plates.png", Texture.class);
+		assetManager.load("Game/moving_platform.png", Texture.class);
+		assetManager.load("Game/log.png", Texture.class);
+		assetManager.load("Game/volcano_ruby.png", Texture.class);
+		assetManager.load("Game/sign.png", Texture.class);
+		assetManager.load("Game/way_blocker.png", Texture.class);
+	}
+
 
 	@Override
 	public void render () {

@@ -29,9 +29,9 @@ public class MainMenu extends MenuScreen {
     public MainMenu(MyGame game) {
         super(game);
         stage= new Stage(viewPort,game.batch);
-        texture = new Texture(Gdx.files.internal("main_menu.jpg"));
-        title = new Texture(Gdx.files.internal("game_title.png"));
-        arcadetex =new Texture(Gdx.files.internal("arcade_button.png"));
+        texture =game.assetManager.get("Menus/main_menu.jpg", Texture.class);
+        title = game.assetManager.get("Menus/game_title.png", Texture.class);
+        arcadetex =game.assetManager.get("Buttons/arcade_button.png", Texture.class);
 
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(arcadetex));
         arcadeButton = new ImageButton(drawable);
@@ -56,8 +56,8 @@ public class MainMenu extends MenuScreen {
 
 
         if(arcadeButton.isPressed()){
-            //game.gsm.push(new FreeWorld(game));
-            game.gsm.push(new DungeonTest(game));
+            game.gsm.push(new FreeWorld(game));
+            //game.gsm.push(new DungeonTest(game));
         }
     }
 

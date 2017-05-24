@@ -14,29 +14,17 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class MovingPlatform extends Sprite {
-    /*public static final int P1_X = 272;
-    public static final int P1_Y = 48;
+    public static final float P1_X = 17;
+    public static final float P1_Y = 3;
 
-    public static final int P2_X = 48;
-    public static final int P2_Y = 48;
+    public static final float P2_X = 3;
+    public static final float P2_Y = 3;
 
-    public static final int P3_X = 48;
-    public static final int P3_Y = 176;
+    public static final float P3_X = 3;
+    public static final float P3_Y = 11;
 
-    public static final int P4_X = 272;
-    public static final int P4_Y = 176;*/
-
-    public static final int P1_X = 17;
-    public static final int P1_Y = 3;
-
-    public static final int P2_X = 3;
-    public static final int P2_Y = 3;
-
-    public static final int P3_X = 3;
-    public static final int P3_Y = 11;
-
-    public static final int P4_X = 17;
-    public static final int P4_Y = 11;
+    public static final float P4_X = 17;
+    public static final float P4_Y = 11;
     private World world;
     private TextureRegion platformTex;
     private MovingPlatformBody platformBody;
@@ -48,7 +36,6 @@ public class MovingPlatform extends Sprite {
 
     public MovingPlatform(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
-        // Setup Waypoints
         id=0;
         setPosition(x,y);
         lastPosX=x;
@@ -56,8 +43,7 @@ public class MovingPlatform extends Sprite {
         currentPosX=x;
         currentPosY=y;
         platformBody= new MovingPlatformBody(world,this,x,y);
-        platformTex = new TextureRegion(new Texture("moving_platform.png"), 0,0,32,32);
-
+        platformTex = new TextureRegion(screen.getGame().assetManager.get("Game/moving_platform.png", Texture.class), 0,0,32,32);
         setBounds(0,0,32* MyGame.PIXEL_TO_METER,32* MyGame.PIXEL_TO_METER);
         setRegion(platformTex);
     }
@@ -65,16 +51,16 @@ public class MovingPlatform extends Sprite {
     public void update(float dt){
         lastPosX=currentPosX;
         lastPosY=currentPosY;
-        if(platformBody.getBody().getPosition().y<=3.0f && platformBody.getBody().getPosition().x>=3.0f){
+        if(platformBody.getBody().getPosition().y<=P1_Y && platformBody.getBody().getPosition().x>=P2_X){
             platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY*dt,0));
         }
-        else if(platformBody.getBody().getPosition().x<=3.0f && platformBody.getBody().getPosition().y<=11.0f){
+        else if(platformBody.getBody().getPosition().x<=P2_X && platformBody.getBody().getPosition().y<=P3_Y){
             platformBody.getBody().setLinearVelocity(new Vector2(0,MyGame.PLATFORM_VELOCITY*dt));
         }
-        else if(platformBody.getBody().getPosition().y>=11.0f && platformBody.getBody().getPosition().x<=17){
+        else if(platformBody.getBody().getPosition().y>=P3_Y && platformBody.getBody().getPosition().x<=P4_X){
             platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY*dt,0));
         }
-        else if(platformBody.getBody().getPosition().x>=17.0f && platformBody.getBody().getPosition().y>=11.0f){
+        else if(platformBody.getBody().getPosition().x>=P4_X && platformBody.getBody().getPosition().y>=P1_Y){
             platformBody.getBody().setLinearVelocity(new Vector2(0,-MyGame.PLATFORM_VELOCITY*dt));
         }
         setPosition(platformBody.getBody().getPosition().x-getWidth()/2, platformBody.getBody().getPosition().y-getHeight()/2);
@@ -93,6 +79,7 @@ public class MovingPlatform extends Sprite {
     public MovingPlatformBody getPlatformBody() {
         return platformBody;
     }
+
     public float getDeltaX(){
         return currentPosX-lastPosX;
     }

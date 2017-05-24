@@ -13,6 +13,7 @@ import com.mygdx.game.Controller.Entitys.Weapons.BombBody;
 import com.mygdx.game.Controller.Entitys.Weapons.ExplosionBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 18/05/2017.
@@ -20,6 +21,7 @@ import com.mygdx.game.MyGame;
 
 public class Bomb extends Sprite{
     public static final float MAX_TIMING=2.575f;
+    private GameScreen screen;
     private Hero hero;
     private World world;
     private boolean toDestroy;
@@ -43,8 +45,9 @@ public class Bomb extends Sprite{
     private float boom_timer;
 
 
-    public Bomb(World world,Hero hero, float x, float y) {
-        this.world=world;
+    public Bomb(GameScreen screen, Hero hero, float x, float y) {
+        this.screen=screen;
+        this.world=screen.getWorld();
         this.hero=hero;
         bombBody= new BombBody(world, this, x,y);
         exBody= new ExplosionBody(world, this, x,y);
@@ -69,7 +72,7 @@ public class Bomb extends Sprite{
         frames.clear();
 
         for (int i = 0; i < 11; i++) {
-            frames.add(new TextureRegion(new Texture("explosion.png"), i * 47, 0, 47, 51));
+            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/explosion.png", Texture.class), i * 47, 0, 47, 51));
         }
         boom = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -82,8 +85,8 @@ public class Bomb extends Sprite{
     }
 
     private void textureLoad() {
-        blue= new TextureRegion(new Texture("bomb_normal.png"));
-        red= new TextureRegion(new Texture(Gdx.files.internal("bomb_red.png")));
+        blue= new TextureRegion(screen.getGame().assetManager.get("Game/bombs.png", Texture.class), 0,0,12,16);
+        red= new TextureRegion(screen.getGame().assetManager.get("Game/bombs.png", Texture.class), 12,0,12,16);
     }
 
     public void destroy() {

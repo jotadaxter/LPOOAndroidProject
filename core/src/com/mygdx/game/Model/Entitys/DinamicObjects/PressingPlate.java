@@ -15,23 +15,23 @@ import java.util.ArrayList;
 
 public class PressingPlate extends Sprite {
     private World world;
-    private int ispressed;//0 - false, >=1 - true
+    private int isPressed;//0 - false, >=1 - true
     private boolean press_and_hold;//indica se é necessário deixar algum peso em cima da placa para q funcione
     private TextureRegion pressedTex;
-    private TextureRegion notpressedTex;
+    private TextureRegion notPressedTex;
     private PressingPlateBody pressingPlateBody;
 
     public PressingPlate(GameScreen screen, int x, int y) {
         super(screen.getAtlas().findRegion("pressing_plate_not_pressed"));
         this.world=screen.getWorld();
-        ispressed=0;
+        isPressed=0;
         press_and_hold=true;
         pressingPlateBody= new PressingPlateBody(world,this,x,y);
         pressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_pressed"), 0,0,16,16);
-        notpressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_not_pressed"), 0,0,16,16);
+        notPressedTex = new TextureRegion(screen.getAtlas().findRegion("pressing_plate_not_pressed"), 0,0,16,16);
         setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
-        setRegion(notpressedTex);
+        setRegion(notPressedTex);
     }
 
     public void update(float dt, GameScreen screen){
@@ -41,15 +41,15 @@ public class PressingPlate extends Sprite {
     }
 
     public int isPressed() {
-        return ispressed;
+        return isPressed;
     }
 
     public void decIsPressed() {
-       ispressed--;
+        isPressed--;
     }
 
     public void incIsPressed() {
-        ispressed++;
+        isPressed++;
     }
 
     public TextureRegion getPressedTex(){
@@ -57,7 +57,7 @@ public class PressingPlate extends Sprite {
     }
 
     public TextureRegion getNotPressedTex(){
-        return notpressedTex;
+        return notPressedTex;
     }
 
     public boolean isPressAndHold(){

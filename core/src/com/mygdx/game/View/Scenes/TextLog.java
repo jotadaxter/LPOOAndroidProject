@@ -32,9 +32,9 @@ public class TextLog {
         this.text=text;
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, game.batch);
-        font = new BitmapFont(Gdx.files.internal("textFont.fnt"));
+        font = screen.getGame().assetManager.get("Fonts/textFont.fnt", BitmapFont.class);
 
-        logImage=new Image(new Texture(Gdx.files.internal("log.png")));
+        logImage=new Image(screen.getGame().assetManager.get("Game/log.png", Texture.class));
         logImage.setPosition(5,0);
         stage.addActor(logImage);
 

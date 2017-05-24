@@ -18,7 +18,7 @@ public class SpecialItem extends Item{
     public SpecialItem(GameScreen screen, float x, float y) {
         super(screen, x, y);
         specialItemBody=new SpecialItemBody(world,this, x,y);
-        setRegion(new TextureRegion(new Texture("volcano_ruby.png")));
+        setRegion(new TextureRegion(screen.getGame().assetManager.get("Game/volcano_ruby.png", Texture.class)));
     }
 
     @Override

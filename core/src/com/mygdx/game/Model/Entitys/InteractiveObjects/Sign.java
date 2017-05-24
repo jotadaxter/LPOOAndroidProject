@@ -37,7 +37,7 @@ public class Sign extends Sprite{
     }
 
     private void textureLoad() {
-        signTex = new TextureRegion(new Texture("sign.png"), 0,0,15,16);
+        signTex = new TextureRegion(screen.getGame().assetManager.get("Game/sign.png", Texture.class), 0,0,15,16);
     }
 
     public void update(float dt){
