@@ -109,7 +109,7 @@ public class FreeWorld extends GameScreen {
         pressingEvent= new PressingEvent(dungeon1_plates, this, 0);
 
         fireGround= new FireGround(this, 80, 20);
-/*
+
         MegaPressingPlate megapp= new MegaPressingPlate(this,60,150);
         mpps.add(megapp);
         megaPressingEvent= new PressingEvent(mpps,this);
@@ -120,7 +120,7 @@ public class FreeWorld extends GameScreen {
 
         //Items
         spawnItem(new ItemDef(new Vector2(20,80), SpecialItem.class));
-*/
+
         Chest c1= new Chest(this, 80,30);
         c1.addChestId(0);
         chests.add(c1);
@@ -144,12 +144,12 @@ public class FreeWorld extends GameScreen {
 
     @Override
     public void handleSpawningItems() {
-        /*if(!itemsToSpawn.isEmpty()){
+        if(!itemsToSpawn.isEmpty()){
             ItemDef idef= itemsToSpawn.poll();
             if(idef.type == SpecialItem.class) {
                 items.add(new SpecialItem(this, idef.position.x, idef.position.y));
             }
-        }*/
+        }
     }
 
     @Override
@@ -158,8 +158,8 @@ public class FreeWorld extends GameScreen {
             boulder.update(dt);
         for(PressingPlate pp : pps)
             pp.update(dt, this);
-        /*for(MegaPressingPlate mpp : mpps)
-            mpp.update(dt, this);*/
+        for(MegaPressingPlate mpp : mpps)
+            mpp.update(dt);
         for(WayBlocker wb : wayblocks){
             wb.update(dt);
             if(!d1blck)
@@ -170,7 +170,7 @@ public class FreeWorld extends GameScreen {
         for(Sign sign :signs)
             sign.update(dt);
         pressingEvent.update(dt);
-       // megaPressingEvent.update(dt);
+        megaPressingEvent.update(dt);
         fireGround.update(dt);
 
     }
@@ -181,8 +181,8 @@ public class FreeWorld extends GameScreen {
             wb.draw(game.batch);
         for(PressingPlate pp : pps)
             pp.draw(game.batch);
-        /*for(MegaPressingPlate mpp : mpps)
-            mpp.draw(game.batch);*/
+        for(MegaPressingPlate mpp : mpps)
+            mpp.draw(game.batch);
         for(Boulder boulder : boulders)
             boulder.draw(game.batch);
         for(Chest chest : chests)

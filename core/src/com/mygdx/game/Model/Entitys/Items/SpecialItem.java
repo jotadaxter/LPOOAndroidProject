@@ -1,6 +1,7 @@
 package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Controller.Entitys.Items.HeartBody;
@@ -14,9 +15,11 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 
 public class SpecialItem extends Item{
     private SpecialItemBody specialItemBody;
+    Sound sound;
 
     public SpecialItem(GameScreen screen, float x, float y) {
         super(screen, x, y);
+        sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_heart_container.wav"));
         specialItemBody=new SpecialItemBody(world,this, x,y);
         setRegion(new TextureRegion(screen.getGame().assetManager.get("Game/volcano_ruby.png", Texture.class)));
     }
@@ -41,6 +44,7 @@ public class SpecialItem extends Item{
     @Override
     public void update(float dt, Hero hero) {
         if(toDestroy && !destroyed){
+            sound.play();
             world.destroyBody(specialItemBody.getBody());
             destroyed=true;
             hero.addItem(this);

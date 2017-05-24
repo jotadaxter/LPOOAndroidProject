@@ -65,7 +65,6 @@ public class MyGame extends Game {
 
 	private void loads() {
 		loadTextures();
-		loadMusic();
 		loadSounds();
 	}
 
@@ -82,12 +81,6 @@ public class MyGame extends Game {
 		assetManager.load("Sounds/pressing_plate_on.wav", Sound.class);
 		assetManager.load("Sounds/pushing_boulder.wav", Sound.class);
 		assetManager.load("Sounds/secret_unlocked.wav", Sound.class);
-	}
-
-	private void loadMusic() {
-		//assetManager.load("Music/dungeon1_music.mp3", Music.class);
-		//assetManager.load("Music/hyrule_field_music.mp3", Music.class);
-		//assetManager.load("Music/tutorial_music.mp3", Music.class);
 	}
 
 	private void loadTextures() {

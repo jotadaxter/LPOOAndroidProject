@@ -1,6 +1,7 @@
 package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.Controller.Entitys.Items.JewelBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
@@ -14,10 +15,12 @@ public class Jewel extends Item {
     private int value;
     private JewelBody jewelBody;
 
+    Sound sound;
+
     public Jewel(int value, GameScreen screen, float x, float y) {
         super(screen, x, y);
         this.value=value;
-
+        sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_rupee.wav"));
         //Texture Dimentions
         if(value>1 && value<50)
             setBounds(getX(),getY(), 7*MyGame.PIXEL_TO_METER,14*MyGame.PIXEL_TO_METER);
@@ -71,6 +74,7 @@ public class Jewel extends Item {
     @Override
     public void update(float dt, Hero hero) {
         if(toDestroy && !destroyed){
+            sound.play();
             world.destroyBody(jewelBody.getBody());
             destroyed=true;
             hero.addItem(this);
