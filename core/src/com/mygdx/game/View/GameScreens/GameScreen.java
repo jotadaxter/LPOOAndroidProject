@@ -3,6 +3,7 @@ package com.mygdx.game.View.GameScreens;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -88,8 +89,9 @@ public abstract class GameScreen implements Screen{
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
     protected Array<WarpEvent> warpEvents;
     protected FireGround fireGround;
-
-
+    
+    protected Music music;
+    
     public GameScreen(MyGame game, int hero_x, int hero_y) {
         atlas=game.assetManager.get("Game/link_and_objects.pack", TextureAtlas.class);
         this.game=game;
@@ -137,8 +139,10 @@ public abstract class GameScreen implements Screen{
         //Contact Listener
         world.setContactListener(new WorldContactListener());
 
-        //Gdx.input.setInputProcessor(controller.getStage());
+        musicDefine();
     }
+
+    protected abstract void musicDefine();
 
     public abstract void objectLoad();
 
@@ -312,6 +316,10 @@ public abstract class GameScreen implements Screen{
 
     public ArrayList<MovingPlatform> getMovingPlatforms() {
         return mps;
+    }
+
+    public Music getMusic() {
+        return music;
     }
 
     /*public Pool<Bomb> getBombPool() {

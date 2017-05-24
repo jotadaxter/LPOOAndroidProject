@@ -1,6 +1,7 @@
 package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.MyGame;
 
@@ -31,6 +32,12 @@ public class DungeonTest extends GameScreen{
     public DungeonTest(MyGame game) {
         super(game, POSX, POSY);
         Gdx.input.setInputProcessor(controller.getStage());
+    }
+
+    @Override
+    protected void musicDefine() {
+        music = Gdx.audio.newMusic(Gdx.files.internal("Music/dungeon1_music.mp3"));
+        music.setLooping(true);
     }
 
     @Override

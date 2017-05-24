@@ -1,6 +1,8 @@
 package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
@@ -71,6 +73,12 @@ public class FreeWorld extends GameScreen {
     @Override
     public String getMapName() {
         return "free_world.tmx";
+    }
+
+    @Override
+    protected void musicDefine() {
+        music = Gdx.audio.newMusic(Gdx.files.internal("Music/hyrule_field_music.mp3"));
+        music.setLooping(true);
     }
 
     @Override

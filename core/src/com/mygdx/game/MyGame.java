@@ -85,9 +85,9 @@ public class MyGame extends Game {
 	}
 
 	private void loadMusic() {
-		assetManager.load("Music/dungeon1_music.mp3", Music.class);
-		assetManager.load("Music/hyrule_field_music.mp3", Music.class);
-		assetManager.load("Music/tutorial_music.mp3", Music.class);
+		//assetManager.load("Music/dungeon1_music.mp3", Music.class);
+		//assetManager.load("Music/hyrule_field_music.mp3", Music.class);
+		//assetManager.load("Music/tutorial_music.mp3", Music.class);
 	}
 
 	private void loadTextures() {

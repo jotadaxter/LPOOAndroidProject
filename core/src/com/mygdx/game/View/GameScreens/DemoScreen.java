@@ -1,6 +1,7 @@
 package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
@@ -32,6 +33,12 @@ public class DemoScreen extends GameScreen {
         type= DemoScreen.class;
         Gdx.input.setInputProcessor(controller.getStage());
 
+    }
+
+    @Override
+    protected void musicDefine() {
+        music = Gdx.audio.newMusic(Gdx.files.internal("Music/tutorial_music.mp3"));
+        music.setLooping(true);
     }
 
     @Override
