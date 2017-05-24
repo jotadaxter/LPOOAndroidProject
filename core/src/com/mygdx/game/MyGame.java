@@ -3,6 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -57,13 +59,35 @@ public class MyGame extends Game {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
 		heroStats= new HeroStats();
-		loadTextures();
-		loadMusic();
+		loads();
 		gsm= new GameStateManager(this);
 	}
 
-	private void loadMusic() {
+	private void loads() {
+		loadTextures();
+		loadMusic();
+		loadSounds();
+	}
 
+	private void loadSounds() {
+		assetManager.load("Sounds/bomb_boom.wav", Sound.class);
+		assetManager.load("Sounds/bomb_tic_tac.wav", Sound.class);
+		assetManager.load("Sounds/fire.wav", Sound.class);
+		assetManager.load("Sounds/get_chest_item.wav", Sound.class);
+		assetManager.load("Sounds/get_heart.wav", Sound.class);
+		assetManager.load("Sounds/get_heart_container.wav", Sound.class);
+		assetManager.load("Sounds/get_rupee.wav", Sound.class);
+		assetManager.load("Sounds/hero_hurt.wav", Sound.class);
+		assetManager.load("Sounds/open_chest.wav", Sound.class);
+		assetManager.load("Sounds/pressing_plate_on.wav", Sound.class);
+		assetManager.load("Sounds/pushing_boulder.wav", Sound.class);
+		assetManager.load("Sounds/secret_unlocked.wav", Sound.class);
+	}
+
+	private void loadMusic() {
+		assetManager.load("Music/dungeon1_music.mp3", Music.class);
+		assetManager.load("Music/hyrule_field_music.mp3", Music.class);
+		assetManager.load("Music/tutorial_music.mp3", Music.class);
 	}
 
 	private void loadTextures() {
