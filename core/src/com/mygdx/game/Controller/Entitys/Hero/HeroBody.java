@@ -54,6 +54,7 @@ public class HeroBody {
                 | MyGame.BOMB_BIT
                 | MyGame.PITFALL_BIT
                 | MyGame.CHEST_BIT
+                | MyGame.SMASH_BIT
                 | MyGame.SIGN_BIT
                 | MyGame.MOVING_PLATFORM_BIT
                 | MyGame.MEGA_PRESSING_PLATE_BIT

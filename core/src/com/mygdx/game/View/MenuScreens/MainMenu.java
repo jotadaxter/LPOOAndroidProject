@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.Dungeon1;
+import com.mygdx.game.View.GameScreens.FreeWorld;
 
 /**
  * Created by Utilizador on 08-05-2017.
@@ -49,6 +50,7 @@ public class MainMenu extends MenuScreen {
         game.batch.draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
         game.batch.draw(title, 180,400);
         game.batch.end();
+
         stage.draw();
 
 

@@ -32,6 +32,7 @@ public class BoulderBody {
                 | MyGame.SPIKES_BIT
                 | MyGame.HERO_BIT
                 | MyGame.WARP_OBJECT
+                | MyGame.SMASH_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.MEGA_PRESSING_PLATE_BIT
                 | MyGame.PRESSING_PLATE_BIT;

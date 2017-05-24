@@ -19,15 +19,15 @@ import com.mygdx.game.View.MenuScreens.MainMenu;
 import java.util.Stack;
 
 public class MyGame extends Game {
-    public static final int VIEWPORT_WIDTH =960;//480;//240;//GameBoy Advance settings
-    public static final int VIEWPORT_HEIGHT =640;//320;//160;
+    public static final int VIEWPORT_WIDTH =240;//GameBoy Advance settings
+    public static final int VIEWPORT_HEIGHT =160;
     public static final float PIXEL_TO_METER = 0.0625f;
     public static final float VELOCITY= 10f;
 	public static final float PLATFORM_VELOCITY= 60f;//60f;
 
 	public static final short DEFAULT_BIT =1;
 	public static final short HERO_BIT =2;
-	public static final short ENEMY_BIT =4;
+	public static final short SMASH_BIT =4;
 	public static final short ITEM_BIT =8;
 	public static final short SPIKES_BIT =16;
 	public static final short BOULDER_BIT =32;
@@ -81,6 +81,7 @@ public class MyGame extends Game {
 		assetManager.load("Sounds/pressing_plate_on.wav", Sound.class);
 		assetManager.load("Sounds/pushing_boulder.wav", Sound.class);
 		assetManager.load("Sounds/secret_unlocked.wav", Sound.class);
+		assetManager.load("Sounds/rock_shatter.wav", Sound.class);
 	}
 
 	private void loadTextures() {
@@ -132,6 +133,8 @@ public class MyGame extends Game {
 		assetManager.load("Game/volcano_ruby.png", Texture.class);
 		assetManager.load("Game/sign.png", Texture.class);
 		assetManager.load("Game/way_blocker.png", Texture.class);
+		assetManager.load("Game/door_top.png", Texture.class);
+		assetManager.load("Game/door_top2.png", Texture.class);
 	}
 
 

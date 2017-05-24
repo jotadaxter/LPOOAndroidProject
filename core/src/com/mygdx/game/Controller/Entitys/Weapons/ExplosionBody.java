@@ -3,11 +3,8 @@ package com.mygdx.game.Controller.Entitys.Weapons;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Model.Entitys.Items.Heart;
-import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
 
 /**
@@ -19,13 +16,12 @@ public class ExplosionBody {
     private World world;
     private BodyDef bdef;
     private Body body;
-    private Bomb bomb;
     private CircleShape shape;
     private FixtureDef fdef;
 
-    public ExplosionBody(World world, Bomb bomb, float x, float y) {
+
+    public ExplosionBody(World world, BombBody bombBody, float x, float y) {
         //Body Definition
-        this.bomb=bomb;
         this.world=world;
         bdef= new BodyDef();
         bdef.position.set(x* MyGame.PIXEL_TO_METER, y*MyGame.PIXEL_TO_METER);
@@ -42,18 +38,16 @@ public class ExplosionBody {
                 | MyGame.ITEM_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.SPIKES_BIT
+                | MyGame.SMASH_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape=shape;
         fdef.isSensor = true;
-        body.createFixture(fdef).setUserData(bomb);
+        body.createFixture(fdef).setUserData(this);
     }
 
     public Body getBody(){
         return body;
     }
 
-    public Bomb getBomb() {
-        return bomb;
-    }
 }

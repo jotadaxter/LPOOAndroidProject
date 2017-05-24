@@ -37,6 +37,7 @@ public class SpecialItemBody {
                 | MyGame.ITEM_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.SPIKES_BIT
+                | MyGame.SMASH_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;

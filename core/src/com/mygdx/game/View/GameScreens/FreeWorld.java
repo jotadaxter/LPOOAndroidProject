@@ -125,7 +125,7 @@ public class FreeWorld extends GameScreen {
         c1.addChestId(0);
         chests.add(c1);
 
-        Sign sign1= new Sign(this,29*16,35*16, sign1Text());
+        Sign sign1= new Sign(this,29*16+8,35*16-8, sign1Text());
         sign1.addSignId(0);
         signs.add(sign1);
 

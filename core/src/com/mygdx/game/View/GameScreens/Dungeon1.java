@@ -2,7 +2,10 @@ package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.mygdx.game.Controller.Entitys.DinamicObjects.SmashableRockBody;
+import com.mygdx.game.Controller.Entitys.TileObjects.D1TopDoor;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
+import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
 import com.mygdx.game.MyGame;
 
 /**
@@ -47,12 +50,21 @@ public class Dungeon1 extends GameScreen{
         m1.setId(0);
         mps.add(m1);
 
+        D1TopDoor topDoor1= new D1TopDoor(this,24*16+24,13*16-8,0);
+        topDoors.add(topDoor1);
+        D1TopDoor topDoor2= new D1TopDoor(this,6*16+8,34*16+24,1);
+        topDoors.add(topDoor2);
+
+        SmashableRock sm1= new SmashableRock(this,30,30);
+        smashRocks.add(sm1);
     }
 
     @Override
     public void objectsUpdate(float dt) {
         for(MovingPlatform m : mps)
             m.update(dt);
+        for(SmashableRock sm : smashRocks)
+            sm.update(dt);
     }
 
     @Override
@@ -64,6 +76,8 @@ public class Dungeon1 extends GameScreen{
     public void objectsDraw() {
         for(MovingPlatform m : mps)
             m.draw(game.batch);
+        for(SmashableRock sm : smashRocks)
+            sm.draw(game.batch);
     }
 
     @Override

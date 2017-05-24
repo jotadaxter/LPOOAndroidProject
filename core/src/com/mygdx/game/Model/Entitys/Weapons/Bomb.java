@@ -1,6 +1,7 @@
 package com.mygdx.game.Model.Entitys.Weapons;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Controller.Entitys.Weapons.BombBody;
 import com.mygdx.game.Controller.Entitys.Weapons.ExplosionBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
@@ -27,10 +29,9 @@ public class Bomb extends Sprite{
     private boolean toDestroy;
     private boolean destroyed;
     private BombBody bombBody;
-    private ExplosionBody exBody;
-    private Explosion explosion;
+    private ExplosionBody explosionBody;
 
-    public enum State {TIC_TAC, BOOM};
+    public enum State {TIC_TAC, BOOM, LAST};
     public State currentState;
     private State previousState;
 
@@ -44,24 +45,27 @@ public class Bomb extends Sprite{
     private float tic_tac_timer;
     private float boom_timer;
 
+    private Sound sound1;
+    private Sound sound2;
 
     public Bomb(GameScreen screen, Hero hero, float x, float y) {
         this.screen=screen;
         this.world=screen.getWorld();
         this.hero=hero;
         bombBody= new BombBody(world, this, x,y);
-        exBody= new ExplosionBody(world, this, x,y);
         setPosition(x,y);
         toDestroy=false;
         destroyed=false;
         timer=0;
+        explosionBody= new ExplosionBody(world,bombBody,0,0);
         tic_tac_timer=0;
         textureLoad();
         currentState=State.TIC_TAC;
         animationLoad();
         setRegion(blue);
         setBounds(0, 0, 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
-
+        sound1=Gdx.audio.newSound(Gdx.files.internal("Sounds/bomb_tic_tac.wav"));
+        sound2=Gdx.audio.newSound(Gdx.files.internal("Sounds/bomb_boom.wav"));
     }
 
     private void animationLoad() {
@@ -96,8 +100,7 @@ public class Bomb extends Sprite{
     public void update(float dt) {
         if(toDestroy && !destroyed){
             world.destroyBody(bombBody.getBody());
-            world.destroyBody(exBody.getBody());
-
+            world.destroyBody(explosionBody.getBody());
             destroyed=true;
         }
         setPosition(bombBody.getBody().getPosition().x-getWidth()/2, bombBody.getBody().getPosition().y-getHeight()/2);
@@ -117,9 +120,9 @@ public class Bomb extends Sprite{
         return bombBody.getBody();
     }
 
-    public void setposition(float x, float y){
+    public void setNewPosition(float x, float y){
         bombBody.getBody().setTransform(x,y,0);
-        exBody.getBody().setTransform(x,y,0);
+        explosionBody.getBody().setTransform(x,y,0);
     }
 
     public State getState() {
@@ -127,7 +130,11 @@ public class Bomb extends Sprite{
             hero.bombExploding=false;
             return State.TIC_TAC;
         }
-        else {
+        else if(timer>=2 && timer<=2.1){
+            hero.bombExploding=true;
+            return State.LAST;
+        }
+        else{
             hero.bombExploding=true;
             return State.BOOM;
         }
@@ -140,6 +147,13 @@ public class Bomb extends Sprite{
             case TIC_TAC: {
                 setBounds(getX(), getY(), 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
                 region = tic_tac.getKeyFrame(tic_tac_timer, true);
+                sound1.play();
+            }
+            break;
+            case LAST: {
+                setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
+                region = boom.getKeyFrame(1);
+                sound2.play();
             }
             break;
             case BOOM: {
@@ -147,6 +161,7 @@ public class Bomb extends Sprite{
                 region = boom.getKeyFrame(tic_tac_timer, false);
             }
             break;
+
         }
        tic_tac_timer=currentState == previousState ?tic_tac_timer + dt : 0;
         if(previousState==currentState){

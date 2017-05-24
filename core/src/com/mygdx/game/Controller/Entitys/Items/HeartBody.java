@@ -34,6 +34,7 @@ public class HeartBody {
         fdef.filter.categoryBits = MyGame.ITEM_BIT;
         fdef.filter.maskBits =  MyGame.HERO_BIT
                 | MyGame.ITEM_BIT
+                | MyGame.SMASH_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.SPIKES_BIT
                 | MyGame.DEFAULT_BIT

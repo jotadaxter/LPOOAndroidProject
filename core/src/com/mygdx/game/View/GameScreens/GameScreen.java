@@ -19,10 +19,12 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
+import com.mygdx.game.Controller.Entitys.TileObjects.D1TopDoor;
 import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
+import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
@@ -88,7 +90,9 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<Sign> signs;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
     protected Array<WarpEvent> warpEvents;
+    protected Array<D1TopDoor> topDoors;
     protected FireGround fireGround;
+    protected ArrayList<SmashableRock> smashRocks;
     
     protected Music music;
     
@@ -128,6 +132,8 @@ public abstract class GameScreen implements Screen{
         chests= new ArrayList<Chest>();
         signs=new ArrayList<Sign>();
         textlog=new TextLog(game,this,"");
+        topDoors= new Array<D1TopDoor>();
+        smashRocks= new ArrayList<SmashableRock>();
        /* bombPool = new Pool<Bomb>() {
             @Override
             protected Bomb newObject() {
@@ -162,6 +168,8 @@ public abstract class GameScreen implements Screen{
         player.update(dt);
         objectsUpdate(dt);
 
+        for(D1TopDoor top : topDoors)
+            top.update(dt);
 
         //Items Update
         for(Item item : items)
@@ -219,7 +227,8 @@ public abstract class GameScreen implements Screen{
         }
 
         player.draw(game.batch);
-
+        for(D1TopDoor top : topDoors)
+            top.draw(game.batch);
 
         for(Item item : items)
             item.draw(game.batch);

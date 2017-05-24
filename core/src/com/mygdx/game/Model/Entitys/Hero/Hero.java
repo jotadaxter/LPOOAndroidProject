@@ -22,8 +22,8 @@ import java.util.ArrayList;
  */
 
 public class Hero extends Sprite{
-    public static final int RESET_POSX = 44;
-    public static final int RESET_POSY = 21;
+    public static final int RESET_POSX = 8+44*16;
+    public static final int RESET_POSY = 8+21*16;
 
     //Standing Textures
     private TextureRegion standRight;
@@ -283,7 +283,7 @@ public class Hero extends Sprite{
         }
         //bomb= screen.getBombPool().obtain();
         bomb= new Bomb(screen,this,0,0);
-        bomb.setposition(xx*MyGame.PIXEL_TO_METER,yy*MyGame.PIXEL_TO_METER);
+        bomb.setNewPosition(xx*MyGame.PIXEL_TO_METER,yy*MyGame.PIXEL_TO_METER);
         bombs.add(bomb);
         addBomb=false;
     }

@@ -12,6 +12,7 @@ import com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
+import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
@@ -82,7 +83,7 @@ public class WorldContactListener implements ContactListener {
                     System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
                 }
                 break;
-            case MyGame.HERO_BIT | MyGame.BOMB_BIT:
+            /*case MyGame.HERO_BIT | MyGame.BOMB_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.BOMB_BIT){
                    if(((Bomb)fixA.getUserData()).getState()== Bomb.State.BOOM) {
                        System.out.println(((Bomb)fixA.getUserData()));
@@ -96,7 +97,7 @@ public class WorldContactListener implements ContactListener {
                         ((Hero) fixA.getUserData()).hit();
                     }
                 }
-                break;
+                break;*/
             case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
                    if(!((Hero) fixA.getUserData()).getIsInPlatform())
@@ -141,6 +142,13 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((Hero) fixA.getUserData()).setOpenedSignId(((Sign) fixB.getUserData()).getId());
                 break;
+            case  MyGame.BOMB_BIT | MyGame.SMASH_BIT:
+                if(fixA.getFilterData().categoryBits==MyGame.SMASH_BIT)
+                ((SmashableRock) fixA.getUserData()).destroy();
+            else
+                ((SmashableRock) fixB.getUserData()).destroy();
+                break;
+
 
         }
 

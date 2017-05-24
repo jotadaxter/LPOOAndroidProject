@@ -21,7 +21,6 @@ public class BombBody {
     private Body body;
     private Bomb bomb;
     private CircleShape normalShape;
-    private CircleShape explosionShape;
     private FixtureDef fdef;
 
     public BombBody(World world, Bomb bomb, float x, float y) {
@@ -30,7 +29,7 @@ public class BombBody {
         this.world=world;
         bdef= new BodyDef();
         bdef.position.set(x* MyGame.PIXEL_TO_METER, y*MyGame.PIXEL_TO_METER);
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.type = BodyDef.BodyType.StaticBody;
         bdef.linearDamping=DAMPING_NORMAL;
         body=world.createBody(bdef);
         fdef = new FixtureDef();
@@ -42,14 +41,12 @@ public class BombBody {
         fdef.filter.maskBits =  MyGame.HERO_BIT
                 | MyGame.ITEM_BIT
                 | MyGame.BOULDER_BIT
+                | MyGame.SMASH_BIT
                 | MyGame.SPIKES_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape=normalShape;
-        body.createFixture(fdef).setUserData(bomb);
-
-        explosionShape= new CircleShape();
-        explosionShape.setRadius(9*MyGame.PIXEL_TO_METER);
+        body.createFixture(fdef).setUserData(this);
     }
 
     public Body getBody(){
@@ -59,38 +56,5 @@ public class BombBody {
     public Bomb getBomb() {
         return bomb;
     }
-/*
-    public void setExplosionShape(){
-        FixtureDef explosionDef = new FixtureDef();
-        explosionDef.shape=explosionShape;
-        explosionDef.filter.categoryBits = MyGame.SPIKES_BIT;
-        explosionDef.filter.maskBits =  MyGame.HERO_BIT
-                | MyGame.ITEM_BIT
-                | MyGame.BOULDER_BIT
-                | MyGame.SPIKES_BIT
-                | MyGame.DEFAULT_BIT
-                | MyGame.PRESSING_PLATE_BIT;
-        body.createFixture(explosionDef).setUserData(bomb);
 
-    }
-    public void setNormalShape(){
-        fdef.filter.categoryBits = MyGame.DEFAULT_BIT;
-        fdef.filter.maskBits =  MyGame.HERO_BIT
-                | MyGame.ITEM_BIT
-                | MyGame.BOULDER_BIT
-                | MyGame.SPIKES_BIT
-                | MyGame.DEFAULT_BIT
-                | MyGame.PRESSING_PLATE_BIT;
-        fdef.shape.setRadius(4*MyGame.PIXEL_TO_METER);
-        body.createFixture(fdef).setUserData(bomb);
-    }
-    public void incRadius(){
-        fdef.shape.setRadius(15*MyGame.PIXEL_TO_METER);
-        body.createFixture(fdef);
-    }
-    public void decRadius(){
-
-        fdef.shape.setRadius(4*MyGame.PIXEL_TO_METER);
-        body.createFixture(fdef);
-    }*/
 }
