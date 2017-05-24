@@ -8,12 +8,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.DungeonTest;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 
@@ -24,8 +22,8 @@ import java.util.ArrayList;
  */
 
 public class Hero extends Sprite{
-    public static final int RESET_POSX = 8+16*16;
-    public static final int RESET_POSY = 8+5;
+    public static final int RESET_POSX = 44;
+    public static final int RESET_POSY = 21;
 
     //Standing Textures
     private TextureRegion standRight;
@@ -146,7 +144,7 @@ public class Hero extends Sprite{
 
     public void update(float dt){
         if(fell){
-            heroBody.b2body.setTransform(16.5f , 1, 0);
+            heroBody.b2body.setTransform(RESET_POSX , RESET_POSY, 0);
             fell=false;
         }
       else setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);

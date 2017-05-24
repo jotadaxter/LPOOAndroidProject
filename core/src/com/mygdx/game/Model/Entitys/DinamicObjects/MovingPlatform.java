@@ -16,17 +16,17 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class MovingPlatform extends Sprite {
-    public static final float P1_X = 17;
-    public static final float P1_Y = 3;
+    public static final float P1_X = 45*16;//17;
+    public static final float P1_Y = 23*16;//3;
 
-    public static final float P2_X = 3;
-    public static final float P2_Y = 3;
+    public static final float P2_X = 30*16;
+    public static final float P2_Y = 23*16;
 
-    public static final float P3_X = 3;
-    public static final float P3_Y = 11;
+    public static final float P3_X = 30*16;
+    public static final float P3_Y = 31*16;
 
-    public static final float P4_X = 17;
-    public static final float P4_Y = 11;
+    public static final float P4_X = 45*16;
+    public static final float P4_Y = 31*16;
     private World world;
     private TextureRegion platformTex;
     private MovingPlatformBody platformBody;
@@ -55,24 +55,19 @@ public class MovingPlatform extends Sprite {
     }
 
     public void update(float dt){
-        lastPosX=currentPosX;
-        lastPosY=currentPosY;
-        if(platformBody.getBody().getPosition().y<=P1_Y && platformBody.getBody().getPosition().x>=P2_X){
+        if(platformBody.getBody().getPosition().y<=23 && platformBody.getBody().getPosition().x>=31){
             platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY*dt,0));
         }
-        else if(platformBody.getBody().getPosition().x<=P2_X && platformBody.getBody().getPosition().y<=P3_Y){
+        else if(platformBody.getBody().getPosition().x<=31 && platformBody.getBody().getPosition().y<=31){
             platformBody.getBody().setLinearVelocity(new Vector2(0,MyGame.PLATFORM_VELOCITY*dt));
         }
-        else if(platformBody.getBody().getPosition().y>=P3_Y && platformBody.getBody().getPosition().x<=P4_X){
+        else if(platformBody.getBody().getPosition().y>=31 && platformBody.getBody().getPosition().x<=45){
             platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY*dt,0));
         }
-        else if(platformBody.getBody().getPosition().x>=P4_X && platformBody.getBody().getPosition().y>=P1_Y){
+        else if(platformBody.getBody().getPosition().x>=45 && platformBody.getBody().getPosition().y>=23){
             platformBody.getBody().setLinearVelocity(new Vector2(0,-MyGame.PLATFORM_VELOCITY*dt));
         }
         setPosition(platformBody.getBody().getPosition().x-getWidth()/2, platformBody.getBody().getPosition().y-getHeight()/2);
-        currentPosX=platformBody.getBody().getPosition().x;
-        currentPosY=platformBody.getBody().getPosition().y;
-
     }
 
     public int getId() {

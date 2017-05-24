@@ -9,16 +9,16 @@ import com.mygdx.game.MyGame;
  * Created by Utilizador on 20-05-2017.
  */
 
-public class DungeonTest extends GameScreen{
+public class Dungeon1 extends GameScreen{
     //Hero Info
-    public static final int POSX = 8+16*16;
-    public static final int POSY = 8+5;
+    public static final int POSX = 8+3*16;
+    public static final int POSY = 8+3*16;
 
-    public static final int MOV_PLAT_X = 16+16*16;
-    public static final int MOV_PLAT_Y = 16+16*2;
+    public static final int MOV_PLAT_X = 16+16*45;
+    public static final int MOV_PLAT_Y = 16+16*33;
 
-    public static final int P1_X = 17*16;
-    public static final int P1_Y = 16*3;
+    public static final int P1_X = 45*16;
+    public static final int P1_Y = 16*23;
 
     public static final int P2_X = 3*16;
     public static final int P2_Y = 16*3;
@@ -29,7 +29,7 @@ public class DungeonTest extends GameScreen{
     public static final int P4_X = 17*16;
     public static final int P4_Y = 16*11;
 
-    public DungeonTest(MyGame game) {
+    public Dungeon1(MyGame game) {
         super(game, POSX, POSY);
         Gdx.input.setInputProcessor(controller.getStage());
     }
@@ -68,6 +68,6 @@ public class DungeonTest extends GameScreen{
 
     @Override
     public String getMapName() {
-        return "platform_test.tmx";
+        return "first_dungeon.tmx";
     }
 }
