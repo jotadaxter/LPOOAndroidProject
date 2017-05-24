@@ -1,5 +1,7 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -21,12 +23,16 @@ public class FireGround extends Sprite{
     private Animation<TextureRegion> fireAnimation;
     private FireGroundBody fireGroundBody;
     private float fire_timer;
+    private Sound sound;
 
     public FireGround(GameScreen screen, int x, int y) {
         super(screen.getAtlas().findRegion("spikes"));
         this.screen=screen;
         this.world=screen.getWorld();
         fire_timer=0;
+        sound= Gdx.audio.newSound(Gdx.files.internal("Sounds/fire.wav"));
+        sound.loop();
+        sound.play();
         fireGroundBody= new FireGroundBody(world,this,x,y);
         loadAnimation();
         setPosition(x,y);

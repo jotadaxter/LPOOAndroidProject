@@ -1,5 +1,7 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +23,8 @@ public class MegaPressingPlate extends Sprite {
     private TextureRegion pressedTex;
     private TextureRegion notpressedTex;
     private MegaPressingPlateBody megaPressingPlateBody;
+    private Sound sound1;
+    private Sound sound2;
 
     public MegaPressingPlate(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
@@ -32,6 +36,8 @@ public class MegaPressingPlate extends Sprite {
         setPosition(x,y);
         setBounds(0,0,64* MyGame.PIXEL_TO_METER,64* MyGame.PIXEL_TO_METER);
         setRegion(notpressedTex);
+        sound1=  Gdx.audio.newSound(Gdx.files.internal("Sounds/pressing_plate_on.wav"));
+        sound2=  Gdx.audio.newSound(Gdx.files.internal("Sounds/lever.wav"));
     }
 
     public void textureLoad(){
@@ -50,10 +56,16 @@ public class MegaPressingPlate extends Sprite {
 
     public void decIsPressed() {
         ispressed--;
+        if(isPressed()<2){
+            sound2.play();
+        }
     }
 
     public void incIsPressed() {
         ispressed++;
+        if(isPressed()>=2){
+            sound1.play();
+        }
     }
 
     public TextureRegion getPressedTex(){

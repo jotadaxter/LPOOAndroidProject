@@ -1,5 +1,7 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,6 +35,7 @@ public class MovingPlatform extends Sprite {
     public float lastPosY;
     public float currentPosX;
     public float currentPosY;
+    private Sound sound;
 
     public MovingPlatform(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
@@ -40,6 +43,9 @@ public class MovingPlatform extends Sprite {
         setPosition(x,y);
         lastPosX=x;
         lastPosY=y;
+        sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/moving_platform.wav"));
+        sound.loop();
+        sound.play();
         currentPosX=x;
         currentPosY=y;
         platformBody= new MovingPlatformBody(world,this,x,y);
@@ -66,6 +72,7 @@ public class MovingPlatform extends Sprite {
         setPosition(platformBody.getBody().getPosition().x-getWidth()/2, platformBody.getBody().getPosition().y-getHeight()/2);
         currentPosX=platformBody.getBody().getPosition().x;
         currentPosY=platformBody.getBody().getPosition().y;
+
     }
 
     public int getId() {

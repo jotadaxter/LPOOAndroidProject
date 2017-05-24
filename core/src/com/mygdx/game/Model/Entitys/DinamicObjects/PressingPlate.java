@@ -1,5 +1,7 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
@@ -20,6 +22,8 @@ public class PressingPlate extends Sprite {
     private TextureRegion pressedTex;
     private TextureRegion notPressedTex;
     private PressingPlateBody pressingPlateBody;
+    private Sound sound1;
+    private Sound sound2;
 
     public PressingPlate(GameScreen screen, int x, int y) {
         super(screen.getAtlas().findRegion("pressing_plate_not_pressed"));
@@ -32,12 +36,15 @@ public class PressingPlate extends Sprite {
         setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(notPressedTex);
+        sound1=  Gdx.audio.newSound(Gdx.files.internal("Sounds/pressing_plate_on.wav"));
+        sound2=  Gdx.audio.newSound(Gdx.files.internal("Sounds/lever.wav"));
     }
 
     public void update(float dt, GameScreen screen){
         setPosition(pressingPlateBody.getBody().getPosition().x-getWidth()/2, pressingPlateBody.getBody().getPosition().y-getHeight()/2);
         setRegion(pressingPlateBody.getFrame(this,dt));
-
+        if(isPressed>=1){
+        }
     }
 
     public int isPressed() {
@@ -46,10 +53,16 @@ public class PressingPlate extends Sprite {
 
     public void decIsPressed() {
         isPressed--;
+        if(isPressed()<1){
+            sound2.play();
+        }
     }
 
     public void incIsPressed() {
         isPressed++;
+        if(isPressed()>=1){
+            sound1.play();
+        }
     }
 
     public TextureRegion getPressedTex(){

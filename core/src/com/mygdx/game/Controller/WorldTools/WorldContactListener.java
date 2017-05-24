@@ -192,25 +192,21 @@ public class WorldContactListener implements ContactListener {
                 break;
             case MyGame.HERO_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT) {
-                    if (((MegaPressingPlate) fixA.getUserData()).isPressAndHold() && ((MegaPressingPlate) fixA.getUserData()).isPressed()>1)
-                        ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
+                    ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
                     System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
                 }
                 else{
-                    if (((MegaPressingPlate) fixB.getUserData()).isPressAndHold() && ((MegaPressingPlate) fixB.getUserData()).isPressed()>1)
-                        ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
+                    ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
                     System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
                 }
                 break;
             case MyGame.BOULDER_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
                 if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT) {
-                    if (((MegaPressingPlate) fixA.getUserData()).isPressAndHold() && ((MegaPressingPlate) fixA.getUserData()).isPressed()>2)
-                        ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
+                    ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
                     System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
                 }
                 else{
-                    if (((MegaPressingPlate) fixB.getUserData()).isPressAndHold() && ((MegaPressingPlate) fixB.getUserData()).isPressed()>2)
-                        ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
+                    ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
                     System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
                 }
                 break;

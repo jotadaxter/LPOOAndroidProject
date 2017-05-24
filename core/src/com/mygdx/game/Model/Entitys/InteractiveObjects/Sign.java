@@ -1,5 +1,7 @@
 package com.mygdx.game.Model.Entitys.InteractiveObjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,6 +25,7 @@ public class Sign extends Sprite{
     private boolean openLog;
     private int id;
     private String text;
+    private Sound sound;
 
     public Sign(GameScreen screen, int x, int y, String text) {
         this.world=screen.getWorld();
@@ -30,6 +33,7 @@ public class Sign extends Sprite{
         this.text=text;
         signBody= new SignBody(world,this,x,y);
         openLog=false;
+        sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/open_chest.wav"));
         textureLoad();
         setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
@@ -45,18 +49,16 @@ public class Sign extends Sprite{
         if(openLog){
             screen.setTurnLogOn(true);
                 logDisplay();
-            System.out.println("Log display on");
         }
         else {
             screen.setTurnLogOn(false);
-            System.out.println("Log display off");
         }
 
     }
 
     private void logDisplay() {
+        sound.play();
         screen.getTextLog().setText(text);
-        System.out.println("Log display on");
     }
 
     public void setOpenLog(boolean var) {

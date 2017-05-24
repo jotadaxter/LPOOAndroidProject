@@ -1,12 +1,12 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Controller.Entitys.DinamicObjects.SpikesBody;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.WayBlockerBody;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -21,6 +21,7 @@ public class WayBlocker extends Sprite{
     private boolean toDestroy;
     private boolean destroyed;
     private WayBlockerBody wayBlockerBody;
+    private Sound sound;
 
     public WayBlocker(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
@@ -31,6 +32,7 @@ public class WayBlocker extends Sprite{
         setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(blockFigure);
+        sound=Gdx.audio.newSound(Gdx.files.internal("Sounds/secret.wav"));
     }
 
     public void destroy(){
@@ -40,6 +42,7 @@ public class WayBlocker extends Sprite{
 
     public void update(float dt){
         if(toDestroy && !destroyed){
+            sound.play();
             world.destroyBody(wayBlockerBody.getBody());
             destroyed=true;
         }

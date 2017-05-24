@@ -1,6 +1,7 @@
 package com.mygdx.game.Model.Entitys.Hero;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -61,6 +62,10 @@ public class Hero extends Sprite{
     private boolean wasHit;
     private boolean fell;
 
+    private Sound soundFalling;
+    private Sound soundHurt;
+    private Sound soundDying;
+
     public Hero(GameScreen screen, int x, int y){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
@@ -88,15 +93,16 @@ public class Hero extends Sprite{
         heroAnimations(screen);
 
         //Hero Definition
-        heroBody = new HeroBody(world, this,x,y);
+        heroBody = new HeroBody(screen, this,x,y);
 
         standLeft = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
         standBack = new TextureRegion(screen.getAtlas().findRegion("hero_back"), 1, 1, 16, 21);
         standFront = new TextureRegion(screen.getAtlas().findRegion("hero_front"), 1, 1, 17, 22);
-        standRight=new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
+        standRight = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
         standRight.flip(true, false);
         setBounds(0, 0, 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
-        //setRegion(standFront);
+        soundHurt=  Gdx.audio.newSound(Gdx.files.internal("Sounds/hero_hurt.wav"));
+        soundDying=  Gdx.audio.newSound(Gdx.files.internal("Sounds/hero_dying.wav"));
     }
 
     private void heroAnimations(GameScreen screen) {
@@ -144,7 +150,6 @@ public class Hero extends Sprite{
             fell=false;
         }
       else setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
-
         setRegion(heroBody.getFrame(this,dt));
         if(!addBomb)
             bombCount+=dt;
@@ -357,4 +362,11 @@ public class Hero extends Sprite{
         this.platformId = platformId;
     }
 
+    public Sound getSoundHurt() {
+        return soundHurt;
+    }
+
+    public Sound getSoundDying() {
+        return soundDying;
+    }
 }

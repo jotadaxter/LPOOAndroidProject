@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 28/04/2017.
@@ -19,24 +20,26 @@ import com.mygdx.game.MyGame;
 public class HeroBody {
     public static final float DAMPING_NORMAL= 3f;
     public static final float DAMPING_ICE=0.5f;
+    private GameScreen screen;
     public boolean isInIce;
     public Body b2body;
     private FixtureDef fdef;
     private Hero hero;
 
-    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, DYING};
+    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, GAME_OVER, DYING};
     public State currentState;
     public State previousState;
 
-    public HeroBody(World world, Hero hero, int x, int y) {
+    public HeroBody(GameScreen screen, Hero hero, int x, int y) {
         currentState = State.STAND_DOWN;
         previousState = State.STAND_DOWN;
+        this.screen=screen;
         this.hero=hero;
         BodyDef bdef =  new BodyDef();
         bdef.position.set(x*MyGame.PIXEL_TO_METER,y*MyGame.PIXEL_TO_METER);
         bdef.type=BodyDef.BodyType.DynamicBody;
         bdef.linearDamping=DAMPING_NORMAL;
-        b2body=world.createBody(bdef);
+        b2body=screen.getWorld().createBody(bdef);
         //b2body.setGravityScale(0);
 
         fdef = new FixtureDef();
@@ -101,7 +104,10 @@ public class HeroBody {
 
     public State getState() {
         if(hero.getHealth()==0){
+            screen.getGame().heroStats.setHearts(-1);
             return State.DYING;
+        }else if(hero.getHealth()<0){
+            return State.GAME_OVER;
         }
         else if(hero.getWasHit()){
             return State.HURT;
@@ -147,10 +153,17 @@ public class HeroBody {
             case HURT:{
                 hero.setBounds(hero.getX(), hero.getY(), 31 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
                 region = hero.heroHurt.getKeyFrame(hero.upDownTimer, false);
+                hero.getSoundHurt().play();
                 hero.setWasHit(false);
             }
             break;
             case DYING:{
+                hero.getSoundDying().play();
+                hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
+                region=hero.heroDying.getKeyFrame(1);
+            }
+            break;
+            case GAME_OVER:{
                 hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
                 region = hero.heroDying.getKeyFrame(hero.upDownTimer, false);
             }

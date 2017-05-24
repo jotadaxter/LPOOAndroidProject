@@ -1,5 +1,7 @@
 package com.mygdx.game.Model.Entitys.InteractiveObjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,6 +12,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Utilizador on 21-05-2017.
@@ -28,10 +31,14 @@ public class Chest extends Sprite{
     private boolean isOpen;
     private int dropLoot;
     private int id;
+    private Sound sound1;
+    private Sound sound2;
 
     public Chest(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
         this.screen=screen;
+        sound1=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_chest_item.wav"));
+        sound2=  Gdx.audio.newSound(Gdx.files.internal("Sounds/open_chest.wav"));
         chestBody= new ChestBody(world,this,x,y);
         isOpen=false;
         dropLoot=0;
@@ -50,7 +57,14 @@ public class Chest extends Sprite{
         setPosition(chestBody.getBody().getPosition().x-getWidth()/2, chestBody.getBody().getPosition().y-getHeight()/2);
         setRegion(chestBody.getFrame(dt));
         if(dropLoot==1){
+            sound2.play();
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             loot();
+            sound1.play();
             dropLoot=2;
         }
     }
@@ -70,8 +84,6 @@ public class Chest extends Sprite{
             screen.getHero().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }
-
-
     }
 
     public TextureRegion getClosedTex() {
