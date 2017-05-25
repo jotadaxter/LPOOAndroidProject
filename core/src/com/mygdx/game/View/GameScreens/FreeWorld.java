@@ -108,7 +108,7 @@ public class FreeWorld extends GameScreen {
         pps.add(pp3);
         pressingEvent= new PressingEvent(dungeon1_plates, this, 0);
 
-        fireGround= new FireGround(this, 80, 20);
+
 
         MegaPressingPlate megapp= new MegaPressingPlate(this,60,150);
         mpps.add(megapp);
@@ -171,7 +171,7 @@ public class FreeWorld extends GameScreen {
             sign.update(dt);
         pressingEvent.update(dt);
         megaPressingEvent.update(dt);
-        fireGround.update(dt);
+
 
     }
 
@@ -189,7 +189,6 @@ public class FreeWorld extends GameScreen {
             chest.draw(game.batch);
         for(Sign sign :signs)
             sign.draw(game.batch);
-        fireGround.draw(game.batch);
     }
 
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.SmashableRockBody;
 import com.mygdx.game.Controller.Entitys.TileObjects.D1TopDoor;
+import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
 import com.mygdx.game.MyGame;
@@ -55,8 +56,21 @@ public class Dungeon1 extends GameScreen{
         D1TopDoor topDoor2= new D1TopDoor(this,6*16+8,34*16+24,1);
         topDoors.add(topDoor2);
 
+        //Smashable Rocks
         SmashableRock sm1= new SmashableRock(this,30,30);
         smashRocks.add(sm1);
+
+        //Fireground
+        fireGroundLoad();
+
+    }
+
+    private void fireGroundLoad() {
+        for(int i =0; i<8;i++){
+            FireGround fg1= new FireGround(this,456+i*16, 232);
+            fireGrounds.add(fg1);
+        }
+
     }
 
     @Override
@@ -65,6 +79,8 @@ public class Dungeon1 extends GameScreen{
             m.update(dt);
         for(SmashableRock sm : smashRocks)
             sm.update(dt);
+        for(FireGround fg : fireGrounds)
+            fg.update(dt);
     }
 
     @Override
@@ -78,6 +94,8 @@ public class Dungeon1 extends GameScreen{
             m.draw(game.batch);
         for(SmashableRock sm : smashRocks)
             sm.draw(game.batch);
+        for(FireGround fg : fireGrounds)
+            fg.draw(game.batch);
     }
 
     @Override

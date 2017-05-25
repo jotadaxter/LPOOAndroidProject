@@ -91,7 +91,7 @@ public abstract class GameScreen implements Screen{
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
     protected Array<WarpEvent> warpEvents;
     protected Array<D1TopDoor> topDoors;
-    protected FireGround fireGround;
+    protected ArrayList<FireGround> fireGrounds;
     protected ArrayList<SmashableRock> smashRocks;
     
     protected Music music;
@@ -134,6 +134,7 @@ public abstract class GameScreen implements Screen{
         textlog=new TextLog(game,this,"");
         topDoors= new Array<D1TopDoor>();
         smashRocks= new ArrayList<SmashableRock>();
+        fireGrounds= new ArrayList<FireGround>();
        /* bombPool = new Pool<Bomb>() {
             @Override
             protected Bomb newObject() {
