@@ -10,6 +10,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
+import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.Items.ItemDef;
 import com.mygdx.game.Model.Entitys.Items.SpecialItem;
@@ -45,48 +46,59 @@ public class Dungeon1 extends GameScreen{
     public Dungeon1(MyGame game) {
         super(game, 8+12*16, 8+21*16);
         Gdx.input.setInputProcessor(controller.getStage());
+        d1blck=true;
     }
 
     @Override
     protected void musicDefine() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/dungeon1_music.mp3"));
         music.setLooping(true);
+        music.setVolume(1f);
     }
 
     @Override
     public void objectLoad() {
+        D1TopDoor topDoor1= new D1TopDoor(this,6*16+8,34*16+24,1);
+        topDoors.add(topDoor1);
+        //Moving Platforms
+        movingPlatformsLoad();
+        //Smashable Rocks
+        smashRockLoad();
+        //Fireground
+        fireGroundLoad();
+        //Chests
+        chestsLoad();
+        //Items
+        itemsLoad();
+        //PressingPlates
+        pressingPlatesLoad();
+        //Boulders
+        boulderLoad();
+    }
 
+    private void movingPlatformsLoad() {
         MovingPlatform m1= new MovingPlatform(this, P1_X,P1_Y);
         m1.setId(0);
         mps.add(m1);
+    }
 
-        D1TopDoor topDoor1= new D1TopDoor(this,6*16+8,34*16+24,1);
-        topDoors.add(topDoor1);
-
-        //Smashable Rocks
-        smashRockLoad();
-
-        //Fireground
-        fireGroundLoad();
-
-        //Chests
-        chestsLoad();
-
-        //Items
-        itemsLoad();
-
-        //PressingPlates
-        pressingPlatesLoad();
+    private void boulderLoad() {
+        Boulder boulder1= new Boulder(this,8+10*16, 8+22*16);
+        boulders.add(boulder1);
+        Boulder boulder2= new Boulder(this,8+11*16, 8+22*16);
+        boulders.add(boulder2);
+        Boulder boulder3= new Boulder(this,8+17*16, 8+22*16);
+        boulders.add(boulder3);
+        WayBlocker wb =  new WayBlocker(this,8+6*16,8+33*16,1);
+        wayblocks.add(wb);
     }
 
     private void pressingPlatesLoad() {
-        MegaPressingPlate megapp= new MegaPressingPlate(this,60,150);
-        mpps.add(megapp);
+        MegaPressingPlate megapp1= new MegaPressingPlate(this,4*16+8,23*16+8);
+        mpps.add(megapp1);
+        MegaPressingPlate megapp2= new MegaPressingPlate(this,18*16+8,29*16+8);
+        mpps.add(megapp2);
         megaPressingEvent= new PressingEvent(mpps,this);
-        Boulder boulder3= new Boulder(this,60, 100);
-        boulders.add(boulder3);
-        Boulder boulder4= new Boulder(this,30, 100);
-        boulders.add(boulder4);
     }
 
     private void itemsLoad() {
@@ -98,40 +110,37 @@ public class Dungeon1 extends GameScreen{
         c1.addChestId(0);
         chests.add(c1);
         Chest c2= new Chest(this, 8+21*16,8+3*16);
-        c1.addChestId(1);
+        c2.addChestId(1);
         chests.add(c2);
-
         Chest c3= new Chest(this, 8+46*16,8+3*16);
-        c1.addChestId(2);
+        c3.addChestId(2);
         chests.add(c3);
-
         Chest c4= new Chest(this, 8+47*16,8+31*16);
-        c1.addChestId(3);
+        c4.addChestId(3);
         chests.add(c4);
-
         Chest c5= new Chest(this, 8+20*16,8+23*16);
-        c1.addChestId(4);
+        c5.addChestId(4);
         chests.add(c5);
         Chest c6= new Chest(this, 8+12*16,8+31*16);
-        c1.addChestId(5);
+        c6.addChestId(5);
         chests.add(c6);
         Chest c7= new Chest(this, 8+5*16,8+43*16);
-        c1.addChestId(6);
+        c7.addChestId(6);
         chests.add(c7);
         Chest c8= new Chest(this, 8+45*16,8+39*16);
-        c1.addChestId(7);
+        c8.addChestId(7);
         chests.add(c8);
         Chest c9= new Chest(this, 8+46*16,8+39*16);
-        c1.addChestId(8);
+        c9.addChestId(8);
         chests.add(c9);
         Chest c10= new Chest(this, 8+47*16,8+39*16);
-        c1.addChestId(9);
+        c10.addChestId(9);
         chests.add(c10);
         Chest c11= new Chest(this, 8+19*16,8+43*16);
-        c1.addChestId(10);
+        c11.addChestId(10);
         chests.add(c11);
         Chest c12= new Chest(this, 8+37*16,8+43*16);
-        c1.addChestId(11);
+        c12.addChestId(11);
         chests.add(c12);
     }
 
@@ -248,12 +257,21 @@ public class Dungeon1 extends GameScreen{
 
     @Override
     public void objectsUpdate(float dt) {
+        for(MegaPressingPlate mpp : mpps)
+            mpp.update(dt);
         for(MovingPlatform m : mps)
             m.update(dt);
         for(SmashableRock sm : smashRocks)
             sm.update(dt);
         for(FireGround fg : fireGrounds)
             fg.update(dt);
+        for(WayBlocker wb : wayblocks){
+            wb.update(dt);
+            if(!d1blck)
+                wb.destroy();
+        }
+        for(Boulder boulder : boulders)
+            boulder.update(dt);
         for(Chest chest : chests)
             chest.update(dt);
         megaPressingEvent.update(dt);
@@ -271,16 +289,21 @@ public class Dungeon1 extends GameScreen{
 
     @Override
     public void objectsDraw() {
+        for(WayBlocker wb : wayblocks)
+            wb.draw(game.batch);
         for(MovingPlatform m : mps)
             m.draw(game.batch);
+        for(MegaPressingPlate mpp : mpps)
+            mpp.draw(game.batch);
         for(SmashableRock sm : smashRocks)
             sm.draw(game.batch);
         for(FireGround fg : fireGrounds)
             fg.draw(game.batch);
         for(Chest chest : chests)
             chest.draw(game.batch);
-        for(MegaPressingPlate mpp : mpps)
-            mpp.draw(game.batch);
+        for(Boulder boulder : boulders)
+            boulder.draw(game.batch);
+
     }
 
     @Override

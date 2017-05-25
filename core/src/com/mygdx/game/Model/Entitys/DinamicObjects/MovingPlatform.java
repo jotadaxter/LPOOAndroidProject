@@ -32,14 +32,14 @@ public class MovingPlatform extends Sprite {
     private MovingPlatformBody platformBody;
     private int id;
     private Sound sound;
+    private int soundTimer;
 
     public MovingPlatform(GameScreen screen, int x, int y) {
         this.world = screen.getWorld();
         id = 0;
         setPosition(x, y);
         sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/moving_platform.wav"));
-        sound.loop();
-        sound.play();
+        soundTimer=0;
         platformBody = new MovingPlatformBody(world, this, x, y);
         platformTex = new TextureRegion(screen.getGame().assetManager.get("Game/moving_platform.png", Texture.class), 0, 0, 32, 32);
         setBounds(0, 0, 32 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
@@ -47,6 +47,10 @@ public class MovingPlatform extends Sprite {
     }
 
     public void update(float dt) {
+        if(soundTimer>6){
+            sound.play();
+            soundTimer=0;
+        }
         if (platformBody.getBody().getPosition().y <= 23 && platformBody.getBody().getPosition().x >= 31) {
             platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
         } else if (platformBody.getBody().getPosition().x <= 31 && platformBody.getBody().getPosition().y <= 31) {
@@ -57,6 +61,7 @@ public class MovingPlatform extends Sprite {
             platformBody.getBody().setLinearVelocity(new Vector2(0, -MyGame.PLATFORM_VELOCITY * dt));
         }
         setPosition(platformBody.getBody().getPosition().x - getWidth() / 2, platformBody.getBody().getPosition().y - getHeight() / 2);
+        soundTimer+=dt;
     }
 
     public int getId() {

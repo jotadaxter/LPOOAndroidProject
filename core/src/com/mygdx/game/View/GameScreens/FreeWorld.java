@@ -58,7 +58,6 @@ public class FreeWorld extends GameScreen {
     public static final int DUNGEON1_DOOR_ID=3;
 
     private PressingEvent pressingEvent;
-    private ArrayList<PressingPlate> dungeon1_plates;
 
     public FreeWorld(MyGame game) {
         super(game, POSX, POSY);
@@ -78,21 +77,47 @@ public class FreeWorld extends GameScreen {
     protected void musicDefine() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/hyrule_field_music.mp3"));
         music.setLooping(true);
+        music.setVolume(5f);
     }
 
     @Override
     public void objectLoad() {
-        WayBlocker wb =  new WayBlocker(this,WB1_X,WB1_Y);
-        wayblocks.add(wb);
-        WayBlocker wb2 =  new WayBlocker(this,WB2_X,WB2_Y);
-        wayblocks.add(wb2);
-        WayBlocker wb3 =  new WayBlocker(this,WB3_X,WB3_Y);
-        wayblocks.add(wb3);
-        Boulder boulder1= new Boulder(this,BOULDER1_X, BOULDER1_Y);
-        boulders.add(boulder1);
-        Boulder boulder2= new Boulder(this,BOULDER2_X, BOULDER2_Y);
-        boulders.add(boulder2);
+        Sign sign1= new Sign(this,29*16+8,35*16-8, sign1Text());
+        sign1.addSignId(0);
+        signs.add(sign1);
+        //Chests
+        chestsLoad();
+        //PressingPlates
+        pressingPlatesLoad();
+        //Boulders and WayBlockers
+        boulderLoad();
+    }
 
+    private void chestsLoad() {//7chests
+        Chest c1= new Chest(this, 8+32*16,8+2*16);
+        c1.addChestId(0);
+        chests.add(c1);
+        Chest c2= new Chest(this, 8+29*16,8+19*16);
+        c2.addChestId(1);
+        chests.add(c2);
+        Chest c3= new Chest(this, 8+30*16,8+19*16);
+        c3.addChestId(2);
+        chests.add(c3);
+        Chest c4= new Chest(this, 8+26*16,8+30*16);
+        c4.addChestId(3);
+        chests.add(c4);
+        Chest c5= new Chest(this, 8+22*16,8+52*16);
+        c5.addChestId(4);
+        chests.add(c5);
+        Chest c6= new Chest(this, 8+26*16,8+52*16);
+        c6.addChestId(5);
+        chests.add(c6);
+        Chest c7= new Chest(this, 8+1*16,8+25*16);
+        c7.addChestId(6);
+        chests.add(c7);
+    }
+
+    private void pressingPlatesLoad() {
         PressingPlate pp1= new PressingPlate(this, PP1_X, PP1_Y);
         PressingPlate pp2= new PressingPlate(this, PP2_X, PP2_Y);
         PressingPlate pp3= new PressingPlate(this, PP3_X, PP3_Y);
@@ -106,27 +131,26 @@ public class FreeWorld extends GameScreen {
         pps.add(pp2);
         pps.add(pp3);
         pressingEvent= new PressingEvent(dungeon1_plates, this, 0);
+    }
 
-
-
-
-
-
-        Chest c1= new Chest(this, 80,30);
-        c1.addChestId(0);
-        chests.add(c1);
-
-        Sign sign1= new Sign(this,29*16+8,35*16-8, sign1Text());
-        sign1.addSignId(0);
-        signs.add(sign1);
-
+    private void boulderLoad() {
+        WayBlocker wb =  new WayBlocker(this,WB1_X,WB1_Y,0);
+        wayblocks.add(wb);
+        WayBlocker wb2 =  new WayBlocker(this,WB2_X,WB2_Y,0);
+        wayblocks.add(wb2);
+        WayBlocker wb3 =  new WayBlocker(this,WB3_X,WB3_Y,0);
+        wayblocks.add(wb3);
+        Boulder boulder1= new Boulder(this,BOULDER1_X, BOULDER1_Y);
+        boulders.add(boulder1);
+        Boulder boulder2= new Boulder(this,BOULDER2_X, BOULDER2_Y);
+        boulders.add(boulder2);
     }
 
     private String sign1Text() {
         String text=   "XXX     XXX\n"+
                 "X1X      X2X\n"+
                 "XXX     XXX\n"+
-                "     423   \n"+
+                "      423  \n"+
                 "XXX     XXX\n"+
                 "X3 X     X4 X\n"+
                 "XXX     XXX\n";

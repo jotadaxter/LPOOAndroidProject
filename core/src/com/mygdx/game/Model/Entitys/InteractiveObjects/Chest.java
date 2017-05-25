@@ -53,19 +53,19 @@ public class Chest extends Sprite{
         chest_closed = new TextureRegion(screen.getGame().assetManager.get("Game/chests.png", Texture.class), 0,0,16,16);
     }
 
-    public void update(float dt){
-        setPosition(chestBody.getBody().getPosition().x-getWidth()/2, chestBody.getBody().getPosition().y-getHeight()/2);
+    public void update(float dt) {
+        setPosition(chestBody.getBody().getPosition().x - getWidth() / 2, chestBody.getBody().getPosition().y - getHeight() / 2);
         setRegion(chestBody.getFrame(dt));
-        if(dropLoot==1){
+        if (dropLoot == 1) {
             sound2.play();
-            try {
+            /*try {
                 TimeUnit.MILLISECONDS.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
             loot();
             sound1.play();
-            dropLoot=2;
+            dropLoot = 2;
         }
     }
 
@@ -110,5 +110,9 @@ public class Chest extends Sprite{
 
     public int getId() {
         return id;
+    }
+
+    public int getDropLoot() {
+        return dropLoot;
     }
 }

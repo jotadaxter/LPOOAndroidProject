@@ -36,7 +36,6 @@ public class MainMenu extends MenuScreen {
         arcadeButton.setPosition(300,300);
         stage.addActor(arcadeButton);
         Gdx.input.setInputProcessor(stage);
-
     }
 
     @Override
@@ -55,8 +54,8 @@ public class MainMenu extends MenuScreen {
 
 
         if(arcadeButton.isPressed()){
-            game.gsm.push(new FreeWorld(game));
-           // game.gsm.push(new Dungeon1(game));
+            //game.gsm.push(new FreeWorld(game));
+            game.gsm.push(new Dungeon1(game));
         }
     }
 

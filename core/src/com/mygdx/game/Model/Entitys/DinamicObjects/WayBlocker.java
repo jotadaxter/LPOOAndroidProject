@@ -18,20 +18,27 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 public class WayBlocker extends Sprite{
     private World world;
     private TextureRegion blockFigure;
+    private TextureRegion blockFigure2;
     private boolean toDestroy;
     private boolean destroyed;
     private WayBlockerBody wayBlockerBody;
     private Sound sound;
 
-    public WayBlocker(GameScreen screen, int x, int y) {
+    public WayBlocker(GameScreen screen, int x, int y, int texChoose) {
         this.world=screen.getWorld();
         wayBlockerBody= new WayBlockerBody(world,this,x,y);
         destroyed=false;
         toDestroy=false;
-        blockFigure = new TextureRegion(screen.getGame().assetManager.get("Game/way_blocker.png", Texture.class));
+        if(texChoose==0){
+            blockFigure = new TextureRegion(screen.getGame().assetManager.get("Game/way_blocker.png", Texture.class));
+            setRegion(blockFigure);
+        }
+        else {
+            blockFigure2 = new TextureRegion(screen.getGame().assetManager.get("Game/way_blocker2.png", Texture.class));
+            setRegion(blockFigure2);
+        }
         setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
-        setRegion(blockFigure);
         sound=Gdx.audio.newSound(Gdx.files.internal("Sounds/secret.wav"));
     }
 

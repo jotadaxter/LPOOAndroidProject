@@ -40,6 +40,7 @@ public class DemoScreen extends GameScreen {
     protected void musicDefine() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/tutorial_music.mp3"));
         music.setLooping(true);
+        music.setVolume(5f);
     }
 
     @Override

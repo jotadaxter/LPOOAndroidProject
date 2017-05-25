@@ -24,6 +24,7 @@ public class FireGround extends Sprite{
     private FireGroundBody fireGroundBody;
     private float fire_timer;
     private Sound sound;
+    private float soundTimer;
 
     public FireGround(GameScreen screen, int x, int y) {
         super(screen.getAtlas().findRegion("spikes"));
@@ -31,8 +32,7 @@ public class FireGround extends Sprite{
         this.world=screen.getWorld();
         fire_timer=0;
         sound= Gdx.audio.newSound(Gdx.files.internal("Sounds/fire.wav"));
-        sound.loop();
-        sound.play();
+        soundTimer=0;
         fireGroundBody= new FireGroundBody(world,this,x,y);
         loadAnimation();
         setPosition(x,y);
@@ -47,12 +47,16 @@ public class FireGround extends Sprite{
         frames.clear();
 
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
-
     }
 
     public void update(float dt){
+        if(soundTimer>3){
+            sound.play(0.25f);
+            soundTimer=0;
+        }
         setPosition(fireGroundBody.getBody().getPosition().x-getWidth()/2, fireGroundBody.getBody().getPosition().y-getHeight()/2);
         setRegion(getFrame(dt));
+        soundTimer+=dt;
     }
 
     private TextureRegion getFrame(float dt) {

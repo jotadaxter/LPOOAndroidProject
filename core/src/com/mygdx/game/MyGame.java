@@ -19,8 +19,8 @@ import com.mygdx.game.View.MenuScreens.MainMenu;
 import java.util.Stack;
 
 public class MyGame extends Game {
-    public static final int VIEWPORT_WIDTH =960;//480;//240;//GameBoy Advance settings
-    public static final int VIEWPORT_HEIGHT =640;//320;//160;
+    public static final int VIEWPORT_WIDTH =240;//GameBoy Advance settings
+    public static final int VIEWPORT_HEIGHT =160;
     public static final float PIXEL_TO_METER = 0.0625f;
     public static final float VELOCITY= 10f;
 	public static final float PLATFORM_VELOCITY= 60f;//60f;
@@ -133,6 +133,7 @@ public class MyGame extends Game {
 		assetManager.load("Game/volcano_ruby.png", Texture.class);
 		assetManager.load("Game/sign.png", Texture.class);
 		assetManager.load("Game/way_blocker.png", Texture.class);
+		assetManager.load("Game/way_blocker2.png", Texture.class);
 		assetManager.load("Game/door_top.png", Texture.class);
 		assetManager.load("Game/door_top2.png", Texture.class);
 	}
