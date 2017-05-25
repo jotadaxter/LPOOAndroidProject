@@ -1,11 +1,7 @@
 package com.mygdx.game.Model.Events;
 
-import com.mygdx.game.Controller.Entitys.TileObjects.Door;
-import com.mygdx.game.Controller.Entitys.TileObjects.Obstacle;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
-import com.mygdx.game.Model.Entitys.Items.Key;
-import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
 import java.util.ArrayList;

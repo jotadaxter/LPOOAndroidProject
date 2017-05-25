@@ -58,11 +58,6 @@ public class Chest extends Sprite{
         setRegion(chestBody.getFrame(dt));
         if (dropLoot == 1) {
             sound2.play();
-            /*try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
             loot();
             sound1.play();
             dropLoot = 2;

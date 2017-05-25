@@ -1,7 +1,6 @@
 package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
@@ -9,7 +8,6 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.Items.Heart;
 import com.mygdx.game.Model.Entitys.Items.ItemDef;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
-import com.mygdx.game.Model.Entitys.Items.Key;
 import com.mygdx.game.MyGame;
 
 /**
@@ -55,7 +53,6 @@ public class DemoScreen extends GameScreen {
         //Items
         spawnItem(new ItemDef(new Vector2(150,150), Jewel.class));
         spawnItem(new ItemDef(new Vector2(200,150), Heart.class));
-        spawnItem(new ItemDef(new Vector2(150,200), Key.class));
     }
 
     @Override
@@ -82,9 +79,6 @@ public class DemoScreen extends GameScreen {
             }
             else if(idef.type== Heart.class){
                 items.add(new Heart(this, idef.position.x, idef.position.y));
-            }
-            else if(idef.type== Key.class){
-                items.add(new Key(this, idef.position.x, idef.position.y));
             }
         }
     }

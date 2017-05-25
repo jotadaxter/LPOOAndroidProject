@@ -10,13 +10,11 @@ public class HeroStats {
 
     private int score;
     private int hearts;
-    private int keys;
     private boolean volcanoRuby;//forestEmerald, oceanSaffire
 
     public HeroStats() {
         this.score=0;
         this.hearts=3;
-        this.keys=0;
         this.volcanoRuby=false;
     }
 
@@ -27,9 +25,6 @@ public class HeroStats {
     public void setHearts(int hearts) {
         this.hearts = hearts;
     }
-    public void setKeys(int keys) {
-        this.keys = keys;
-    }
 
     //Gets
     public int getScore() {
@@ -37,9 +32,6 @@ public class HeroStats {
     }
     public int getHearts() {
         return hearts;
-    }
-    public int getKeys() {
-        return keys;
     }
 
     public void gotVolcanoRuby() {

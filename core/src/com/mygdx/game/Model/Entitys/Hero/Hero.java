@@ -178,12 +178,6 @@ public class Hero extends Sprite{
             String v = Integer.toString(getHealth());
             Gdx.app.log("Hero got 1 hearth.\n Current health: ",v);
         }
-        else if(item.getType()=="key"){
-
-            screen.getGame().heroStats.setKeys(screen.getGame().heroStats.getKeys()+1);
-            String v = Integer.toString(getKeys());
-            Gdx.app.log("Hero got key.\n",v);
-        }
         else if(item.getType()=="volcano_ruby"){
             screen.getGame().heroStats.gotVolcanoRuby();
             Gdx.app.log("Picked Up Volcano Ruby", "");
@@ -237,10 +231,6 @@ public class Hero extends Sprite{
         System.out.println(heroBody.b2body.getPosition().x);
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         fell=true;
-    }
-
-    public int getKeys() {
-        return screen.getGame().heroStats.getKeys();
     }
 
     public void throwBomb() {

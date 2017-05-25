@@ -49,15 +49,12 @@ public class SmashableRock extends Sprite{
             sound.play();
             world.destroyBody(rockBody.getBody());
             destroyed=true;
-            Gdx.app.log("destroyed","");
         }
         setPosition(rockBody.getBody().getPosition().x-getWidth()/2, rockBody.getBody().getPosition().y-getHeight()/2);
         if(incTimer)
             timer+=dt*100;
-        System.out.println(timer);
         if(timer>=130){
             toDestroy=true;
-            System.out.println(toDestroy);
         }
     }
 
