@@ -17,15 +17,15 @@ import java.util.ArrayList;
 public class PressingEvent {
     private ArrayList<PressingPlate> plates;
     private ArrayList<MegaPressingPlate> megaPlates;
-    private FreeWorld screen;
+    private GameScreen screen;
 
-    public PressingEvent(ArrayList<PressingPlate> plates,FreeWorld screen, int bla){//o bla só serve para não haver erro em haver dois construtores...
+    public PressingEvent(ArrayList<PressingPlate> plates,GameScreen screen, int bla){//o bla só serve para não haver erro em haver dois construtores...
         this.plates=plates;
         this.screen=screen;
         this.megaPlates=null;
     }
 
-    public PressingEvent(ArrayList<MegaPressingPlate> megaPlates, FreeWorld screen){
+    public PressingEvent(ArrayList<MegaPressingPlate> megaPlates, GameScreen screen){
         this.plates=null;
         this.screen=screen;
         this.megaPlates=megaPlates;

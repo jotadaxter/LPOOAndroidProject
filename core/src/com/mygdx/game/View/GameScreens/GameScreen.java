@@ -93,7 +93,7 @@ public abstract class GameScreen implements Screen{
     protected Array<D1TopDoor> topDoors;
     protected ArrayList<FireGround> fireGrounds;
     protected ArrayList<SmashableRock> smashRocks;
-    
+    public boolean d1blck;
     protected Music music;
     
     public GameScreen(MyGame game, int hero_x, int hero_y) {

@@ -54,18 +54,17 @@ public class FreeWorld extends GameScreen {
     public static final int WB2_Y = 8+16*50;
     public static final int WB3_X = 8+16*25;
     public static final int WB3_Y = 8+16*50;
-    public static final int DOOR_ID=1;
+    public static final int TUTORIAL_DOOR_ID=1;
+    public static final int DUNGEON1_DOOR_ID=3;
 
     private PressingEvent pressingEvent;
-    private PressingEvent megaPressingEvent;
     private ArrayList<PressingPlate> dungeon1_plates;
-    public boolean d1blck;
-
 
     public FreeWorld(MyGame game) {
         super(game, POSX, POSY);
         type= FreeWorld.class;
-        warpEvents.add(new WarpEvent(DOOR_ID,Door.class, new GameState(new DemoScreen(game))));
+        warpEvents.add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game))));
+        warpEvents.add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game))));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
     }
@@ -110,16 +109,8 @@ public class FreeWorld extends GameScreen {
 
 
 
-        MegaPressingPlate megapp= new MegaPressingPlate(this,60,150);
-        mpps.add(megapp);
-        megaPressingEvent= new PressingEvent(mpps,this);
-        Boulder boulder3= new Boulder(this,60, 100);
-        boulders.add(boulder3);
-        Boulder boulder4= new Boulder(this,30, 100);
-        boulders.add(boulder4);
 
-        //Items
-        spawnItem(new ItemDef(new Vector2(20,80), SpecialItem.class));
+
 
         Chest c1= new Chest(this, 80,30);
         c1.addChestId(0);
@@ -170,7 +161,7 @@ public class FreeWorld extends GameScreen {
         for(Sign sign :signs)
             sign.update(dt);
         pressingEvent.update(dt);
-        megaPressingEvent.update(dt);
+
 
 
     }
@@ -181,8 +172,6 @@ public class FreeWorld extends GameScreen {
             wb.draw(game.batch);
         for(PressingPlate pp : pps)
             pp.draw(game.batch);
-        for(MegaPressingPlate mpp : mpps)
-            mpp.draw(game.batch);
         for(Boulder boulder : boulders)
             boulder.draw(game.batch);
         for(Chest chest : chests)

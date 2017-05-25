@@ -22,8 +22,8 @@ import java.util.ArrayList;
  */
 
 public class Hero extends Sprite{
-    public static final int RESET_POSX = 8+44*16;
-    public static final int RESET_POSY = 8+21*16;
+    public static final float RESET_POS1X = 8+44-7-0.5f;
+    public static final float RESET_POS1Y = 8+20-6-0.5f;
 
     //Standing Textures
     private TextureRegion standRight;
@@ -144,7 +144,7 @@ public class Hero extends Sprite{
 
     public void update(float dt){
         if(fell){
-            heroBody.b2body.setTransform(RESET_POSX , RESET_POSY, 0);
+            heroBody.b2body.setTransform(RESET_POS1X , RESET_POS1Y, 0);
             fell=false;
         }
       else setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
