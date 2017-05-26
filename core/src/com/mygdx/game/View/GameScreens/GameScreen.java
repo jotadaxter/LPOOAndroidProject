@@ -91,7 +91,7 @@ public abstract class GameScreen implements Screen{
     public boolean d1blck;
     protected Music music;
     
-    public GameScreen(MyGame game, int hero_x, int hero_y) {
+    public GameScreen(MyGame game, float hero_x, float hero_y) {
         atlas=game.assetManager.get("Game/link_and_objects.pack", TextureAtlas.class);
         this.game=game;
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);

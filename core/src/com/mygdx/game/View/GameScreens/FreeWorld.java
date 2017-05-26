@@ -31,8 +31,10 @@ import java.util.ArrayList;
 
 public class FreeWorld extends GameScreen {
     //Hero Info
-    public static final int POSX = 30;
-    public static final int POSY = 30;
+    public static final int POSX = 8+11*16;
+    public static final int POSY = 8+2*16;
+    public static final int TUTORIAL_PX = 8+9*16+8;
+    public static final int TUTORIAL_PY = 8+11*16;
     //Boulder Position
     public static final int BOULDER1_X = 170;
     public static final int BOULDER1_Y = 870;
@@ -48,8 +50,8 @@ public class FreeWorld extends GameScreen {
     public static final int PP4_X = 200;
     public static final int PP4_Y = 520;
     //WayBlockers
-    public static final int WB1_X = 8+16*23;//(8+26*8)*2-7*8;
-    public static final int WB1_Y = 8+16*50;//(8+51*8)*2-3*8;
+    public static final int WB1_X = 8+16*23;
+    public static final int WB1_Y = 8+16*50;
     public static final int WB2_X = 8+16*24;
     public static final int WB2_Y = 8+16*50;
     public static final int WB3_X = 8+16*25;
@@ -62,7 +64,7 @@ public class FreeWorld extends GameScreen {
     public FreeWorld(MyGame game) {
         super(game, POSX, POSY);
         type= FreeWorld.class;
-        warpEvents.add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game))));
+        warpEvents.add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,247,35))));
         warpEvents.add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game))));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
@@ -82,7 +84,7 @@ public class FreeWorld extends GameScreen {
 
     @Override
     public void objectLoad() {
-        Sign sign1= new Sign(this,29*16+8,35*16-8, sign1Text());
+        Sign sign1= new Sign(this,29*16+8,35*16-8, game.fileReader.getSignText("sign5"));
         sign1.addSignId(0);
         signs.add(sign1);
         //Chests
@@ -131,18 +133,7 @@ public class FreeWorld extends GameScreen {
         boulders.add(boulder2);
     }
 
-    private String sign1Text() {
-        String text=   "XXX     XXX\n"+
-                "X1X      X2X\n"+
-                "XXX     XXX\n"+
-                "      423  \n"+
-                "XXX     XXX\n"+
-                "X3 X     X4 X\n"+
-                "XXX     XXX\n";
-        return text;
-    }
-
-    @Override
+   @Override
     public void handleSpawningItems() {
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef= itemsToSpawn.poll();

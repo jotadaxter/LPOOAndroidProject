@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.GameScreens.DemoScreen;
 import com.mygdx.game.View.GameScreens.Dungeon1;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 
@@ -20,8 +21,10 @@ import java.util.ArrayList;
  */
 
 public class MainMenu extends MenuScreen {
+    //Hero starting position in the tutorial
+    public static final int POSX = 8+9*16+8;
+    public static final int POSY = 8+11*16;
     private Stage stage;
-
     private Texture texture;
     private Texture title;
     private Texture arcadetex;
@@ -57,8 +60,9 @@ public class MainMenu extends MenuScreen {
 
 
         if(arcadeButton.isPressed()){
-            //game.gsm.push(new FreeWorld(game));
-            game.gsm.push(new Dungeon1(game));
+            game.gsm.push(new FreeWorld(game));
+            //game.gsm.push(new Dungeon1(game));
+            //game.gsm.push(new DemoScreen(game,POSX,POSY));
         }
     }
 

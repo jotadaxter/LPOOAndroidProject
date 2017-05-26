@@ -35,9 +35,7 @@ public class FileReader {
     }
 
     private ArrayList<Vector2> readPositions() {
-        String hchar, strx, stry, temp;
-        char tmp;
-        int tx = 0, ty = 0;
+        String strx, stry, temp;
         ArrayList<Vector2> positions = new ArrayList<Vector2>();
         while (scan.hasNext()) {
             temp = scan.next();
@@ -52,5 +50,20 @@ public class FileReader {
 
     private void closeFile() {
         scan.close();
+    }
+
+    public String getSignText(String filename) {
+        String temp1 = "Locations/" + filename + ".txt";
+        String temp2="";
+        try {
+            scan = new Scanner(new File(temp1));
+        } catch (FileNotFoundException r) {
+            System.out.println(r.getMessage());
+        }
+        while (scan.hasNext()) {
+            temp2+=(scan.nextLine()+"\n");
+        }
+        scan.close();
+        return temp2;
     }
 }
