@@ -104,39 +104,63 @@ public class Dungeon1 extends GameScreen{
     }
 
     private void chestsLoad() {
-        Chest c1= new Chest(this, 8+3*16,8+13*16);
+        int x=8+3*16;
+        int y= 8+13*16;
+        Chest c1= new Chest(this, x,y);
         c1.addChestId(0);
         chests.add(c1);
+        x=8+21*16;
+        y=8+3*16;
         Chest c2= new Chest(this, 8+21*16,8+3*16);
         c2.addChestId(1);
         chests.add(c2);
+        x=8+46*16;
+        y=8+3*16;
         Chest c3= new Chest(this, 8+46*16,8+3*16);
         c3.addChestId(2);
         chests.add(c3);
+        x=8+47*16;
+        y=8+31*16;
         Chest c4= new Chest(this, 8+47*16,8+31*16);
         c4.addChestId(3);
         chests.add(c4);
+        x= 8+20*16;
+        y=8+23*16;
         Chest c5= new Chest(this, 8+20*16,8+23*16);
         c5.addChestId(4);
         chests.add(c5);
+        x=8+12*16;
+        y=8+31*16;
         Chest c6= new Chest(this, 8+12*16,8+31*16);
         c6.addChestId(5);
         chests.add(c6);
+        x=8+5*16;
+        y=8+43*16;
         Chest c7= new Chest(this, 8+5*16,8+43*16);
         c7.addChestId(6);
         chests.add(c7);
+        x=8+45*16;
+        y=8+39*16;
         Chest c8= new Chest(this, 8+45*16,8+39*16);
         c8.addChestId(7);
         chests.add(c8);
+        x=8+46*16;
+        y=8+39*16;
         Chest c9= new Chest(this, 8+46*16,8+39*16);
         c9.addChestId(8);
         chests.add(c9);
+        x=8+47*16;
+        y=8+39*16;
         Chest c10= new Chest(this, 8+47*16,8+39*16);
         c10.addChestId(9);
         chests.add(c10);
+        x=8+19*16;
+        y=8+43*16;
         Chest c11= new Chest(this, 8+19*16,8+43*16);
         c11.addChestId(10);
         chests.add(c11);
+        x=8+37*16;
+        y=8+43*16;
         Chest c12= new Chest(this, 8+37*16,8+43*16);
         c12.addChestId(11);
         chests.add(c12);
@@ -145,29 +169,39 @@ public class Dungeon1 extends GameScreen{
     private void smashRockLoad() {
         for(int i =0;i<21;i++){
             for(int j =0;j<6;j++) {
-                SmashableRock sm1 = new SmashableRock(this, 8 + 2 * 16 + i * 16, 8 + 6 * 16+j*16);
+                int x=8 + 2 * 16 + i * 16;
+                int y= 8 + 6 * 16+j*16;
+                SmashableRock sm1 = new SmashableRock(this, x,y);
                 smashRocks.add(sm1);
             }
         }
         for(int i =0;i<14;i++){
             for(int j =0;j<4;j++) {
-                SmashableRock sm1 = new SmashableRock(this, 8 + 6 * 16 + i * 16, 8 + 2 * 16+j*16);
+                int x=8 + 6 * 16 + i * 16;
+                int y= 8 + 2 * 16+j*16;
+                SmashableRock sm1 = new SmashableRock(this, x, y);
                 smashRocks.add(sm1);
             }
         }
         for(int i =0;i<18;i++){
             for(int j =0;j<3;j++) {
-                SmashableRock sm1 = new SmashableRock(this, 8 + 5 * 16 + i * 16, 8 + 12 * 16+j*16);
+                int x= 8 + 5 * 16 + i * 16;
+                int y=8 + 12 * 16+j*16;
+                SmashableRock sm1 = new SmashableRock(this,x, y);
                 smashRocks.add(sm1);
             }
         }
         for(int i =0;i<3;i++) {
-            SmashableRock sm1 = new SmashableRock(this, 8 + 20 * 16 + i * 16, 8 + 5 * 16);
+            int x=8 + 20 * 16 + i * 16;
+            int y=8 + 5 * 16;
+            SmashableRock sm1 = new SmashableRock(this, x, y);
             smashRocks.add(sm1);
         }
         for(int i =0;i<3;i++){
             for(int j =0;j<3;j++) {
-                SmashableRock sm1 = new SmashableRock(this, 8 + 43 * 16 + i * 16, 8 + 16 * 16+j*16);
+                int x=8 + 43 * 16 + i * 16;
+                int y=8 + 16 * 16+j*16;
+                SmashableRock sm1 = new SmashableRock(this, x, y);
                 smashRocks.add(sm1);
             }
         }
@@ -176,81 +210,140 @@ public class Dungeon1 extends GameScreen{
 
     private void fireGroundLoad() {
         for(int i =0; i<8;i++){
+            int x=456+i*16;
+            int y=232;
             FireGround fg1= new FireGround(this,456+i*16, 232);
             fireGrounds.add(fg1);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<6;i++){
+            int x=456+i*16;
+            int y= 232-3*16;
             FireGround fg1= new FireGround(this,456+i*16, 232-3*16);
             fireGrounds.add(fg1);
+            System.out.println(x + " " + y);
+            int x1=456+8*16;
+            int y1=232-16-i*16;
             FireGround fg2= new FireGround(this,456+8*16, 232-16-i*16);
             fireGrounds.add(fg2);
+            System.out.println(x1 + " " + y1);
         }
-
+        int xx=456+5*16;
+        int yy=232-4*16;
         FireGround fg1= new FireGround(this,456+5*16, 232-4*16);
         fireGrounds.add(fg1);
+        System.out.println(xx + " " + yy);
 
         for(int i =0; i<5;i++){
+            int x=456+5*16-i*16;
+            int y=232-5*16-i*16;
             FireGround fg2= new FireGround(this,456+5*16-i*16, 232-5*16-i*16);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<3;i++){
+            int x=456+i*16+16;
+            int y=232-i*16-160;
             FireGround fg2= new FireGround(this,456+i*16+16, 232-i*16-160);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<17;i++){
+            int x=456+3*16+16+16*i;
+            int y=232-16-176;
             FireGround fg2= new FireGround(this,456+3*16+16+16*i, 232-16-176);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<3;i++){
+            int x=456+3*16+16*17;
+            int y=232-176+i*16;
             FireGround fg2= new FireGround(this,456+3*16+16*17, 232-176+i*16);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<3;i++){
+            int x=456+2*16+16*17;
+            int y=232-176+3*16+i*16;
             FireGround fg2= new FireGround(this,456+2*16+16*17, 232-176+3*16+i*16);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<6;i++){
+            int x=456+2*16+16*16;
+            int y=232-176+6*16+i*16;
             FireGround fg2= new FireGround(this,456+2*16+16*16, 232-176+6*16+i*16);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<5;i++){
+            int x=456-2*16+16*16;
+            int y=232-176+6*16+5*16-i*16;
             FireGround fg2= new FireGround(this,456-2*16+16*16, 232-176+6*16+5*16-i*16);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<2;i++){
+            int x=456+13*16;
+            int y=232-4*16-16*i;
             FireGround fg2= new FireGround(this,456+13*16, 232-4*16-16*i);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<2;i++){
+            int x=456+12*16;
+            int y=232-5*16-16*i;
             FireGround fg2= new FireGround(this,456+12*16, 232-5*16-16*i);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<4;i++){
+            int x=456+11*16;
+            int y=232-6*16-16*i;
             FireGround fg2= new FireGround(this,456+11*16, 232-6*16-16*i);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<6;i++){
+            int x=456+10*16-16*i;
+            int y= 232-5*16-16*4;
             FireGround fg2= new FireGround(this,456+10*16-16*i, 232-5*16-16*4);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<2;i++){
+            int x=456+10*16-16*4+16*i;
+            int y=232-5*16-16*3+16*i;
             FireGround fg2= new FireGround(this,456+10*16-16*4+16*i, 232-5*16-16*3+16*i);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<5;i++){
+            int x=8+44*16;
+            int y=8+16*3+16*i;
             FireGround fg2= new FireGround(this,8+44*16,  8+16*3+16*i);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<4;i++){
+            int x=8+43*16;
+            int y=8+16*3+16*i;
             FireGround fg2= new FireGround(this,8+43*16,  8+16*3+16*i);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
         for(int i =0; i<4;i++){
+            int x=8+42*16;
+            int y=8+16*3+16*i;
             FireGround fg2= new FireGround(this,8+42*16,  8+16*3+16*i);
             fireGrounds.add(fg2);
+            System.out.println(x + " " + y);
         }
+        int xxx=8+3*16;
+        int yyy=8+16;
         FireGround fg2= new FireGround(this,8+3*16, 8+16);
         fireGrounds.add(fg2);
+        System.out.println(xxx + " " + yyy);
     }
 
     @Override
