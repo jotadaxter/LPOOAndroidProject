@@ -24,7 +24,7 @@ public class WayBlocker extends Sprite{
     private WayBlockerBody wayBlockerBody;
     private Sound sound;
 
-    public WayBlocker(GameScreen screen, int x, int y, int texChoose) {
+    public WayBlocker(GameScreen screen, float x, float y, int texChoose) {
         this.world=screen.getWorld();
         wayBlockerBody= new WayBlockerBody(world,this,x,y);
         destroyed=false;

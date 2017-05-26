@@ -19,7 +19,7 @@ public class Boulder extends Sprite{
     private BoulderBody boulderBody;
     private Sound sound;
 
-    public Boulder(GameScreen screen, int x, int y) {
+    public Boulder(GameScreen screen, float x, float y) {
         super(screen.getAtlas().findRegion("boulder"));
         this.world=screen.getWorld();
         boulderBody= new BoulderBody(world,x,y);

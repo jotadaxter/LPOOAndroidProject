@@ -1,6 +1,6 @@
 dungeon1 56 216
 dungeon1 344 56
-dungeon1 744 56
+dungeon1 744 72
 dungeon1 760 504
 dungeon1 328 376
 dungeon1 200 504

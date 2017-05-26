@@ -45,7 +45,7 @@ public class DemoScreen extends GameScreen {
     public void objectLoad() {
         Boulder boulder= new Boulder(this,BOULDER_X, BOULDER_Y);
         boulders.add(boulder);
-        Spikes spike= new Spikes(this);
+        Spikes spike= new Spikes(this,250,200);
         spikes.add(spike);
         PressingPlate pp= new PressingPlate(this, PP_X, PP_Y);
         pps.add(pp);

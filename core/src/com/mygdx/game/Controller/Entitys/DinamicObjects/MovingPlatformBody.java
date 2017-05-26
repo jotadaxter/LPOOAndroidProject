@@ -19,7 +19,7 @@ public class MovingPlatformBody {
     private BodyDef bdef;
     private FixtureDef fdef;
 
-    public MovingPlatformBody(World world, MovingPlatform movingPlatform, int x, int y) {
+    public MovingPlatformBody(World world, MovingPlatform movingPlatform, float x, float y) {
         bdef = new BodyDef();
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;

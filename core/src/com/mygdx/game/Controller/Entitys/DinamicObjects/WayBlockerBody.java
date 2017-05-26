@@ -22,7 +22,7 @@ public class WayBlockerBody {
     private FixtureDef fdef;
     private WayBlocker blocker;
 
-    public WayBlockerBody(World world, WayBlocker blocker, int x, int y) {
+    public WayBlockerBody(World world, WayBlocker blocker, float x, float y) {
         bdef = new BodyDef();
         this.blocker = blocker;
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);

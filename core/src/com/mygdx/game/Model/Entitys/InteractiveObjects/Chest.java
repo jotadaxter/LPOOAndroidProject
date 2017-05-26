@@ -33,7 +33,7 @@ public class Chest extends Sprite{
     private int id;
     private Sound sound1;
 
-    public Chest(GameScreen screen, int x, int y) {
+    public Chest(GameScreen screen, float x, float y) {
         this.world=screen.getWorld();
         this.screen=screen;
         sound1=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_chest_item.wav"));

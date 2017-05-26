@@ -21,7 +21,7 @@ public class MegaPressingPlateBody {
     private BodyDef bdef;
     private FixtureDef fdef;
     private MegaPressingPlate megaPressingPlate;
-    public MegaPressingPlateBody(World world, MegaPressingPlate megaPressingPlate, int x, int y) {
+    public MegaPressingPlateBody(World world, MegaPressingPlate megaPressingPlate, float x, float y) {
         this.megaPressingPlate=megaPressingPlate;
         bdef = new BodyDef();
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);

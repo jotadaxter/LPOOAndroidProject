@@ -20,7 +20,7 @@ public class FireGroundBody {
     private BodyDef bdef;
     private FixtureDef fdef;
 
-    public FireGroundBody(World world, FireGround fireGround, int x, int y) {
+    public FireGroundBody(World world, FireGround fireGround, float x, float y) {
         bdef = new BodyDef();
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;

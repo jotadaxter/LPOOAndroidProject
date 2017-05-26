@@ -67,7 +67,7 @@ public class Hero extends Sprite{
     private Sound soundHurt;
     private Sound soundDying;
 
-    public Hero(GameScreen screen, int x, int y){
+    public Hero(GameScreen screen, float x, float y){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
         this.world=screen.getWorld();

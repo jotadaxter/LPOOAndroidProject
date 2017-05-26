@@ -26,7 +26,7 @@ public class FireGround extends Sprite{
     private Sound sound;
     private float soundTimer;
 
-    public FireGround(GameScreen screen, int x, int y) {
+    public FireGround(GameScreen screen, float x, float y) {
         super(screen.getAtlas().findRegion("spikes"));
         this.screen=screen;
         this.world=screen.getWorld();

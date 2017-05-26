@@ -21,7 +21,7 @@ public class SmashableRockBody {
     private FixtureDef fdef;
     private SmashableRock rock;
 
-    public SmashableRockBody(World world, SmashableRock rock, int x, int y) {
+    public SmashableRockBody(World world, SmashableRock rock, float x, float y) {
         bdef = new BodyDef();
         this.rock = rock;
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);

@@ -57,7 +57,7 @@ public class Bomb extends Sprite{
         toDestroy=false;
         destroyed=false;
         timer=0;
-        explosionBody= new ExplosionBody(world,bombBody,0,0);
+        explosionBody= new ExplosionBody(world,0,0);
         tic_tac_timer=0;
         textureLoad();
         currentState=State.TIC_TAC;

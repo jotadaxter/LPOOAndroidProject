@@ -94,42 +94,12 @@ public class FreeWorld extends GameScreen {
     }
 
     private void chestsLoad() {
-        int x=8+32*16;
-        int y= 8+2*16;
-
-        Chest c1= new Chest(this, 8+32*16,8+2*16);
-        c1.addChestId(0);
-        chests.add(c1);
-        x=8+29*16;
-        y=8+19*16;
-        Chest c2= new Chest(this, 8+29*16,8+19*16);
-        c2.addChestId(1);
-        chests.add(c2);
-        x=8+30*16;
-        y=8+19*16;
-        Chest c3= new Chest(this, 8+30*16,8+19*16);
-        c3.addChestId(2);
-        chests.add(c3);
-        x=8+26*16;
-        y=8+30*16;
-        Chest c4= new Chest(this, 8+26*16,8+30*16);
-        c4.addChestId(3);
-        chests.add(c4);
-        x=8+22*16;
-        y=8+52*16;
-        Chest c5= new Chest(this, 8+22*16,8+52*16);
-        c5.addChestId(4);
-        chests.add(c5);
-        x=8+26*16;
-        y=8+52*16;
-        Chest c6= new Chest(this, 8+26*16,8+52*16);
-        c6.addChestId(5);
-        chests.add(c6);
-        x=8+1*16;
-        y=8+25*16;
-        Chest c7= new Chest(this, 8+1*16,8+25*16);
-        c7.addChestId(6);
-        chests.add(c7);
+        ArrayList<Vector2> positions = game.fileReader.ReadFile("chest_locations","free_world");
+        for(int i=0; i<positions.size();i++){
+            Chest c= new Chest(this, positions.get(i).x,positions.get(i).y);
+            c.addChestId(i);
+            chests.add(c);
+        }
     }
 
     private void pressingPlatesLoad() {

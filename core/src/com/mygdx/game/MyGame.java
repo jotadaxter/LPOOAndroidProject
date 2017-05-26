@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Model.Entitys.Hero.HeroStats;
+import com.mygdx.game.Model.Files.FileReader;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.Model.States.GameStateManager;
 import com.mygdx.game.View.GameScreens.DemoScreen;
@@ -19,8 +20,8 @@ import com.mygdx.game.View.MenuScreens.MainMenu;
 import java.util.Stack;
 
 public class MyGame extends Game {
-    public static final int VIEWPORT_WIDTH =240;//GameBoy Advance settings
-    public static final int VIEWPORT_HEIGHT =160;
+    public static final int VIEWPORT_WIDTH =1000;//240;//GameBoy Advance settings
+    public static final int VIEWPORT_HEIGHT =1000;//160;
     public static final float PIXEL_TO_METER = 0.0625f;
     public static final float VELOCITY= 10f;
 	public static final float PLATFORM_VELOCITY= 60f;//60f;
@@ -52,12 +53,13 @@ public class MyGame extends Game {
 	public GameStateManager gsm;
 	public HeroStats heroStats;
 	public AssetManager assetManager;
-
+	public FileReader fileReader;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
+		fileReader= new FileReader();
 		heroStats= new HeroStats();
 		loads();
 		gsm= new GameStateManager(this);

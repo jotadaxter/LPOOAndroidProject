@@ -31,7 +31,7 @@ public class D1TopDoor extends Sprite {
     private TextureRegion textureRegion1;
     private TextureRegion textureRegion2;
 
-    public D1TopDoor(GameScreen screen, int x,int y, int choose){
+    public D1TopDoor(GameScreen screen, float x,float y, int choose){
         setPosition(x,y);
         bdef= new BodyDef();
         this.screen=screen;

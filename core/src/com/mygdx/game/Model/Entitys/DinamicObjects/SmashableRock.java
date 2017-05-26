@@ -26,7 +26,7 @@ public class SmashableRock extends Sprite{
     private int timer;
     private boolean incTimer;
 
-    public SmashableRock(GameScreen screen, int x, int y) {
+    public SmashableRock(GameScreen screen, float x, float y) {
         this.world=screen.getWorld();
         rockBody= new SmashableRockBody(world,this,x,y);
         incTimer=false;

@@ -26,7 +26,7 @@ public class MegaPressingPlate extends Sprite {
     private Sound sound1;
     private Sound sound2;
 
-    public MegaPressingPlate(GameScreen screen, int x, int y) {
+    public MegaPressingPlate(GameScreen screen, float x, float y) {
         this.world=screen.getWorld();
         this.screen=screen;
         ispressed=0;

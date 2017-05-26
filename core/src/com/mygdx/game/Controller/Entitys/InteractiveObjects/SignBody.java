@@ -18,7 +18,7 @@ public class SignBody {
     private Body body;
     private BodyDef bdef;
 
-    public SignBody(World world, Sign sign, int x, int y) {
+    public SignBody(World world, Sign sign, float x, float y) {
         this.sign=sign;
         bdef= new BodyDef();
         bdef.position.set(x* MyGame.PIXEL_TO_METER, y* MyGame.PIXEL_TO_METER);

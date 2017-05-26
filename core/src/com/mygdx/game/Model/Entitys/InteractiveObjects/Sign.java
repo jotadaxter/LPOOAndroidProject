@@ -27,7 +27,7 @@ public class Sign extends Sprite{
     private int id;
     private String text;
 
-    public Sign(GameScreen screen, int x, int y, String text) {
+    public Sign(GameScreen screen, float x, float y, String text) {
         this.world=screen.getWorld();
         this.screen=screen;
         this.text=text;

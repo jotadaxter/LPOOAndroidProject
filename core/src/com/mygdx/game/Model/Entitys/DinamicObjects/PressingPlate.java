@@ -25,7 +25,7 @@ public class PressingPlate extends Sprite {
     private Sound sound1;
     private Sound sound2;
 
-    public PressingPlate(GameScreen screen, int x, int y) {
+    public PressingPlate(GameScreen screen, float x, float y) {
         super(screen.getAtlas().findRegion("pressing_plate_not_pressed"));
         this.world=screen.getWorld();
         isPressed=0;

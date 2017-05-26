@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.Dungeon1;
 import com.mygdx.game.View.GameScreens.FreeWorld;
+
+import java.util.ArrayList;
 
 /**
  * Created by Utilizador on 08-05-2017.
@@ -54,8 +57,8 @@ public class MainMenu extends MenuScreen {
 
 
         if(arcadeButton.isPressed()){
-            game.gsm.push(new FreeWorld(game));
-            //game.gsm.push(new Dungeon1(game));
+            //game.gsm.push(new FreeWorld(game));
+            game.gsm.push(new Dungeon1(game));
         }
     }
 

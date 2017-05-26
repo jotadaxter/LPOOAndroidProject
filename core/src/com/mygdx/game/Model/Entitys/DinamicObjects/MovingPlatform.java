@@ -39,7 +39,7 @@ public class MovingPlatform extends Sprite {
     public State currentState;
     public State previousState;
 
-    public MovingPlatform(GameScreen screen, int x, int y, int type) {
+    public MovingPlatform(GameScreen screen, float x, float y, int type) {
         this.world = screen.getWorld();
         this.screen=screen;
         this.type=type;

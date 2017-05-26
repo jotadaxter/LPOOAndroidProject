@@ -20,7 +20,7 @@ public class ExplosionBody {
     private FixtureDef fdef;
 
 
-    public ExplosionBody(World world, BombBody bombBody, float x, float y) {
+    public ExplosionBody(World world, float x, float y) {
         //Body Definition
         this.world=world;
         bdef= new BodyDef();

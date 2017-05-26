@@ -19,7 +19,6 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 
 public class HeroBody {
     public static final float DAMPING_NORMAL= 3f;
-    public static final float DAMPING_ICE=0.5f;
     private GameScreen screen;
     public boolean isInIce;
     public Body b2body;
@@ -30,7 +29,7 @@ public class HeroBody {
     public State currentState;
     public State previousState;
 
-    public HeroBody(GameScreen screen, Hero hero, int x, int y) {
+    public HeroBody(GameScreen screen, Hero hero, float x, float y) {
         currentState = State.STAND_DOWN;
         previousState = State.STAND_DOWN;
         this.screen=screen;

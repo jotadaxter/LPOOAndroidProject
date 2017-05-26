@@ -20,7 +20,7 @@ public class ChestBody {
     private BodyDef bdef;
     private Chest chest;
 
-    public ChestBody(World world, Chest chest, int x, int y) {
+    public ChestBody(World world, Chest chest, float x, float y) {
         this.chest=chest;
         bdef= new BodyDef();
         bdef.position.set(x* MyGame.PIXEL_TO_METER, y* MyGame.PIXEL_TO_METER);

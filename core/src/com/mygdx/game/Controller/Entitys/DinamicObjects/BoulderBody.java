@@ -16,7 +16,7 @@ public class BoulderBody {
     private Body body;
     private BodyDef bdef;
 
-    public BoulderBody(World world, int x, int y) {
+    public BoulderBody(World world, float x, float y) {
         bdef= new BodyDef();
         bdef.position.set(x* MyGame.PIXEL_TO_METER, y* MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;

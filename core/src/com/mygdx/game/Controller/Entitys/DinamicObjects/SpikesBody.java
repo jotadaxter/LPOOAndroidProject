@@ -20,7 +20,7 @@ public class SpikesBody {
     private BodyDef bdef;
     private FixtureDef fdef;
 
-    public SpikesBody(World world, Spikes spikes, int x, int y) {
+    public SpikesBody(World world, Spikes spikes, float x, float y) {
         bdef = new BodyDef();
         bdef.position.set(x * MyGame.PIXEL_TO_METER, y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;
