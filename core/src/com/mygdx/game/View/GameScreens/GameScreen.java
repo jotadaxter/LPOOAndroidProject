@@ -318,15 +318,7 @@ public abstract class GameScreen implements Screen{
         this.turnLogOn = turnLogOn;
     }
 
-    public ArrayList<MovingPlatform> getMovingPlatforms() {
-        return mps;
-    }
-
     public Music getMusic() {
         return music;
     }
-
-    /*public Pool<Bomb> getBombPool() {
-        return bombPool;
-    }*/
 }

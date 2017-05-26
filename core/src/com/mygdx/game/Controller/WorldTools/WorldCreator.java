@@ -28,7 +28,7 @@ public class WorldCreator {
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
         Body body;
-
+/*
         //Obstacle Fixtures
         for(MapObject object : tiledMap.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             String name="";
@@ -48,7 +48,7 @@ public class WorldCreator {
         for(MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             new PitFall(screen, object);
         }
-
+*/
         //SafeGround Fixtures
         for(MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             new SafeGround(screen, object);

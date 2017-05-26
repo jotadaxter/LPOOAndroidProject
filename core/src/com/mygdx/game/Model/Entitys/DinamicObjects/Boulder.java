@@ -36,4 +36,7 @@ public class Boulder extends Sprite{
         setPosition(boulderBody.getBody().getPosition().x-getWidth()/2, boulderBody.getBody().getPosition().y-getHeight()/2);
     }
 
+    public BoulderBody getBoulderBody() {
+        return boulderBody;
+    }
 }

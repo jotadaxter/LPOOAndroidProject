@@ -25,6 +25,9 @@ public class Hero extends Sprite{
     public static final float RESET_POS1X = 8+44-7-0.5f;
     public static final float RESET_POS1Y = 8+20-6-0.5f;
 
+    public static final float RESET_POS2X = 8+9-7-0.5f;
+    public static final float RESET_POS2Y = 8+40-6-0.5f;
+
     //Standing Textures
     private TextureRegion standRight;
     private TextureRegion standLeft;
@@ -144,7 +147,10 @@ public class Hero extends Sprite{
 
     public void update(float dt){
         if(fell){
-            heroBody.b2body.setTransform(RESET_POS1X , RESET_POS1Y, 0);
+            if(screen.d1blck)
+                heroBody.b2body.setTransform(RESET_POS1X , RESET_POS1Y, 0);
+            else if(!screen.d1blck)
+                heroBody.b2body.setTransform(RESET_POS2X , RESET_POS2Y, 0);
             fell=false;
         }
       else setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);

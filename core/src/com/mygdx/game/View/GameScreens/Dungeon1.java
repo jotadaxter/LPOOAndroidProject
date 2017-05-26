@@ -26,25 +26,17 @@ public class Dungeon1 extends GameScreen{
     public static final int POSX = 8+3*16;
     public static final int POSY = 8+3*16;
 
-    public static final int MOV_PLAT_X = 16+16*45;
-    public static final int MOV_PLAT_Y = 16+16*33;
-
-    public static final int P1_X = 45*16;
-    public static final int P1_Y = 16*23;
-
-    public static final int P2_X = 3*16;
-    public static final int P2_Y = 16*3;
-
-    public static final int P3_X = 3*16;
-    public static final int P3_Y = 16*11;
-
-    public static final int P4_X = 17*16;
-    public static final int P4_Y = 16*11;
+    public static final int MOV_PLAT1_X = 45*16;
+    public static final int MOV_PLAT1_Y = 16*23;
+    public static final int MOV_PLAT2_X = 13*16;
+    public static final int MOV_PLAT2_Y = 41*16;
+    public static final int MOV_PLAT3_X = 30*16;
+    public static final int MOV_PLAT3_Y = 41*16;
 
     private PressingEvent megaPressingEvent;
 
     public Dungeon1(MyGame game) {
-        super(game, 8+12*16, 8+21*16);
+        super(game, POSX, POSY);
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
     }
@@ -77,9 +69,15 @@ public class Dungeon1 extends GameScreen{
     }
 
     private void movingPlatformsLoad() {
-        MovingPlatform m1= new MovingPlatform(this, P1_X,P1_Y);
+        MovingPlatform m1= new MovingPlatform(this, MOV_PLAT1_X,MOV_PLAT1_Y, 0);
         m1.setId(0);
         mps.add(m1);
+        MovingPlatform m2= new MovingPlatform(this, MOV_PLAT2_X,MOV_PLAT2_Y, 1);
+        m1.setId(1);
+        mps.add(m2);
+        MovingPlatform m3= new MovingPlatform(this, MOV_PLAT3_X,MOV_PLAT3_Y, 2);
+        m1.setId(2);
+        mps.add(m3);
     }
 
     private void boulderLoad() {
@@ -291,8 +289,6 @@ public class Dungeon1 extends GameScreen{
     public void objectsDraw() {
         for(WayBlocker wb : wayblocks)
             wb.draw(game.batch);
-        for(MovingPlatform m : mps)
-            m.draw(game.batch);
         for(MegaPressingPlate mpp : mpps)
             mpp.draw(game.batch);
         for(SmashableRock sm : smashRocks)
@@ -303,7 +299,8 @@ public class Dungeon1 extends GameScreen{
             chest.draw(game.batch);
         for(Boulder boulder : boulders)
             boulder.draw(game.batch);
-
+        for(MovingPlatform m : mps)
+            m.draw(game.batch);
     }
 
     @Override

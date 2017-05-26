@@ -32,13 +32,11 @@ public class Chest extends Sprite{
     private int dropLoot;
     private int id;
     private Sound sound1;
-    private Sound sound2;
 
     public Chest(GameScreen screen, int x, int y) {
         this.world=screen.getWorld();
         this.screen=screen;
         sound1=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_chest_item.wav"));
-        sound2=  Gdx.audio.newSound(Gdx.files.internal("Sounds/open_chest.wav"));
         chestBody= new ChestBody(world,this,x,y);
         isOpen=false;
         dropLoot=0;
@@ -57,7 +55,6 @@ public class Chest extends Sprite{
         setPosition(chestBody.getBody().getPosition().x - getWidth() / 2, chestBody.getBody().getPosition().y - getHeight() / 2);
         setRegion(chestBody.getFrame(dt));
         if (dropLoot == 1) {
-            sound2.play();
             loot();
             sound1.play();
             dropLoot = 2;

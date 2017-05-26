@@ -185,9 +185,6 @@ public class FreeWorld extends GameScreen {
         for(Sign sign :signs)
             sign.update(dt);
         pressingEvent.update(dt);
-
-
-
     }
 
     @Override
@@ -202,6 +199,11 @@ public class FreeWorld extends GameScreen {
             chest.draw(game.batch);
         for(Sign sign :signs)
             sign.draw(game.batch);
+    }
+
+    public void resetBoulders() {
+        for(int i=0;i<2;i++)
+            boulders.get(i).getBoulderBody().getBody().setTransform(0.5f+8+2*i ,0.5f+54, 0);
     }
 
 }

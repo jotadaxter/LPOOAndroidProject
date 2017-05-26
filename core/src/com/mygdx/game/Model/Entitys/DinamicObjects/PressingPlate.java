@@ -43,8 +43,6 @@ public class PressingPlate extends Sprite {
     public void update(float dt, GameScreen screen){
         setPosition(pressingPlateBody.getBody().getPosition().x-getWidth()/2, pressingPlateBody.getBody().getPosition().y-getHeight()/2);
         setRegion(pressingPlateBody.getFrame(this,dt));
-        if(isPressed>=1){
-        }
     }
 
     public int isPressed() {

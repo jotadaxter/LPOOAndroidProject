@@ -128,7 +128,10 @@ public class MyGame extends Game {
 		assetManager.load("Game/hero_hurt.png", Texture.class);
 		assetManager.load("Game/life_hearts.png", Texture.class);
 		assetManager.load("Game/mega_pressing_plates.png", Texture.class);
-		assetManager.load("Game/moving_platform.png", Texture.class);
+		assetManager.load("Game/moving_platform_down.png", Texture.class);
+		assetManager.load("Game/moving_platform_up.png", Texture.class);
+		assetManager.load("Game/moving_platform_left.png", Texture.class);
+		assetManager.load("Game/moving_platform_right.png", Texture.class);
 		assetManager.load("Game/log.png", Texture.class);
 		assetManager.load("Game/volcano_ruby.png", Texture.class);
 		assetManager.load("Game/sign.png", Texture.class);

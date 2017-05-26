@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.InteractiveObjects.ChestBody;
 import com.mygdx.game.Controller.Entitys.InteractiveObjects.SignBody;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
 import java.util.Random;
@@ -25,7 +26,6 @@ public class Sign extends Sprite{
     private boolean openLog;
     private int id;
     private String text;
-    private Sound sound;
 
     public Sign(GameScreen screen, int x, int y, String text) {
         this.world=screen.getWorld();
@@ -33,7 +33,6 @@ public class Sign extends Sprite{
         this.text=text;
         signBody= new SignBody(world,this,x,y);
         openLog=false;
-        sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/open_chest.wav"));
         textureLoad();
         setPosition(x,y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
@@ -48,25 +47,22 @@ public class Sign extends Sprite{
         setPosition(signBody.getBody().getPosition().x-getWidth()/2, signBody.getBody().getPosition().y-getHeight()/2);
         if(openLog){
             screen.setTurnLogOn(true);
-                logDisplay();
+           logDisplay();
+            if(screen.getType()== FreeWorld.class) {
+                ((FreeWorld)screen).resetBoulders();
+            }
         }
         else {
             screen.setTurnLogOn(false);
         }
-
     }
 
     private void logDisplay() {
-        sound.play();
         screen.getTextLog().setText(text);
     }
 
     public void setOpenLog(boolean var) {
         openLog=var;
-    }
-
-    public boolean isOpenLog() {
-        return openLog;
     }
 
     public void addSignId(int id) {
