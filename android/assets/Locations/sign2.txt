@@ -1,0 +1,2 @@
+		Rupee
+Used to Increase the Score
