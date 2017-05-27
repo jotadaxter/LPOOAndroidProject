@@ -45,7 +45,7 @@ public class BombBody {
                 | MyGame.SPIKES_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.PRESSING_PLATE_BIT;
-        fdef.shape=normalShape;
+
         body.createFixture(fdef).setUserData(this);
     }
 

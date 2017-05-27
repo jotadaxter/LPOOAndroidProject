@@ -20,8 +20,8 @@ import com.mygdx.game.View.MenuScreens.MainMenu;
 import java.util.Stack;
 
 public class MyGame extends Game {
-    public static final int VIEWPORT_WIDTH =1000;//240;//GameBoy Advance settings
-    public static final int VIEWPORT_HEIGHT =1000;//160;
+    public static final int VIEWPORT_WIDTH =240;//GameBoy Advance settings
+    public static final int VIEWPORT_HEIGHT =160;
     public static final float PIXEL_TO_METER = 0.0625f;
     public static final float VELOCITY= 10f;
 	public static final float PLATFORM_VELOCITY= 60f;//60f;

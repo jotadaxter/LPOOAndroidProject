@@ -22,7 +22,7 @@ public class Boulder extends Sprite{
     public Boulder(GameScreen screen, float x, float y) {
         super(screen.getAtlas().findRegion("boulder"));
         this.world=screen.getWorld();
-        boulderBody= new BoulderBody(world,x,y);
+        boulderBody= new BoulderBody(world,this, x,y);
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/pushing_boulder.wav"));
         boulderFigure = new TextureRegion(screen.getAtlas().findRegion("boulder"), 0,0,16,16);
         setPosition(x,y);
