@@ -60,9 +60,9 @@ public class MainMenu extends MenuScreen {
 
 
         if(arcadeButton.isPressed()){
-            game.gsm.push(new FreeWorld(game));
+            //game.gsm.push(new FreeWorld(game));
             //game.gsm.push(new Dungeon1(game));
-            //game.gsm.push(new DemoScreen(game,POSX,POSY));
+            game.gsm.push(new DemoScreen(game,POSX,POSY));
         }
     }
 

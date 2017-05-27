@@ -10,6 +10,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
+import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.Items.ItemDef;
@@ -38,7 +39,7 @@ public class Dungeon1 extends GameScreen{
     private PressingEvent megaPressingEvent;
 
     public Dungeon1(MyGame game) {
-        super(game, POSX, POSY);
+        super(game, 8+14*16, 21*16+8);
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
     }
@@ -54,20 +55,22 @@ public class Dungeon1 extends GameScreen{
     public void objectLoad() {
         D1TopDoor topDoor1= new D1TopDoor(this,6*16+8,34*16+24,1);
         topDoors.add(topDoor1);
-        //Moving Platforms
         movingPlatformsLoad();
-        //Smashable Rocks
         smashRockLoad();
-        //Fireground
         fireGroundLoad();
-        //Chests
+        spikesLoad();
         chestsLoad();
-        //Items
         itemsLoad();
-        //PressingPlates
         pressingPlatesLoad();
-        //Boulders
         boulderLoad();
+    }
+
+    private void spikesLoad() {
+        ArrayList<Vector2> positions = game.fileReader.ReadFile("spikes_locations","dungeon1");
+        for(int i=0; i<positions.size();i++){
+            Spikes sp = new Spikes(this, positions.get(i).x,positions.get(i).y);
+            spikes.add(sp);
+        }
     }
 
     private void movingPlatformsLoad() {
@@ -138,6 +141,8 @@ public class Dungeon1 extends GameScreen{
             m.update(dt);
         for(SmashableRock sm : smashRocks)
             sm.update(dt);
+        for(Spikes spike : spikes)
+            spike.update(dt);
         for(FireGround fg : fireGrounds)
             fg.update(dt);
         for(WayBlocker wb : wayblocks){
@@ -172,6 +177,8 @@ public class Dungeon1 extends GameScreen{
             sm.draw(game.batch);
         for(FireGround fg : fireGrounds)
             fg.draw(game.batch);
+        for(Spikes spike : spikes)
+            spike.draw(game.batch);
         for(Chest chest : chests)
             chest.draw(game.batch);
         for(Boulder boulder : boulders)

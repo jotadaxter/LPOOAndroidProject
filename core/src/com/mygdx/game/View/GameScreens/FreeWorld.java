@@ -84,15 +84,19 @@ public class FreeWorld extends GameScreen {
 
     @Override
     public void objectLoad() {
+        signLoad();
+        chestsLoad();
+        pressingPlatesLoad();
+        boulderLoad();
+    }
+
+    private void signLoad() {
         Sign sign1= new Sign(this,29*16+8,35*16-8, game.fileReader.getSignText("sign5"));
         sign1.addSignId(0);
         signs.add(sign1);
-        //Chests
-        chestsLoad();
-        //PressingPlates
-        pressingPlatesLoad();
-        //Boulders and WayBlockers
-        boulderLoad();
+        Sign sign2= new Sign(this,9*16+8,5*16-8, game.fileReader.getSignText("sign0"));
+        sign2.addSignId(1);
+        signs.add(sign2);
     }
 
     private void chestsLoad() {

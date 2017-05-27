@@ -15,6 +15,7 @@ public class FileReader {
     private Scanner scan;
     private String filename;
     private String screenType;
+    private Scanner textScan;
 
     public ArrayList<Vector2> ReadFile(String filename, String screenType){
         this.filename=filename;
@@ -56,14 +57,14 @@ public class FileReader {
         String temp1 = "Locations/" + filename + ".txt";
         String temp2="";
         try {
-            scan = new Scanner(new File(temp1));
+            textScan = new Scanner(new File(temp1));
         } catch (FileNotFoundException r) {
             System.out.println(r.getMessage());
         }
-        while (scan.hasNext()) {
-            temp2+=(scan.nextLine()+"\n");
+        while (textScan.hasNext()) {
+            temp2+=(textScan.nextLine()+"\n");
         }
-        scan.close();
+        textScan.close();
         return temp2;
     }
 }
