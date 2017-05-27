@@ -25,6 +25,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.Scenes.TextLog;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Utilizador on 10-05-2017.
@@ -37,19 +38,19 @@ public class FreeWorld extends GameScreen {
     public static final int TUTORIAL_PX = 8+9*16+8;
     public static final int TUTORIAL_PY = 8+11*16;
     //Boulder Position
-    public static final int BOULDER1_X = 170;
-    public static final int BOULDER1_Y = 870;
-    public static final int BOULDER2_X = 140;
-    public static final int BOULDER2_Y = 870;
+    public static final int BOULDER1_X = 8+16*8;
+    public static final int BOULDER1_Y = 8+16*54;
+    public static final int BOULDER2_X = 8+16*10;
+    public static final int BOULDER2_Y = 8+16*54;
     //PressingPlate Position
-    public static final int PP1_X = 140;
-    public static final int PP1_Y = 570;
-    public static final int PP2_X = 200;
-    public static final int PP2_Y = 570;
-    public static final int PP3_X = 140;
-    public static final int PP3_Y = 520;
-    public static final int PP4_X = 200;
-    public static final int PP4_Y = 520;
+    public static final int PP1_X = 8+16*8;
+    public static final int PP1_Y = 8+16*35;
+    public static final int PP2_X = 8+16*12;
+    public static final int PP2_Y = 8+16*35;
+    public static final int PP3_X = 8+16*8;
+    public static final int PP3_Y = 8+16*32;
+    public static final int PP4_X = 8+16*12;
+    public static final int PP4_Y = 8+16*32;
     //WayBlockers
     public static final int WB1_X = 8+16*23;
     public static final int WB1_Y = 8+16*50;
@@ -63,7 +64,7 @@ public class FreeWorld extends GameScreen {
     private PressingEvent pressingEvent;
 
     public FreeWorld(MyGame game) {
-        super(game, POSX, POSY);
+        super(game,POSX, POSY);
         type= FreeWorld.class;
         warpEvents.add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,247,35))));
         warpEvents.add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game))));
@@ -89,6 +90,22 @@ public class FreeWorld extends GameScreen {
         chestsLoad();
         pressingPlatesLoad();
         boulderLoad();
+        itemsLoad();
+    }
+
+    private void itemsLoad() {
+        ArrayList<Vector2> positions = game.fileReader.ReadFile("rupee_locations","free_world");
+        for(int i=0; i<positions.size();i++){
+            int val;
+            Random random= new Random();
+            int rand=random.nextInt(100) + 1;
+            if(rand>0 && rand<50)
+                val=MyGame.GREEN_RUPEE;
+            else if(rand>=50 && rand<75)
+                val=MyGame.BLUE_RUPEE;
+            else val=MyGame.RED_RUPEE;
+            spawnItem(new ItemDef(new Vector2(positions.get(i).x,positions.get(i).y), Jewel.class, val));
+        }
     }
 
     private void signLoad() {
@@ -120,9 +137,9 @@ public class FreeWorld extends GameScreen {
         PressingPlate pp3= new PressingPlate(this, PP3_X, PP3_Y);
         PressingPlate pp4= new PressingPlate(this, PP4_X, PP4_Y);
         ArrayList<PressingPlate> dungeon1_plates= new ArrayList<PressingPlate>();
-        dungeon1_plates.add(pp1);//ordem: 1-4-2-3
+        dungeon1_plates.add(pp2);//ordem: 2-4-3
         dungeon1_plates.add(pp4);
-        dungeon1_plates.add(pp2);
+        dungeon1_plates.add(pp3);
         pps.add(pp1);
         pps.add(pp4);
         pps.add(pp2);
@@ -137,9 +154,9 @@ public class FreeWorld extends GameScreen {
         wayblocks.add(wb2);
         WayBlocker wb3 =  new WayBlocker(this,WB3_X,WB3_Y,0);
         wayblocks.add(wb3);
-        Boulder boulder1= new Boulder(this,BOULDER1_X, BOULDER1_Y);
+        Boulder boulder1= new Boulder(this,9*16+8, 31*16+8);
         boulders.add(boulder1);
-        Boulder boulder2= new Boulder(this,BOULDER2_X, BOULDER2_Y);
+        Boulder boulder2= new Boulder(this,11*16+8, 31*16+8);
         boulders.add(boulder2);
     }
 
@@ -147,8 +164,8 @@ public class FreeWorld extends GameScreen {
     public void handleSpawningItems() {
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef= itemsToSpawn.poll();
-            if(idef.type == SpecialItem.class) {
-                items.add(new SpecialItem(this, idef.position.x, idef.position.y));
+            if(idef.type == Jewel.class) {
+                items.add(new Jewel(idef.val,this, idef.position.x, idef.position.y));
             }
         }
     }

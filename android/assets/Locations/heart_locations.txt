@@ -1,0 +1,7 @@
+dungeon1 696 312
+dungeon1 712 312
+dungeon1 728 312
+dungeon1 424 488
+dungeon1 56	696
+dungeon1 456 648
+dungeon1 456 632

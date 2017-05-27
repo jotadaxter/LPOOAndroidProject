@@ -30,6 +30,7 @@ public class Bomb extends Sprite{
     private boolean destroyed;
     private BombBody bombBody;
     private ExplosionBody explosionBody;
+    private float soundTimer;
 
     public enum State {TIC_TAC, BOOM, LAST};
     public State currentState;
@@ -43,8 +44,6 @@ public class Bomb extends Sprite{
     private Animation<TextureRegion> boom;
     public float timer;
     private float tic_tac_timer;
-    private float boom_timer;
-
     private Sound sound1;
     private Sound sound2;
 
@@ -59,6 +58,7 @@ public class Bomb extends Sprite{
         timer=0;
         explosionBody= new ExplosionBody(world,0,0);
         tic_tac_timer=0;
+        soundTimer=0;
         textureLoad();
         currentState=State.TIC_TAC;
         animationLoad();
@@ -105,7 +105,17 @@ public class Bomb extends Sprite{
         }
         setPosition(bombBody.getBody().getPosition().x-getWidth()/2, bombBody.getBody().getPosition().y-getHeight()/2);
         timer+=dt;
+        if(soundTimer>=0)
+            soundTimer+=dt;
 
+        if(soundTimer>0 && soundTimer<2){
+            sound1.play();
+        }
+        else if(soundTimer>=2){
+            sound1.stop();
+            sound2.play();
+            soundTimer=-1;
+        }
         if(this.timer<MAX_TIMING)
             setRegion(getFrame(dt));
         else destroy();
@@ -147,13 +157,11 @@ public class Bomb extends Sprite{
             case TIC_TAC: {
                 setBounds(getX(), getY(), 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
                 region = tic_tac.getKeyFrame(tic_tac_timer, true);
-                sound1.play();
             }
             break;
             case LAST: {
                 setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
                 region = boom.getKeyFrame(1);
-                sound2.play();
             }
             break;
             case BOOM: {

@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Chest extends Sprite{
     //Loot Ratios
+    public static final int GREEN_RUPEE_RATIO = 40;
     public static final int BLUE_RUPEE_RATIO = 60;
     public static final int RED_RUPEE_RATIO = 100;
 
@@ -66,13 +67,18 @@ public class Chest extends Sprite{
         Random random= new Random();
         int rand=random.nextInt(100) + 1;
         Jewel j;
-        if(rand> 0 && rand<= BLUE_RUPEE_RATIO){
-            j= new Jewel(MyGame.BLUE_RUPEE,screen, 0, 0);
+        if(rand>0 && rand<=GREEN_RUPEE_RATIO){
+            j= new Jewel(MyGame.BIG_GREEN_RUPEE,screen, 0, 0);
+            screen.getHero().addItem(j);
+            world.destroyBody(j.getJewelBody().getBody());
+        }
+        else if(rand> GREEN_RUPEE_RATIO && rand<= BLUE_RUPEE_RATIO){
+            j= new Jewel(MyGame.BIG_BLUE_RUPEE,screen, 0, 0);
             screen.getHero().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }
         else if(rand> BLUE_RUPEE_RATIO && rand<= RED_RUPEE_RATIO){
-            j= new Jewel(MyGame.RED_RUPEE,screen, 0, 0);
+            j= new Jewel(MyGame.BIG_RED_RUPEE,screen, 0, 0);
             screen.getHero().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }

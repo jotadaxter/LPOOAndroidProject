@@ -16,6 +16,7 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Utilizador on 05-04-2017.
@@ -40,6 +41,7 @@ public class Hero extends Sprite{
     public Animation<TextureRegion> heroWalkDown;
     public Animation<TextureRegion> heroDying;
     public Animation<TextureRegion> heroHurt;
+    //public Animation<TextureRegion> heroFalling;
     public float upDownTimer;
     public float leftRightTimer;
 
@@ -48,6 +50,7 @@ public class Hero extends Sprite{
     private GameScreen screen;
     private ArrayList<Bomb> bombs;
     public Bomb bomb;
+
     private boolean throwBomb;
     private boolean addBomb;
     private float bombCount;
@@ -61,11 +64,12 @@ public class Hero extends Sprite{
     private int openedSignId;
     public boolean signWasOpened;
     private boolean wasHit;
-    private boolean fell;
+    public boolean fell;
 
-    private Sound soundFalling;
+    //private Sound soundFalling;
     private Sound soundHurt;
     private Sound soundDying;
+    public boolean fallAnimationOn;
 
     public Hero(GameScreen screen, float x, float y){
         super(screen.getAtlas().findRegion("hero_front"));
@@ -82,6 +86,7 @@ public class Hero extends Sprite{
         wasHit=false;
         platformId=-1;
         fell=false;
+        fallAnimationOn=false;
        // bomb= new Bomb(world,this,0,0);
         setBombExploding(false);
         //Movement States
@@ -143,10 +148,18 @@ public class Hero extends Sprite{
         }
         heroDying = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
+/*
+        //Falling Animation
+        for (int i = 0; i < 4; i++) {
+            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/hero_falling.png", Texture.class), i * 22, 0, 22, 21));
+        }
+        heroFalling = new Animation<TextureRegion>(0.1f, frames);
+        frames.clear();*/
     }
 
     public void update(float dt){
         if(fell){
+            fallAnimationOn=true;
             if(screen.d1blck)
                 heroBody.b2body.setTransform(RESET_POS1X , RESET_POS1Y, 0);
             else if(!screen.d1blck)
@@ -165,10 +178,6 @@ public class Hero extends Sprite{
         if(throwBomb){
             for(Bomb bomb: bombs){
                 bomb.update(dt);
-                /*if(bomb.exploded()) {
-                    bombs.remove(bomb);
-                    screen.getBombPool().free(bomb);
-//                }*/
             }
         }
     }
@@ -227,14 +236,12 @@ public class Hero extends Sprite{
     }
 
     public void hit(){
-        /*if(bombs.get(0).timer>2)
-            System.out.println("hit");*/
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         wasHit=true;
     }
 
     public void fall(){
-        System.out.println(heroBody.b2body.getPosition().x);
+        soundHurt.play();
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         fell=true;
     }
@@ -363,4 +370,8 @@ public class Hero extends Sprite{
     public Sound getSoundDying() {
         return soundDying;
     }
+/*
+    public Sound getSoundFalling() {
+        return soundFalling;
+    }*/
 }

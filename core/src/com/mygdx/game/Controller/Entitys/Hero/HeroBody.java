@@ -13,6 +13,8 @@ import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Jotadaxter on 28/04/2017.
  */
@@ -25,7 +27,7 @@ public class HeroBody {
     private FixtureDef fdef;
     private Hero hero;
 
-    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, GAME_OVER, DYING};
+    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, GAME_OVER, DYING, FALLING};
     public State currentState;
     public State previousState;
 
@@ -111,7 +113,10 @@ public class HeroBody {
         }
         else if(hero.getWasHit()){
             return State.HURT;
-        }
+        }/*
+        else if(hero.isInPitfall && !hero.isInPlatform){
+            return State.FALLING;
+        }*/
         else if (b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y == 0
                 || b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0
                 || b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y != 0) {
@@ -156,7 +161,13 @@ public class HeroBody {
                 hero.getSoundHurt().play();
                 hero.setWasHit(false);
             }
-            break;
+            break;/*
+            case FALLING:{
+                hero.setBounds(hero.getX(), hero.getY(), 22 * MyGame.PIXEL_TO_METER, 21 * MyGame.PIXEL_TO_METER);
+                region = hero.heroFalling.getKeyFrame(hero.upDownTimer, false);
+                //hero.getSoundFalling().play();
+            }
+            break;*/
             case DYING:{
                 hero.getSoundDying().play();
                 hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
@@ -329,6 +340,7 @@ public class HeroBody {
             else b2body.setLinearVelocity(0, 0);
         }
     }
+
     public Body getBody() {
         return b2body;
     }

@@ -1,7 +1,5 @@
-XXX     XXX
-X1X      X2X
-XXX     XXX
-      423  
-XXX     XXX
-X3 X     X4 X
-XXX     XXX
+X O   X X
+O X   O O
+
+X O   O X
+O X   X O
