@@ -11,6 +11,7 @@ import com.mygdx.game.Model.Entitys.Items.Heart;
 import com.mygdx.game.Model.Entitys.Items.ItemDef;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.Scenes.TextLog;
 
 /**
  * Created by Utilizador on 08-05-2017.
@@ -49,8 +50,6 @@ public class DemoScreen extends GameScreen {
     public void objectLoad() {
         Boulder boulder= new Boulder(this,BOULDER_X, BOULDER_Y);
         boulders.add(boulder);
-        Spikes spike= new Spikes(this,250,200);
-        spikes.add(spike);
         PressingPlate pp= new PressingPlate(this, PP_X, PP_Y);
         pps.add(pp);
         SmashableRock sm = new SmashableRock(this, 8+5*16,8+8*16);
@@ -62,21 +61,29 @@ public class DemoScreen extends GameScreen {
     }
 
     private void signLoad() {
-        Sign sign1= new Sign(this,29*16+8,35*16-8, game.fileReader.getSignText("sign1"));
+        Sign sign1= new Sign(this,5*16+8,13*16+8);
         sign1.addSignId(0);
         signs.add(sign1);
+        TextLog log1 = new TextLog(game, this, game.fileReader.getSignText("sign1"), 0);
+        textlogs.add(log1);
 
-        Sign sign2= new Sign(this,29*16+8,35*16-8, game.fileReader.getSignText("sign2"));
-        sign2.addSignId(0);
+        Sign sign2= new Sign(this,14*16+8,13*16+8);
+        sign2.addSignId(1);
         signs.add(sign2);
+        TextLog log2 = new TextLog(game, this, game.fileReader.getSignText("sign2"), 1);
+        textlogs.add(log2);
 
-        Sign sign3= new Sign(this,29*16+8,35*16-8, game.fileReader.getSignText("sign3"));
-        sign3.addSignId(0);
+        Sign sign3= new Sign(this,5*16+8,6*16+8);
+        sign3.addSignId(2);
         signs.add(sign3);
+        TextLog log3 = new TextLog(game, this, game.fileReader.getSignText("sign3"), 2);
+        textlogs.add(log3);
 
-        Sign sign4= new Sign(this,29*16+8,35*16-8, game.fileReader.getSignText("sign4"));
-        sign4.addSignId(0);
+        Sign sign4= new Sign(this,13*16+8,6*16+8);
+        sign4.addSignId(3);
         signs.add(sign4);
+        TextLog log4 = new TextLog(game, this, game.fileReader.getSignText("sign4"), 3);
+        textlogs.add(log4);
     }
 
     @Override
@@ -88,12 +95,12 @@ public class DemoScreen extends GameScreen {
     public void objectsUpdate(float dt) {
         for(Boulder boulder : boulders)
             boulder.update(dt);
-        for(Spikes spike : spikes)
-            spike.update(dt);
         for(SmashableRock sm : smashRocks)
             sm.update(dt);
         for(PressingPlate pp : pps)
             pp.update(dt,this);
+        for(Sign sign :signs)
+            sign.update(dt);
     }
 
     @Override
@@ -111,14 +118,14 @@ public class DemoScreen extends GameScreen {
 
     @Override
     public void objectsDraw() {
-        for(Spikes spike : spikes)
-            spike.draw(game.batch);
         for(SmashableRock sm : smashRocks)
             sm.draw(game.batch);
         for(PressingPlate pp : pps)
             pp.draw(game.batch);
         for(Boulder boulder : boulders)
             boulder.draw(game.batch);
+        for(Sign sign :signs)
+            sign.draw(game.batch);
 
     }
 }

@@ -25,12 +25,11 @@ public class Sign extends Sprite{
     private SignBody signBody;
     private boolean openLog;
     private int id;
-    private String text;
 
-    public Sign(GameScreen screen, float x, float y, String text) {
+
+    public Sign(GameScreen screen, float x, float y) {
         this.world=screen.getWorld();
         this.screen=screen;
-        this.text=text;
         signBody= new SignBody(world,this,x,y);
         openLog=false;
         textureLoad();
@@ -45,20 +44,11 @@ public class Sign extends Sprite{
 
     public void update(float dt){
         setPosition(signBody.getBody().getPosition().x-getWidth()/2, signBody.getBody().getPosition().y-getHeight()/2);
-        if(openLog){
-            screen.setTurnLogOn(true);
-           logDisplay();
-            if(screen.getType()== FreeWorld.class) {
-                ((FreeWorld)screen).resetBoulders();
-            }
+       if(openLog){
+           if(screen.getType()== FreeWorld.class) {
+               ((FreeWorld)screen).resetBoulders();
+           }
         }
-        else {
-            screen.setTurnLogOn(false);
-        }
-    }
-
-    private void logDisplay() {
-        screen.getTextLog().setText(text);
     }
 
     public void setOpenLog(boolean var) {
@@ -73,4 +63,7 @@ public class Sign extends Sprite{
         return id;
     }
 
+    public boolean getIsOpen() {
+        return openLog;
+    }
 }

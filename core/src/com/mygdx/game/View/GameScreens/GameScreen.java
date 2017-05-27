@@ -53,8 +53,7 @@ public abstract class GameScreen implements Screen{
     protected OrthographicCamera gameCam;
     protected Viewport viewPort;
     protected Hud hud;
-    protected TextLog textlog;
-    protected boolean turnLogOn;
+    protected ArrayList<TextLog> textlogs;
     protected Stage stage;
     protected float accumulator;
 
@@ -80,7 +79,6 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<WayBlocker> wayblocks;
     protected ArrayList<Chest> chests;
     protected ArrayList<MovingPlatform> mps;
-   // protected Pool<Bomb> bombPool;
     protected Array<Item> items;
     protected ArrayList<Sign> signs;
     protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
@@ -96,7 +94,7 @@ public abstract class GameScreen implements Screen{
         this.game=game;
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
         viewPort= new FitViewport(MyGame.VIEWPORT_WIDTH*MyGame.PIXEL_TO_METER,MyGame.VIEWPORT_HEIGHT*MyGame.PIXEL_TO_METER, gameCam);
-        turnLogOn=false;
+
         //Map Load
         String mapName = "Maps/" + getMapName();
         mapLoader = new TmxMapLoader();
@@ -105,7 +103,7 @@ public abstract class GameScreen implements Screen{
         gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
         hud= new Hud(game, this);
         controller= new Controller(game);
-
+        textlogs=new ArrayList<TextLog>();
         //box2d
         world= new World(new Vector2(0,0), true);
         b2dr= new Box2DDebugRenderer();
@@ -125,16 +123,9 @@ public abstract class GameScreen implements Screen{
         mps=new ArrayList<MovingPlatform>();
         chests= new ArrayList<Chest>();
         signs=new ArrayList<Sign>();
-        textlog=new TextLog(game,this,"");
         topDoors= new Array<D1TopDoor>();
         smashRocks= new ArrayList<SmashableRock>();
         fireGrounds= new ArrayList<FireGround>();
-       /* bombPool = new Pool<Bomb>() {
-            @Override
-            protected Bomb newObject() {
-                return new Bomb(world,player,0,0);
-            }
-        };*/
         warpEvents= new Array<WarpEvent>();
         objectLoad();
         //Contact Listener
@@ -162,7 +153,6 @@ public abstract class GameScreen implements Screen{
         //Sprites Update
         player.update(dt);
         objectsUpdate(dt);
-
         for(D1TopDoor top : topDoors)
             top.update(dt);
 
@@ -173,9 +163,10 @@ public abstract class GameScreen implements Screen{
         //ajust the camera to follow the player
         gameCam.position.x=player.getHeroBody().b2body.getPosition().x;
         gameCam.position.y=player.getHeroBody().b2body.getPosition().y;
+        for(TextLog tlog: textlogs) {
+            tlog.update(dt);
+        }
         hud.update(dt,this);
-        if(turnLogOn)
-            textlog.update(dt);
         gameCam.update();
         renderer.setView(gameCam);
     }
@@ -233,8 +224,10 @@ public abstract class GameScreen implements Screen{
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         hud.heartStage.draw();
-        if(turnLogOn)
-            textlog.stage.draw();
+        for(TextLog tlog: textlogs) {
+            if(signs.get(tlog.getId()).getIsOpen())
+                tlog.stage.draw();
+        }
         //Controller
         if(Gdx.app.getType() == Application.ApplicationType.Android)
             controller.draw();
@@ -308,14 +301,6 @@ public abstract class GameScreen implements Screen{
 
     public ArrayList<Sign> getSigns() {
         return signs;
-    }
-
-    public TextLog getTextLog() {
-        return textlog;
-    }
-
-    public void setTurnLogOn(boolean turnLogOn) {
-        this.turnLogOn = turnLogOn;
     }
 
     public Music getMusic() {

@@ -22,6 +22,7 @@ import com.mygdx.game.Model.Events.PressingEvent;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.Scenes.TextLog;
 
 import java.util.ArrayList;
 
@@ -91,12 +92,17 @@ public class FreeWorld extends GameScreen {
     }
 
     private void signLoad() {
-        Sign sign1= new Sign(this,29*16+8,35*16-8, game.fileReader.getSignText("sign5"));
+        Sign sign1= new Sign(this,29*16+8,35*16-8);
         sign1.addSignId(0);
         signs.add(sign1);
-        Sign sign2= new Sign(this,9*16+8,5*16-8, game.fileReader.getSignText("sign0"));
+        TextLog log1 = new TextLog(game, this, game.fileReader.getSignText("sign5"), 0);
+        textlogs.add(log1);
+
+        Sign sign2= new Sign(this,9*16+8,6*16-8);
         sign2.addSignId(1);
         signs.add(sign2);
+        TextLog log2 = new TextLog(game, this, game.fileReader.getSignText("sign0"), 1);
+        textlogs.add(log2);
     }
 
     private void chestsLoad() {

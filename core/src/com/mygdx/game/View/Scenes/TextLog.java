@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
@@ -19,6 +20,7 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class TextLog {
+    private GameScreen screen;
     private MyGame game;
     public Stage stage;
     private Viewport viewport;
@@ -26,10 +28,13 @@ public class TextLog {
     private String text;
     private Label textLabel;
     private Image logImage;
+    private int id;
 
-    public TextLog(MyGame game, GameScreen screen, String text) {
+    public TextLog(MyGame game, GameScreen screen, String text,int id) {
         this.game=game;
+        this.screen=screen;
         this.text=text;
+        this.id=id;
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, game.batch);
         font = screen.getGame().assetManager.get("Fonts/textFont.fnt", BitmapFont.class);
@@ -45,7 +50,6 @@ public class TextLog {
     private void labels() {
         Table table = new Table();
         table.center();
-       // table.bottom();
         table.setFillParent(true);
 
         textLabel= new Label(text, new Label.LabelStyle(font, Color.WHITE));
@@ -54,12 +58,15 @@ public class TextLog {
         table.add(textLabel).width(35).height(25);
         stage.addActor(table);
     }
-
     public void update(float dt){
-       textLabel.setText(text);
+        textLabel.setText(text);
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public String getText() {
+        return text;
+    }
+
+    public int getId() {
+        return id;
     }
 }
