@@ -104,7 +104,9 @@ public class FreeWorld extends GameScreen {
             else if(rand>=50 && rand<75)
                 val=MyGame.BLUE_RUPEE;
             else val=MyGame.RED_RUPEE;
-            spawnItem(new ItemDef(new Vector2(positions.get(i).x,positions.get(i).y), Jewel.class, val));
+            ItemDef idef=new ItemDef(new Vector2(positions.get(i).x,positions.get(i).y), Jewel.class);
+            idef.setVal(val);
+            spawnItem(idef);
         }
     }
 

@@ -48,12 +48,12 @@ public class Bomb extends Sprite{
     private Sound sound1;
     private Sound sound2;
 
-    public Bomb(GameScreen screen, Hero hero, float x, float y) {
+    public Bomb(GameScreen screen, Hero hero, Vector2 vec) {
         this.screen=screen;
         this.world=screen.getWorld();
         this.hero=hero;
-        bombBody= new BombBody(world, this,new Vector2( x,y));
-        setPosition(x,y);
+        bombBody= new BombBody(world, this,new Vector2( vec.x,vec.y));
+        setPosition(vec.x,vec.y);
         toDestroy=false;
         destroyed=false;
         timer=0;

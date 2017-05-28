@@ -16,9 +16,7 @@ public class ItemDef {
         this.position=position;
     }
 
-    public ItemDef(Vector2 position, Class<?> type, int val){
+    public void setVal(int val){
         this.val=val;
-        this.type=type;
-        this.position=position;
     }
 }

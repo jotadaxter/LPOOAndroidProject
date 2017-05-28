@@ -285,7 +285,7 @@ public class Hero extends Sprite{
 
         }
         //bomb= screen.getBombPool().obtain();
-        bomb= new Bomb(screen,this,0,0);
+        bomb= new Bomb(screen,this,new Vector2(0,0));
         bomb.setNewPosition(xx*MyGame.PIXEL_TO_METER,yy*MyGame.PIXEL_TO_METER);
         bombs.add(bomb);
         addBomb=false;
