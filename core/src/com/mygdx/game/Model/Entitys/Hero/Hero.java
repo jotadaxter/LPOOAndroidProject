@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
@@ -71,7 +72,7 @@ public class Hero extends Sprite{
     private Sound soundDying;
     public boolean fallAnimationOn;
 
-    public Hero(GameScreen screen, float x, float y){
+    public Hero(GameScreen screen, Vector2 vec){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
         this.world=screen.getWorld();
@@ -87,7 +88,6 @@ public class Hero extends Sprite{
         platformId=-1;
         fell=false;
         fallAnimationOn=false;
-       // bomb= new Bomb(world,this,0,0);
         setBombExploding(false);
         //Movement States
         this.bombs=new ArrayList<Bomb>();
@@ -99,7 +99,7 @@ public class Hero extends Sprite{
         heroAnimations(screen);
 
         //Hero Definition
-        heroBody = new HeroBody(screen, this,x,y);
+        heroBody = new HeroBody(screen, this,vec);
 
         standLeft = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
         standBack = new TextureRegion(screen.getAtlas().findRegion("hero_back"), 1, 1, 16, 21);
@@ -161,12 +161,12 @@ public class Hero extends Sprite{
         if(fell){
             fallAnimationOn=true;
             if(screen.d1blck)
-                heroBody.b2body.setTransform(RESET_POS1X , RESET_POS1Y, 0);
+                heroBody.getBody().setTransform(RESET_POS1X , RESET_POS1Y, 0);
             else if(!screen.d1blck)
-                heroBody.b2body.setTransform(RESET_POS2X , RESET_POS2Y, 0);
+                heroBody.getBody().setTransform(RESET_POS2X , RESET_POS2Y, 0);
             fell=false;
         }
-      else setPosition(heroBody.b2body.getPosition().x-getWidth()/2, heroBody.b2body.getPosition().y-getHeight()/2);
+      else setPosition(heroBody.getBody().getPosition().x-getWidth()/2, heroBody.getBody().getPosition().y-getHeight()/2);
         setRegion(heroBody.getFrame(this,dt));
         if(!addBomb)
             bombCount+=dt;

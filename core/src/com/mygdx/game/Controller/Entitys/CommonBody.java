@@ -66,4 +66,8 @@ public abstract class CommonBody {
     public Body getBody(){
         return body;
     }
+
+    public FixtureDef getFdef() {
+        return fdef;
+    }
 }

@@ -132,10 +132,10 @@ public class FreeWorld extends GameScreen {
     }
 
     private void pressingPlatesLoad() {
-        PressingPlate pp1= new PressingPlate(this, PP1_X, PP1_Y);
-        PressingPlate pp2= new PressingPlate(this, PP2_X, PP2_Y);
-        PressingPlate pp3= new PressingPlate(this, PP3_X, PP3_Y);
-        PressingPlate pp4= new PressingPlate(this, PP4_X, PP4_Y);
+        PressingPlate pp1= new PressingPlate(this,new Vector2( PP1_X, PP1_Y));
+        PressingPlate pp2= new PressingPlate(this,new Vector2( PP2_X, PP2_Y));
+        PressingPlate pp3= new PressingPlate(this,new Vector2( PP3_X, PP3_Y));
+        PressingPlate pp4= new PressingPlate(this,new Vector2( PP4_X, PP4_Y));
         ArrayList<PressingPlate> dungeon1_plates= new ArrayList<PressingPlate>();
         dungeon1_plates.add(pp2);//ordem: 2-4-3
         dungeon1_plates.add(pp4);
@@ -148,15 +148,15 @@ public class FreeWorld extends GameScreen {
     }
 
     private void boulderLoad() {
-        WayBlocker wb =  new WayBlocker(this,WB1_X,WB1_Y,0);
+        WayBlocker wb =  new WayBlocker(this,new Vector2(WB1_X,WB1_Y),0);
         wayblocks.add(wb);
-        WayBlocker wb2 =  new WayBlocker(this,WB2_X,WB2_Y,0);
+        WayBlocker wb2 =  new WayBlocker(this,new Vector2(WB2_X,WB2_Y),0);
         wayblocks.add(wb2);
-        WayBlocker wb3 =  new WayBlocker(this,WB3_X,WB3_Y,0);
+        WayBlocker wb3 =  new WayBlocker(this,new Vector2(WB3_X,WB3_Y),0);
         wayblocks.add(wb3);
-        Boulder boulder1= new Boulder(this,9*16+8, 31*16+8);
+        Boulder boulder1= new Boulder(this,new Vector2(9*16+8, 31*16+8));
         boulders.add(boulder1);
-        Boulder boulder2= new Boulder(this,11*16+8, 31*16+8);
+        Boulder boulder2= new Boulder(this,new Vector2(11*16+8, 31*16+8));
         boulders.add(boulder2);
     }
 
@@ -175,7 +175,7 @@ public class FreeWorld extends GameScreen {
         for(Boulder boulder : boulders)
             boulder.update(dt);
         for(PressingPlate pp : pps)
-            pp.update(dt, this);
+            pp.update(dt);
         for(MegaPressingPlate mpp : mpps)
             mpp.update(dt);
         for(WayBlocker wb : wayblocks){

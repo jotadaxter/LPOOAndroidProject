@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.WayBlockerBody;
 import com.mygdx.game.MyGame;
@@ -24,9 +25,9 @@ public class WayBlocker extends Sprite{
     private WayBlockerBody wayBlockerBody;
     private Sound sound;
 
-    public WayBlocker(GameScreen screen, float x, float y, int texChoose) {
+    public WayBlocker(GameScreen screen, Vector2 vec, int texChoose) {
         this.world=screen.getWorld();
-        wayBlockerBody= new WayBlockerBody(world,this,x,y);
+        wayBlockerBody= new WayBlockerBody(world,this,vec);
         destroyed=false;
         toDestroy=false;
         if(texChoose==0){
@@ -37,7 +38,7 @@ public class WayBlocker extends Sprite{
             blockFigure2 = new TextureRegion(screen.getGame().assetManager.get("Game/way_blocker2.png", Texture.class));
             setRegion(blockFigure2);
         }
-        setPosition(x,y);
+        setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         sound=Gdx.audio.newSound(Gdx.files.internal("Sounds/secret.wav"));
     }

@@ -114,7 +114,7 @@ public abstract class GameScreen implements Screen{
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
 
         //Sprites
-        player=new Hero(this, hero_x,hero_y);
+        player=new Hero(this,new Vector2( hero_x,hero_y));
         boulders=new ArrayList<Boulder>();
         spikes = new ArrayList<Spikes>();
         pps= new ArrayList<PressingPlate>();
@@ -161,8 +161,8 @@ public abstract class GameScreen implements Screen{
             item.update(dt, player);
 
         //ajust the camera to follow the player
-        gameCam.position.x=player.getHeroBody().b2body.getPosition().x;
-        gameCam.position.y=player.getHeroBody().b2body.getPosition().y;
+        gameCam.position.x=player.getHeroBody().getBody().getPosition().x;
+        gameCam.position.y=player.getHeroBody().getBody().getPosition().y;
         for(TextLog tlog: textlogs) {
             tlog.update(dt);
         }

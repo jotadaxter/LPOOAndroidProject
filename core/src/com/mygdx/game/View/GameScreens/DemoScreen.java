@@ -48,11 +48,11 @@ public class DemoScreen extends GameScreen {
 
     @Override
     public void objectLoad() {
-        Boulder boulder= new Boulder(this,BOULDER_X, BOULDER_Y);
+        Boulder boulder= new Boulder(this,new Vector2(BOULDER_X, BOULDER_Y));
         boulders.add(boulder);
-        PressingPlate pp= new PressingPlate(this, PP_X, PP_Y);
+        PressingPlate pp= new PressingPlate(this, new Vector2(PP_X, PP_Y));
         pps.add(pp);
-        SmashableRock sm = new SmashableRock(this, 8+5*16,8+8*16);
+        SmashableRock sm = new SmashableRock(this, new Vector2(8+5*16,8+8*16));
         smashRocks.add(sm);
         signLoad();
         //Items
@@ -98,7 +98,7 @@ public class DemoScreen extends GameScreen {
         for(SmashableRock sm : smashRocks)
             sm.update(dt);
         for(PressingPlate pp : pps)
-            pp.update(dt,this);
+            pp.update(dt);
         for(Sign sign :signs)
             sign.update(dt);
     }

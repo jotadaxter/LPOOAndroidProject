@@ -39,7 +39,7 @@ public class MovingPlatform extends Sprite {
     public State currentState;
     public State previousState;
 
-    public MovingPlatform(GameScreen screen, float x, float y, int type) {
+    public MovingPlatform(GameScreen screen, Vector2 vec, int type) {
         this.world = screen.getWorld();
         this.screen=screen;
         this.type=type;
@@ -47,10 +47,10 @@ public class MovingPlatform extends Sprite {
         sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/moving_platform.wav"));
         soundTimer=0;
         moving_timer=0;
-        platformBody = new MovingPlatformBody(world, this, x, y);
+        platformBody = new MovingPlatformBody(world, this, vec);
         loadAnimation();
         setBounds(0, 0, 32 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
-        setPosition(x, y);
+        setPosition(vec.x, vec.y);
     }
 
     private void loadAnimation() {

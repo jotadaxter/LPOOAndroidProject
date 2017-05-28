@@ -18,8 +18,8 @@ import com.mygdx.game.MyGame;
 public class BoulderBody extends CommonBody{
     Boulder boulder;
 
-    public BoulderBody(World world,Boulder boulder, float x, float y) {
-        super(world,new Vector2(x,y));
+    public BoulderBody(World world,Boulder boulder, Vector2 vec) {
+        super(world, vec);
         this.boulder=boulder;
     }
 

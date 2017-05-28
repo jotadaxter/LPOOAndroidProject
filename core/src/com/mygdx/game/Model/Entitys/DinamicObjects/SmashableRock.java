@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.SmashableRockBody;
 import com.mygdx.game.MyGame;
@@ -26,15 +27,15 @@ public class SmashableRock extends Sprite{
     private int timer;
     private boolean incTimer;
 
-    public SmashableRock(GameScreen screen, float x, float y) {
+    public SmashableRock(GameScreen screen, Vector2 vec) {
         this.world=screen.getWorld();
-        rockBody= new SmashableRockBody(world,this,x,y);
+        rockBody= new SmashableRockBody(world,this,vec);
         incTimer=false;
         destroyed=false;
         toDestroy=false;
         timer=0;
         blockFigure = new TextureRegion(screen.getAtlas().findRegion("destroyable_rock"), 0,0,16,16);
-        setPosition(x,y);
+        setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(blockFigure);
         sound= Gdx.audio.newSound(Gdx.files.internal("Sounds/rock_shatter.wav"));

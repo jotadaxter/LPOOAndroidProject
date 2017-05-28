@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Controller;
+import com.mygdx.game.Controller.Entitys.CommonBody;
+import com.mygdx.game.Controller.Entitys.StaticContactShapes;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -19,35 +21,69 @@ import java.util.concurrent.TimeUnit;
  * Created by Jotadaxter on 28/04/2017.
  */
 
-public class HeroBody {
+public class HeroBody extends CommonBody{
     public static final float DAMPING_NORMAL= 3f;
     private GameScreen screen;
     public boolean isInIce;
-    public Body b2body;
-    private FixtureDef fdef;
     private Hero hero;
-
     public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, GAME_OVER, DYING, FALLING};
     public State currentState;
     public State previousState;
 
-    public HeroBody(GameScreen screen, Hero hero, float x, float y) {
+    public HeroBody(GameScreen screen, Hero hero, Vector2 vec) {
+        super(screen.getWorld(), vec);
         currentState = State.STAND_DOWN;
         previousState = State.STAND_DOWN;
         this.screen=screen;
         this.hero=hero;
-        BodyDef bdef =  new BodyDef();
-        bdef.position.set(x*MyGame.PIXEL_TO_METER,y*MyGame.PIXEL_TO_METER);
-        bdef.type=BodyDef.BodyType.DynamicBody;
-        bdef.linearDamping=DAMPING_NORMAL;
-        b2body=screen.getWorld().createBody(bdef);
-        //b2body.setGravityScale(0);
+        body.setUserData(hero);
+        //Edgeshapes (contact lines) - Surfaces to detect contact with Tiled objects
+        new StaticContactShapes(body);
+    }
 
-        fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(4*MyGame.PIXEL_TO_METER,6.5f*MyGame.PIXEL_TO_METER);
-        fdef.filter.categoryBits= MyGame.HERO_BIT;
-        fdef.filter.maskBits = MyGame.ITEM_BIT
+    @Override
+    protected BodyDef.BodyType bodyDefinitionType() {
+        return BodyDef.BodyType.DynamicBody;
+    }
+
+    @Override
+    protected float damping() {
+        return DAMPING_NORMAL;
+    }
+
+    @Override
+    protected float restitution() {
+        return 0;
+    }
+
+    @Override
+    protected short setCategoryBits() {
+        return MyGame.HERO_BIT;
+    }
+
+    @Override
+    protected boolean isSensorVal() {
+        return false;
+    }
+
+    @Override
+    protected boolean ShapeCircle() {
+        return false;
+    }
+
+    @Override
+    protected float setRadius() {
+        return 0;
+    }
+
+    @Override
+    protected Vector2 shapeDimentions() {
+        return new Vector2(4,6.5f);
+    }
+
+    @Override
+    protected short setMaskBits() {
+        return MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.SPIKES_BIT
                 | MyGame.BOULDER_BIT
@@ -60,48 +96,6 @@ public class HeroBody {
                 | MyGame.MOVING_PLATFORM_BIT
                 | MyGame.MEGA_PRESSING_PLATE_BIT
                 | MyGame.PRESSING_PLATE_BIT;
-        fdef.shape= shape;
-        b2body.createFixture(fdef).setUserData(hero);
-
-
-        //Edgeshapes (contact lines) - Surfaces to detect contact with Tiled objects
-        FixtureDef sensorfix= new FixtureDef();
-        sensorfix.filter.categoryBits= MyGame.DEFAULT_BIT;
-        sensorfix.filter.maskBits = MyGame.ITEM_BIT
-                | MyGame.DEFAULT_BIT
-                | MyGame.SPIKES_BIT
-                | MyGame.BOULDER_BIT
-                | MyGame.WARP_OBJECT
-                | MyGame.PRESSING_PLATE_BIT;
-        sensorfix.shape= shape;
-
-        //Up Contact Line
-        EdgeShape upContact= new EdgeShape();
-        upContact.set(new Vector2(-4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER), new Vector2(4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER));
-        sensorfix.shape=upContact;
-        sensorfix.isSensor=true;
-        b2body.createFixture(sensorfix).setUserData("upContact");
-
-        //Down Contact Line
-        EdgeShape downContact= new EdgeShape();
-        downContact.set(new Vector2(-4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER), new Vector2(4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER));
-        sensorfix.shape=downContact;
-        sensorfix.isSensor=true;
-        b2body.createFixture(sensorfix).setUserData("downContact");
-
-        //Left Contact Line
-        EdgeShape leftContact= new EdgeShape();
-        leftContact.set(new Vector2(5*MyGame.PIXEL_TO_METER,-5*MyGame.PIXEL_TO_METER), new Vector2(5*MyGame.PIXEL_TO_METER,5*MyGame.PIXEL_TO_METER));
-        sensorfix.shape=leftContact;
-        sensorfix.isSensor=true;
-        b2body.createFixture(sensorfix).setUserData("leftContact");
-
-        //Down Contact Line
-        EdgeShape rightContact= new EdgeShape();
-        rightContact.set(new Vector2(-5*MyGame.PIXEL_TO_METER, -5*MyGame.PIXEL_TO_METER), new Vector2(-5*MyGame.PIXEL_TO_METER, 5*MyGame.PIXEL_TO_METER));
-        sensorfix.shape=rightContact;
-        sensorfix.isSensor=true;
-        b2body.createFixture(sensorfix).setUserData("rightContact");
     }
 
     public State getState() {
@@ -117,18 +111,18 @@ public class HeroBody {
         else if(hero.isInPitfall && !hero.isInPlatform){
             return State.FALLING;
         }*/
-        else if (b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y == 0
-                || b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0
-                || b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y != 0) {
-            if (Math.abs(b2body.getLinearVelocity().x) > Math.abs(b2body.getLinearVelocity().y)) {
-                if (b2body.getLinearVelocity().x > 0)
+        else if (body.getLinearVelocity().x != 0 && body.getLinearVelocity().y == 0
+                || body.getLinearVelocity().x == 0 && body.getLinearVelocity().y != 0
+                || body.getLinearVelocity().x != 0 && body.getLinearVelocity().y != 0) {
+            if (Math.abs(body.getLinearVelocity().x) > Math.abs(body.getLinearVelocity().y)) {
+                if (body.getLinearVelocity().x > 0)
                     return State.WALK_RIGHT;
                 else
                     return State.WALK_LEFT;
             }
             else
             {
-                if (b2body.getLinearVelocity().y < 0)
+                if (body.getLinearVelocity().y < 0)
                     return State.WALK_DOWN;
                 else //if (b2body.getLinearVelocity().y>0)
                     return State.WALK_UP;
@@ -224,12 +218,12 @@ public class HeroBody {
                 break;
         }
 
-        if((b2body.getLinearVelocity().x<0||currentState==State.WALK_LEFT)&&!region.isFlipX())
+        if((body.getLinearVelocity().x<0||currentState==State.WALK_LEFT)&&!region.isFlipX())
         {
             region.flip(true, false);
             currentState = State.WALK_LEFT;
         }
-        else if((b2body.getLinearVelocity().x>0||currentState==State.WALK_RIGHT)&&region.isFlipX())
+        else if((body.getLinearVelocity().x>0||currentState==State.WALK_RIGHT)&&region.isFlipX())
 
         {
             region.flip(true, false);
@@ -247,7 +241,7 @@ public class HeroBody {
 
     public void InputUpdate(Controller controller, float dt){
         if(controller.isRightPressed()){
-            b2body.applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), b2body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), body.getWorldCenter(), true);
             if(controller.isbPressed()){
                 if(hero.getAddBomb())
                     this.hero.throwBomb();
@@ -265,7 +259,7 @@ public class HeroBody {
             }
         }
        else if(controller.isLeftPressed()) {
-            b2body.applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt, 0), b2body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt, 0), body.getWorldCenter(), true);
             if(controller.isbPressed()){
                 if(hero.getAddBomb())
                     this.hero.throwBomb();
@@ -281,7 +275,7 @@ public class HeroBody {
             }
         }
         else if(controller.isUpPressed()){
-            b2body.applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt), body.getWorldCenter(), true);
             if(controller.isbPressed()){
                 if(hero.getAddBomb())
                     this.hero.throwBomb();
@@ -297,7 +291,7 @@ public class HeroBody {
             }
         }
         else if(controller.isDownPressed()){
-            b2body.applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
+            body.applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt), body.getWorldCenter(), true);
             if(controller.isbPressed()){
                 if(hero.getAddBomb())
                     this.hero.throwBomb();
@@ -335,17 +329,9 @@ public class HeroBody {
         }
         else {
             if(isInIce){
-                b2body.setLinearVelocity(0, 0);
+                body.setLinearVelocity(0, 0);
             }
-            else b2body.setLinearVelocity(0, 0);
+            else body.setLinearVelocity(0, 0);
         }
-    }
-
-    public Body getBody() {
-        return b2body;
-    }
-
-    public FixtureDef getFdef() {
-        return fdef;
     }
 }

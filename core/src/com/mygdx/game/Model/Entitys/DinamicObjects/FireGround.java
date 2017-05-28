@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.FireGroundBody;
@@ -26,16 +27,16 @@ public class FireGround extends Sprite{
     private Sound sound;
     private float soundTimer;
 
-    public FireGround(GameScreen screen, float x, float y) {
+    public FireGround(GameScreen screen, Vector2 vec) {
         super(screen.getAtlas().findRegion("spikes"));
         this.screen=screen;
         this.world=screen.getWorld();
         fire_timer=0;
         sound= Gdx.audio.newSound(Gdx.files.internal("Sounds/fire.wav"));
         soundTimer=0;
-        fireGroundBody= new FireGroundBody(world,this,x,y);
+        fireGroundBody= new FireGroundBody(world,this,vec);
         loadAnimation();
-        setPosition(x,y);
+        setPosition(vec.x,vec.y);
     }
 
     private void loadAnimation() {

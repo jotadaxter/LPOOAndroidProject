@@ -71,38 +71,39 @@ public class Dungeon1 extends GameScreen{
     private void spikesLoad() {
         ArrayList<Vector2> positions = game.fileReader.ReadFile("spikes_locations","dungeon1");
         for(int i=0; i<positions.size();i++){
-            Spikes sp = new Spikes(this, positions.get(i).x,positions.get(i).y);
+            Spikes sp = new Spikes(this, positions.get(i));
             spikes.add(sp);
         }
     }
 
     private void movingPlatformsLoad() {
-        MovingPlatform m1= new MovingPlatform(this, MOV_PLAT1_X,MOV_PLAT1_Y, 0);
+        MovingPlatform m1= new MovingPlatform(this, new Vector2(MOV_PLAT1_X,MOV_PLAT1_Y), 0);
         m1.setId(0);
         mps.add(m1);
-        MovingPlatform m2= new MovingPlatform(this, MOV_PLAT2_X,MOV_PLAT2_Y, 1);
+        MovingPlatform m2= new MovingPlatform(this, new Vector2(MOV_PLAT2_X,MOV_PLAT2_Y), 1);
+
         m1.setId(1);
         mps.add(m2);
-        MovingPlatform m3= new MovingPlatform(this, MOV_PLAT3_X,MOV_PLAT3_Y, 2);
+        MovingPlatform m3= new MovingPlatform(this, new Vector2(MOV_PLAT3_X,MOV_PLAT3_Y), 2);
         m1.setId(2);
         mps.add(m3);
     }
 
     private void boulderLoad() {
-        Boulder boulder1= new Boulder(this,8+10*16, 8+22*16);
+        Boulder boulder1= new Boulder(this,new Vector2(8+10*16, 8+22*16));
         boulders.add(boulder1);
-        Boulder boulder2= new Boulder(this,8+11*16, 8+22*16);
+        Boulder boulder2= new Boulder(this,new Vector2(8+11*16, 8+22*16));
         boulders.add(boulder2);
-        Boulder boulder3= new Boulder(this,8+17*16, 8+22*16);
+        Boulder boulder3= new Boulder(this,new Vector2(8+17*16, 8+22*16));
         boulders.add(boulder3);
-        WayBlocker wb =  new WayBlocker(this,8+6*16,8+33*16,1);
+        WayBlocker wb =  new WayBlocker(this,new Vector2(8+6*16,8+33*16),1);
         wayblocks.add(wb);
     }
 
     private void pressingPlatesLoad() {
-        MegaPressingPlate megapp1= new MegaPressingPlate(this,4*16+8,23*16+8);
+        MegaPressingPlate megapp1= new MegaPressingPlate(this,new Vector2(4*16+8,23*16+8));
         mpps.add(megapp1);
-        MegaPressingPlate megapp2= new MegaPressingPlate(this,18*16+8,29*16+8);
+        MegaPressingPlate megapp2= new MegaPressingPlate(this,new Vector2(18*16+8,29*16+8));
         mpps.add(megapp2);
         megaPressingEvent= new PressingEvent(mpps,this);
     }
@@ -127,7 +128,7 @@ public class Dungeon1 extends GameScreen{
     private void smashRockLoad() {
         ArrayList<Vector2> positions = game.fileReader.ReadFile("rock_locations","dungeon1");
         for(Vector2 vec :positions){
-            SmashableRock sm = new SmashableRock(this, vec.x,vec.y);
+            SmashableRock sm = new SmashableRock(this, vec);
             smashRocks.add(sm);
         }
     }
@@ -135,7 +136,7 @@ public class Dungeon1 extends GameScreen{
     private void fireGroundLoad() {
         ArrayList<Vector2> positions = game.fileReader.ReadFile("fireground_locations","dungeon1");
         for(Vector2 vec :positions){
-            FireGround fg= new FireGround(this,vec.x, vec.y);
+            FireGround fg= new FireGround(this,vec);
             fireGrounds.add(fg);
         }
     }
