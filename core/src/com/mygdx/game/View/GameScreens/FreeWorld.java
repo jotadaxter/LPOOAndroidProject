@@ -64,9 +64,9 @@ public class FreeWorld extends GameScreen {
     private PressingEvent pressingEvent;
 
     public FreeWorld(MyGame game) {
-        super(game,POSX, POSY);
+        super(game,new Vector2(POSX, POSY));
         type= FreeWorld.class;
-        warpEvents.add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,247,35))));
+        warpEvents.add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,new Vector2(247,35)))));
         warpEvents.add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game))));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;

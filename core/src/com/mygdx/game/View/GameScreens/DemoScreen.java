@@ -32,8 +32,8 @@ public class DemoScreen extends GameScreen {
 
     public static final int DOOR_ID=2;
 
-    public DemoScreen(MyGame game, float px, float py) {
-        super(game, px, py);
+    public DemoScreen(MyGame game, Vector2 vec) {
+        super(game, vec);
         type= DemoScreen.class;
         Gdx.input.setInputProcessor(controller.getStage());
 

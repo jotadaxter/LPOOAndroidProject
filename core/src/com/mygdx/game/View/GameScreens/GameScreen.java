@@ -89,7 +89,7 @@ public abstract class GameScreen implements Screen{
     public boolean d1blck;
     protected Music music;
     
-    public GameScreen(MyGame game, float hero_x, float hero_y) {
+    public GameScreen(MyGame game, Vector2 vec) {
         atlas=game.assetManager.get("Game/link_and_objects.pack", TextureAtlas.class);
         this.game=game;
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
@@ -114,7 +114,7 @@ public abstract class GameScreen implements Screen{
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
 
         //Sprites
-        player=new Hero(this,new Vector2( hero_x,hero_y));
+        player=new Hero(this,new Vector2( vec.x,vec.y));
         boulders=new ArrayList<Boulder>();
         spikes = new ArrayList<Spikes>();
         pps= new ArrayList<PressingPlate>();

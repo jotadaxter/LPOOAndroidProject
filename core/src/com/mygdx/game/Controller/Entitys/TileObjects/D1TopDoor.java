@@ -31,15 +31,15 @@ public class D1TopDoor extends Sprite {
     private TextureRegion textureRegion1;
     private TextureRegion textureRegion2;
 
-    public D1TopDoor(GameScreen screen, float x,float y, int choose){
-        setPosition(x,y);
+    public D1TopDoor(GameScreen screen, Vector2 vec, int choose){
+        setPosition(vec.x,vec.y);
         bdef= new BodyDef();
         this.screen=screen;
         this.world=screen.getWorld();
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         bdef.type = BodyDef.BodyType.StaticBody;
-        bdef.position.set(x* MyGame.PIXEL_TO_METER,y * MyGame.PIXEL_TO_METER);
+        bdef.position.set(vec.x* MyGame.PIXEL_TO_METER,vec.y * MyGame.PIXEL_TO_METER);
         body=world.createBody(bdef);
 
         if(choose==0){

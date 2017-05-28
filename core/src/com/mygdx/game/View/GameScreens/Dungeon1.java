@@ -42,7 +42,7 @@ public class Dungeon1 extends GameScreen{
     private PressingEvent megaPressingEvent;
 
     public Dungeon1(MyGame game) {
-        super(game, 44*16+8, 20*16+8);
+        super(game, new Vector2(44*16+8, 20*16+8));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
     }
@@ -56,7 +56,7 @@ public class Dungeon1 extends GameScreen{
 
     @Override
     public void objectLoad() {
-        D1TopDoor topDoor1= new D1TopDoor(this,6*16+8,34*16+24,1);
+        D1TopDoor topDoor1= new D1TopDoor(this,new Vector2(6*16+8,34*16+24),1);
         topDoors.add(topDoor1);
         movingPlatformsLoad();
         smashRockLoad();

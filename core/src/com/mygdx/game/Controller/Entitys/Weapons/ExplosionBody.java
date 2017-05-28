@@ -1,5 +1,6 @@
 package com.mygdx.game.Controller.Entitys.Weapons;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -20,11 +21,11 @@ public class ExplosionBody {
     private FixtureDef fdef;
 
 
-    public ExplosionBody(World world, float x, float y) {
+    public ExplosionBody(World world, Vector2 vec) {
         //Body Definition
         this.world=world;
         bdef= new BodyDef();
-        bdef.position.set(x* MyGame.PIXEL_TO_METER, y*MyGame.PIXEL_TO_METER);
+        bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.linearDamping=DAMPING_NORMAL;
         body=world.createBody(bdef);
