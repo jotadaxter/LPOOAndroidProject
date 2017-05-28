@@ -7,15 +7,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Controller;
-import com.mygdx.game.Controller.Entitys.CommonBody;
-import com.mygdx.game.Controller.Entitys.StaticContactShapes;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Jotadaxter on 28/04/2017.
