@@ -25,7 +25,7 @@ public class FireGroundBody extends CommonBody{
         body.setUserData(fireGround);
     }
 
-    @Override
+   @Override
     protected BodyDef.BodyType bodyDefinitionType() {
         return BodyDef.BodyType.StaticBody;
     }
@@ -73,6 +73,4 @@ public class FireGroundBody extends CommonBody{
                 | MyGame.DEFAULT_BIT
                 | MyGame.PRESSING_PLATE_BIT;
     }
-
-
 }

@@ -36,12 +36,12 @@ public class HeroBody extends CommonBody{
         previousState = State.STAND_DOWN;
         this.screen=screen;
         this.hero=hero;
-        body.setUserData(hero);
+        body.createFixture(fdef).setUserData(hero);
         //Edgeshapes (contact lines) - Surfaces to detect contact with Tiled objects
         new StaticContactShapes(body);
     }
 
-    @Override
+   @Override
     protected BodyDef.BodyType bodyDefinitionType() {
         return BodyDef.BodyType.DynamicBody;
     }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.InteractiveObjects.ChestBody;
 import com.mygdx.game.Controller.Entitys.InteractiveObjects.SignBody;
@@ -27,13 +28,13 @@ public class Sign extends Sprite{
     private int id;
 
 
-    public Sign(GameScreen screen, float x, float y) {
+    public Sign(GameScreen screen, Vector2 vec) {
         this.world=screen.getWorld();
         this.screen=screen;
-        signBody= new SignBody(world,this,x,y);
+        signBody= new SignBody(world,this,vec);
         openLog=false;
         textureLoad();
-        setPosition(x,y);
+        setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(signTex);
     }

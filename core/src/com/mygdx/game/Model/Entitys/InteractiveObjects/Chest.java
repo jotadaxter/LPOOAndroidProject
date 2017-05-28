@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.InteractiveObjects.ChestBody;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
@@ -34,15 +35,15 @@ public class Chest extends Sprite{
     private int id;
     private Sound sound1;
 
-    public Chest(GameScreen screen, float x, float y) {
+    public Chest(GameScreen screen, Vector2 vec) {
         this.world=screen.getWorld();
         this.screen=screen;
         sound1=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_chest_item.wav"));
-        chestBody= new ChestBody(world,this,x,y);
+        chestBody= new ChestBody(world,this,vec);
         isOpen=false;
         dropLoot=0;
         textureLoad();
-        setPosition(x,y);
+        setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(chest_closed);
     }
@@ -54,7 +55,7 @@ public class Chest extends Sprite{
 
     public void update(float dt) {
         setPosition(chestBody.getBody().getPosition().x - getWidth() / 2, chestBody.getBody().getPosition().y - getHeight() / 2);
-        setRegion(chestBody.getFrame(dt));
+        setRegion(getFrame(dt));
         if (dropLoot == 1) {
             loot();
             sound1.play();
@@ -68,17 +69,17 @@ public class Chest extends Sprite{
         int rand=random.nextInt(100) + 1;
         Jewel j;
         if(rand>0 && rand<=GREEN_RUPEE_RATIO){
-            j= new Jewel(MyGame.BIG_GREEN_RUPEE,screen, 0, 0);
+            j= new Jewel(MyGame.BIG_GREEN_RUPEE,screen, new Vector2(0, 0));
             screen.getHero().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }
         else if(rand> GREEN_RUPEE_RATIO && rand<= BLUE_RUPEE_RATIO){
-            j= new Jewel(MyGame.BIG_BLUE_RUPEE,screen, 0, 0);
+            j= new Jewel(MyGame.BIG_BLUE_RUPEE,screen,  new Vector2(0, 0));
             screen.getHero().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }
         else if(rand> BLUE_RUPEE_RATIO && rand<= RED_RUPEE_RATIO){
-            j= new Jewel(MyGame.BIG_RED_RUPEE,screen, 0, 0);
+            j= new Jewel(MyGame.BIG_RED_RUPEE,screen, new Vector2( 0, 0));
             screen.getHero().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }
@@ -110,7 +111,13 @@ public class Chest extends Sprite{
         return id;
     }
 
-    public int getDropLoot() {
-        return dropLoot;
+    public TextureRegion getFrame(float dt) {
+        TextureRegion region;
+        if(isOpen()) {
+            region=getOpenTex();
+        }else{
+            region=getClosedTex();
+        }
+        return region;
     }
 }

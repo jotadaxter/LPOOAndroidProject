@@ -109,13 +109,13 @@ public class FreeWorld extends GameScreen {
     }
 
     private void signLoad() {
-        Sign sign1= new Sign(this,29*16+8,35*16-8);
+        Sign sign1= new Sign(this, new Vector2(29*16+8,35*16-8));
         sign1.addSignId(0);
         signs.add(sign1);
         TextLog log1 = new TextLog(game, this, game.fileReader.getSignText("sign5"), 0);
         textlogs.add(log1);
 
-        Sign sign2= new Sign(this,9*16+8,6*16-8);
+        Sign sign2= new Sign(this, new Vector2(9*16+8,6*16-8));
         sign2.addSignId(1);
         signs.add(sign2);
         TextLog log2 = new TextLog(game, this, game.fileReader.getSignText("sign0"), 1);
@@ -125,7 +125,7 @@ public class FreeWorld extends GameScreen {
     private void chestsLoad() {
         ArrayList<Vector2> positions = game.fileReader.ReadFile("chest_locations","free_world");
         for(int i=0; i<positions.size();i++){
-            Chest c= new Chest(this, positions.get(i).x,positions.get(i).y);
+            Chest c= new Chest(this, positions.get(i));
             c.addChestId(i);
             chests.add(c);
         }
@@ -165,7 +165,7 @@ public class FreeWorld extends GameScreen {
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef= itemsToSpawn.poll();
             if(idef.type == Jewel.class) {
-                items.add(new Jewel(idef.val,this, idef.position.x, idef.position.y));
+                items.add(new Jewel(idef.val,this, idef.position));
             }
         }
     }

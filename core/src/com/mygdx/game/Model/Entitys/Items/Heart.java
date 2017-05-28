@@ -2,6 +2,7 @@ package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Controller.Entitys.Items.HeartBody;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -15,10 +16,10 @@ public class Heart extends Item {
     private HeartBody heartBody;
     Sound sound;
 
-    public Heart(GameScreen screen, float x, float y) {
-        super(screen, x, y);
+    public Heart(GameScreen screen, Vector2 vec) {
+        super(screen, vec);
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_heart.wav"));
-        heartBody=new HeartBody(world,this, x,y);
+        heartBody=new HeartBody(world,this, vec);
         setRegion(screen.getAtlas().findRegion("heart"), 0,0,15,15);
     }
 
@@ -27,19 +28,11 @@ public class Heart extends Item {
         type="heart";
         //Texture Dimentions
         setBounds(getX(),getY(), 15*MyGame.PIXEL_TO_METER,15*MyGame.PIXEL_TO_METER);
-
-
-
     }
 
     @Override
     public void use(Hero hero) {
         destroy();
-    }
-
-    @Override
-    public void pickedUp() {
-        Gdx.app.log("Picked Up Heart", "");
     }
 
     @Override

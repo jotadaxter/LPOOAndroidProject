@@ -119,7 +119,7 @@ public class Dungeon1 extends GameScreen{
     private void chestsLoad() {
         ArrayList<Vector2> positions = game.fileReader.ReadFile("chest_locations","dungeon1");
         for(int i=0; i<positions.size();i++){
-            Chest c= new Chest(this, positions.get(i).x,positions.get(i).y);
+            Chest c= new Chest(this, positions.get(i));
             c.addChestId(i);
             chests.add(c);
         }
@@ -170,10 +170,10 @@ public class Dungeon1 extends GameScreen{
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef= itemsToSpawn.poll();
             if(idef.type == SpecialItem.class) {
-                items.add(new SpecialItem(this, idef.position.x, idef.position.y));
+                items.add(new SpecialItem(this, idef.position));
             }
             else if(idef.type == Heart.class) {
-                items.add(new Heart(this, idef.position.x, idef.position.y));
+                items.add(new Heart(this, idef.position));
             }
         }
     }

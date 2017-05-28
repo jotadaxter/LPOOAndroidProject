@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Controller.Entitys.Items.HeartBody;
 import com.mygdx.game.Controller.Entitys.Items.SpecialItemBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
@@ -17,10 +18,10 @@ public class SpecialItem extends Item{
     private SpecialItemBody specialItemBody;
     Sound sound;
 
-    public SpecialItem(GameScreen screen, float x, float y) {
-        super(screen, x, y);
+    public SpecialItem(GameScreen screen, Vector2 vec) {
+        super(screen, vec);
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_heart_container.wav"));
-        specialItemBody=new SpecialItemBody(world,this, x,y);
+        specialItemBody=new SpecialItemBody(world,this, vec);
         setRegion(new TextureRegion(screen.getGame().assetManager.get("Game/volcano_ruby.png", Texture.class)));
     }
 
@@ -34,11 +35,6 @@ public class SpecialItem extends Item{
     @Override
     public void use(Hero hero) {
         destroy();
-    }
-
-    @Override
-    public void pickedUp() {
-        Gdx.app.log("Picked Up Volcano Ruby", "");
     }
 
     @Override

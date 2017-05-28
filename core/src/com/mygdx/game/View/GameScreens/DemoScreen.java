@@ -61,25 +61,25 @@ public class DemoScreen extends GameScreen {
     }
 
     private void signLoad() {
-        Sign sign1= new Sign(this,5*16+8,13*16+8);
+        Sign sign1= new Sign(this, new Vector2(5*16+8,13*16+8));
         sign1.addSignId(0);
         signs.add(sign1);
         TextLog log1 = new TextLog(game, this, game.fileReader.getSignText("sign1"), 0);
         textlogs.add(log1);
 
-        Sign sign2= new Sign(this,14*16+8,13*16+8);
+        Sign sign2= new Sign(this, new Vector2(14*16+8,13*16+8));
         sign2.addSignId(1);
         signs.add(sign2);
         TextLog log2 = new TextLog(game, this, game.fileReader.getSignText("sign2"), 1);
         textlogs.add(log2);
 
-        Sign sign3= new Sign(this,5*16+8,6*16+8);
+        Sign sign3= new Sign(this, new Vector2(5*16+8,6*16+8));
         sign3.addSignId(2);
         signs.add(sign3);
         TextLog log3 = new TextLog(game, this, game.fileReader.getSignText("sign3"), 2);
         textlogs.add(log3);
 
-        Sign sign4= new Sign(this,13*16+8,6*16+8);
+        Sign sign4= new Sign(this, new Vector2(13*16+8,6*16+8));
         sign4.addSignId(3);
         signs.add(sign4);
         TextLog log4 = new TextLog(game, this, game.fileReader.getSignText("sign4"), 3);
@@ -108,10 +108,10 @@ public class DemoScreen extends GameScreen {
         if(!itemsToSpawn.isEmpty()){
             ItemDef idef= itemsToSpawn.poll();
             if(idef.type == Jewel.class){
-                items.add(new Jewel(MyGame.BLUE_RUPEE, this, idef.position.x, idef.position.y));
+                items.add(new Jewel(MyGame.BLUE_RUPEE, this,  new Vector2(idef.position.x, idef.position.y)));
             }
             else if(idef.type== Heart.class){
-                items.add(new Heart(this, idef.position.x, idef.position.y));
+                items.add(new Heart(this, new Vector2( idef.position.x, idef.position.y)));
             }
         }
     }

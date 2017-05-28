@@ -7,6 +7,12 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Model.Entitys.Hero.Hero;
+import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
+import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
+import com.mygdx.game.Model.Entitys.Items.Heart;
+import com.mygdx.game.Model.Entitys.Items.Jewel;
+import com.mygdx.game.Model.Entitys.Items.SpecialItem;
 import com.mygdx.game.MyGame;
 
 /**
@@ -17,7 +23,6 @@ public abstract class CommonBody {
     protected World world;
     protected BodyDef bdef;
     protected Body body;
-    protected CircleShape shape;
     protected FixtureDef fdef;
 
     public CommonBody(World world, Vector2 vec){
@@ -43,6 +48,7 @@ public abstract class CommonBody {
 
         fdef.restitution = restitution();
         body.createFixture(fdef);
+
     }
 
     protected abstract BodyDef.BodyType bodyDefinitionType();

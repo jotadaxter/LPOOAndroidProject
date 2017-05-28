@@ -2,6 +2,7 @@ package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
@@ -17,11 +18,11 @@ public abstract class Item extends Sprite {
     protected boolean destroyed;
     protected String type;
 
-    public Item(GameScreen screen, float x, float y){
+    public Item(GameScreen screen,Vector2 vec){
         this.screen=screen;
         this.world=screen.getWorld();
         type="";
-        setPosition(x,y);
+        setPosition(vec.x,vec.y);
 
         //Define Item
         defineItem();
@@ -43,8 +44,6 @@ public abstract class Item extends Sprite {
     public void destroy(){
         toDestroy=true;
     }
-
-    public abstract void pickedUp();
 
     public String getType(){
         return type;

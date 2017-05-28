@@ -2,6 +2,7 @@ package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Controller.Entitys.Items.JewelBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
@@ -17,8 +18,8 @@ public class Jewel extends Item {
 
     Sound sound;
 
-    public Jewel(int value, GameScreen screen, float x, float y) {
-        super(screen, x, y);
+    public Jewel(int value, GameScreen screen, Vector2 vec) {
+        super(screen, vec);
         this.value=value;
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_rupee.wav"));
         //Texture Dimentions
@@ -28,7 +29,7 @@ public class Jewel extends Item {
             setBounds(getX(),getY(), 12*MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
         defineTexture(value);
 
-        jewelBody= new JewelBody(world, this, value, x,y);
+        jewelBody= new JewelBody(world, this, value, vec);
     }
 
     private void defineTexture(int value) {
@@ -82,12 +83,7 @@ public class Jewel extends Item {
         setPosition(jewelBody.getBody().getPosition().x-getWidth()/2, jewelBody.getBody().getPosition().y-getHeight()/2);
     }
 
-    @Override
-    public void pickedUp() {
-        Gdx.app.log("Picked UP Rupee", "");
-    }
-
-    public int getValue(){
+   public int getValue(){
         return value;
     }
 

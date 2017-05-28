@@ -77,5 +77,4 @@ public class MovingPlatformBody extends CommonBody{
     public FixtureDef getFdef() {
         return fdef;
     }
-
 }
