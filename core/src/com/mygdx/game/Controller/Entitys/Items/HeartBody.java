@@ -48,5 +48,4 @@ public class HeartBody {
     public Body getBody(){
         return body;
     }
-
 }

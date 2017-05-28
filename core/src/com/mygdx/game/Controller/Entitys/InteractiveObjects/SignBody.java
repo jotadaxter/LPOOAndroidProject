@@ -15,58 +15,24 @@ import com.mygdx.game.MyGame;
  * Created by Utilizador on 21-05-2017.
  */
 
-public class SignBody extends CommonBody{
+public class SignBody{
     private Sign sign;
+    private Body body;
+    private BodyDef bdef;
 
     public SignBody(World world, Sign sign, Vector2 vec) {
-        super(world, vec);
         this.sign=sign;
-       // body.setUserData(sign);
-    }
+        bdef= new BodyDef();
+        bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y* MyGame.PIXEL_TO_METER);
+        bdef.type = BodyDef.BodyType.StaticBody;
+        bdef.linearDamping=6f;
+        body=world.createBody(bdef);
 
-    @Override
-    protected BodyDef.BodyType bodyDefinitionType() {
-        return BodyDef.BodyType.StaticBody;
-    }
-
-    @Override
-    protected float damping() {
-        return 0;
-    }
-
-    @Override
-    protected float restitution() {
-        return 0;
-    }
-
-    @Override
-    protected short setCategoryBits() {
-        return MyGame.SIGN_BIT;
-    }
-
-    @Override
-    protected boolean isSensorVal() {
-        return false;
-    }
-
-    @Override
-    protected boolean ShapeCircle() {
-        return false;
-    }
-
-    @Override
-    protected float setRadius() {
-        return 0;
-    }
-
-    @Override
-    protected Vector2 shapeDimentions() {
-        return new Vector2(8,8);
-    }
-
-    @Override
-    protected short setMaskBits() {
-        return MyGame.ITEM_BIT
+        FixtureDef fdef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(8*MyGame.PIXEL_TO_METER,8*MyGame.PIXEL_TO_METER);
+        fdef.filter.categoryBits= MyGame.SIGN_BIT;
+        fdef.filter.maskBits = MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.SPIKES_BIT
                 | MyGame.HERO_BIT
@@ -74,5 +40,11 @@ public class SignBody extends CommonBody{
                 | MyGame.BOULDER_BIT
                 | MyGame.MEGA_PRESSING_PLATE_BIT
                 | MyGame.PRESSING_PLATE_BIT;
+        fdef.shape=shape;
+        fdef.restitution = 0f;
+        body.createFixture(fdef).setUserData(sign);
+    }
+    public Body getBody(){
+        return body;
     }
 }

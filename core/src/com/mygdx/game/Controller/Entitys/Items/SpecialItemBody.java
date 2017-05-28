@@ -21,7 +21,6 @@ public class SpecialItemBody {
     private SpecialItem specialItem;
 
     public SpecialItemBody(World world, SpecialItem specialItem, Vector2 vec) {
-        //Body Definition
         this.specialItem=specialItem;
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);

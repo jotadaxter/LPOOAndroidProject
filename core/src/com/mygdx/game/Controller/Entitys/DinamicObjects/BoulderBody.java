@@ -15,62 +15,33 @@ import com.mygdx.game.MyGame;
  * Created by Jotadaxter on 28/04/2017.
  */
 
-public class BoulderBody extends CommonBody{
-    Boulder boulder;
+public class BoulderBody{
+    private Body body;
+    private BodyDef bdef;
 
     public BoulderBody(World world,Boulder boulder, Vector2 vec) {
-        super(world, vec);
-        this.boulder=boulder;
-    }
+        bdef= new BodyDef();
+        bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y* MyGame.PIXEL_TO_METER);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.linearDamping=6f;
+        body=world.createBody(bdef);
 
-    @Override
-    protected BodyDef.BodyType bodyDefinitionType() {
-        return BodyDef.BodyType.DynamicBody;
-    }
-    @Override
-    protected float damping() {
-        return 6f;
-    }
-    @Override
-    protected float restitution() {
-        return 0f;
-    }
-
-    @Override
-    protected short setCategoryBits() {
-        return MyGame.BOULDER_BIT;
-    }
-
-    @Override
-    protected boolean isSensorVal() {
-        return false;
-    }
-
-    @Override
-    protected boolean ShapeCircle() {
-        return true;
-    }
-
-    @Override
-    protected float setRadius() {
-        return 7.5f;
-    }
-
-    @Override
-    protected Vector2 shapeDimentions() {
-        return null;
-    }
-
-    @Override
-    protected short setMaskBits() {
-        return MyGame.ITEM_BIT
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(7.5f* MyGame.PIXEL_TO_METER);
+        fdef.filter.categoryBits= MyGame.BOULDER_BIT;
+        fdef.filter.maskBits = MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.SPIKES_BIT
                 | MyGame.HERO_BIT
-                | MyGame.WARP_OBJECT
-                | MyGame.SMASH_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.MEGA_PRESSING_PLATE_BIT
-                | MyGame.PRESSING_PLATE_BIT;
+                | MyGame.PRESSING_PLATE_BIT;fdef.shape=shape;
+                fdef.restitution = 0f;
+                body.createFixture(fdef);
+    }
+
+    public Body getBody(){
+        return body;
     }
 }

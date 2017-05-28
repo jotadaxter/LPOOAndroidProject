@@ -16,58 +16,36 @@ import com.mygdx.game.MyGame;
  * Created by Jotadaxter on 28/04/2017.
  */
 
-public class SpikesBody extends CommonBody{
+public class SpikesBody {
+    private Body body;
+    private BodyDef bdef;
+    private FixtureDef fdef;
+
     public SpikesBody(World world, Spikes spikes, Vector2 vec) {
-        super(world,vec);
-        body.setUserData(spikes);
-    }
+        bdef = new BodyDef();
+        bdef.position.set(vec.x * MyGame.PIXEL_TO_METER, vec.y * MyGame.PIXEL_TO_METER);
+        bdef.type = BodyDef.BodyType.StaticBody;
+        body = world.createBody(bdef);
 
-    @Override
-    protected BodyDef.BodyType bodyDefinitionType() {
-        return BodyDef.BodyType.StaticBody;
-    }
-
-    @Override
-    protected float damping() {
-        return 0;
-    }
-
-    @Override
-    protected float restitution() {
-        return 3f;
-    }
-
-    @Override
-    protected short setCategoryBits() {
-        return MyGame.SPIKES_BIT;
-    }
-
-    @Override
-    protected boolean isSensorVal() {
-        return false;
-    }
-
-    @Override
-    protected boolean ShapeCircle() {
-        return false;
-    }
-
-    @Override
-    protected float setRadius() {
-        return 0;
-    }
-
-    @Override
-    protected Vector2 shapeDimentions() {
-        return new Vector2(8,8);
-    }
-
-    @Override
-    protected short setMaskBits() {
-        return MyGame.HERO_BIT
+        fdef= new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(8*MyGame.PIXEL_TO_METER,8*MyGame.PIXEL_TO_METER);
+        fdef.filter.categoryBits= MyGame.SPIKES_BIT;
+        fdef.filter.maskBits = MyGame.HERO_BIT
                 | MyGame.BOULDER_BIT
                 | MyGame.ITEM_BIT
                 | MyGame.DEFAULT_BIT
                 | MyGame.PRESSING_PLATE_BIT;
+        fdef.shape= shape;
+        fdef.restitution = 3f;
+        body.createFixture(fdef).setUserData(spikes);
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    public FixtureDef getFdef() {
+        return fdef;
     }
 }
