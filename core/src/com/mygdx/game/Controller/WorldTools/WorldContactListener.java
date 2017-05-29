@@ -27,65 +27,63 @@ import com.mygdx.game.Model.Entitys.Items.Item;
 public class WorldContactListener implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
-        Fixture fixA = contact.getFixtureA();
-        Fixture fixB = contact.getFixtureB();
+        FixtureVector fixVec = new FixtureVector(contact.getFixtureA(), contact.getFixtureB());
+        int cDef = fixVec.getFixA().getFilterData().categoryBits | fixVec.getFixB().getFilterData().categoryBits;
 
-        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+        impactVerify("upContact", fixVec);
+        impactVerify("downContact", fixVec);
+        impactVerify("leftContact", fixVec);
+        impactVerify("leftContact", fixVec);
 
-        impactVerify("upContact", fixA, fixB);
-        impactVerify("downContact", fixA, fixB);
-        impactVerify("leftContact", fixA, fixB);
-        impactVerify("leftContact", fixA, fixB);
-
-        dinamicBeginContactVerify1(cDef, fixA, fixB);
-        dinamicBeginContactVerify2(cDef, fixA, fixB);
-        dinamicBeginContactVerify3(cDef, fixA, fixB);
+        dinamicBeginContactVerify1(cDef, fixVec);
+        dinamicBeginContactVerify2(cDef, fixVec);
+        dinamicBeginContactVerify3(cDef, fixVec);
     }
 
-    private void dinamicBeginContactVerify1(int cDef, Fixture fixA, Fixture fixB) {
+    private void dinamicBeginContactVerify1(int cDef,FixtureVector fixVec) {
         switch(cDef) {
             case MyGame.ITEM_BIT | MyGame.HERO_BIT:
-                heroItemBegin(fixA, fixB);
+                heroItemBegin(fixVec.getFixA(), fixVec.getFixB());
                 break;
             case MyGame.HERO_BIT | MyGame.SPIKES_BIT:
-                heroSpikesBegin(fixA,fixB);
+                heroSpikesBegin(fixVec.getFixA(),fixVec.getFixB());
                 break;
             case MyGame.HERO_BIT | MyGame.PRESSING_PLATE_BIT:
-                heroPlateBegin(fixA,fixB);
+                heroPlateBegin(fixVec.getFixA(),fixVec.getFixB());
                 break;
             case MyGame.BOULDER_BIT | MyGame.PRESSING_PLATE_BIT:
-                boulderPlateBegin(fixA,fixB);
+                boulderPlateBegin(fixVec.getFixA(),fixVec.getFixB());
                 break;
         }
     }
 
-    private void dinamicBeginContactVerify2(int cDef, Fixture fixA, Fixture fixB) {
+    private void dinamicBeginContactVerify2(int cDef,FixtureVector fixVec) {
         switch(cDef){
             case MyGame.BOULDER_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
-                bolderMegaPlateBegin(fixA,fixB);
+                bolderMegaPlateBegin(fixVec.getFixA(),fixVec.getFixB());
                 break;
             case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
-                heroPitfallBegin(fixA,fixB);
+                heroPitfallBegin(fixVec.getFixA(),fixVec.getFixB());
                 break;
             case MyGame.MOVING_PLATFORM_BIT | MyGame.HERO_BIT:
-                heroPlatformBegin(fixA, fixB);
+                heroPlatformBegin(fixVec.getFixA(), fixVec.getFixB());
                 break;
             case MyGame.HERO_BIT | MyGame.CHEST_BIT:
-                heroChestBegin(fixA, fixB);
+                heroChestBegin(fixVec.getFixA(), fixVec.getFixB());
                 break;
         }
     }
 
-    private void dinamicBeginContactVerify3(int cDef, Fixture fixA, Fixture fixB) {
+    private void dinamicBeginContactVerify3(int cDef,FixtureVector fixVec) {
         switch(cDef){
             case MyGame.HERO_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
-                heroMegaPlateBegin(fixA, fixB);
+                heroMegaPlateBegin(fixVec.getFixA(), fixVec.getFixB());
                 break;
             case MyGame.HERO_BIT | MyGame.SIGN_BIT:
-                signalHeroBegin(fixA,fixB);
+                signalHeroBegin(fixVec.getFixA(),fixVec.getFixB());
                 break;
             case  MyGame.BOMB_BIT | MyGame.SMASH_BIT:
-                bombSmashBegin(fixA,fixB);
+                bombSmashBegin(fixVec.getFixA(),fixVec.getFixB());
                 break;
         }
     }
@@ -187,10 +185,10 @@ public class WorldContactListener implements ContactListener {
             ((Hero) fixA.getUserData()).setOpenedSignId(((Sign) fixB.getUserData()).getId());
     }
 
-    private void impactVerify(String surfaceName, Fixture fixA, Fixture fixB)  {
-        if(fixA.getUserData()==surfaceName || fixB.getUserData() == surfaceName){
-            Fixture surface = fixA.getUserData()==surfaceName ? fixA : fixB;
-            Fixture object = surface == fixA ? fixB : fixA;
+    private void impactVerify(String surfaceName,FixtureVector fixVec)  {
+        if(fixVec.getFixA().getUserData()==surfaceName || fixVec.getFixB().getUserData() == surfaceName){
+            Fixture surface = fixVec.getFixA().getUserData()==surfaceName ? fixVec.getFixA() : fixVec.getFixB();
+            Fixture object = surface == fixVec.getFixA() ? fixVec.getFixB() : fixVec.getFixA();
 
             if(object.getUserData() instanceof StaticTileObject){
                 if(object.getUserData() instanceof Door) {
@@ -203,37 +201,36 @@ public class WorldContactListener implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-        Fixture fixA = contact.getFixtureA();
-        Fixture fixB = contact.getFixtureB();
-        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
-        dinamicEndContactVerify1(cDef, fixA, fixB);
-        dinamicEndContactVerify2(cDef, fixA, fixB);
+        FixtureVector fixVec = new FixtureVector(contact.getFixtureA(), contact.getFixtureB());
+        int cDef = fixVec.getFixA().getFilterData().categoryBits | fixVec.getFixB().getFilterData().categoryBits;
+        dinamicEndContactVerify1(cDef, fixVec);
+        dinamicEndContactVerify2(cDef, fixVec);
     }
 
-    private void dinamicEndContactVerify1(int cDef, Fixture fixA, Fixture fixB) {
+    private void dinamicEndContactVerify1(int cDef,FixtureVector fixVec) {
         switch(cDef) {
             case MyGame.HERO_BIT | MyGame.PRESSING_PLATE_BIT:
-                heroPlateEnd(fixA, fixB);
+                heroPlateEnd(fixVec.getFixA(), fixVec.getFixB());
                 break;
             case MyGame.BOULDER_BIT | MyGame.PRESSING_PLATE_BIT:
-                boulderPlateEnd(fixA, fixB);
+                boulderPlateEnd(fixVec.getFixA(), fixVec.getFixB());
                 break;
             case MyGame.HERO_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
-                heroMegaPlateEnd(fixA, fixB);
+                heroMegaPlateEnd(fixVec.getFixA(), fixVec.getFixB());
                 break;
         }
     }
 
-    private void dinamicEndContactVerify2(int cDef, Fixture fixA, Fixture fixB) {
+    private void dinamicEndContactVerify2(int cDef,FixtureVector fixVec) {
         switch(cDef) {
             case MyGame.BOULDER_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
-                boulderMegaPlateEnd(fixA, fixB);
+                boulderMegaPlateEnd(fixVec.getFixA(), fixVec.getFixB());
                 break;
             case MyGame.MOVING_PLATFORM_BIT | MyGame.HERO_BIT:
-                heroMovingPlatformEnd(fixA, fixB);
+                heroMovingPlatformEnd(fixVec.getFixA(), fixVec.getFixB());
                 break;
             case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
-                pitfallHeroEnd(fixA, fixB);
+                pitfallHeroEnd(fixVec.getFixA(), fixVec.getFixB());
                 break;
         }
     }
