@@ -95,27 +95,39 @@ public class MovingPlatform extends Sprite {
 
     private void movementType(float dt) {
         if(type==0){
-            if (platformBody.getBody().getPosition().y <= 23 && platformBody.getBody().getPosition().x >= 31) {
-                platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
-            } else if (platformBody.getBody().getPosition().x <= 31 && platformBody.getBody().getPosition().y <= 31) {
-                platformBody.getBody().setLinearVelocity(new Vector2(0, MyGame.PLATFORM_VELOCITY * dt));
-            } else if (platformBody.getBody().getPosition().y >= 31 && platformBody.getBody().getPosition().x <= 45) {
-                platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
-            } else if (platformBody.getBody().getPosition().x >= 45 && platformBody.getBody().getPosition().y >= 23) {
-                platformBody.getBody().setLinearVelocity(new Vector2(0, -MyGame.PLATFORM_VELOCITY * dt));
-            }
+           firstPitfall(dt);
         }
         else if(type==1){
-            if (platformBody.getBody().getPosition().x >= 25.5)
-                platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
-            else if (platformBody.getBody().getPosition().x <= 13)
-                platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
+            secondPitfall(dt);
         }
         else if(type==2){
-            if (platformBody.getBody().getPosition().x >= 42)
-                platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
-            else if (platformBody.getBody().getPosition().x <= 30)
-                platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
+            thirdPitfall(dt);
+        }
+    }
+
+    private void thirdPitfall(float dt) {
+        if (platformBody.getBody().getPosition().x >= 42)
+            platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
+        else if (platformBody.getBody().getPosition().x <= 30)
+            platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
+    }
+
+    private void secondPitfall(float dt) {
+        if (platformBody.getBody().getPosition().x >= 25.5)
+            platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
+        else if (platformBody.getBody().getPosition().x <= 13)
+            platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
+    }
+
+    private void firstPitfall(float dt) {
+        if (platformBody.getBody().getPosition().y <= 23 && platformBody.getBody().getPosition().x >= 31) {
+            platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
+        } else if (platformBody.getBody().getPosition().x <= 31 && platformBody.getBody().getPosition().y <= 31) {
+            platformBody.getBody().setLinearVelocity(new Vector2(0, MyGame.PLATFORM_VELOCITY * dt));
+        } else if (platformBody.getBody().getPosition().y >= 31 && platformBody.getBody().getPosition().x <= 45) {
+            platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
+        } else if (platformBody.getBody().getPosition().x >= 45 && platformBody.getBody().getPosition().y >= 23) {
+            platformBody.getBody().setLinearVelocity(new Vector2(0, -MyGame.PLATFORM_VELOCITY * dt));
         }
     }
 
