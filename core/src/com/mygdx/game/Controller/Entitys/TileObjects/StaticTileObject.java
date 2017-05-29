@@ -22,7 +22,6 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 public abstract class StaticTileObject {
     protected World world;
     protected TiledMap map;
-    protected TiledMapTile tile;
     protected Rectangle bounds;
     protected Body body;
     protected BodyDef bdef;
@@ -50,7 +49,17 @@ public abstract class StaticTileObject {
         shape.setAsBox((bounds.getWidth()/2)*MyGame.PIXEL_TO_METER, (bounds.getHeight()/2)*MyGame.PIXEL_TO_METER);
         fdef.shape=shape;
         fdef.restitution = 0f;
+        fdef.isSensor=setSensor();
+        fdef.filter.maskBits = MyGame.ALL_BIT;
         fixture=body.createFixture(fdef);
+    }
+
+    protected abstract boolean setSensor();
+
+    public void setCategoryFilter(short filterBit){
+        Filter filter= new Filter();
+        filter.categoryBits=filterBit;
+        fixture.setFilterData(filter);
     }
 
 }

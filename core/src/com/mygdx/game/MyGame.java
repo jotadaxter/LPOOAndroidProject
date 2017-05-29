@@ -41,6 +41,19 @@ public class MyGame extends Game {
 	public static final short MOVING_PLATFORM_BIT =4096;
 	public static final short SAFE_GROUND_BIT=8192;
 	public static final short SIGN_BIT = 16384;
+	public static final short ALL_BIT =ITEM_BIT
+                | DEFAULT_BIT
+                | SPIKES_BIT
+                | BOULDER_BIT
+                | WARP_OBJECT
+                | BOMB_BIT
+                | PITFALL_BIT
+                | CHEST_BIT
+                | SMASH_BIT
+                | SIGN_BIT
+                | MOVING_PLATFORM_BIT
+                | MEGA_PRESSING_PLATE_BIT
+                | PRESSING_PLATE_BIT;
 	//Rupee Info
 	public static final int GREEN_RUPEE =1;
 	public static final int BLUE_RUPEE =5;

@@ -39,4 +39,9 @@ public class Door extends StaticTileObject {
     public int getId() {
         return id;
     }
+
+    @Override
+    protected boolean setSensor() {
+        return false;
+    }
 }

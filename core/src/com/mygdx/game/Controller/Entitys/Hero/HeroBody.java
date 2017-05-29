@@ -43,19 +43,7 @@ public class HeroBody{
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(4*MyGame.PIXEL_TO_METER,6.5f*MyGame.PIXEL_TO_METER);
         fdef.filter.categoryBits= MyGame.HERO_BIT;
-        fdef.filter.maskBits = MyGame.ITEM_BIT
-                | MyGame.DEFAULT_BIT
-                | MyGame.SPIKES_BIT
-                | MyGame.BOULDER_BIT
-                | MyGame.WARP_OBJECT
-                | MyGame.BOMB_BIT
-                | MyGame.PITFALL_BIT
-                | MyGame.CHEST_BIT
-                | MyGame.SMASH_BIT
-                | MyGame.SIGN_BIT
-                | MyGame.MOVING_PLATFORM_BIT
-                | MyGame.MEGA_PRESSING_PLATE_BIT
-                | MyGame.PRESSING_PLATE_BIT;
+        fdef.filter.maskBits = MyGame.ALL_BIT;
         fdef.shape= shape;
         b2body.createFixture(fdef).setUserData(hero);
         shapesDefine();
@@ -167,7 +155,7 @@ public class HeroBody{
     private TextureRegion regionStateUpdate1() {
         if(currentState == State.HURT || currentState == State.DYING)
             return regionUpdate1();
-        else 
+        else
             return regionUpdate2();
     }
 

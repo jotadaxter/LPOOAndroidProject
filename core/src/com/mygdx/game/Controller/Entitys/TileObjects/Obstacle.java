@@ -19,8 +19,8 @@ public class Obstacle extends StaticTileObject {
         this.code=code;
     }
 
-   // @Override
-    public void warp() {
-
+    @Override
+    protected boolean setSensor() {
+        return false;
     }
 }

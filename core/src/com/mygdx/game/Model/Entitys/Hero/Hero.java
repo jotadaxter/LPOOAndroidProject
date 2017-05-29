@@ -43,7 +43,6 @@ public class Hero extends Sprite{
     public Animation<TextureRegion> heroWalkDown;
     public Animation<TextureRegion> heroDying;
     public Animation<TextureRegion> heroHurt;
-    //public Animation<TextureRegion> heroFalling;
     public float upDownTimer;
     public float leftRightTimer;
 
@@ -68,7 +67,6 @@ public class Hero extends Sprite{
     private boolean wasHit;
     public boolean fell;
 
-    //private Sound soundFalling;
     private Sound soundHurt;
     private Sound soundDying;
     public boolean fallAnimationOn;
