@@ -147,33 +147,24 @@ public class MovingPlatform extends Sprite {
     public TextureRegion getFrame(float dt) {
         currentState = getState();
         TextureRegion region = new TextureRegion();
+        if(currentState==State.UP)
+            region=movingUp.getKeyFrame(moving_timer,true);
+        else if(currentState==State.DOWN)
+            region=movingDown.getKeyFrame(moving_timer,true);
+        else if(currentState==State.LEFT)
+            region=movingLeft.getKeyFrame(moving_timer,true);
+        else region=movingLeft.getKeyFrame(moving_timer,true);
+        timerUpdate(dt);
+        return region;
+    }
 
-        switch (currentState) {
-           case UP: {
-              region=movingUp.getKeyFrame(moving_timer,true);
-            }
-            break;
-            case DOWN: {
-                region=movingDown.getKeyFrame(moving_timer,true);
-            }
-            break;
-            case LEFT: {
-                region=movingLeft.getKeyFrame(moving_timer,true);
-            }
-            break;
-            case RIGHT: {
-                region=movingRight.getKeyFrame(moving_timer,true);
-            }
-            break;
-        }
-
+    private void timerUpdate(float dt) {
         if(previousState==currentState){
             moving_timer+=(dt/2);
         }else{
             moving_timer=0;
         }
         previousState=currentState;
-        return region;
     }
 
     public int getId() {
