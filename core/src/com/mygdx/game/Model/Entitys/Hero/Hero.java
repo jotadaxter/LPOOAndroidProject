@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
@@ -78,22 +79,21 @@ public class Hero extends Sprite{
         this.world=screen.getWorld();
         booleanDefinition();
         resetCounters();
-        //Movement States
         this.bombs=new ArrayList<Bomb>();
-        //Animations
-        heroAnimations(screen);
-
-        //Hero Definition
+        heroAnimations();
         heroBody = new HeroBody(screen, this,vec);
-
-        standLeft = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
-        standBack = new TextureRegion(screen.getAtlas().findRegion("hero_back"), 1, 1, 16, 21);
-        standFront = new TextureRegion(screen.getAtlas().findRegion("hero_front"), 1, 1, 17, 22);
-        standRight = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
+        heroStandingTextureLoad();
         standRight.flip(true, false);
         setBounds(0, 0, 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
         soundHurt=  Gdx.audio.newSound(Gdx.files.internal("Sounds/hero_hurt.wav"));
         soundDying=  Gdx.audio.newSound(Gdx.files.internal("Sounds/hero_dying.wav"));
+    }
+
+    private void heroStandingTextureLoad() {
+        standLeft = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
+        standBack = new TextureRegion(screen.getAtlas().findRegion("hero_back"), 1, 1, 16, 21);
+        standFront = new TextureRegion(screen.getAtlas().findRegion("hero_front"), 1, 1, 17, 22);
+        standRight = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
     }
 
     private void resetCounters() {
@@ -119,50 +119,33 @@ public class Hero extends Sprite{
         addBomb=true;
     }
 
-    private void heroAnimations(GameScreen screen) {
+    private void heroAnimations() {
+        heroWalkUp=animationAtlasLoad("hero_walk_up", new Vector3(18,24,9));
+        heroWalkDown=animationAtlasLoad("hero_walk_down", new Vector3(18,24,9));
+        heroWalkRight=animationAtlasLoad("hero_walk_right", new Vector3(23,23,9));
+
+        heroHurt= animationAssetLoad("Game/hero_hurt.png", new Vector3(31,32,2));
+        heroDying= animationAssetLoad("Game/hero_dying.png", new Vector3(25,24,5));
+    }
+
+    private Animation<TextureRegion> animationAssetLoad(String name, Vector3 vec) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        //Up Animation
-
-        for (int i = 0; i < 9; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("hero_walk_up"), i * 18, 0, 18, 24));
+        for (int i = 0; i < (int)vec.z; i++) {
+            frames.add(new TextureRegion(screen.getGame().assetManager.get(name, Texture.class), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
         }
-        heroWalkUp = new Animation<TextureRegion>(0.1f, frames);
+        Animation<TextureRegion> animation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
+        return animation;
+    }
 
-        //Down Animation
-        for (int i = 0; i < 9; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("hero_walk_down"), i * 18, 0, 18, 24));
+    private Animation<TextureRegion> animationAtlasLoad(String path, Vector3 vec) {
+        Array<TextureRegion> frames = new Array<TextureRegion>();
+        for (int i = 0; i < (int)vec.z; i++) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion(path), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
         }
-        heroWalkDown = new Animation<TextureRegion>(0.1f, frames);
+        Animation<TextureRegion> animation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
-
-        //Right Animation
-        for (int i = 0; i < 9; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("hero_walk_right"), i * 23, 0, 23, 23));
-        }
-        heroWalkRight = new Animation<TextureRegion>(0.1f, frames);
-        frames.clear();
-
-        //Hurt Animation
-        for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/hero_hurt.png", Texture.class), i * 31, 0, 31, 32));
-        }
-        heroHurt = new Animation<TextureRegion>(0.1f, frames);
-        frames.clear();
-
-        //Dying Animation
-        for (int i = 0; i < 5; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/hero_dying.png", Texture.class), i * 25, 0, 24, 25));
-        }
-        heroDying = new Animation<TextureRegion>(0.1f, frames);
-        frames.clear();
-/*
-        //Falling Animation
-        for (int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/hero_falling.png", Texture.class), i * 22, 0, 22, 21));
-        }
-        heroFalling = new Animation<TextureRegion>(0.1f, frames);
-        frames.clear();*/
+        return animation;
     }
 
     public void update(float dt){
@@ -176,13 +159,16 @@ public class Hero extends Sprite{
         }
       else setPosition(heroBody.getBody().getPosition().x-getWidth()/2, heroBody.getBody().getPosition().y-getHeight()/2);
         setRegion(heroBody.getFrame(this,dt));
+        heroBombUpdate(dt);
+    }
+
+    private void heroBombUpdate(float dt) {
         if(!addBomb)
             bombCount+=dt;
         if(bombCount>=1){
             bombCount=0;
             addBomb=true;
         }
-        
         if(throwBomb){
             for(Bomb bomb: bombs){
                 bomb.update(dt);
@@ -258,45 +244,24 @@ public class Hero extends Sprite{
         if(!addBomb)
             return;
         throwBomb=true;
-        float xx=heroBody.getBody().getPosition().x*16, yy=heroBody.getBody().getPosition().y*16;
-        switch(heroBody.currentState){
-            case STAND_UP:{
-                yy+=16;
-            }
-            break;
-            case STAND_DOWN:{
-                yy-=16;
-            }
-            break;
-            case STAND_RIGHT:{
-                xx+=16;
-            }break;
-            case STAND_LEFT:{
-                xx-=16;
-            }
-            break;
-            case WALK_UP:{
-                yy+=16;
-            }
-            break;
-            case WALK_DOWN:{
-                yy-=16;
-            }
-            break;
-            case WALK_RIGHT:{
-                xx+=16;
-            }break;
-            case WALK_LEFT:{
-                xx-=16;
-            }
-            break;
-
-        }
-        //bomb= screen.getBombPool().obtain();
+        Vector2 v1 = getNewBombPosition();
         bomb= new Bomb(screen,this,new Vector2(0,0));
-        bomb.setNewPosition(xx*MyGame.PIXEL_TO_METER,yy*MyGame.PIXEL_TO_METER);
+        bomb.setNewPosition(v1.x*MyGame.PIXEL_TO_METER,v1.y*MyGame.PIXEL_TO_METER);
         bombs.add(bomb);
         addBomb=false;
+    }
+
+    private Vector2 getNewBombPosition() {
+        float xx=heroBody.getBody().getPosition().x*16, yy=heroBody.getBody().getPosition().y*16;
+        if(heroBody.currentState == HeroBody.State.STAND_UP || heroBody.currentState == HeroBody.State.WALK_UP)
+            yy+=16;
+        else if(heroBody.currentState == HeroBody.State.STAND_DOWN || heroBody.currentState == HeroBody.State.WALK_DOWN)
+            yy-=16;
+        else if(heroBody.currentState == HeroBody.State.STAND_RIGHT || heroBody.currentState == HeroBody.State.WALK_RIGHT)
+            xx+=16;
+        else if(heroBody.currentState == HeroBody.State.STAND_LEFT || heroBody.currentState == HeroBody.State.WALK_LEFT)
+            xx-=16;
+        return new Vector2(xx,yy);
     }
 
     public ArrayList<Bomb> getBombs() {
