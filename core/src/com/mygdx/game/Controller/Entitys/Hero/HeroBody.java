@@ -25,7 +25,7 @@ public class HeroBody{
     private FixtureDef fdef;
     private Hero hero;
 
-    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, GAME_OVER, DYING, FALLING};
+    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, GAME_OVER, DYING};
     public State currentState;
     public State previousState;
 
@@ -45,7 +45,7 @@ public class HeroBody{
         fdef.filter.categoryBits= MyGame.HERO_BIT;
         fdef.filter.maskBits = MyGame.ALL_BIT;
         fdef.shape= shape;
-        b2body.createFixture(fdef).setUserData(hero);
+        b2body.createFixture(fdef).setUserData(this);
         shapesDefine();
     }
 
@@ -323,5 +323,9 @@ public class HeroBody{
 
     public FixtureDef getFdef() {
         return fdef;
+    }
+
+    public Hero getHero() {
+        return hero;
     }
 }
