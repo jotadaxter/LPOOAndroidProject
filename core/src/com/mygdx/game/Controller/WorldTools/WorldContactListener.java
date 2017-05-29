@@ -37,121 +37,154 @@ public class WorldContactListener implements ContactListener {
         impactVerify("leftContact", fixA, fixB);
         impactVerify("leftContact", fixA, fixB);
 
-        //Collision Verify
-        switch(cDef){
+        dinamicBeginContactVerify1(cDef, fixA, fixB);
+        dinamicBeginContactVerify2(cDef, fixA, fixB);
+        dinamicBeginContactVerify3(cDef, fixA, fixB);
+    }
+
+    private void dinamicBeginContactVerify1(int cDef, Fixture fixA, Fixture fixB) {
+        switch(cDef) {
             case MyGame.ITEM_BIT | MyGame.HERO_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.ITEM_BIT)
-                    ((Item) fixA.getUserData()).use((Hero) fixB.getUserData());
-                else
-                    ((Item) fixB.getUserData()).use((Hero) fixA.getUserData());
+                heroItemBegin(fixA, fixB);
                 break;
             case MyGame.HERO_BIT | MyGame.SPIKES_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT)
-                    ((Hero) fixA.getUserData()).hit();
-                else
-                    ((Hero) fixB.getUserData()).hit();
+                heroSpikesBegin(fixA,fixB);
                 break;
             case MyGame.HERO_BIT | MyGame.PRESSING_PLATE_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT)
-                    ((PressingPlate) fixA.getUserData()).incIsPressed();
-                else
-                    ((PressingPlate) fixB.getUserData()).incIsPressed();
+                heroPlateBegin(fixA,fixB);
                 break;
             case MyGame.BOULDER_BIT | MyGame.PRESSING_PLATE_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT)
-                    ((PressingPlate) fixA.getUserData()).incIsPressed();
-                else
-                    ((PressingPlate) fixB.getUserData()).incIsPressed();
+                boulderPlateBegin(fixA,fixB);
                 break;
-            case MyGame.HERO_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT){
-                    ((MegaPressingPlate) fixA.getUserData()).incIsPressed();
-                    System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
-                }
-                else {
-                    ((MegaPressingPlate) fixB.getUserData()).incIsPressed();
-                    System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
-                }
-                break;
+        }
+    }
+
+    private void dinamicBeginContactVerify2(int cDef, Fixture fixA, Fixture fixB) {
+        switch(cDef){
             case MyGame.BOULDER_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT){
-                    ((MegaPressingPlate) fixA.getUserData()).incIsPressed();
-                    System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
-                }
-                else {
-                    ((MegaPressingPlate) fixB.getUserData()).incIsPressed();
-                    System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
-                }
+                bolderMegaPlateBegin(fixA,fixB);
                 break;
-            /*case MyGame.HERO_BIT | MyGame.BOMB_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.BOMB_BIT){
-                   if(((Bomb)fixA.getUserData()).getState()== Bomb.State.BOOM) {
-                       System.out.println(((Bomb)fixA.getUserData()));
-                       System.out.println("hit");
-                       ((Hero) fixB.getUserData()).hit();
-                   }
-                }
-                else {
-                    if(((Bomb)fixB.getUserData()).getState()== Bomb.State.BOOM) {
-                        System.out.println("hit");
-                        ((Hero) fixA.getUserData()).hit();
-                    }
-                }
-                break;*/
             case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
-                   if(!((Hero) fixA.getUserData()).getIsInPlatform())
-                       ((Hero) fixA.getUserData()).fall();
-                    ((Hero) fixA.getUserData()).isInPitfall=true;
-                    System.out.println("is in platform: "+((Hero) fixA.getUserData()).getIsInPlatform());
-                    System.out.println("is in pitfall: "+ ((Hero) fixA.getUserData()).isInPitfall);
-                }
-                else {
-                    if(!((Hero) fixB.getUserData()).getIsInPlatform())
-                        ((Hero) fixB.getUserData()).fall();
-                    ((Hero) fixB.getUserData()).isInPitfall=true;
-                    System.out.println("is in platform: "+((Hero) fixB.getUserData()).getIsInPlatform());
-                    System.out.println("is in pitfall: "+ ((Hero) fixB.getUserData()).isInPitfall);
-                }
+                heroPitfallBegin(fixA,fixB);
                 break;
             case MyGame.MOVING_PLATFORM_BIT | MyGame.HERO_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
-                    ((Hero) fixA.getUserData()).setIsInPlatform(true);
-                    ((Hero) fixA.getUserData()).setPlatformId(((MovingPlatform) fixB.getUserData()).getId());
-                    ((Hero) fixA.getUserData()).isInPitfall=true;
-                    System.out.println("is in platform: "+((Hero) fixA.getUserData()).getIsInPlatform());
-                    System.out.println("is in pitfall: "+ ((Hero) fixA.getUserData()).isInPitfall);
-                }
-                else {
-                    ((Hero) fixB.getUserData()).setIsInPlatform(true);
-                    ((Hero) fixB.getUserData()).setPlatformId(((MovingPlatform) fixA.getUserData()).getId());
-                    ((Hero) fixB.getUserData()).isInPitfall=true;
-                    System.out.println("is in platform: "+((Hero) fixB.getUserData()).getIsInPlatform());
-                    System.out.println("is in pitfall: "+ ((Hero) fixB.getUserData()).isInPitfall);
-                }
+                heroPlatformBegin(fixA, fixB);
                 break;
-                case MyGame.HERO_BIT | MyGame.CHEST_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.CHEST_BIT)
-                    ((Hero) fixB.getUserData()).setOpenedChestId(((Chest) fixA.getUserData()).getId());
-                else
-                    ((Hero) fixA.getUserData()).setOpenedChestId(((Chest) fixB.getUserData()).getId());
+            case MyGame.HERO_BIT | MyGame.CHEST_BIT:
+                heroChestBegin(fixA, fixB);
+                break;
+        }
+    }
+
+    private void dinamicBeginContactVerify3(int cDef, Fixture fixA, Fixture fixB) {
+        switch(cDef){
+            case MyGame.HERO_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
+                heroMegaPlateBegin(fixA, fixB);
                 break;
             case MyGame.HERO_BIT | MyGame.SIGN_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.SIGN_BIT)
-                    ((Hero) fixB.getUserData()).setOpenedSignId(((Sign) fixA.getUserData()).getId());
-                else
-                    ((Hero) fixA.getUserData()).setOpenedSignId(((Sign) fixB.getUserData()).getId());
+                signalHeroBegin(fixA,fixB);
                 break;
             case  MyGame.BOMB_BIT | MyGame.SMASH_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.SMASH_BIT)
-                ((SmashableRock) fixA.getUserData()).destroy();
-            else
-                ((SmashableRock) fixB.getUserData()).destroy();
+                bombSmashBegin(fixA,fixB);
                 break;
-
-
         }
+    }
 
+    private void heroItemBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.ITEM_BIT)
+            ((Item) fixA.getUserData()).use((Hero) fixB.getUserData());
+        else
+            ((Item) fixB.getUserData()).use((Hero) fixA.getUserData());
+    }
+
+    private void heroSpikesBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT)
+            ((Hero) fixA.getUserData()).hit();
+        else
+            ((Hero) fixB.getUserData()).hit();
+    }
+
+    private void heroPlateBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT)
+            ((PressingPlate) fixA.getUserData()).incIsPressed();
+        else
+            ((PressingPlate) fixB.getUserData()).incIsPressed();
+    }
+
+    private void boulderPlateBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT)
+            ((PressingPlate) fixA.getUserData()).incIsPressed();
+        else
+            ((PressingPlate) fixB.getUserData()).incIsPressed();
+    }
+
+    private void heroMegaPlateBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT){
+            ((MegaPressingPlate) fixA.getUserData()).incIsPressed();
+            System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
+        }
+        else {
+            ((MegaPressingPlate) fixB.getUserData()).incIsPressed();
+            System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
+        }
+    }
+
+    private void bolderMegaPlateBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT){
+            ((MegaPressingPlate) fixA.getUserData()).incIsPressed();
+            System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
+        }
+        else {
+            ((MegaPressingPlate) fixB.getUserData()).incIsPressed();
+            System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
+        }
+    }
+
+    private void heroPitfallBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
+            if(!((Hero) fixA.getUserData()).getIsInPlatform())
+                ((Hero) fixA.getUserData()).fall();
+            ((Hero) fixA.getUserData()).isInPitfall=true;
+        }
+        else {
+            if(!((Hero) fixB.getUserData()).getIsInPlatform())
+                ((Hero) fixB.getUserData()).fall();
+            ((Hero) fixB.getUserData()).isInPitfall=true;
+        }
+    }
+
+    private void heroPlatformBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
+            ((Hero) fixA.getUserData()).setIsInPlatform(true);
+            ((Hero) fixA.getUserData()).setPlatformId(((MovingPlatform) fixB.getUserData()).getId());
+            ((Hero) fixA.getUserData()).isInPitfall=true;
+        }
+        else {
+            ((Hero) fixB.getUserData()).setIsInPlatform(true);
+            ((Hero) fixB.getUserData()).setPlatformId(((MovingPlatform) fixA.getUserData()).getId());
+            ((Hero) fixB.getUserData()).isInPitfall=true;
+        }
+    }
+
+    private void heroChestBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.CHEST_BIT)
+            ((Hero) fixB.getUserData()).setOpenedChestId(((Chest) fixA.getUserData()).getId());
+        else
+            ((Hero) fixA.getUserData()).setOpenedChestId(((Chest) fixB.getUserData()).getId());
+    }
+
+    private void bombSmashBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.SMASH_BIT)
+            ((SmashableRock) fixA.getUserData()).destroy();
+        else
+            ((SmashableRock) fixB.getUserData()).destroy();
+    }
+
+    private void signalHeroBegin(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.SIGN_BIT)
+            ((Hero) fixB.getUserData()).setOpenedSignId(((Sign) fixA.getUserData()).getId());
+        else
+            ((Hero) fixA.getUserData()).setOpenedSignId(((Sign) fixB.getUserData()).getId());
     }
 
     private void impactVerify(String surfaceName, Fixture fixA, Fixture fixB)  {
@@ -166,91 +199,112 @@ public class WorldContactListener implements ContactListener {
                 }
             }
         }
-
     }
 
     @Override
     public void endContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
-
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+        dinamicEndContactVerify1(cDef, fixA, fixB);
+        dinamicEndContactVerify2(cDef, fixA, fixB);
+    }
 
-        //Collision Verify
-        switch(cDef){
+    private void dinamicEndContactVerify1(int cDef, Fixture fixA, Fixture fixB) {
+        switch(cDef) {
             case MyGame.HERO_BIT | MyGame.PRESSING_PLATE_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT) {
-                    if (((PressingPlate) fixA.getUserData()).isPressAndHold() && ((PressingPlate) fixA.getUserData()).isPressed()>0)
-                        ((PressingPlate) fixA.getUserData()).decIsPressed();
-                }
-                else{
-                    if (((PressingPlate) fixB.getUserData()).isPressAndHold() && ((PressingPlate) fixB.getUserData()).isPressed()>0)
-                        ((PressingPlate) fixB.getUserData()).decIsPressed();
-                }
+                heroPlateEnd(fixA, fixB);
                 break;
             case MyGame.BOULDER_BIT | MyGame.PRESSING_PLATE_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT) {
-                    if (((PressingPlate) fixA.getUserData()).isPressAndHold() && ((PressingPlate) fixA.getUserData()).isPressed()>0)
-                        ((PressingPlate) fixA.getUserData()).decIsPressed();
-                }
-                else{
-                    if (((PressingPlate) fixB.getUserData()).isPressAndHold() && ((PressingPlate) fixB.getUserData()).isPressed()>0)
-                        ((PressingPlate) fixB.getUserData()).decIsPressed();
-                }
+                boulderPlateEnd(fixA, fixB);
                 break;
             case MyGame.HERO_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT) {
-                    ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
-                    System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
-                }
-                else{
-                    ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
-                    System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
-                }
+                heroMegaPlateEnd(fixA, fixB);
                 break;
+        }
+    }
+
+    private void dinamicEndContactVerify2(int cDef, Fixture fixA, Fixture fixB) {
+        switch(cDef) {
             case MyGame.BOULDER_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT) {
-                    ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
-                    System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
-                }
-                else{
-                    ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
-                    System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
-                }
+                boulderMegaPlateEnd(fixA, fixB);
                 break;
             case MyGame.MOVING_PLATFORM_BIT | MyGame.HERO_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
-                    if(((Hero) fixA.getUserData()).isInPitfall){
-                        ((Hero) fixA.getUserData()).fall();
-                    }
-                   ((Hero) fixA.getUserData()).setIsInPlatform(false);
-                    ((Hero) fixA.getUserData()).setPlatformId(-1);
-                    System.out.println("is in platform: "+((Hero) fixA.getUserData()).getIsInPlatform());
-                    System.out.println("is in pitfall: "+ ((Hero) fixA.getUserData()).isInPitfall);
-                }
-                else{
-                    if(((Hero) fixA.getUserData()).isInPitfall){
-                        ((Hero) fixB.getUserData()).fall();
-                    }
-                    ((Hero) fixB.getUserData()).setIsInPlatform(false);
-                    ((Hero) fixB.getUserData()).setPlatformId(-1);
-                    System.out.println("is in platform: "+((Hero) fixB.getUserData()).getIsInPlatform());
-                    System.out.println("is in pitfall: "+ ((Hero) fixB.getUserData()).isInPitfall);
-                }
+                heroMovingPlatformEnd(fixA, fixB);
                 break;
             case MyGame.PITFALL_BIT | MyGame.HERO_BIT:
-                if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
-                    ((Hero) fixA.getUserData()).isInPitfall=false;
-                    System.out.println("is in platform: "+((Hero) fixA.getUserData()).getIsInPlatform());
-                    System.out.println("is in pitfall: "+ ((Hero) fixA.getUserData()).isInPitfall);
-                }
-                else {
-                    ((Hero) fixB.getUserData()).isInPitfall=false;
-                    System.out.println("is in platform: "+((Hero) fixB.getUserData()).getIsInPlatform());
-                    System.out.println("is in pitfall: "+ ((Hero) fixB.getUserData()).isInPitfall);
-                }
+                pitfallHeroEnd(fixA, fixB);
                 break;
+        }
+    }
 
+    private void boulderPlateEnd(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT) {
+            if (((PressingPlate) fixA.getUserData()).isPressAndHold() && ((PressingPlate) fixA.getUserData()).isPressed()>0)
+                ((PressingPlate) fixA.getUserData()).decIsPressed();
+        }
+        else{
+            if (((PressingPlate) fixB.getUserData()).isPressAndHold() && ((PressingPlate) fixB.getUserData()).isPressed()>0)
+                ((PressingPlate) fixB.getUserData()).decIsPressed();
+        }
+    }
+
+    private void heroMegaPlateEnd(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT) {
+            ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
+            System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
+        }
+        else{
+            ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
+            System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
+        }
+    }
+
+    private void boulderMegaPlateEnd(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT) {
+            ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
+            System.out.println(((MegaPressingPlate) fixA.getUserData()).isPressed());
+        }
+        else{
+            ((MegaPressingPlate) fixB.getUserData()).decIsPressed();
+            System.out.println(((MegaPressingPlate) fixB.getUserData()).isPressed());
+        }
+    }
+
+    private void heroMovingPlatformEnd(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
+            if(((Hero) fixA.getUserData()).isInPitfall){
+                ((Hero) fixA.getUserData()).fall();
+            }
+            ((Hero) fixA.getUserData()).setIsInPlatform(false);
+            ((Hero) fixA.getUserData()).setPlatformId(-1);
+        }
+        else{
+            if(((Hero) fixA.getUserData()).isInPitfall){
+                ((Hero) fixB.getUserData()).fall();
+            }
+            ((Hero) fixB.getUserData()).setIsInPlatform(false);
+            ((Hero) fixB.getUserData()).setPlatformId(-1);
+        }
+    }
+
+    private void pitfallHeroEnd(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
+            ((Hero) fixA.getUserData()).isInPitfall=false;
+        }
+        else {
+            ((Hero) fixB.getUserData()).isInPitfall=false;
+        }
+    }
+
+    private void heroPlateEnd(Fixture fixA, Fixture fixB) {
+        if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT) {
+            if (((PressingPlate) fixA.getUserData()).isPressAndHold() && ((PressingPlate) fixA.getUserData()).isPressed()>0)
+                ((PressingPlate) fixA.getUserData()).decIsPressed();
+        }
+        else{
+            if (((PressingPlate) fixB.getUserData()).isPressAndHold() && ((PressingPlate) fixB.getUserData()).isPressed()>0)
+                ((PressingPlate) fixB.getUserData()).decIsPressed();
         }
     }
 
