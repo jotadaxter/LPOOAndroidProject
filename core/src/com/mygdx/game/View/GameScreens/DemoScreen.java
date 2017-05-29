@@ -64,25 +64,33 @@ public class DemoScreen extends GameScreen {
         Sign sign1= new Sign(this, new Vector2(5*16+8,13*16+8));
         sign1.addSignId(0);
         signs.add(sign1);
-        TextLog log1 = new TextLog(game, this, game.fileReader.getSignText("sign1"), 0);
+        TextLog log1 = new TextLog(game, this);
+        log1.setText(game.fileReader.getSignText("sign1"));
+        log1.setId(0);
         textlogs.add(log1);
 
         Sign sign2= new Sign(this, new Vector2(14*16+8,13*16+8));
         sign2.addSignId(1);
         signs.add(sign2);
-        TextLog log2 = new TextLog(game, this, game.fileReader.getSignText("sign2"), 1);
+        TextLog log2 = new TextLog(game, this);
+        log2.setText(game.fileReader.getSignText("sign2"));
+        log2.setId(1);
         textlogs.add(log2);
 
         Sign sign3= new Sign(this, new Vector2(5*16+8,6*16+8));
         sign3.addSignId(2);
         signs.add(sign3);
-        TextLog log3 = new TextLog(game, this, game.fileReader.getSignText("sign3"), 2);
+        TextLog log3 = new TextLog(game, this);
+        log3.setText(game.fileReader.getSignText("sign3"));
+        log3.setId(2);
         textlogs.add(log3);
 
         Sign sign4= new Sign(this, new Vector2(13*16+8,6*16+8));
         sign4.addSignId(3);
         signs.add(sign4);
-        TextLog log4 = new TextLog(game, this, game.fileReader.getSignText("sign4"), 3);
+        TextLog log4 = new TextLog(game, this);
+        log4.setText(game.fileReader.getSignText("sign4"));
+        log4.setId(3);
         textlogs.add(log4);
     }
 

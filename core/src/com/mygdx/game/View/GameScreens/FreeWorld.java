@@ -114,13 +114,17 @@ public class FreeWorld extends GameScreen {
         Sign sign1= new Sign(this, new Vector2(29*16+8,35*16-8));
         sign1.addSignId(0);
         signs.add(sign1);
-        TextLog log1 = new TextLog(game, this, game.fileReader.getSignText("sign5"), 0);
+        TextLog log1 = new TextLog(game, this);
+        log1.setText(game.fileReader.getSignText("sign5"));
+        log1.setId(0);
         textlogs.add(log1);
 
         Sign sign2= new Sign(this, new Vector2(9*16+8,6*16-8));
         sign2.addSignId(1);
         signs.add(sign2);
-        TextLog log2 = new TextLog(game, this, game.fileReader.getSignText("sign0"), 1);
+        TextLog log2 = new TextLog(game, this);
+        log2.setText(game.fileReader.getSignText("sign0"));
+        log2.setId(1);
         textlogs.add(log2);
     }
 

@@ -30,11 +30,9 @@ public class TextLog {
     private Image logImage;
     private int id;
 
-    public TextLog(MyGame game, GameScreen screen, String text,int id) {
+    public TextLog(MyGame game, GameScreen screen) {
         this.game=game;
         this.screen=screen;
-        this.text=text;
-        this.id=id;
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, game.batch);
         font = screen.getGame().assetManager.get("Fonts/textFont.fnt", BitmapFont.class);
@@ -62,11 +60,15 @@ public class TextLog {
         textLabel.setText(text);
     }
 
-    public String getText() {
-        return text;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
