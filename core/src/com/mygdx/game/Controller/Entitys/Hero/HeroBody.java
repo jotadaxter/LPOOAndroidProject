@@ -154,15 +154,28 @@ public class HeroBody{
     }
 
     private TextureRegion regionStateUpdate() {
+        if(currentState == State.HURT || currentState == State.DYING || currentState == State.GAME_OVER
+                || currentState == State.STAND_UP || currentState == State.STAND_DOWN)
+            return regionStateUpdate1();
+        else if(currentState == State.STAND_LEFT || currentState == State.STAND_RIGHT
+                || currentState == State.WALK_UP || currentState == State.WALK_DOWN
+                || currentState == State.WALK_LEFT || currentState == State.WALK_RIGHT)
+            return regionStateUpdate2();
+        else return hero.getStandFront();
+    }
+
+    private TextureRegion regionStateUpdate1() {
         if(currentState == State.HURT || currentState == State.DYING)
             return regionUpdate1();
-        else if(currentState == State.GAME_OVER || currentState == State.STAND_UP || currentState == State.STAND_DOWN)
+        else 
             return regionUpdate2();
-        else if(currentState == State.STAND_LEFT || currentState == State.STAND_RIGHT || currentState == State.WALK_UP)
+    }
+
+    private TextureRegion regionStateUpdate2(){
+        if(currentState == State.STAND_LEFT || currentState == State.STAND_RIGHT || currentState == State.WALK_UP)
             return regionUpdate3();
-        else if(currentState == State.WALK_DOWN || currentState == State.WALK_LEFT || currentState == State.WALK_RIGHT)
+        else
             return regionUpdate4();
-        else return hero.getStandFront();
     }
 
     private TextureRegion regionUpdate4() {

@@ -177,32 +177,16 @@ public class Hero extends Sprite{
     }
 
     public void addItem(Item item) {
-        if(item.getType()=="jewel"){
+        if(item.getType()=="jewel")
             addScore(((Jewel)item).getValue());
-            String v = Integer.toString(getScore());
-            Gdx.app.log("Hero got ",v);
-        }
-        else if(item.getType()=="heart"){
+        else if(item.getType()=="heart")
             screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()+1);
-            String v = Integer.toString(getHealth());
-            Gdx.app.log("Hero got 1 hearth.\n Current health: ",v);
-        }
-        else if(item.getType()=="volcano_ruby"){
+        else if(item.getType()=="volcano_ruby")
             screen.getGame().heroStats.gotVolcanoRuby();
-            Gdx.app.log("Picked Up Volcano Ruby", "");
-        }
-        else{
-            Gdx.app.log("Errror","");
-        }
-
     }
 
     public void addScore(int value) {
         screen.getGame().heroStats.setScore(screen.getGame().heroStats.getScore()+value);
-    }
-
-    public int getScore(){
-        return screen.getGame().heroStats.getScore();
     }
 
     public TextureRegion getStandRight(){
@@ -272,20 +256,8 @@ public class Hero extends Sprite{
         return throwBomb;
     }
 
-    public void switchAddBomb() {
-        addBomb=true;
-    }
-
     public boolean getAddBomb() {
         return addBomb;
-    }
-
-    public boolean isBombExploding() {
-        return bombExploding;
-    }
-
-    public void setBombExploding(boolean bombExploding) {
-        this.bombExploding = bombExploding;
     }
 
     public void setIsInPlatform(boolean val){
@@ -312,14 +284,6 @@ public class Hero extends Sprite{
         return openedSignId;
     }
 
-    public boolean isOpenLog() {
-        return openLog;
-    }
-
-    public void setOpenLog(boolean openLog) {
-        this.openLog = openLog;
-    }
-
     public void setOpenedSignId(int openedSignId) {
         this.openedSignId = openedSignId;
     }
@@ -343,8 +307,4 @@ public class Hero extends Sprite{
     public Sound getSoundDying() {
         return soundDying;
     }
-/*
-    public Sound getSoundFalling() {
-        return soundFalling;
-    }*/
 }
