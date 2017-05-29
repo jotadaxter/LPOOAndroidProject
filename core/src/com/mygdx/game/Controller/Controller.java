@@ -23,49 +23,52 @@ public class Controller {
     public static final int VIEWPORT_HEIGHT=160;
     public static final int BTN_WIDTH = 20;
     public static final int BTN_HEIGTH = 20;
+    public static final int BTN_AB_WIDTH = 50;
+    public static final int BTN_AB_HEIGHT = 50;
 
     private MyGame game;
     private FitViewport viewport;
     private Stage stage;
     private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed, escPressed;//z-a,x-b
     private OrthographicCamera cam;
+    private Image downImg;
+    private Image upImg;
+    private Image rightImg;
+    private Image leftImg;
+    private Image aImg;
+    private Image bImg;
 
     public Controller(MyGame game){
         this.game=game;
         cam = new OrthographicCamera();
         viewport = new FitViewport(VIEWPORT_WIDTH,VIEWPORT_HEIGHT,cam);
         stage= new Stage(viewport,game.batch);
+        addKeyDownListener();
+        addKeyUpListener();
+        Gdx.input.setInputProcessor(stage);
+        imageLoad();
+        tableConfig();
+    }
 
+    private void tableConfig() {
+        Table table = new Table();
+        table.left().bottom();
+        table.add();
+        table.add(upImg).size(upImg.getWidth(),upImg.getHeight());
+        table.add();
+        table.row().pad(5,5,5,5);
+        table.add(leftImg).size(leftImg.getWidth(),leftImg.getHeight());
+        table.add();
+        table.add(rightImg).size(rightImg.getWidth(),rightImg.getHeight());
+        table.row().padBottom(5);
+        table.add();
+        table.add(downImg).size(downImg.getWidth(),downImg.getHeight());
+        table.add();
+        stage.addActor(table);
+    }
+
+    private void addKeyUpListener() {
         stage.addListener(new InputListener(){
-
-            @Override
-            public boolean keyDown(InputEvent event, int keycode) {
-                switch(keycode) {
-                    case Input.Keys.UP:
-                        upPressed = true;
-                        break;
-                    case Input.Keys.DOWN:
-                        downPressed = true;
-                        break;
-                    case Input.Keys.LEFT:
-                        leftPressed = true;
-                        break;
-                    case Input.Keys.RIGHT:
-                        rightPressed = true;
-                        break;
-                    case Input.Keys.X:
-                        bPressed=true;
-                        break;
-                    case Input.Keys.Z:
-                        aPressed=true;
-                        break;
-                    case Input.Keys.ESCAPE:
-                        escPressed=true;
-                        break;
-                }
-                return true;
-            }
-
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
                 switch(keycode) {
@@ -94,145 +97,87 @@ public class Controller {
                 return true;
             }
         });
+    }
 
-        Gdx.input.setInputProcessor(stage);
-
-        imageLoad();
+    private void addKeyDownListener() {
+        stage.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                switch(keycode) {
+                    case Input.Keys.UP:
+                        upPressed = true;
+                        break;
+                    case Input.Keys.DOWN:
+                        downPressed = true;
+                        break;
+                    case Input.Keys.LEFT:
+                        leftPressed = true;
+                        break;
+                    case Input.Keys.RIGHT:
+                        rightPressed = true;
+                        break;
+                    case Input.Keys.X:
+                        bPressed=true;
+                        break;
+                    case Input.Keys.Z:
+                        aPressed=true;
+                        break;
+                    case Input.Keys.ESCAPE:
+                        escPressed=true;
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private void imageLoad() {
-        Table table = new Table();
-        table.left().bottom();
+        downImg = new Image(game.assetManager.get("Buttons/down_arrow.png", Texture.class));
+        imageConfig(downImg);
+        upImg =new Image(game.assetManager.get("Buttons/up_arrow.png", Texture.class));
+        imageConfig(upImg);
+        rightImg =new Image(game.assetManager.get("Buttons/right_arrow.png", Texture.class));
+        imageConfig(rightImg);
+        leftImg = new Image(game.assetManager.get("Buttons/left_arrow.png", Texture.class));
+        imageConfig(leftImg);
+        aImg =new Image(game.assetManager.get("Buttons/a_button.png", Texture.class));
+        abConfig(aImg);
+        bImg =new Image(game.assetManager.get("Buttons/b_button.png", Texture.class));
+        abConfig(bImg);
+    }
 
-        //Down Arrow Button
-        Image downImg = new Image(game.assetManager.get("Buttons/down_arrow.png", Texture.class));
-        downImg.setSize(BTN_WIDTH,BTN_HEIGTH);
-        downImg.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                downPressed=true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                downPressed=false;
-            }
-
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                downPressed=true;
-            }
-        });
-
-        //Up Arrow Button
-        Image upImg =new Image(game.assetManager.get("Buttons/up_arrow.png", Texture.class));
-        upImg.setSize(BTN_WIDTH,BTN_HEIGTH);
-        upImg.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                upPressed=true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                upPressed=false;
-            }
-
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                upPressed=true;
-            }
-        });
-
-        //Right Arrow Button
-        Image rightImg =new Image(game.assetManager.get("Buttons/right_arrow.png", Texture.class));
-        rightImg.setSize(BTN_WIDTH,BTN_HEIGTH);
-        rightImg.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed=true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed=false;
-            }
-
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                rightPressed=true;
-            }
-        });
-
-        //Left Arrow Button
-        Image leftImg = new Image(game.assetManager.get("Buttons/left_arrow.png", Texture.class));
-        leftImg.setSize(BTN_WIDTH,BTN_HEIGTH);
-        leftImg.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed=true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                leftPressed=false;
-            }
-
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                leftPressed=true;
-            }
-        });
-
-        //A Button
-        Image aImg =new Image(game.assetManager.get("Buttons/a_button.png", Texture.class));
-        aImg.setSize(50,50);
-        aImg.addListener(new InputListener(){
+    private void abConfig(Image img) {
+        img.setSize(BTN_AB_WIDTH,BTN_AB_HEIGHT);
+        img.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 aPressed=true;
                 return true;
             }
-
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 aPressed=false;
             }
         });
+    }
 
-        //B Button
-        Image bImg =new Image(game.assetManager.get("Buttons/b_button.png", Texture.class));
-        bImg.setSize(50,50);
-        bImg.addListener(new InputListener(){
+    private void imageConfig(Image image) {
+        image.setSize(BTN_WIDTH,BTN_HEIGTH);
+        image.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                bPressed=true;
+                downPressed=true;
                 return true;
             }
-
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                bPressed=false;
+                downPressed=false;
+            }
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                downPressed=true;
             }
         });
-
-        table.add();
-        table.add(upImg).size(upImg.getWidth(),upImg.getHeight());
-        table.add();
-        table.row().pad(5,5,5,5);
-        table.add(leftImg).size(leftImg.getWidth(),leftImg.getHeight());
-        table.add();
-        table.add(rightImg).size(rightImg.getWidth(),rightImg.getHeight());
-        table.row().padBottom(5);
-        table.add();
-        table.add(downImg).size(downImg.getWidth(),downImg.getHeight());
-        table.add();
-
-        stage.addActor(table);
     }
 
     public void draw(){
