@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.Controller.Controller;
+import com.mygdx.game.Controller.Entitys.StaticContactShapes;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -19,7 +20,6 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 public class HeroBody{
     public static final float DAMPING_NORMAL= 3f;
     private GameScreen screen;
-    public boolean isInIce;
     public Body b2body;
     private FixtureDef fdef;
     private Hero hero;
@@ -39,7 +39,6 @@ public class HeroBody{
         bdef.linearDamping=DAMPING_NORMAL;
         b2body=screen.getWorld().createBody(bdef);
         //b2body.setGravityScale(0);
-
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(4*MyGame.PIXEL_TO_METER,6.5f*MyGame.PIXEL_TO_METER);
@@ -60,44 +59,46 @@ public class HeroBody{
         fdef.shape= shape;
         b2body.createFixture(fdef).setUserData(hero);
 
-        //Edgeshapes (contact lines) - Surfaces to detect contact with Tiled objects
-        FixtureDef sensorfix= new FixtureDef();
-        sensorfix.filter.categoryBits= MyGame.DEFAULT_BIT;
-        sensorfix.filter.maskBits = MyGame.ITEM_BIT
-                | MyGame.DEFAULT_BIT
-                | MyGame.SPIKES_BIT
-                | MyGame.BOULDER_BIT
-                | MyGame.WARP_OBJECT
-                | MyGame.PRESSING_PLATE_BIT;
-        sensorfix.shape= shape;
+        shapesDefine();
+    }
 
-        //Up Contact Line
-        EdgeShape upContact= new EdgeShape();
-        upContact.set(new Vector2(-4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER), new Vector2(4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER));
-        sensorfix.shape=upContact;
-        sensorfix.isSensor=true;
-        b2body.createFixture(sensorfix).setUserData("upContact");
+    private void shapesDefine(){
+        StaticContactShapes shapeUp = new StaticContactShapes(b2body, new EdgeShape());
+        shapeUpConfig(shapeUp);
+        StaticContactShapes shapeDown = new StaticContactShapes(b2body, new EdgeShape());
+        shapeDownConfig(shapeDown);
+        StaticContactShapes shapeRight = new StaticContactShapes(b2body, new EdgeShape());
+        shapeRightConfig(shapeRight);
+        StaticContactShapes shapeLeft = new StaticContactShapes(b2body, new EdgeShape());
+        shapeLeftConfig(shapeLeft);
+    }
 
-        //Down Contact Line
-        EdgeShape downContact= new EdgeShape();
-        downContact.set(new Vector2(-4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER), new Vector2(4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER));
-        sensorfix.shape=downContact;
-        sensorfix.isSensor=true;
-        b2body.createFixture(sensorfix).setUserData("downContact");
+    private void shapeLeftConfig(StaticContactShapes shape) {
+        shape.setName("leftContact");
+        shape.setVec1(new Vector2(5*MyGame.PIXEL_TO_METER,-5*MyGame.PIXEL_TO_METER));
+        shape.setVec2( new Vector2(5*MyGame.PIXEL_TO_METER,5*MyGame.PIXEL_TO_METER));
+        shape.shapeDef();
+    }
 
-        //Left Contact Line
-        EdgeShape leftContact= new EdgeShape();
-        leftContact.set(new Vector2(5*MyGame.PIXEL_TO_METER,-5*MyGame.PIXEL_TO_METER), new Vector2(5*MyGame.PIXEL_TO_METER,5*MyGame.PIXEL_TO_METER));
-        sensorfix.shape=leftContact;
-        sensorfix.isSensor=true;
-        b2body.createFixture(sensorfix).setUserData("leftContact");
+    private void shapeRightConfig(StaticContactShapes shape) {
+        shape.setName("rightContact");
+        shape.setVec1(new Vector2(-5*MyGame.PIXEL_TO_METER,-5*MyGame.PIXEL_TO_METER));
+        shape.setVec2( new Vector2(-5*MyGame.PIXEL_TO_METER,5*MyGame.PIXEL_TO_METER));
+        shape.shapeDef();
+    }
 
-        //Down Contact Line
-        EdgeShape rightContact= new EdgeShape();
-        rightContact.set(new Vector2(-5*MyGame.PIXEL_TO_METER, -5*MyGame.PIXEL_TO_METER), new Vector2(-5*MyGame.PIXEL_TO_METER, 5*MyGame.PIXEL_TO_METER));
-        sensorfix.shape=rightContact;
-        sensorfix.isSensor=true;
-        b2body.createFixture(sensorfix).setUserData("rightContact");
+    private void shapeDownConfig(StaticContactShapes shape) {
+        shape.setName("downContact");
+        shape.setVec1(new Vector2(-4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER));
+        shape.setVec2( new Vector2(4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER));
+        shape.shapeDef();
+    }
+
+    private void shapeUpConfig(StaticContactShapes shape) {
+        shape.setName("upContact");
+        shape.setVec1(new Vector2(-4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER));
+        shape.setVec2( new Vector2(4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER));
+        shape.shapeDef();
     }
 
     public State getState() {
@@ -244,69 +245,19 @@ public class HeroBody{
     public void InputUpdate(Controller controller, float dt){
         if(controller.isRightPressed()){
             b2body.applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), b2body.getWorldCenter(), true);
-            if(controller.isbPressed()){
-                if(hero.getAddBomb())
-                    this.hero.throwBomb();
-            }
-            else if(controller.isaPressed()){
-                if(hero.getOpenedChestId()>-1) {
-                    hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
-                    hero.setOpenedChestId(-1);
-                }
-                else if(hero.getOpenedSignId()>-1 && !hero.signWasOpened){
-                    hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
-                    hero.signWasOpened=true;
-
-                }
-            }
+            movementPress(controller, dt);
         }
         else if(controller.isLeftPressed()) {
             b2body.applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt, 0), b2body.getWorldCenter(), true);
-            if(controller.isbPressed()){
-                if(hero.getAddBomb())
-                    this.hero.throwBomb();
-            }
-            else if(controller.isaPressed()){
-                if(hero.getOpenedChestId()>-1) {
-                    hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
-                    hero.setOpenedChestId(-1);
-                }
-                else if(hero.getOpenedSignId()>-1){
-                    hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
-                }
-            }
+            movementPress(controller, dt);
         }
         else if(controller.isUpPressed()){
             b2body.applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
-            if(controller.isbPressed()){
-                if(hero.getAddBomb())
-                    this.hero.throwBomb();
-            }
-            else if(controller.isaPressed()){
-                if(hero.getOpenedChestId()>-1) {
-                    hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
-                    hero.setOpenedChestId(-1);
-                }
-                else if(hero.getOpenedSignId()>-1){
-                    hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
-                }
-            }
+            movementPress(controller, dt);
         }
         else if(controller.isDownPressed()){
             b2body.applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt), b2body.getWorldCenter(), true);
-            if(controller.isbPressed()){
-                if(hero.getAddBomb())
-                    this.hero.throwBomb();
-            }
-            else if(controller.isaPressed()){
-                if(hero.getOpenedChestId()>-1) {
-                    hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
-                    hero.setOpenedChestId(-1);
-                }
-                else if(hero.getOpenedSignId()>-1){
-                    hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
-                }
-            }
+            movementPress(controller, dt);
         }
         else if(controller.isbPressed()){
             if(hero.getAddBomb())
@@ -329,11 +280,23 @@ public class HeroBody{
                 hero.setOpenedSignId(-1);
             }
         }
-        else {
-            if(isInIce){
-                b2body.setLinearVelocity(0, 0);
+        else b2body.setLinearVelocity(0, 0);
+    }
+
+    private void movementPress(Controller controller, float dt) {
+        if(controller.isbPressed()){
+            if(hero.getAddBomb())
+                this.hero.throwBomb();
+        }
+        else if(controller.isaPressed()){
+            if(hero.getOpenedChestId()>-1) {
+                hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
+                hero.setOpenedChestId(-1);
             }
-            else b2body.setLinearVelocity(0, 0);
+            else if(hero.getOpenedSignId()>-1 && !hero.signWasOpened){
+                hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
+                hero.signWasOpened=true;
+            }
         }
     }
 
