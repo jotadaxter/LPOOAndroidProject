@@ -71,64 +71,53 @@ public class Controller {
         stage.addListener(new InputListener(){
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
-                switch(keycode) {
-                    case Input.Keys.UP:
-                        upPressed = false;
-                        break;
-                    case Input.Keys.DOWN:
-                        downPressed = false;
-                        break;
-                    case Input.Keys.LEFT:
-                        leftPressed = false;
-                        break;
-                    case Input.Keys.RIGHT:
-                        rightPressed = false;
-                        break;
-                    case Input.Keys.X:
-                        bPressed=false;
-                        break;
-                    case Input.Keys.Z:
-                        aPressed=false;
-                        break;
-                    case Input.Keys.ESCAPE:
-                        escPressed=false;
-                        break;
-                }
+                keyUpDefine(keycode);
                 return true;
             }
         });
+    }
+    public void keyUpDefine(int keycode) {
+        if(keycode==Input.Keys.UP)
+            upPressed = false;
+        else if(keycode==Input.Keys.DOWN)
+            downPressed = false;
+        else if(keycode==Input.Keys.LEFT)
+            leftPressed = false;
+        else if(keycode==Input.Keys.RIGHT)
+            rightPressed = false;
+        else if(keycode==Input.Keys.X)
+            bPressed = false;
+        else if(keycode==Input.Keys.Z)
+            aPressed = false;
+        else if(keycode==Input.Keys.ESCAPE)
+            escPressed = false;
     }
 
     private void addKeyDownListener() {
         stage.addListener(new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
-                switch(keycode) {
-                    case Input.Keys.UP:
-                        upPressed = true;
-                        break;
-                    case Input.Keys.DOWN:
-                        downPressed = true;
-                        break;
-                    case Input.Keys.LEFT:
-                        leftPressed = true;
-                        break;
-                    case Input.Keys.RIGHT:
-                        rightPressed = true;
-                        break;
-                    case Input.Keys.X:
-                        bPressed=true;
-                        break;
-                    case Input.Keys.Z:
-                        aPressed=true;
-                        break;
-                    case Input.Keys.ESCAPE:
-                        escPressed=true;
-                        break;
-                }
+                keyDowntrueDefine(keycode);
                 return true;
             }
         });
+    }
+
+    public void keyDowntrueDefine(int keycode) {
+        if(keycode==Input.Keys.UP)
+            upPressed = true;
+        else if(keycode==Input.Keys.DOWN)
+            downPressed = true;
+        else if(keycode==Input.Keys.LEFT)
+            leftPressed = true;
+        else if(keycode==Input.Keys.RIGHT)
+            rightPressed = true;
+        else if(keycode==Input.Keys.X)
+            bPressed = true;
+        else if(keycode==Input.Keys.Z)
+            aPressed = true;
+        else if(keycode==Input.Keys.ESCAPE)
+            escPressed = true;
     }
 
     private void imageLoad() {
