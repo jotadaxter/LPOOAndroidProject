@@ -76,25 +76,10 @@ public class Hero extends Sprite{
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
         this.world=screen.getWorld();
-        bombCount=0;
-        isInPlatform=false;
-        isInPitfall=false;
-        openChest=false;
-        openedChestId=-1;
-        openLog=false;
-        openedSignId=-1;
-        signWasOpened=false;
-        wasHit=false;
-        platformId=-1;
-        fell=false;
-        fallAnimationOn=false;
-        setBombExploding(false);
+        booleanDefinition();
+        resetCounters();
         //Movement States
         this.bombs=new ArrayList<Bomb>();
-        upDownTimer=0;
-        leftRightTimer=0;
-        throwBomb=false;
-        addBomb=true;
         //Animations
         heroAnimations(screen);
 
@@ -109,6 +94,29 @@ public class Hero extends Sprite{
         setBounds(0, 0, 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
         soundHurt=  Gdx.audio.newSound(Gdx.files.internal("Sounds/hero_hurt.wav"));
         soundDying=  Gdx.audio.newSound(Gdx.files.internal("Sounds/hero_dying.wav"));
+    }
+
+    private void resetCounters() {
+        bombCount=0;
+        openedChestId=-1;
+        openedSignId=-1;
+        platformId=-1;
+        upDownTimer=0;
+        leftRightTimer=0;
+    }
+
+    private void booleanDefinition() {
+        isInPlatform=false;
+        isInPitfall=false;
+        openChest=false;
+        openLog=false;
+        signWasOpened=false;
+        wasHit=false;
+        fell=false;
+        fallAnimationOn=false;
+        bombExploding=false;
+        throwBomb=false;
+        addBomb=true;
     }
 
     private void heroAnimations(GameScreen screen) {

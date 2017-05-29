@@ -80,7 +80,6 @@ public class Hud implements Disposable{
     }
 
     private void displayHearts() {
-        //stage.addActor(heart_full);
         int i=0;
         while (i<health){
             Image new_heart= new Image(new TextureRegion(game.assetManager.get("Game/life_hearts.png", Texture.class), 0,0,9,8));
@@ -88,9 +87,6 @@ public class Hud implements Disposable{
             heartStage.addActor(new_heart);
             i++;
         }
-        //heart_full.setBounds(HEART_X + 10,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
-        //stage.addActor(heart_full);
-
     }
 
     private void displayVolcano_Ruby() {

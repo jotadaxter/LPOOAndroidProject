@@ -38,7 +38,6 @@ public class HeroBody{
         bdef.type=BodyDef.BodyType.DynamicBody;
         bdef.linearDamping=DAMPING_NORMAL;
         b2body=screen.getWorld().createBody(bdef);
-        //b2body.setGravityScale(0);
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(4*MyGame.PIXEL_TO_METER,6.5f*MyGame.PIXEL_TO_METER);
@@ -58,7 +57,6 @@ public class HeroBody{
                 | MyGame.PRESSING_PLATE_BIT;
         fdef.shape= shape;
         b2body.createFixture(fdef).setUserData(hero);
-
         shapesDefine();
     }
 
@@ -105,46 +103,45 @@ public class HeroBody{
         if(hero.getHealth()==0){
             screen.getGame().heroStats.setHearts(-1);
             return State.DYING;
-        }else if(hero.getHealth()<0){
+        }else if(hero.getHealth()<0)
             return State.GAME_OVER;
-        }
-        else if(hero.getWasHit()){
+        else if(hero.getWasHit())
             return State.HURT;
-        }/*
-        else if(hero.isInPitfall && !hero.isInPlatform){
-            return State.FALLING;
-        }*/
         else if (b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y == 0
                 || b2body.getLinearVelocity().x == 0 && b2body.getLinearVelocity().y != 0
-                || b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y != 0) {
-            if (Math.abs(b2body.getLinearVelocity().x) > Math.abs(b2body.getLinearVelocity().y)) {
-                if (b2body.getLinearVelocity().x > 0)
-                    return State.WALK_RIGHT;
-                else
-                    return State.WALK_LEFT;
-            }
-            else
-            {
-                if (b2body.getLinearVelocity().y < 0)
-                    return State.WALK_DOWN;
-                else //if (b2body.getLinearVelocity().y>0)
-                    return State.WALK_UP;
-            }
-        }
-        else {
-            if (previousState == State.WALK_UP)
-                return State.STAND_UP;
-            else if (previousState == State.WALK_RIGHT)
-                return State.STAND_RIGHT;
-            else if (previousState == State.WALK_LEFT)
-                return State.STAND_LEFT;
-            else if(previousState== State.WALK_DOWN)
-                return State.STAND_DOWN;
-            else{
-                return previousState;
-            }
-        }
+                || b2body.getLinearVelocity().x != 0 && b2body.getLinearVelocity().y != 0)
+            return bodyMovingState();
 
+        else return bodyQuietState();
+    }
+
+    private State bodyQuietState() {
+        if (previousState == State.WALK_UP)
+            return State.STAND_UP;
+        else if (previousState == State.WALK_RIGHT)
+            return State.STAND_RIGHT;
+        else if (previousState == State.WALK_LEFT)
+            return State.STAND_LEFT;
+        else if(previousState== State.WALK_DOWN)
+            return State.STAND_DOWN;
+        else{
+            return previousState;
+        }
+    }
+
+    private State bodyMovingState() {
+        if (Math.abs(b2body.getLinearVelocity().x) > Math.abs(b2body.getLinearVelocity().y)) {
+            if (b2body.getLinearVelocity().x > 0)
+                return State.WALK_RIGHT;
+            else
+                return State.WALK_LEFT;
+        }
+        else{
+            if (b2body.getLinearVelocity().y < 0)
+                return State.WALK_DOWN;
+            else
+                return State.WALK_UP;
+        }
     }
 
     public TextureRegion getFrame(Hero hero,float dt) {
@@ -158,13 +155,7 @@ public class HeroBody{
                 hero.getSoundHurt().play();
                 hero.setWasHit(false);
             }
-            break;/*
-            case FALLING:{
-                hero.setBounds(hero.getX(), hero.getY(), 22 * MyGame.PIXEL_TO_METER, 21 * MyGame.PIXEL_TO_METER);
-                region = hero.heroFalling.getKeyFrame(hero.upDownTimer, false);
-                //hero.getSoundFalling().play();
-            }
-            break;*/
+            break;
             case DYING:{
                 hero.getSoundDying().play();
                 hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
@@ -220,18 +211,12 @@ public class HeroBody{
                 region = hero.getStandFront();
                 break;
         }
+        flipBodyAnimation(region);
+        updateTimers(dt);
+        return region;
+    }
 
-        if((b2body.getLinearVelocity().x<0||currentState==State.WALK_LEFT)&&!region.isFlipX())
-        {
-            region.flip(true, false);
-            currentState = State.WALK_LEFT;
-        }
-        else if((b2body.getLinearVelocity().x>0||currentState==State.WALK_RIGHT)&&region.isFlipX())
-
-        {
-            region.flip(true, false);
-            currentState = State.WALK_RIGHT;
-        }
+    private void updateTimers(float dt) {
         hero.upDownTimer=currentState == previousState ? hero.upDownTimer + dt : 0;
         if(previousState==currentState){
             hero.leftRightTimer+=(dt);
@@ -239,7 +224,17 @@ public class HeroBody{
             hero.leftRightTimer=0;
         }
         previousState=currentState;
-        return region;
+    }
+
+    private void flipBodyAnimation(TextureRegion region) {
+        if((b2body.getLinearVelocity().x<0||currentState==State.WALK_LEFT)&&!region.isFlipX()){
+            region.flip(true, false);
+            currentState = State.WALK_LEFT;
+        }
+        else if((b2body.getLinearVelocity().x>0||currentState==State.WALK_RIGHT)&&region.isFlipX()){
+            region.flip(true, false);
+            currentState = State.WALK_RIGHT;
+        }
     }
 
     public void InputUpdate(Controller controller, float dt){
@@ -263,8 +258,13 @@ public class HeroBody{
             if(hero.getAddBomb())
                 this.hero.throwBomb();
         }
+        else{
+            auxControl(controller, dt);
+        }
+    }
 
-        else if(controller.isaPressed()){
+    private void auxControl(Controller controller, float dt) {
+        if(controller.isaPressed()){
             if(hero.getOpenedChestId()>-1) {
                 hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
