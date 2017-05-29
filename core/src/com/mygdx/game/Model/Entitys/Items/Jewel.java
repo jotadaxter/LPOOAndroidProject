@@ -33,32 +33,18 @@ public class Jewel extends Item {
     }
 
     private void defineTexture(int value) {
-        switch(value){
-            case 1:{
-                setRegion(screen.getAtlas().findRegion("green_rupee"), 0,0,7,14);
-            }
-            break;
-            case 5:{
-                setRegion(screen.getAtlas().findRegion("blue_rupee"), 0,0,7,14);
-            }
-            break;
-            case 20:{
-                setRegion(screen.getAtlas().findRegion("red_rupee"), 0,0,7,14);
-            }
-            break;
-            case 50:{
-                setRegion(screen.getAtlas().findRegion("big_green_rupee"), 0,0,12,16);
-            }
-            break;
-            case 100:{
-                setRegion(screen.getAtlas().findRegion("big_blue_rupee"), 0,0,12,16);
-            }
-            break;
-            case 500:{
-                setRegion(screen.getAtlas().findRegion("big_red_rupee"), 0,0,12,16);
-            }
-            break;
-        }
+        if(value==1)
+            setRegion(screen.getAtlas().findRegion("green_rupee"), 0,0,7,14);
+        if(value==5)
+            setRegion(screen.getAtlas().findRegion("blue_rupee"), 0,0,7,14);
+        if(value==20)
+            setRegion(screen.getAtlas().findRegion("red_rupee"), 0,0,7,14);
+        if(value==50)
+            setRegion(screen.getAtlas().findRegion("big_green_rupee"), 0,0,12,16);
+        if(value==100)
+            setRegion(screen.getAtlas().findRegion("big_blue_rupee"), 0,0,12,16);
+        if(value==500)
+            setRegion(screen.getAtlas().findRegion("big_red_rupee"), 0,0,12,16);
     }
 
     @Override

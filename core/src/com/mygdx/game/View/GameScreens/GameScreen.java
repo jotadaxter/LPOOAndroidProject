@@ -94,27 +94,17 @@ public abstract class GameScreen implements Screen{
         this.game=game;
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
         viewPort= new FitViewport(MyGame.VIEWPORT_WIDTH*MyGame.PIXEL_TO_METER,MyGame.VIEWPORT_HEIGHT*MyGame.PIXEL_TO_METER, gameCam);
-
-        //Map Load
-        String mapName = "Maps/" + getMapName();
-        mapLoader = new TmxMapLoader();
-        tiledMap = mapLoader.load(mapName);
-        renderer = new OrthogonalTiledMapRenderer(tiledMap, 1*MyGame.PIXEL_TO_METER);
-        gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
-        hud= new Hud(game, this);
-        controller= new Controller(game);
-        textlogs=new ArrayList<TextLog>();
-        //box2d
-        world= new World(new Vector2(0,0), true);
-        b2dr= new Box2DDebugRenderer();
-        new WorldCreator(this);
-
-        //Items
+        mapDefine();
         items = new Array<Item>();
         itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
+        spriteDefine(vec);
+        objectLoad();
+        world.setContactListener(new WorldContactListener());
+        musicDefine();
+    }
 
-        //Sprites
-        player=new Hero(this,new Vector2( vec.x,vec.y));
+    private void spriteDefine(Vector2 vec) {
+        player=new Hero(this,vec);
         boulders=new ArrayList<Boulder>();
         spikes = new ArrayList<Spikes>();
         pps= new ArrayList<PressingPlate>();
@@ -127,11 +117,21 @@ public abstract class GameScreen implements Screen{
         smashRocks= new ArrayList<SmashableRock>();
         fireGrounds= new ArrayList<FireGround>();
         warpEvents= new Array<WarpEvent>();
-        objectLoad();
-        //Contact Listener
-        world.setContactListener(new WorldContactListener());
+    }
 
-        musicDefine();
+    private void mapDefine() {
+        String mapName = "Maps/" + getMapName();
+        mapLoader = new TmxMapLoader();
+        tiledMap = mapLoader.load(mapName);
+        renderer = new OrthogonalTiledMapRenderer(tiledMap, 1*MyGame.PIXEL_TO_METER);
+        gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
+        hud= new Hud(game, this);
+        controller= new Controller(game);
+        textlogs=new ArrayList<TextLog>();
+        //box2d
+        world= new World(new Vector2(0,0), true);
+        b2dr= new Box2DDebugRenderer();
+        new WorldCreator(this);
     }
 
     protected abstract void musicDefine();
@@ -141,34 +141,38 @@ public abstract class GameScreen implements Screen{
     public void update(float dt){
         handleSpawningItems();
         player.getHeroBody().InputUpdate(controller,dt);
-
         //takes 1 step in the physics simulation (60 times per second)
+        framesPerSecUpdate(dt);
+        //Sprites Update
+        spritesUpdate(dt);
+        //ajust the camera to follow the player
+        gameCam.position.x=player.getHeroBody().getBody().getPosition().x;
+        gameCam.position.y=player.getHeroBody().getBody().getPosition().y;
+        hud.update(dt,this);
+        gameCam.update();
+        renderer.setView(gameCam);
+    }
+
+    private void spritesUpdate(float dt) {
+        player.update(dt);
+        objectsUpdate(dt);
+        for(D1TopDoor top : topDoors)
+            top.update(dt);
+        //Items Update
+        for(Item item : items)
+            item.update(dt, player);
+        for(TextLog tlog: textlogs) {
+            tlog.update(dt);
+        }
+    }
+
+    private void framesPerSecUpdate(float dt) {
         float frameTime = Math.min(dt, 0.25f);
         accumulator += frameTime;
         while (accumulator >= 1/60f) {
             world.step(1/60f, 6, 2);
             accumulator -= 1/60f;
         }
-
-        //Sprites Update
-        player.update(dt);
-        objectsUpdate(dt);
-        for(D1TopDoor top : topDoors)
-            top.update(dt);
-
-        //Items Update
-        for(Item item : items)
-            item.update(dt, player);
-
-        //ajust the camera to follow the player
-        gameCam.position.x=player.getHeroBody().getBody().getPosition().x;
-        gameCam.position.y=player.getHeroBody().getBody().getPosition().y;
-        for(TextLog tlog: textlogs) {
-            tlog.update(dt);
-        }
-        hud.update(dt,this);
-        gameCam.update();
-        renderer.setView(gameCam);
     }
 
     public abstract void objectsUpdate(float dt);
@@ -192,34 +196,20 @@ public abstract class GameScreen implements Screen{
     @Override
     public void render(float delta) {
         update(delta);
-
-        //Clear the screen
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        clearScreen();
         //Render the game map
         renderer.render();
-
         //Render Box2DDebugLines
         b2dr.render(world, gameCam.combined);
-
         game.batch.setProjectionMatrix(gameCam.combined);
-        game.batch.begin();
+        gameDraw();
+        hudDraw();
+        //Controller
+        if(Gdx.app.getType() == Application.ApplicationType.Android)
+            controller.draw();
+    }
 
-        objectsDraw();
-        if(player.getThrowBomb()){
-            for(Bomb bombs: player.getBombs())
-                bombs.draw(game.batch);
-        }
-
-        player.draw(game.batch);
-        for(D1TopDoor top : topDoors)
-            top.draw(game.batch);
-
-        for(Item item : items)
-            item.draw(game.batch);
-        game.batch.end();
-
+    private void hudDraw() {
         //HUD Rendering
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -228,9 +218,27 @@ public abstract class GameScreen implements Screen{
             if(signs.get(tlog.getId()).getIsOpen())
                 tlog.stage.draw();
         }
-        //Controller
-        if(Gdx.app.getType() == Application.ApplicationType.Android)
-            controller.draw();
+    }
+
+    private void clearScreen() {
+        //Clear the screen
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    private void gameDraw() {
+        game.batch.begin();
+        objectsDraw();
+        if(player.getThrowBomb()){
+            for(Bomb bombs: player.getBombs())
+                bombs.draw(game.batch);
+        }
+        player.draw(game.batch);
+        for(D1TopDoor top : topDoors)
+            top.draw(game.batch);
+        for(Item item : items)
+            item.draw(game.batch);
+        game.batch.end();
     }
 
     public abstract void objectsDraw();
