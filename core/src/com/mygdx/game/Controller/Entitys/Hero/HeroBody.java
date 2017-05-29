@@ -1,5 +1,6 @@
 package com.mygdx.game.Controller.Entitys.Hero;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -146,73 +147,88 @@ public class HeroBody{
 
     public TextureRegion getFrame(Hero hero,float dt) {
         currentState = getState();
-        TextureRegion region = new TextureRegion();
+        TextureRegion region=regionStateUpdate();
+        flipBodyAnimation(region);
+        updateTimers(dt);
+        return region;
+    }
 
-        switch (currentState) {
-            case HURT:{
+    private TextureRegion regionStateUpdate() {
+        if(currentState == State.HURT || currentState == State.DYING)
+            return regionUpdate1();
+        else if(currentState == State.GAME_OVER || currentState == State.STAND_UP || currentState == State.STAND_DOWN)
+            return regionUpdate2();
+        else if(currentState == State.STAND_LEFT || currentState == State.STAND_RIGHT || currentState == State.WALK_UP)
+            return regionUpdate3();
+        else if(currentState == State.WALK_DOWN || currentState == State.WALK_LEFT || currentState == State.WALK_RIGHT)
+            return regionUpdate4();
+        else return hero.getStandFront();
+    }
+
+    private TextureRegion regionUpdate4() {
+        TextureRegion region = new TextureRegion();
+        if(currentState== State.WALK_DOWN){
+            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            region = hero.heroWalkDown.getKeyFrame(hero.upDownTimer, true);
+        }
+        else if(currentState== State.WALK_LEFT){
+            hero.setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
+            region = hero.heroWalkRight.getKeyFrame(hero.leftRightTimer, true);
+        }
+        else if(currentState== State.WALK_RIGHT){
+            hero.setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
+            region = hero.heroWalkRight.getKeyFrame(hero.leftRightTimer, true);
+        }
+        return region;
+    }
+
+    private TextureRegion regionUpdate3() {
+        TextureRegion region = new TextureRegion();
+       if(currentState== State.STAND_LEFT){
+            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            region = hero.getStandLeft();
+        }
+       else if(currentState== State.STAND_RIGHT){
+            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            region = hero.getStandRight();
+        }
+       else if(currentState== State.WALK_UP){
+            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            region = hero.heroWalkUp.getKeyFrame(hero.upDownTimer, true);
+        }
+        return region;
+    }
+
+    private TextureRegion regionUpdate2() {
+        TextureRegion region = new TextureRegion();
+        if(currentState==State.GAME_OVER){
+            hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
+            region = hero.heroDying.getKeyFrame(hero.upDownTimer, false);
+        }
+        else if(currentState==State.STAND_UP){
+            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            region = hero.getStandBack();
+        }
+        else if(currentState==State.STAND_DOWN){
+            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            region = hero.getStandFront();
+        }
+       return region;
+    }
+
+    private TextureRegion regionUpdate1() {
+        TextureRegion region = new TextureRegion();
+        if(currentState==State.HURT){
                 hero.setBounds(hero.getX(), hero.getY(), 31 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
                 region = hero.heroHurt.getKeyFrame(hero.upDownTimer, false);
                 hero.getSoundHurt().play();
                 hero.setWasHit(false);
             }
-            break;
-            case DYING:{
+            else if(currentState==State.DYING){
                 hero.getSoundDying().play();
                 hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
-                region=hero.heroDying.getKeyFrame(1);
+                region = hero.heroDying.getKeyFrame(1);
             }
-            break;
-            case GAME_OVER:{
-                hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
-                region = hero.heroDying.getKeyFrame(hero.upDownTimer, false);
-            }
-            break;
-            case STAND_UP: {
-                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
-                region = hero.getStandBack();
-            }
-            break;
-            case STAND_DOWN: {
-                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
-                region = hero.getStandFront();
-            }
-            break;
-            case STAND_LEFT: {
-                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
-                region = hero.getStandLeft();
-            }
-            break;
-            case STAND_RIGHT: {
-                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
-                region = hero.getStandRight();
-            }
-            break;
-            case WALK_UP: {
-                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
-                region = hero.heroWalkUp.getKeyFrame(hero.upDownTimer, true);
-            }
-            break;
-            case WALK_DOWN: {
-                hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
-                region = hero.heroWalkDown.getKeyFrame(hero.upDownTimer, true);
-            }
-            break;
-            case WALK_LEFT: {
-                hero.setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
-                region = hero.heroWalkRight.getKeyFrame(hero.leftRightTimer, true);
-            }
-            break;
-            case WALK_RIGHT: {
-                hero.setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
-                region = hero.heroWalkRight.getKeyFrame(hero.leftRightTimer, true);
-            }
-            break;
-            default:
-                region = hero.getStandFront();
-                break;
-        }
-        flipBodyAnimation(region);
-        updateTimers(dt);
         return region;
     }
 
