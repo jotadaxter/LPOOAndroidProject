@@ -23,10 +23,8 @@ public abstract class Item extends Sprite {
         this.world=screen.getWorld();
         type="";
         setPosition(vec.x,vec.y);
-
         //Define Item
         defineItem();
-
         toDestroy=false;
         destroyed=false;
     }

@@ -32,7 +32,6 @@ public class Bomb extends Sprite{
     private BombBody bombBody;
     private ExplosionBody explosionBody;
     private float soundTimer;
-
     public enum State {TIC_TAC, BOOM, LAST};
     public State currentState;
     private State previousState;
@@ -84,11 +83,6 @@ public class Bomb extends Sprite{
 
     }
 
-    public float counter(){
-        return 0.1f;
-
-    }
-
     private void textureLoad() {
         blue= new TextureRegion(screen.getGame().assetManager.get("Game/bombs.png", Texture.class), 0,0,12,16);
         red= new TextureRegion(screen.getGame().assetManager.get("Game/bombs.png", Texture.class), 12,0,12,16);
@@ -106,9 +100,15 @@ public class Bomb extends Sprite{
         }
         setPosition(bombBody.getBody().getPosition().x-getWidth()/2, bombBody.getBody().getPosition().y-getHeight()/2);
         timer+=dt;
+        soudUpdate(dt);
+        if(this.timer<MAX_TIMING)
+            setRegion(getFrame(dt));
+        else destroy();
+    }
+
+    private void soudUpdate(float dt) {
         if(soundTimer>=0)
             soundTimer+=dt;
-
         if(soundTimer>0 && soundTimer<2){
             sound1.play();
         }
@@ -117,9 +117,6 @@ public class Bomb extends Sprite{
             sound2.play();
             soundTimer=-1;
         }
-        if(this.timer<MAX_TIMING)
-            setRegion(getFrame(dt));
-        else destroy();
     }
 
     public void draw(Batch batch){
@@ -153,42 +150,38 @@ public class Bomb extends Sprite{
 
     public TextureRegion getFrame(float dt) {
         currentState = getState();
-        TextureRegion region = new TextureRegion();
-        switch (currentState) {
-            case TIC_TAC: {
-                setBounds(getX(), getY(), 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
-                region = tic_tac.getKeyFrame(tic_tac_timer, true);
-            }
-            break;
-            case LAST: {
-                setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
-                region = boom.getKeyFrame(1);
-            }
-            break;
-            case BOOM: {
-                setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
-                region = boom.getKeyFrame(tic_tac_timer, false);
-            }
-            break;
+        TextureRegion region = getRegion();
+        timerUpdate(dt);
+        return region;
+    }
 
+    public TextureRegion getRegion() {
+        TextureRegion region= new TextureRegion();
+        if(currentState==State.TIC_TAC){
+            setBounds(getX(), getY(), 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
+            region = tic_tac.getKeyFrame(tic_tac_timer, true);
+        }else if(currentState==State.LAST){
+            setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
+            region = boom.getKeyFrame(1);
         }
-       tic_tac_timer=currentState == previousState ?tic_tac_timer + dt : 0;
+        else if(currentState==State.BOOM){
+            setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
+            region = boom.getKeyFrame(tic_tac_timer, false);
+        }
+        return region;
+    }
+
+    private void timerUpdate(float dt) {
+        tic_tac_timer=currentState == previousState ?tic_tac_timer + dt : 0;
         if(previousState==currentState){
             tic_tac_timer+=(dt);
         }else{
             tic_tac_timer=0;
         }
         previousState=currentState;
-        return region;
     }
-
-    public void hitHero() {
-        hero.hit();
-    }
-
 
     public World getWorld() {
         return world;
     }
-
 }

@@ -26,7 +26,6 @@ public class Heart extends Item {
     @Override
     public void defineItem() {
         type="heart";
-        //Texture Dimentions
         setBounds(getX(),getY(), 15*MyGame.PIXEL_TO_METER,15*MyGame.PIXEL_TO_METER);
     }
 

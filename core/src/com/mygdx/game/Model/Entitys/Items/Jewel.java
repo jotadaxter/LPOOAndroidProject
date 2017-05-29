@@ -58,7 +58,6 @@ public class Jewel extends Item {
                 setRegion(screen.getAtlas().findRegion("big_red_rupee"), 0,0,12,16);
             }
             break;
-
         }
     }
 
