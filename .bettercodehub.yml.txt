@@ -1,0 +1,8 @@
+exclude:
+- /android/src/com/mygdx/game/AndroidLauncher.java
+- /desktop/src/com/mygdx/game/desktop/DesktopLauncher.java
+- /html/.*
+component_depth: 1
+languages:
+- java
+- javascript
