@@ -54,7 +54,6 @@ public abstract class GameScreen implements Screen{
     protected Viewport viewPort;
     protected Hud hud;
     protected ArrayList<TextLog> textlogs;
-    protected Stage stage;
     protected float accumulator;
 
     //Controllers
@@ -88,7 +87,7 @@ public abstract class GameScreen implements Screen{
     protected ArrayList<SmashableRock> smashRocks;
     public boolean d1blck;
     protected Music music;
-    
+
     public GameScreen(MyGame game, Vector2 vec) {
         atlas=game.assetManager.get("Game/link_and_objects.pack", TextureAtlas.class);
         this.game=game;
