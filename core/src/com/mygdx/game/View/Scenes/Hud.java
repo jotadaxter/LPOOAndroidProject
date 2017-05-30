@@ -29,7 +29,7 @@ public class Hud implements Disposable{
 
     public static final int RUPEE_WIDTH = 10;
     public static final int RUPEE_HEIGTH = 20;
-    public static final int RUPEE_X = 190;
+    public static final int RUPEE_X = 180;
     public static final int RUPEE_Y = 135;
 
     public static final int RUBY_WIDTH = 10;
@@ -123,10 +123,10 @@ public class Hud implements Disposable{
         table.right();
         table.setFillParent(true);
 
-        scoreLabel= new Label(String.format("%03d", score), new Label.LabelStyle(font, Color.WHITE));
+        scoreLabel= new Label(String.format("%04d", score), new Label.LabelStyle(font, Color.WHITE));
         scoreLabel.setSize(5,5);
 
-        table.add(scoreLabel).width(35).height(25);
+        table.add(scoreLabel).width(45).height(25);
         stage.addActor(table);
     }
 
@@ -138,7 +138,7 @@ public class Hud implements Disposable{
 
     public void update(float dt, GameScreen screen){
         this.score=game.heroStats.getScore();
-        scoreLabel.setText(String.format("%03d", score));
+        scoreLabel.setText(String.format("%04d", score));
         this.health=game.heroStats.getHearts();
         this.displayRuby=game.heroStats.displayVolcanoRuby();
         updateHearts();

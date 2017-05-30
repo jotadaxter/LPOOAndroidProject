@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.mygdx.game.Model.Events.WarpEvent;
+import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -20,6 +21,7 @@ public class Door extends StaticTileObject {
         fixture.setUserData(this);
         sound= Gdx.audio.newSound(Gdx.files.internal("Sounds/door.wav"));
         this.id=id;
+        setCategoryFilter(MyGame.WARP_OBJECT);
     }
 
     public void warp() {

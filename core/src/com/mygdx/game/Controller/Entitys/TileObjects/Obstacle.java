@@ -15,6 +15,7 @@ public class Obstacle extends StaticTileObject {
 
     public Obstacle(GameScreen screen, MapObject object, String code){
         super(screen, object);
+        setCategoryFilter(MyGame.DEFAULT_BIT);
         fixture.setUserData(this);
         this.code=code;
     }

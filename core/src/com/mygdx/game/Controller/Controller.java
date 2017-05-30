@@ -201,6 +201,34 @@ public class Controller {
         return escPressed;
     }
 
+    public void setUpPressed(boolean upPressed) {
+        this.upPressed = upPressed;
+    }
+
+    public void setDownPressed(boolean downPressed) {
+        this.downPressed = downPressed;
+    }
+
+    public void setLeftPressed(boolean leftPressed) {
+        this.leftPressed = leftPressed;
+    }
+
+    public void setRightPressed(boolean rightPressed) {
+        this.rightPressed = rightPressed;
+    }
+
+    public void setaPressed(boolean aPressed) {
+        this.aPressed = aPressed;
+    }
+
+    public void setbPressed(boolean bPressed) {
+        this.bPressed = bPressed;
+    }
+
+    public void setEscPressed(boolean escPressed) {
+        this.escPressed = escPressed;
+    }
+
     public void resize(int width, int height){
         viewport.update(width,height);
     }

@@ -6,6 +6,7 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.GameScreens.GameScreen;
+import com.mygdx.game.View.GameScreens.TestScreen;
 import com.mygdx.game.View.MenuScreens.MainMenu;
 import com.mygdx.game.View.MenuScreens.MenuScreen;
 
@@ -18,12 +19,20 @@ import java.util.Stack;
 public class GameStateManager {
     public Stack<GameState> states;
     private MyGame game;
+    public boolean isTest;
 
-    public GameStateManager(MyGame game){
+    public GameStateManager(MyGame game, boolean isTest){
         this.game=game;
         states= new Stack<GameState>();
-        states.push(new GameState(new MainMenu(game)));
-        game.setScreen(states.peek().getMenuScreen());
+        this.isTest=isTest;
+        if(!isTest) {
+            states.push(new GameState(new MainMenu(game)));
+            game.setScreen(states.peek().getMenuScreen());
+        }else {
+            states.push(new GameState(new TestScreen(game)));
+            game.setScreen(states.peek().getGameScreen());
+        }
+
     }
 
     public void push(GameScreen screen){

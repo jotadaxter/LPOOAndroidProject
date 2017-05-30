@@ -61,12 +61,17 @@ public class MyGame extends Game {
 	public static final int BIG_GREEN_RUPEE =50;
 	public static final int BIG_BLUE_RUPEE =100;
 	public static final int BIG_RED_RUPEE =200;
+	public final boolean isTest;
 
 	public SpriteBatch batch;
 	public GameStateManager gsm;
 	public HeroStats heroStats;
 	public AssetManager assetManager;
 	public FileReader fileReader;
+
+	public MyGame(boolean isTest) {
+		this.isTest=isTest;
+	}
 
 	@Override
 	public void create () {
@@ -75,7 +80,7 @@ public class MyGame extends Game {
 		fileReader= new FileReader();
 		heroStats= new HeroStats();
 		loads();
-		gsm= new GameStateManager(this);
+		gsm= new GameStateManager(this, isTest);
 	}
 
 	private void loads() {

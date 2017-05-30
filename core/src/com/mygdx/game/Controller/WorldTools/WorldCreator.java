@@ -20,7 +20,6 @@ import com.mygdx.game.Controller.Entitys.TileObjects.Obstacle;
  */
 
 public class WorldCreator {
-
     public WorldCreator(GameScreen screen) {
         World world=screen.getWorld();
         TiledMap tiledMap= screen.getMap();
