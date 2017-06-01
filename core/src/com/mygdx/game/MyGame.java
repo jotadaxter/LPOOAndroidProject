@@ -119,7 +119,13 @@ public class MyGame extends Game {
 
 	private void menusLoad() {
 		assetManager.load("Menus/game_title.png", Texture.class);
+		assetManager.load("Menus/options_title.png", Texture.class);
 		assetManager.load("Menus/main_menu.jpg", Texture.class);
+		assetManager.load("Menus/music_text.png", Texture.class);
+		assetManager.load("Menus/sounds_text.png", Texture.class);
+		assetManager.load("Menus/vibration_text.png", Texture.class);
+		assetManager.load("Menus/checked.png", Texture.class);
+		assetManager.load("Menus/unchecked.png", Texture.class);
 	}
 
 	private void buttonsLoad() {
@@ -131,7 +137,11 @@ public class MyGame extends Game {
 		assetManager.load("Buttons/right_arrow.png", Texture.class);
 		assetManager.load("Buttons/selection_button.png", Texture.class);
 		assetManager.load("Buttons/arcade_button.png", Texture.class);
+		assetManager.load("Buttons/story_button.png", Texture.class);
+		assetManager.load("Buttons/options_button.png", Texture.class);
+		assetManager.load("Buttons/quit_button.png", Texture.class);
 		assetManager.load("Buttons/options_menu.png", Texture.class);
+		assetManager.load("Buttons/back_button.png", Texture.class);
 	}
 
 	private void fontsLoad() {
