@@ -88,6 +88,7 @@ public class GameStateManager {
 //                states.peek().getMenuScreen().getMusic().stop();
         }
         states.pop();
+        System.out.println(states.peek().getMenuScreen().getClass());
         if(states.peek().isGameScreen()) {
             game.setScreen(states.peek().getGameScreen());
             states.peek().getGameScreen().getMusic().play();
@@ -113,13 +114,10 @@ public class GameStateManager {
     }
 
     public void set(MenuScreen screen){
-        if(states.size()!=0 && states.peek().isMenuScreen());
-            states.peek().getMenuScreen().getMusic().stop();
+       // if(states.size()!=0 && states.peek().isMenuScreen());
+            //states.peek().getMenuScreen().getMusic().stop();
         states.pop();
         states.push(new GameState(screen));
         game.setScreen(states.peek().getMenuScreen());
-        Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
-        states.peek().getGameScreen().getController().reset();
-        states.peek().getMenuScreen().getMusic().play();
     }
 }

@@ -110,9 +110,9 @@ public class OptionsMenu extends MenuScreen {
         stage.draw();
 
         if (backButton.isPressed()){
-            game.gsm.pop();
+            game.gsm.set(new MainMenu(game));
+            game.batch.flush();
         }
-
     }
 
     @Override
