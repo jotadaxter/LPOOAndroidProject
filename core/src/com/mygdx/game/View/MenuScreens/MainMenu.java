@@ -27,8 +27,18 @@ public class MainMenu extends MenuScreen {
     private Stage stage;
     private Texture texture;
     private Texture title;
+
     private Texture arcadetex;
     private ImageButton arcadeButton;
+
+    private Texture storytex;
+    private ImageButton storyButton;
+
+    private Texture optionstex;
+    private ImageButton optionsButton;
+
+    private Texture quittex;
+    private ImageButton quitButton;
 
     public MainMenu(MyGame game) {
         super(game);
@@ -36,11 +46,26 @@ public class MainMenu extends MenuScreen {
         texture =game.assetManager.get("Menus/main_menu.jpg", Texture.class);
         title = game.assetManager.get("Menus/game_title.png", Texture.class);
         arcadetex =game.assetManager.get("Buttons/arcade_button.png", Texture.class);
+        storytex =game.assetManager.get("Buttons/story_button.png", Texture.class);
+        optionstex =game.assetManager.get("Buttons/options_button.png", Texture.class);
+        quittex =game.assetManager.get("Buttons/quit_button.png", Texture.class);
 
-        Drawable drawable = new TextureRegionDrawable(new TextureRegion(arcadetex));
-        arcadeButton = new ImageButton(drawable);
-        arcadeButton.setPosition(300,300);
-        stage.addActor(arcadeButton);
+
+        Drawable storydrawable = new TextureRegionDrawable(new TextureRegion(storytex));
+        storyButton = new ImageButton(storydrawable);
+        storyButton.setPosition(300,300);
+        stage.addActor(storyButton);
+
+        Drawable optionsdrawable = new TextureRegionDrawable(new TextureRegion(optionstex));
+        optionsButton = new ImageButton(optionsdrawable);
+        optionsButton.setPosition(300,240);
+        stage.addActor(optionsButton);
+
+        Drawable quitdrawable = new TextureRegionDrawable(new TextureRegion(quittex));
+        quitButton = new ImageButton(quitdrawable);
+        quitButton.setPosition(300,180);
+        stage.addActor(quitButton);
+
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -58,12 +83,20 @@ public class MainMenu extends MenuScreen {
 
         stage.draw();
 
-
-        if(arcadeButton.isPressed()){
+        if(storyButton.isPressed()){
             game.gsm.push(new FreeWorld(game));
             //game.gsm.push(new Dungeon1(game));
             //game.gsm.push(new DemoScreen(game,POSX,POSY));
         }
+
+        if (optionsButton.isPressed()){
+            game.gsm.push(new OptionsMenu((game)));
+        }
+
+        if (quitButton.isPressed()){
+            System.exit(0);
+        }
+
     }
 
     @Override
