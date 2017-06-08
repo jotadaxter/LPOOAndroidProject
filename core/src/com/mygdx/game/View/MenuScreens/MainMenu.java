@@ -84,8 +84,8 @@ public class MainMenu extends MenuScreen {
         stage.draw();
 
         if(storyButton.isPressed()){
-            //game.gsm.push(new FreeWorld(game));
-            game.gsm.push(new Dungeon1(game));
+            game.gsm.push(new FreeWorld(game));
+            //game.gsm.push(new Dungeon1(game));
             //game.gsm.push(new DemoScreen(game,POSX,POSY));
         }
 
