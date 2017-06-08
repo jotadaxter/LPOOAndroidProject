@@ -35,12 +35,13 @@ public class GameStateManager {
         game.setScreen(states.peek().getGameScreen());
         Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
         states.peek().getGameScreen().getController().reset();
+        states.peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
         states.peek().getGameScreen().getMusic().play();
     }
 
     public void push(MenuScreen screen){
        if(states.size()!=0 && states.peek().isMenuScreen())
-           //states.peek().getMenuScreen().getMusic().stop();
+           states.peek().getGameScreen().getMusic().setVolume(0f);
 
         states.push(new GameState(screen));
         game.setScreen(states.peek().getMenuScreen());
@@ -52,7 +53,7 @@ public class GameStateManager {
     public void push(GameState state){
         if(state.isGameScreen()){
            if(states.size()!=0)
-                states.peek().getGameScreen().getMusic().stop();
+               states.peek().getGameScreen().getMusic().setVolume(0f);
         }
         else if(state.isMenuScreen()){
             if(states.size()!=0)
@@ -65,6 +66,7 @@ public class GameStateManager {
            game.setScreen(states.peek().getGameScreen());
             states.peek().getGameScreen().getController().reset();
             Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
+            states.peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
             states.peek().getGameScreen().getMusic().play();
         }
         else if(state.isMenuScreen())
@@ -74,7 +76,7 @@ public class GameStateManager {
     public void pop(){
         if(states.peek().isGameScreen()){
             if(states.size()!=0)
-                states.peek().getGameScreen().getMusic().stop();
+                states.peek().getGameScreen().getMusic().setVolume(0f);
         }
         else if(states.peek().isMenuScreen()){
 //            if(states.size()!=0)
@@ -83,6 +85,7 @@ public class GameStateManager {
         states.pop();
         if(states.peek().isGameScreen()) {
             game.setScreen(states.peek().getGameScreen());
+            states.peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
             states.peek().getGameScreen().getMusic().play();
             Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
             states.peek().getGameScreen().getController().reset();

@@ -6,7 +6,6 @@ import com.badlogic.gdx.maps.MapObject;
 import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
-import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
@@ -28,13 +27,13 @@ public class Door extends StaticTileObject {
     public void warp() {
         if(screen.getClass()==DemoScreen.class){
             sound.play(MyGame.SOUND_VOLUME);
-            screen.getGame().gsm.set(new FreeWorld(screen.getGame()));
+            screen.getGame().gsm.pop();
         }
         else {
             for (WarpEvent warpEvent : screen.getWarpEvents())
                 if (warpEvent.id == this.id) {
                     sound.play(MyGame.SOUND_VOLUME);
-                    screen.getGame().gsm.set(warpEvent.travelPoint.getGameScreen());
+                    screen.getGame().gsm.push(warpEvent.travelPoint);
                 }
         }
     }
