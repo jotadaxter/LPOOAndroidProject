@@ -110,7 +110,7 @@ public class Bomb extends Sprite{
         if(soundTimer>=0)
             soundTimer+=Gdx.graphics.getDeltaTime();
         if(soundTimer>0 && soundTimer<2){
-            sound1.play(MyGame.SOUND_VOLUME);
+            sound1.play(MyGame.FIREGROUND_SOUND);
         }
         else if(soundTimer>=2){
             sound1.stop();

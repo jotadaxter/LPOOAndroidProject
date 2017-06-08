@@ -1,5 +1,6 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -54,7 +55,9 @@ public class SmashableRock extends Sprite{
         setPosition(rockBody.getBody().getPosition().x-getWidth()/2, rockBody.getBody().getPosition().y-getHeight()/2);
         if(incTimer)
             timer+=dt*100;
-        if(timer>=130){
+        if(timer>=130 && !(Gdx.app.getType() == Application.ApplicationType.Android)){
+            toDestroy=true;
+        }else if(timer>=160 && (Gdx.app.getType() == Application.ApplicationType.Android)){
             toDestroy=true;
         }
     }
