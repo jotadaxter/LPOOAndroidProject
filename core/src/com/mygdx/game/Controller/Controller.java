@@ -45,7 +45,7 @@ public class Controller {
         stage= new Stage(viewport,game.batch);
         addKeyDownListener();
         addKeyUpListener();
-        //Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage);
         imageLoad();
         tableConfig();
         abTableConfig();
