@@ -155,6 +155,7 @@ public class MyGame extends Game {
 		assetManager.load("Buttons/quit_button.png", Texture.class);
 		assetManager.load("Buttons/options_menu.png", Texture.class);
 		assetManager.load("Buttons/back_button.png", Texture.class);
+        assetManager.load("Buttons/esc_button.png", Texture.class);
 	}
 
 	private void fontsLoad() {

@@ -204,7 +204,7 @@ public abstract class GameScreen implements Screen{
         gameDraw();
         hudDraw();
         //Controller
-        if(Gdx.app.getType() == Application.ApplicationType.Android)
+        //if(Gdx.app.getType() == Application.ApplicationType.Android)
             controller.draw();
     }
 

@@ -30,7 +30,7 @@ public class Controller {
     private MyGame game;
     private FitViewport viewport;
     private Stage stage;
-    private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed, escPressed;//z-a,x-b
+    private boolean upPressed, downPressed, leftPressed,rightPressed, aPressed, bPressed, escPressed, optionsPressed;//z-a,x-b
     private OrthographicCamera cam;
     private Image downImg;
     private Image upImg;
@@ -38,6 +38,8 @@ public class Controller {
     private Image leftImg;
     private Image aImg;
     private Image bImg;
+    private Image escImg;
+    private Image optionsImg;
 
     public Controller(MyGame game){
         this.game=game;
@@ -53,7 +55,8 @@ public class Controller {
     }
 
     private void abConfig() {
-
+        stage.addActor(escImg);
+        stage.addActor(optionsImg);
         stage.addActor(aImg);
         stage.addActor(bImg);
     }
@@ -141,6 +144,42 @@ public class Controller {
         aConfig(aImg);
         bImg =new Image(game.assetManager.get("Buttons/b_button.png", Texture.class));
         bConfig(bImg);
+        escImg =new Image(game.assetManager.get("Buttons/esc_button.png", Texture.class));
+        escConfig(escImg);
+        optionsImg =new Image(game.assetManager.get("Buttons/options_menu.png", Texture.class));
+        optionsConfig(optionsImg);
+    }
+
+    private void escConfig(Image img) {
+        img.setSize(20,20);
+        img.setPosition(VIEWPORT_WIDTH/2+10,VIEWPORT_HEIGHT-20);
+        img.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                escPressed=true;
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                escPressed=false;
+            }
+        });
+    }
+
+    private void optionsConfig(Image img) {
+        img.setSize(20,20);
+        img.setPosition(VIEWPORT_WIDTH/2+10+20,VIEWPORT_HEIGHT-20);
+        img.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                optionsPressed=true;
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                optionsPressed=false;
+            }
+        });
     }
 
     private void aConfig(Image img) {
