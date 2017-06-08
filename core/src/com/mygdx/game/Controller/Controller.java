@@ -195,10 +195,6 @@ public class Controller {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 downPressed=false;
             }
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                downPressed=true;
-            }
         });
     }
 
@@ -213,10 +209,6 @@ public class Controller {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 upPressed=false;
-            }
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                upPressed=true;
             }
         });
     }
@@ -233,10 +225,6 @@ public class Controller {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 rightPressed=false;
             }
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                rightPressed=true;
-            }
         });
     }
 
@@ -251,10 +239,6 @@ public class Controller {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 leftPressed=false;
-            }
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                upPressed=true;
             }
         });
     }
