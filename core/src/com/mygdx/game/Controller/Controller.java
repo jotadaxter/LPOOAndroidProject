@@ -48,24 +48,13 @@ public class Controller {
         Gdx.input.setInputProcessor(stage);
         imageLoad();
         tableConfig();
-        abTableConfig();
+        abConfig();
     }
 
-    private void abTableConfig() {
-        Table table = new Table();
-        table.right().bottom();
-        //table.add();
-        //table.add(upImg).size(upImg.getWidth(),upImg.getHeight());
-        //table.add();
-       // table.row().pad(5,5,5,5);
-        //table.add(leftImg).size(leftImg.getWidth(),leftImg.getHeight());
-        //table.add();
-        table.add(aImg).size(aImg.getWidth(),aImg.getHeight());
-        table.row().padBottom(5);
-        table.add();
-        table.add(bImg).size(bImg.getWidth(),bImg.getHeight());
-        table.add();
-        stage.addActor(table);
+    private void abConfig() {
+
+        stage.addActor(aImg);
+        stage.addActor(bImg);
     }
 
     private void tableConfig() {
@@ -155,6 +144,7 @@ public class Controller {
 
     private void aConfig(Image img) {
         img.setSize(BTN_AB_WIDTH,BTN_AB_HEIGHT);
+        img.setPosition(0,0);
         img.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
