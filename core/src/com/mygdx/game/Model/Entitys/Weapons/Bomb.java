@@ -100,15 +100,15 @@ public class Bomb extends Sprite{
         }
         setPosition(bombBody.getBody().getPosition().x-getWidth()/2, bombBody.getBody().getPosition().y-getHeight()/2);
         timer+=dt;
-        soudUpdate(dt);
+        soundUpdate();
         if(this.timer<MAX_TIMING)
             setRegion(getFrame(dt));
         else destroy();
     }
 
-    private void soudUpdate(float dt) {
+    private void soundUpdate() {
         if(soundTimer>=0)
-            soundTimer+=dt;
+            soundTimer+=Gdx.graphics.getDeltaTime();
         if(soundTimer>0 && soundTimer<2){
             sound1.play(MyGame.SOUND_VOLUME);
         }
@@ -138,10 +138,6 @@ public class Bomb extends Sprite{
             hero.bombExploding=false;
             return State.TIC_TAC;
         }
-        else if(timer>=2 && timer<=2.1){
-            hero.bombExploding=true;
-            return State.LAST;
-        }
         else{
             hero.bombExploding=true;
             return State.BOOM;
@@ -160,11 +156,7 @@ public class Bomb extends Sprite{
         if(currentState==State.TIC_TAC){
             setBounds(getX(), getY(), 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
             region = tic_tac.getKeyFrame(tic_tac_timer, true);
-        }else if(currentState==State.LAST){
-            setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
-            region = boom.getKeyFrame(1);
-        }
-        else if(currentState==State.BOOM){
+        }else if(currentState==State.BOOM){
             setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
             region = boom.getKeyFrame(tic_tac_timer, false);
         }
