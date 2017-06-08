@@ -1,248 +1,248 @@
-dungeon1 40 104
-dungeon1 40 120
-dungeon1 40 136
-dungeon1 40 152
-dungeon1 40 168
-dungeon1 40 184
-dungeon1 56 104
-dungeon1 56 120
-dungeon1 56 136
-dungeon1 56 152
-dungeon1 56 168
-dungeon1 56 184
-dungeon1 72 104
-dungeon1 72 120
-dungeon1 72 136
-dungeon1 72 152
-dungeon1 72 168
-dungeon1 72 184
-dungeon1 88 104
-dungeon1 88 120
-dungeon1 88 136
-dungeon1 88 152
-dungeon1 88 168
-dungeon1 88 184
-dungeon1 104 104
-dungeon1 104 120
-dungeon1 104 136
-dungeon1 104 152
-dungeon1 104 168
-dungeon1 104 184
-dungeon1 120 104
-dungeon1 120 120
-dungeon1 120 136
-dungeon1 120 152
-dungeon1 120 168
-dungeon1 120 184
-dungeon1 136 104
-dungeon1 136 120
-dungeon1 136 136
-dungeon1 136 152
-dungeon1 136 168
-dungeon1 136 184
-dungeon1 152 104
-dungeon1 152 120
-dungeon1 152 136
-dungeon1 152 152
-dungeon1 152 168
-dungeon1 152 184
-dungeon1 168 104
-dungeon1 168 120
-dungeon1 168 136
-dungeon1 168 152
-dungeon1 168 168
-dungeon1 168 184
-dungeon1 184 104
-dungeon1 184 120
-dungeon1 184 136
-dungeon1 184 152
-dungeon1 184 168
-dungeon1 184 184
-dungeon1 200 104
-dungeon1 200 120
-dungeon1 200 136
-dungeon1 200 152
-dungeon1 200 168
-dungeon1 200 184
-dungeon1 216 104
-dungeon1 216 120
-dungeon1 216 136
-dungeon1 216 152
-dungeon1 216 168
-dungeon1 216 184
-dungeon1 232 104
-dungeon1 232 120
-dungeon1 232 136
-dungeon1 232 152
-dungeon1 232 168
-dungeon1 232 184
-dungeon1 248 104
-dungeon1 248 120
-dungeon1 248 136
-dungeon1 248 152
-dungeon1 248 168
-dungeon1 248 184
-dungeon1 264 104
-dungeon1 264 120
-dungeon1 264 136
-dungeon1 264 152
-dungeon1 264 168
-dungeon1 264 184
-dungeon1 280 104
-dungeon1 280 120
-dungeon1 280 136
-dungeon1 280 152
-dungeon1 280 168
-dungeon1 280 184
-dungeon1 296 104
-dungeon1 296 120
-dungeon1 296 136
-dungeon1 296 152
-dungeon1 296 168
-dungeon1 296 184
-dungeon1 312 104
-dungeon1 312 120
-dungeon1 312 136
-dungeon1 312 152
-dungeon1 312 168
-dungeon1 312 184
-dungeon1 328 104
-dungeon1 328 120
-dungeon1 328 136
-dungeon1 328 152
-dungeon1 328 168
-dungeon1 328 184
-dungeon1 344 104
-dungeon1 344 120
-dungeon1 344 136
-dungeon1 344 152
-dungeon1 344 168
-dungeon1 344 184
-dungeon1 360 104
-dungeon1 360 120
-dungeon1 360 136
-dungeon1 360 152
-dungeon1 360 168
-dungeon1 360 184
-dungeon1 104 40
-dungeon1 104 56
-dungeon1 104 72
-dungeon1 104 88
-dungeon1 120 40
-dungeon1 120 56
-dungeon1 120 72
-dungeon1 120 88
-dungeon1 136 40
-dungeon1 136 56
-dungeon1 136 72
-dungeon1 136 88
-dungeon1 152 40
-dungeon1 152 56
-dungeon1 152 72
-dungeon1 152 88
-dungeon1 168 40
-dungeon1 168 56
-dungeon1 168 72
-dungeon1 168 88
-dungeon1 184 40
-dungeon1 184 56
-dungeon1 184 72
-dungeon1 184 88
-dungeon1 200 40
-dungeon1 200 56
-dungeon1 200 72
-dungeon1 200 88
-dungeon1 216 40
-dungeon1 216 56
-dungeon1 216 72
-dungeon1 216 88
-dungeon1 232 40
-dungeon1 232 56
-dungeon1 232 72
-dungeon1 232 88
-dungeon1 248 40
-dungeon1 248 56
-dungeon1 248 72
-dungeon1 248 88
-dungeon1 264 40
-dungeon1 264 56
-dungeon1 264 72
-dungeon1 264 88
-dungeon1 280 40
-dungeon1 280 56
-dungeon1 280 72
-dungeon1 280 88
-dungeon1 296 40
-dungeon1 296 56
-dungeon1 296 72
-dungeon1 296 88
-dungeon1 312 40
-dungeon1 312 56
-dungeon1 312 72
-dungeon1 312 88
-dungeon1 88 200
-dungeon1 88 216
-dungeon1 88 232
-dungeon1 104 200
-dungeon1 104 216
-dungeon1 104 232
-dungeon1 120 200
-dungeon1 120 216
-dungeon1 120 232
-dungeon1 136 200
-dungeon1 136 216
-dungeon1 136 232
-dungeon1 152 200
-dungeon1 152 216
-dungeon1 152 232
-dungeon1 168 200
-dungeon1 168 216
-dungeon1 168 232
-dungeon1 184 200
-dungeon1 184 216
-dungeon1 184 232
-dungeon1 200 200
-dungeon1 200 216
-dungeon1 200 232
-dungeon1 216 200
-dungeon1 216 216
-dungeon1 216 232
-dungeon1 232 200
-dungeon1 232 216
-dungeon1 232 232
-dungeon1 248 200
-dungeon1 248 216
-dungeon1 248 232
-dungeon1 264 200
-dungeon1 264 216
-dungeon1 264 232
-dungeon1 280 200
-dungeon1 280 216
-dungeon1 280 232
-dungeon1 296 200
-dungeon1 296 216
-dungeon1 296 232
-dungeon1 312 200
-dungeon1 312 216
-dungeon1 312 232
-dungeon1 328 200
-dungeon1 328 216
-dungeon1 328 232
-dungeon1 344 200
-dungeon1 344 216
-dungeon1 344 232
-dungeon1 360 200
-dungeon1 360 216
-dungeon1 360 232
-dungeon1 328 88
-dungeon1 344 88
-dungeon1 360 88
-dungeon1 696 264
-dungeon1 696 280
-dungeon1 696 296
-dungeon1 712 264
-dungeon1 712 280
-dungeon1 712 296
-dungeon1 728 264
-dungeon1 728 280
-dungeon1 728 296
+dungeon1-40-104
+dungeon1-40-120
+dungeon1-40-136
+dungeon1-40-152
+dungeon1-40-168
+dungeon1-40-184
+dungeon1-56-104
+dungeon1-56-120
+dungeon1-56-136
+dungeon1-56-152
+dungeon1-56-168
+dungeon1-56-184
+dungeon1-72-104
+dungeon1-72-120
+dungeon1-72-136
+dungeon1-72-152
+dungeon1-72-168
+dungeon1-72-184
+dungeon1-88-104
+dungeon1-88-120
+dungeon1-88-136
+dungeon1-88-152
+dungeon1-88-168
+dungeon1-88-184
+dungeon1-104-104
+dungeon1-104-120
+dungeon1-104-136
+dungeon1-104-152
+dungeon1-104-168
+dungeon1-104-184
+dungeon1-120-104
+dungeon1-120-120
+dungeon1-120-136
+dungeon1-120-152
+dungeon1-120-168
+dungeon1-120-184
+dungeon1-136-104
+dungeon1-136-120
+dungeon1-136-136
+dungeon1-136-152
+dungeon1-136-168
+dungeon1-136-184
+dungeon1-152-104
+dungeon1-152-120
+dungeon1-152-136
+dungeon1-152-152
+dungeon1-152-168
+dungeon1-152-184
+dungeon1-168-104
+dungeon1-168-120
+dungeon1-168-136
+dungeon1-168-152
+dungeon1-168-168
+dungeon1-168-184
+dungeon1-184-104
+dungeon1-184-120
+dungeon1-184-136
+dungeon1-184-152
+dungeon1-184-168
+dungeon1-184-184
+dungeon1-200-104
+dungeon1-200-120
+dungeon1-200-136
+dungeon1-200-152
+dungeon1-200-168
+dungeon1-200-184
+dungeon1-216-104
+dungeon1-216-120
+dungeon1-216-136
+dungeon1-216-152
+dungeon1-216-168
+dungeon1-216-184
+dungeon1-232-104
+dungeon1-232-120
+dungeon1-232-136
+dungeon1-232-152
+dungeon1-232-168
+dungeon1-232-184
+dungeon1-248-104
+dungeon1-248-120
+dungeon1-248-136
+dungeon1-248-152
+dungeon1-248-168
+dungeon1-248-184
+dungeon1-264-104
+dungeon1-264-120
+dungeon1-264-136
+dungeon1-264-152
+dungeon1-264-168
+dungeon1-264-184
+dungeon1-280-104
+dungeon1-280-120
+dungeon1-280-136
+dungeon1-280-152
+dungeon1-280-168
+dungeon1-280-184
+dungeon1-296-104
+dungeon1-296-120
+dungeon1-296-136
+dungeon1-296-152
+dungeon1-296-168
+dungeon1-296-184
+dungeon1-312-104
+dungeon1-312-120
+dungeon1-312-136
+dungeon1-312-152
+dungeon1-312-168
+dungeon1-312-184
+dungeon1-328-104
+dungeon1-328-120
+dungeon1-328-136
+dungeon1-328-152
+dungeon1-328-168
+dungeon1-328-184
+dungeon1-344-104
+dungeon1-344-120
+dungeon1-344-136
+dungeon1-344-152
+dungeon1-344-168
+dungeon1-344-184
+dungeon1-360-104
+dungeon1-360-120
+dungeon1-360-136
+dungeon1-360-152
+dungeon1-360-168
+dungeon1-360-184
+dungeon1-104-40
+dungeon1-104-56
+dungeon1-104-72
+dungeon1-104-88
+dungeon1-120-40
+dungeon1-120-56
+dungeon1-120-72
+dungeon1-120-88
+dungeon1-136-40
+dungeon1-136-56
+dungeon1-136-72
+dungeon1-136-88
+dungeon1-152-40
+dungeon1-152-56
+dungeon1-152-72
+dungeon1-152-88
+dungeon1-168-40
+dungeon1-168-56
+dungeon1-168-72
+dungeon1-168-88
+dungeon1-184-40
+dungeon1-184-56
+dungeon1-184-72
+dungeon1-184-88
+dungeon1-200-40
+dungeon1-200-56
+dungeon1-200-72
+dungeon1-200-88
+dungeon1-216-40
+dungeon1-216-56
+dungeon1-216-72
+dungeon1-216-88
+dungeon1-232-40
+dungeon1-232-56
+dungeon1-232-72
+dungeon1-232-88
+dungeon1-248-40
+dungeon1-248-56
+dungeon1-248-72
+dungeon1-248-88
+dungeon1-264-40
+dungeon1-264-56
+dungeon1-264-72
+dungeon1-264-88
+dungeon1-280-40
+dungeon1-280-56
+dungeon1-280-72
+dungeon1-280-88
+dungeon1-296-40
+dungeon1-296-56
+dungeon1-296-72
+dungeon1-296-88
+dungeon1-312-40
+dungeon1-312-56
+dungeon1-312-72
+dungeon1-312-88
+dungeon1-88-200
+dungeon1-88-216
+dungeon1-88-232
+dungeon1-104-200
+dungeon1-104-216
+dungeon1-104-232
+dungeon1-120-200
+dungeon1-120-216
+dungeon1-120-232
+dungeon1-136-200
+dungeon1-136-216
+dungeon1-136-232
+dungeon1-152-200
+dungeon1-152-216
+dungeon1-152-232
+dungeon1-168-200
+dungeon1-168-216
+dungeon1-168-232
+dungeon1-184-200
+dungeon1-184-216
+dungeon1-184-232
+dungeon1-200-200
+dungeon1-200-216
+dungeon1-200-232
+dungeon1-216-200
+dungeon1-216-216
+dungeon1-216-232
+dungeon1-232-200
+dungeon1-232-216
+dungeon1-232-232
+dungeon1-248-200
+dungeon1-248-216
+dungeon1-248-232
+dungeon1-264-200
+dungeon1-264-216
+dungeon1-264-232
+dungeon1-280-200
+dungeon1-280-216
+dungeon1-280-232
+dungeon1-296-200
+dungeon1-296-216
+dungeon1-296-232
+dungeon1-312-200
+dungeon1-312-216
+dungeon1-312-232
+dungeon1-328-200
+dungeon1-328-216
+dungeon1-328-232
+dungeon1-344-200
+dungeon1-344-216
+dungeon1-344-232
+dungeon1-360-200
+dungeon1-360-216
+dungeon1-360-232
+dungeon1-328-88
+dungeon1-344-88
+dungeon1-360-88
+dungeon1-696-264
+dungeon1-696-280
+dungeon1-696-296
+dungeon1-712-264
+dungeon1-712-280
+dungeon1-712-296
+dungeon1-728-264
+dungeon1-728-280
+dungeon1-728-296

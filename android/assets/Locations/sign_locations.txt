@@ -1,4 +1,4 @@
-tutorial 88 216 sign1
-tutorial 232 216 sign2
-tutorial 88 104 sign3
-tutorial 216 104 sign4
+tutorial-88-216-sign1
+tutorial-232-216-sign2
+tutorial-88-104-sign3
+tutorial-216-104-sign4

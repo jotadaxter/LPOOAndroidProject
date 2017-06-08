@@ -1,21 +1,21 @@
-free_world 56	104
-free_world 40	248
-free_world 152	232
-free_world 168	328
-free_world 296	296
-free_world 440	248
-free_world 296	184
-free_world 328	88
-free_world 440	136
-free_world 520	392
-free_world 504	104
-free_world 488	536
-free_world 312	568
-free_world 392	648
-free_world 488	696
-free_world 488	824
-free_world 440	952
-free_world 232	952
-free_world 56	904
-free_world 56	744
+free_world-56-104
+free_world-40-248
+free_world-152-232
+free_world-168-328
+free_world-296-296
+free_world-440-248
+free_world-296-184
+free_world-328-88
+free_world-440-136
+free_world-520-392
+free_world-504-104
+free_world-488-536
+free_world-312-568
+free_world-392-648
+free_world-488-696
+free_world-488-824
+free_world-440-952
+free_world-232-952
+free_world-56-904
+free_world-56-744
 

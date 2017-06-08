@@ -42,7 +42,7 @@ public class Dungeon1 extends GameScreen{
     private PressingEvent megaPressingEvent;
 
     public Dungeon1(MyGame game) {
-        super(game, new Vector2(44*16+8, 20*16+8));
+        super(game, new Vector2(POSX, POSY));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
     }

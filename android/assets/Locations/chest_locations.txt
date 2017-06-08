@@ -1,19 +1,19 @@
-dungeon1 56 216
-dungeon1 344 56
-dungeon1 744 72
-dungeon1 760 504
-dungeon1 328 376
-dungeon1 200 504
-dungeon1 88 696
-dungeon1 728 632
-dungeon1 744 632
-dungeon1 760 632
-dungeon1 312 696
-dungeon1 600 696
-free_world 520 40
-free_world 472 312
-free_world 488 312
-free_world 424 488
-free_world 360 840
-free_world 424 840
-free_world 24 408
+dungeon1-56-216
+dungeon1-344-56
+dungeon1-744-72
+dungeon1-760-504
+dungeon1-328-376
+dungeon1-200-504
+dungeon1-88-696
+dungeon1-728-632
+dungeon1-744-632
+dungeon1-760-632
+dungeon1-312-696
+dungeon1-600-696
+free_world-520-40
+free_world-472-312
+free_world-488-312
+free_world-424-488
+free_world-360-840
+free_world-424-840
+free_world-24-408
