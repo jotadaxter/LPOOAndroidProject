@@ -40,9 +40,10 @@ public class GameStateManager {
     }
 
     public void push(MenuScreen screen){
-       if(states.size()!=0 && states.peek().isMenuScreen())
+       if(states.size()!=0 && states.peek().isMenuScreen()){
            states.peek().getGameScreen().getMusic().setVolume(0f);
-
+           states.peek().getGameScreen().getMusic().stop();
+       }
         states.push(new GameState(screen));
         game.setScreen(states.peek().getMenuScreen());
         //Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
@@ -52,8 +53,10 @@ public class GameStateManager {
 
     public void push(GameState state){
         if(state.isGameScreen()){
-           if(states.size()!=0)
+           if(states.size()!=0){
                states.peek().getGameScreen().getMusic().setVolume(0f);
+               states.peek().getGameScreen().getMusic().stop();
+           }
         }
         else if(state.isMenuScreen()){
             if(states.size()!=0)
@@ -75,8 +78,10 @@ public class GameStateManager {
 
     public void pop(){
         if(states.peek().isGameScreen()){
-            if(states.size()!=0)
+            if(states.size()!=0){
                 states.peek().getGameScreen().getMusic().setVolume(0f);
+                states.peek().getGameScreen().getMusic().stop();
+            }
         }
         else if(states.peek().isMenuScreen()){
 //            if(states.size()!=0)
