@@ -23,8 +23,9 @@ public class GameStateManager {
     public GameStateManager(MyGame game){
         this.game=game;
         states= new Stack<GameState>();
-            states.push(new GameState(new MainMenu(game)));
-            game.setScreen(states.peek().getMenuScreen());
+        states.clear();
+        states.push(new GameState(new MainMenu(game)));
+        game.setScreen(states.peek().getMenuScreen());
     }
 
     public void push(GameScreen screen){

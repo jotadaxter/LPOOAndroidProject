@@ -18,12 +18,6 @@ import com.mygdx.game.View.Scenes.TextLog;
  */
 
 public class DemoScreen extends GameScreen {
-    //Hero Position
-    //public static final int POSX = 247;
-    //public static final int POSY = 35;
-    //public static final int POSX = 8+9*16+8;
-    //public static final int POSY = 8+11*16;
-    //Boulder Position
     public static final int BOULDER_X = 8+11*16;
     public static final int BOULDER_Y = 8+8*16;
     //PressingPlate Position
