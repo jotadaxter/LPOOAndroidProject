@@ -75,7 +75,7 @@ public class MovingPlatform extends Sprite {
 
     public void update(float dt) {
         if(soundTimer>6){
-            sound.play(MyGame.SOUND_VOLUME);
+            //sound.play(MyGame.SOUND_VOLUME);
             soundTimer=0;
         }
         movementType(dt);
