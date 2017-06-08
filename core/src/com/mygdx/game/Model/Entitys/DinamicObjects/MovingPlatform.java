@@ -1,5 +1,6 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -78,48 +79,52 @@ public class MovingPlatform extends Sprite {
             //sound.play(MyGame.SOUND_VOLUME);
             soundTimer=0;
         }
-        movementType(dt);
+        float speed;
+        if(Gdx.app.getType() == Application.ApplicationType.Android)
+            speed=MyGame.PLATFORM_VELOCITY_ANDROID;
+        else speed=MyGame.PLATFORM_VELOCITY_PC;
+        movementType(dt, speed);
 
         setPosition(platformBody.getBody().getPosition().x - getWidth() / 2, platformBody.getBody().getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
         soundTimer+=dt;
     }
 
-    private void movementType(float dt) {
+    private void movementType(float dt, float speed) {
         if(type==0){
-           firstPitfall(dt);
+           firstPitfall(dt,speed);
         }
         else if(type==1){
-            secondPitfall(dt);
+            secondPitfall(dt,speed);
         }
         else if(type==2){
-            thirdPitfall(dt);
+            thirdPitfall(dt,speed);
         }
     }
 
-    private void thirdPitfall(float dt) {
+    private void thirdPitfall(float dt, float speed) {
         if (platformBody.getBody().getPosition().x >= 42)
-            platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
+            platformBody.getBody().setLinearVelocity(new Vector2(-speed * dt, 0));
         else if (platformBody.getBody().getPosition().x <= 30)
-            platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
+            platformBody.getBody().setLinearVelocity(new Vector2(speed * dt, 0));
     }
 
-    private void secondPitfall(float dt) {
+    private void secondPitfall(float dt, float speed) {
         if (platformBody.getBody().getPosition().x >= 25.5)
-            platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
+            platformBody.getBody().setLinearVelocity(new Vector2(-speed * dt, 0));
         else if (platformBody.getBody().getPosition().x <= 13)
-            platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
+            platformBody.getBody().setLinearVelocity(new Vector2(speed * dt, 0));
     }
 
-    private void firstPitfall(float dt) {
+    private void firstPitfall(float dt, float speed) {
         if (platformBody.getBody().getPosition().y <= 23 && platformBody.getBody().getPosition().x >= 31) {
-            platformBody.getBody().setLinearVelocity(new Vector2(-MyGame.PLATFORM_VELOCITY * dt, 0));
+            platformBody.getBody().setLinearVelocity(new Vector2(-speed * dt, 0));
         } else if (platformBody.getBody().getPosition().x <= 31 && platformBody.getBody().getPosition().y <= 31) {
-            platformBody.getBody().setLinearVelocity(new Vector2(0, MyGame.PLATFORM_VELOCITY * dt));
+            platformBody.getBody().setLinearVelocity(new Vector2(0,speed * dt));
         } else if (platformBody.getBody().getPosition().y >= 31 && platformBody.getBody().getPosition().x <= 45) {
-            platformBody.getBody().setLinearVelocity(new Vector2(MyGame.PLATFORM_VELOCITY * dt, 0));
+            platformBody.getBody().setLinearVelocity(new Vector2(speed * dt, 0));
         } else if (platformBody.getBody().getPosition().x >= 45 && platformBody.getBody().getPosition().y >= 23) {
-            platformBody.getBody().setLinearVelocity(new Vector2(0, -MyGame.PLATFORM_VELOCITY * dt));
+            platformBody.getBody().setLinearVelocity(new Vector2(0, -speed * dt));
         }
     }
 

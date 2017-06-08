@@ -24,7 +24,8 @@ public class MyGame extends Game {
     public static final int VIEWPORT_HEIGHT =160;
     public static final float PIXEL_TO_METER = 0.0625f;
     public static final float VELOCITY= 10f;
-	public static final float PLATFORM_VELOCITY= 60f;//60f;
+	public static final float PLATFORM_VELOCITY_PC= 60f;//60f;
+	public static final float PLATFORM_VELOCITY_ANDROID= 20f;//60f;
 
 	public static final short DEFAULT_BIT =1;
 	public static final short HERO_BIT =2;
