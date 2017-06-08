@@ -30,7 +30,7 @@ public class GameStateManager {
 
     public void push(GameScreen screen){
         if(states.size()!=0 && states.peek().isGameScreen()){
-            states.peek().getGameScreen().getMusic().stop();
+            //states.peek().getGameScreen().getMusic().stop();
             states.peek().getGameScreen().getMusic().setVolume(0f);
         }
         states.push(new GameState(screen));
@@ -53,7 +53,7 @@ public class GameStateManager {
     public void push(GameState state){
         if(state.isGameScreen()){
            if(states.size()!=0){
-               states.peek().getGameScreen().getMusic().stop();
+              // states.peek().getGameScreen().getMusic().stop();
                states.peek().getGameScreen().getMusic().setVolume(0f);
            }
         }
@@ -78,7 +78,7 @@ public class GameStateManager {
     public void pop(){
         if(states.peek().isGameScreen()){
             if(states.size()!=0){
-                states.peek().getGameScreen().getMusic().stop();
+               // states.peek().getGameScreen().getMusic().stop();
                 states.peek().getGameScreen().getMusic().setVolume(0f);
             }
         }

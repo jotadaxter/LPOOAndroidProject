@@ -51,7 +51,7 @@ public class FireGround extends Sprite{
 
     public void update(float dt){
         if(soundTimer>3){
-            sound.play(MyGame.FIREGROUND_SOUND);
+          //  sound.play(MyGame.FIREGROUND_SOUND);
             soundTimer=0;
         }
         setPosition(fireGroundBody.getBody().getPosition().x-getWidth()/2, fireGroundBody.getBody().getPosition().y-getHeight()/2);
