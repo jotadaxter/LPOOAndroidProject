@@ -58,7 +58,7 @@ public class Chest extends Sprite{
         setRegion(getFrame(dt));
         if (dropLoot == 1) {
             loot();
-            sound1.play();
+            sound1.play(MyGame.SOUND_VOLUME);
             dropLoot = 2;
         }
     }

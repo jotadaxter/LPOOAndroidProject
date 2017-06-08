@@ -48,9 +48,9 @@ public class WayBlocker extends Sprite{
         Gdx.app.log("destroyed","");
     }
 
-    public void update(float dt){
+    public void update(){
         if(toDestroy && !destroyed){
-            sound.play();
+            sound.play(MyGame.SOUND_VOLUME);
             world.destroyBody(wayBlockerBody.getBody());
             destroyed=true;
         }

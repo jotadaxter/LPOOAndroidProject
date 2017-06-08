@@ -216,7 +216,7 @@ public class Hero extends Sprite{
     }
 
     public void fall(){
-        soundHurt.play();
+        soundHurt.play(MyGame.SOUND_VOLUME);
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         fell=true;
     }

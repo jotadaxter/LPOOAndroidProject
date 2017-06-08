@@ -222,11 +222,11 @@ public class HeroBody{
         if(currentState==State.HURT){
                 hero.setBounds(hero.getX(), hero.getY(), 31 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
                 region = hero.heroHurt.getKeyFrame(hero.upDownTimer, false);
-                hero.getSoundHurt().play();
+                hero.getSoundHurt().play(MyGame.SOUND_VOLUME);
                 hero.setWasHit(false);
             }
             else if(currentState==State.DYING){
-                hero.getSoundDying().play();
+                hero.getSoundDying().play(MyGame.SOUND_VOLUME);
                 hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
                 region = hero.heroDying.getKeyFrame(1);
             }

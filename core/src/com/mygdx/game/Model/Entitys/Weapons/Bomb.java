@@ -110,11 +110,11 @@ public class Bomb extends Sprite{
         if(soundTimer>=0)
             soundTimer+=dt;
         if(soundTimer>0 && soundTimer<2){
-            sound1.play();
+            sound1.play(MyGame.SOUND_VOLUME);
         }
         else if(soundTimer>=2){
             sound1.stop();
-            sound2.play();
+            sound2.play(MyGame.SOUND_VOLUME);
             soundTimer=-1;
         }
     }

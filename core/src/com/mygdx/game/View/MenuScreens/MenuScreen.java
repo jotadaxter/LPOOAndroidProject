@@ -1,6 +1,7 @@
 package com.mygdx.game.View.MenuScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,6 +27,7 @@ public abstract class MenuScreen implements Screen {
     protected OrthographicCamera gameCam;
     protected MyGame game;
     private Music music;
+    private Stage stage;
 
 
     public MenuScreen(MyGame game) {
@@ -72,5 +74,9 @@ public abstract class MenuScreen implements Screen {
 
     public Music getMusic() {
         return music;
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 }

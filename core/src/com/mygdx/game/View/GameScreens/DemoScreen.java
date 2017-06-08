@@ -43,7 +43,7 @@ public class DemoScreen extends GameScreen {
     protected void musicDefine() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/tutorial_music.mp3"));
         music.setLooping(true);
-        music.setVolume(5f);
+        music.setVolume(MyGame.MUSIC_VOLUME);
     }
 
     @Override
@@ -102,13 +102,13 @@ public class DemoScreen extends GameScreen {
     @Override
     public void objectsUpdate(float dt) {
         for(Boulder boulder : boulders)
-            boulder.update(dt);
+            boulder.update();
         for(SmashableRock sm : smashRocks)
             sm.update(dt);
         for(PressingPlate pp : pps)
             pp.update(dt);
         for(Sign sign :signs)
-            sign.update(dt);
+            sign.update();
     }
 
     @Override

@@ -40,7 +40,7 @@ public class SpecialItem extends Item{
     @Override
     public void update(float dt, Hero hero) {
         if(toDestroy && !destroyed){
-            sound.play();
+            sound.play(MyGame.SOUND_VOLUME);
             world.destroyBody(specialItemBody.getBody());
             destroyed=true;
             hero.addItem(this);

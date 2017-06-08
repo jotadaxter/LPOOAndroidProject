@@ -61,17 +61,14 @@ public class MyGame extends Game {
 	public static final int BIG_GREEN_RUPEE =50;
 	public static final int BIG_BLUE_RUPEE =100;
 	public static final int BIG_RED_RUPEE =200;
-	public final boolean isTest;
-
+	public static float MUSIC_VOLUME=1f;
+	public static float SOUND_VOLUME=1f;
+	public static float FIREGROUND_SOUND=0.25f;
 	public SpriteBatch batch;
 	public GameStateManager gsm;
 	public HeroStats heroStats;
 	public AssetManager assetManager;
 	public FileReader fileReader;
-
-	public MyGame(boolean isTest) {
-		this.isTest=isTest;
-	}
 
 	@Override
 	public void create () {
@@ -80,7 +77,22 @@ public class MyGame extends Game {
 		fileReader= new FileReader();
 		heroStats= new HeroStats();
 		loads();
-		gsm= new GameStateManager(this, isTest);
+		gsm= new GameStateManager(this);
+	}
+
+	public void muteMusic(){
+		MUSIC_VOLUME=0f;
+	}
+	public void normalizeMusic(){
+		MUSIC_VOLUME=1f;
+	}
+	public void muteSound(){
+		SOUND_VOLUME=0f;
+		FIREGROUND_SOUND=0f;
+	}
+	public void normalizeSound(){
+		SOUND_VOLUME=1f;
+		FIREGROUND_SOUND=0.25f;
 	}
 
 	private void loads() {

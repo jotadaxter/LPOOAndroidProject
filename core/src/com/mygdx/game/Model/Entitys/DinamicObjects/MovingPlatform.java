@@ -27,7 +27,6 @@ public class MovingPlatform extends Sprite {
     private Animation<TextureRegion> movingDown;
     private Animation<TextureRegion> movingUp;
     private Animation<TextureRegion> movingLeft;
-    private Animation<TextureRegion> movingRight;
     private MovingPlatformBody platformBody;
     private int id;
     private Sound sound;
@@ -72,18 +71,11 @@ public class MovingPlatform extends Sprite {
         }
         movingLeft = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
-
-        for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/moving_platform_right.png", Texture.class), 0, i * 32, 32, 32));
-        }
-        movingRight = new Animation<TextureRegion>(0.1f, frames);
-        frames.clear();
-
     }
 
     public void update(float dt) {
         if(soundTimer>6){
-            sound.play();
+            sound.play(MyGame.SOUND_VOLUME);
             soundTimer=0;
         }
         movementType(dt);

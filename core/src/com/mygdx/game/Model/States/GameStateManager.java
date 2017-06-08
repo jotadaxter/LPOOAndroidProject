@@ -19,20 +19,12 @@ import java.util.Stack;
 public class GameStateManager {
     public Stack<GameState> states;
     private MyGame game;
-    public boolean isTest;
 
-    public GameStateManager(MyGame game, boolean isTest){
+    public GameStateManager(MyGame game){
         this.game=game;
         states= new Stack<GameState>();
-        this.isTest=isTest;
-        if(!isTest) {
             states.push(new GameState(new MainMenu(game)));
             game.setScreen(states.peek().getMenuScreen());
-        }else {
-            states.push(new GameState(new TestScreen(game)));
-            game.setScreen(states.peek().getGameScreen());
-        }
-
     }
 
     public void push(GameScreen screen){
@@ -88,18 +80,18 @@ public class GameStateManager {
 //                states.peek().getMenuScreen().getMusic().stop();
         }
         states.pop();
-        System.out.println(states.peek().getMenuScreen().getClass());
         if(states.peek().isGameScreen()) {
             game.setScreen(states.peek().getGameScreen());
             states.peek().getGameScreen().getMusic().play();
+            Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
+            states.peek().getGameScreen().getController().reset();
         }
         else if(states.peek().isMenuScreen()) {
             game.setScreen(states.peek().getMenuScreen());
+            System.out.println(states.size());
+            Gdx.input.setInputProcessor(states.peek().getMenuScreen().getStage());
 //            states.peek().getMenuScreen().getMusic().play();
         }
-//        Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
-//        states.peek().getGameScreen().getController().reset();
-
     }
 
     public void set(GameScreen screen){

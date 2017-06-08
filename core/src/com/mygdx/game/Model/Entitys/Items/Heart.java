@@ -37,7 +37,7 @@ public class Heart extends Item {
     @Override
     public void update(float dt, Hero hero) {
         if(toDestroy && !destroyed){
-            sound.play();
+            sound.play(MyGame.SOUND_VOLUME);
             world.destroyBody(heartBody.getBody());
             destroyed=true;
             hero.addItem(this);

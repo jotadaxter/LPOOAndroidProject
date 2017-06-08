@@ -58,14 +58,14 @@ public class MegaPressingPlate extends Sprite {
     public void decIsPressed() {
         ispressed--;
         if(isPressed()<2){
-            sound2.play();
+            sound2.play(MyGame.SOUND_VOLUME);
         }
     }
 
     public void incIsPressed() {
         ispressed++;
         if(isPressed()>=2){
-            sound1.play();
+            sound1.play(MyGame.SOUND_VOLUME);
         }
     }
 

@@ -18,19 +18,17 @@ public class Boulder extends Sprite{
     private World world;
     private TextureRegion boulderFigure;
     private BoulderBody boulderBody;
-    private Sound sound;
 
     public Boulder(GameScreen screen, Vector2 vec) {
         super(screen.getAtlas().findRegion("boulder"));
         this.world=screen.getWorld();
         boulderBody= new BoulderBody(world,this, vec);
-        sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/pushing_boulder.wav"));
         boulderFigure = new TextureRegion(screen.getAtlas().findRegion("boulder"), 0,0,16,16);
         setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(boulderFigure);
     }
-    public void update(float dt){
+    public void update(){
         setPosition(boulderBody.getBody().getPosition().x-getWidth()/2, boulderBody.getBody().getPosition().y-getHeight()/2);
     }
 

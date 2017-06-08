@@ -51,7 +51,7 @@ public class Dungeon1 extends GameScreen{
     protected void musicDefine() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/dungeon1_music.mp3"));
         music.setLooping(true);
-        music.setVolume(1f);
+        music.setVolume(MyGame.MUSIC_VOLUME);
     }
 
     @Override
@@ -150,16 +150,16 @@ public class Dungeon1 extends GameScreen{
         for(SmashableRock sm : smashRocks)
             sm.update(dt);
         for(Spikes spike : spikes)
-            spike.update(dt);
+            spike.update();
         for(FireGround fg : fireGrounds)
             fg.update(dt);
         for(WayBlocker wb : wayblocks){
-            wb.update(dt);
+            wb.update();
             if(!d1blck)
                 wb.destroy();
         }
         for(Boulder boulder : boulders)
-            boulder.update(dt);
+            boulder.update();
         for(Chest chest : chests)
             chest.update(dt);
         megaPressingEvent.update(dt);

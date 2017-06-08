@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.FireGroundBody;
-import com.mygdx.game.Controller.Entitys.DinamicObjects.SpikesBody;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -52,7 +51,7 @@ public class FireGround extends Sprite{
 
     public void update(float dt){
         if(soundTimer>3){
-            sound.play(0.25f);
+            sound.play(MyGame.FIREGROUND_SOUND);
             soundTimer=0;
         }
         setPosition(fireGroundBody.getBody().getPosition().x-getWidth()/2, fireGroundBody.getBody().getPosition().y-getHeight()/2);

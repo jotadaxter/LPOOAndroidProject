@@ -43,7 +43,7 @@ public class Sign extends Sprite{
         signTex = new TextureRegion(screen.getGame().assetManager.get("Game/sign.png", Texture.class), 0,0,15,16);
     }
 
-    public void update(float dt){
+    public void update(){
         setPosition(signBody.getBody().getPosition().x-getWidth()/2, signBody.getBody().getPosition().y-getHeight()/2);
        if(openLog){
            if(screen.getType()== FreeWorld.class) {

@@ -81,7 +81,7 @@ public class FreeWorld extends GameScreen {
     protected void musicDefine() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/hyrule_field_music.mp3"));
         music.setLooping(true);
-        music.setVolume(5f);
+        music.setVolume(MyGame.MUSIC_VOLUME);
     }
 
     @Override
@@ -179,20 +179,20 @@ public class FreeWorld extends GameScreen {
     @Override
     public void objectsUpdate(float dt) {
         for(Boulder boulder : boulders)
-            boulder.update(dt);
+            boulder.update();
         for(PressingPlate pp : pps)
             pp.update(dt);
         for(MegaPressingPlate mpp : mpps)
             mpp.update(dt);
         for(WayBlocker wb : wayblocks){
-            wb.update(dt);
+            wb.update();
             if(!d1blck)
                 wb.destroy();
         }
         for(Chest chest : chests)
             chest.update(dt);
         for(Sign sign :signs)
-            sign.update(dt);
+            sign.update();
         pressingEvent.update(dt);
     }
 

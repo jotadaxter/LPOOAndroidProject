@@ -47,7 +47,7 @@ public class SmashableRock extends Sprite{
 
     public void update(float dt){
         if(toDestroy && !destroyed){
-            sound.play();
+            sound.play(MyGame.SOUND_VOLUME);
             world.destroyBody(rockBody.getBody());
             destroyed=true;
         }

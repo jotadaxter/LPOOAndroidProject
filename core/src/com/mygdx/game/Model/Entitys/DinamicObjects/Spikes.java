@@ -27,7 +27,7 @@ public class Spikes extends Sprite {
         setRegion(spikesFigure);
     }
 
-    public void update(float dt){
+    public void update(){
         setPosition(spikesBody.getBody().getPosition().x-getWidth()/2, spikesBody.getBody().getPosition().y-getHeight()/2);
     }
 }
