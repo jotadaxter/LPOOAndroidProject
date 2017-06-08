@@ -144,7 +144,7 @@ public class Controller {
 
     private void aConfig(Image img) {
         img.setSize(BTN_AB_WIDTH,BTN_AB_HEIGHT);
-        img.setPosition(0,0);
+        img.setPosition(VIEWPORT_WIDTH-BTN_AB_WIDTH,0);
         img.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
