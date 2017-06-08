@@ -1,5 +1,6 @@
 package com.mygdx.game.Controller;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -165,11 +166,17 @@ public class Controller {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 bPressed=true;
+                if(Gdx.app.getType() == Application.ApplicationType.Android){
+                    escPressed=true;
+                }
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 bPressed=false;
+                if(Gdx.app.getType() == Application.ApplicationType.Android){
+                    escPressed=false;
+                }
             }
         });
     }

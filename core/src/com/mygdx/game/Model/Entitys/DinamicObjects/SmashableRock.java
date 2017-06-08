@@ -57,7 +57,7 @@ public class SmashableRock extends Sprite{
             timer+=dt*100;
         if(timer>=130 && !(Gdx.app.getType() == Application.ApplicationType.Android)){
             toDestroy=true;
-        }else if(timer>=160 && (Gdx.app.getType() == Application.ApplicationType.Android)){
+        }else if(timer>=220 && (Gdx.app.getType() == Application.ApplicationType.Android)){
             toDestroy=true;
         }
     }
