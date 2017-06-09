@@ -1,5 +1,6 @@
 package com.mygdx.game.Controller.Entitys.Hero;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -255,6 +256,7 @@ public class HeroBody{
     }
 
     public void InputUpdate(Controller controller, float dt){
+        //accelMovement(controller,dt);
         if(controller.isRightPressed()){
             b2body.applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), b2body.getWorldCenter(), true);
             movementPress(controller, dt);
@@ -279,6 +281,26 @@ public class HeroBody{
             auxControl(controller, dt);
         }
     }
+
+    private void accelMovement(Controller controller, float dt) {
+        if(Gdx.input.getAccelerometerX()>0){
+            b2body.applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt*Gdx.input.getAccelerometerX(),0), b2body.getWorldCenter(), true);
+            movementPress(controller, dt);
+        }
+        else if(Gdx.input.getAccelerometerX()<0){
+            b2body.applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt*Gdx.input.getAccelerometerX(), 0), b2body.getWorldCenter(), true);
+            movementPress(controller, dt);
+        }
+        else if(Gdx.input.getAccelerometerY()<0){
+            b2body.applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt*Gdx.input.getAccelerometerY()), b2body.getWorldCenter(), true);
+            movementPress(controller, dt);
+        }
+        else if(Gdx.input.getAccelerometerY()>0){
+            b2body.applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt*Gdx.input.getAccelerometerY()), b2body.getWorldCenter(), true);
+            movementPress(controller, dt);
+        }
+    }
+
 
     private void auxControl(Controller controller, float dt) {
         if(controller.isaPressed()){

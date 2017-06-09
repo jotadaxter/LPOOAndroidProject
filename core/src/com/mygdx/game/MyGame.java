@@ -63,8 +63,8 @@ public class MyGame extends Game {
 	public static final int BIG_BLUE_RUPEE =100;
 	public static final int BIG_RED_RUPEE =200;
 	public static float MUSIC_VOLUME=1f;
-	public static float SOUND_VOLUME=1f;
-	public static float FIREGROUND_SOUND=0.25f;
+	public static float SOUND_VOLUME=0.25f;
+	public static int VIBRATION=500;
 	public SpriteBatch batch;
 	public GameStateManager gsm;
 	public HeroStats heroStats;
@@ -89,13 +89,16 @@ public class MyGame extends Game {
 	}
 	public void muteSound(){
 		SOUND_VOLUME=0f;
-		FIREGROUND_SOUND=0f;
 	}
 	public void normalizeSound(){
-		SOUND_VOLUME=1f;
-		FIREGROUND_SOUND=0.25f;
+		SOUND_VOLUME=0.25f;
 	}
-
+	public void vibrationOn(){
+		VIBRATION=500;
+	}
+	public void vibrationOff(){
+		VIBRATION=0;
+	}
 	private void loads() {
 		loadTextures();
 		loadSounds();

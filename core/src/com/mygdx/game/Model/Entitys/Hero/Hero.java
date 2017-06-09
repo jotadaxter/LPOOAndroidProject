@@ -211,11 +211,13 @@ public class Hero extends Sprite{
     }
 
     public void hit(){
+        Gdx.input.vibrate(MyGame.VIBRATION);
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         wasHit=true;
     }
 
     public void fall(){
+        Gdx.input.vibrate(MyGame.VIBRATION);
         soundHurt.play(MyGame.SOUND_VOLUME);
         screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
         fell=true;

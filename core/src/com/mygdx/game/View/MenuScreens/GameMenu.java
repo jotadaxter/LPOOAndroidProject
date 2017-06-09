@@ -95,6 +95,7 @@ public class GameMenu extends MenuScreen {
         soundCheck.setChecked(true);
         vibrationCheck.setPosition(MENU_WIDTH/5,180+60);
         vibrationCheck.setSize(50,50);
+        vibrationCheck.setChecked(true);
     }
 
     private void CheckBoxStyleDefine(CheckBox.CheckBoxStyle style) {
@@ -147,6 +148,10 @@ public class GameMenu extends MenuScreen {
             game.muteSound();
         else if(soundCheck.isChecked())
             game.normalizeSound();
+        if(!vibrationCheck.isChecked())
+            game.vibrationOff();
+        else if(vibrationCheck.isChecked())
+            game.vibrationOn();
         if (loadButton.isPressed()) {//fazer load de uma savegame
         }
         if (saveButton.isPressed()) {

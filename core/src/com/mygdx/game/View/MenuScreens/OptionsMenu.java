@@ -36,7 +36,7 @@ public class OptionsMenu extends MenuScreen {
 
     CheckBox musicCheck;
     CheckBox soundCheck;
-   // CheckBox vibrationCheck;
+    CheckBox vibrationCheck;
 
     private Texture backtex;
     private ImageButton backButton;
@@ -54,12 +54,12 @@ public class OptionsMenu extends MenuScreen {
 
         musicCheck = new CheckBox("",style);
         soundCheck = new CheckBox("",style);
-        //vibrationCheck = new CheckBox("",style);
+        vibrationCheck = new CheckBox("",style);
         CheckBoxConfig();
 
         stage.addActor(musicCheck);
         stage.addActor(soundCheck);
-       // stage.addActor(vibrationCheck);
+        stage.addActor(vibrationCheck);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -71,8 +71,9 @@ public class OptionsMenu extends MenuScreen {
         soundCheck.setPosition(MENU_WIDTH/5,240);
         soundCheck.setSize(50,50);
         soundCheck.setChecked(true);
-        /*vibrationCheck.setPosition(MENU_WIDTH/5,180);
-        vibrationCheck.setSize(50,50);*/
+        vibrationCheck.setPosition(MENU_WIDTH/5,180);
+        vibrationCheck.setSize(50,50);
+        vibrationCheck.setChecked(true);
     }
 
     private void CheckBoxStyleDefine(CheckBox.CheckBoxStyle style) {
@@ -122,6 +123,10 @@ public class OptionsMenu extends MenuScreen {
             game.muteSound();
         else if(soundCheck.isChecked())
             game.normalizeSound();
+        if(!vibrationCheck.isChecked())
+            game.vibrationOff();
+        else if(vibrationCheck.isChecked())
+            game.vibrationOn();
     }
 
     private void menuDraw() {
@@ -130,7 +135,7 @@ public class OptionsMenu extends MenuScreen {
         game.batch.draw(title, MENU_WIDTH/3/2 - title.getWidth()/2,400);
         game.batch.draw(music, MENU_WIDTH/3/4,300);
         game.batch.draw(sounds, MENU_WIDTH/3/4,240);
-        //game.batch.draw(vibration, MENU_WIDTH/3/4,180);
+        game.batch.draw(vibration, MENU_WIDTH/3/4,180);
         game.batch.end();
     }
 
