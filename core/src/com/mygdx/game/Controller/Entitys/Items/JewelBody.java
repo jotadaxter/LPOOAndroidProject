@@ -18,6 +18,7 @@ public class JewelBody {
     private Body body;
 
     public JewelBody(World world,Jewel jewel,int value, Vector2 vec) {
+        bdef= new BodyDef();
         bdef.position.set(vec.x*MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;
         body=world.createBody(bdef);

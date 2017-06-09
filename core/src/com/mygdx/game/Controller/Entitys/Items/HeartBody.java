@@ -24,11 +24,7 @@ public class HeartBody {
         body=world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-
-        //Fisical Dimentions
         shape.setRadius(4*MyGame.PIXEL_TO_METER);
-
-        //Contact Filters
         fdef.filter.categoryBits = MyGame.ITEM_BIT;
         fdef.filter.maskBits =  MyGame.HERO_BIT
                 | MyGame.ITEM_BIT

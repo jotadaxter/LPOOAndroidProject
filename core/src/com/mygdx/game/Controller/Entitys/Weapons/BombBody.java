@@ -25,7 +25,6 @@ public class BombBody {
     private FixtureDef fdef;
 
     public BombBody(World world, Bomb bomb,Vector2 vec) {
-        //Body Definition
         this.bomb=bomb;
         this.world=world;
         bdef= new BodyDef();
@@ -36,8 +35,6 @@ public class BombBody {
         fdef = new FixtureDef();
         normalShape= new CircleShape();
         normalShape.setRadius(4*MyGame.PIXEL_TO_METER);
-
-        //Contact Filters
         fdef.filter.categoryBits = MyGame.DEFAULT_BIT;
         fdef.filter.maskBits =  MyGame.HERO_BIT
                 | MyGame.ITEM_BIT
@@ -52,10 +49,6 @@ public class BombBody {
 
     public Body getBody(){
         return body;
-    }
-
-    public Bomb getBomb() {
-        return bomb;
     }
 
 }

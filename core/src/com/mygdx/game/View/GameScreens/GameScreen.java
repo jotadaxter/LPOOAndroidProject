@@ -190,7 +190,7 @@ public abstract class GameScreen implements Screen{
         for(Item item : items)
             item.update(dt, player);
         for(TextLog tlog: textlogs) {
-            tlog.update(dt);
+            tlog.update();
         }
     }
 

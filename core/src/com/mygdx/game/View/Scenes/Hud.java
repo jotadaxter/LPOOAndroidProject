@@ -168,15 +168,7 @@ public class Hud implements Disposable{
         return stage;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     public Stage getHeartStage() {
         return heartStage;
-    }
-
-    public void setHeartStage(Stage heartStage) {
-        this.heartStage = heartStage;
     }
 }

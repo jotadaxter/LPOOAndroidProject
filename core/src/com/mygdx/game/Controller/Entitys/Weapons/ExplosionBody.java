@@ -14,7 +14,6 @@ import com.mygdx.game.MyGame;
 
 public class ExplosionBody {
     public static final float DAMPING_NORMAL= 3f;
-    private World world;
     private BodyDef bdef;
     private Body body;
     private CircleShape shape;
@@ -22,8 +21,6 @@ public class ExplosionBody {
 
 
     public ExplosionBody(World world, Vector2 vec) {
-        //Body Definition
-        this.world=world;
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;

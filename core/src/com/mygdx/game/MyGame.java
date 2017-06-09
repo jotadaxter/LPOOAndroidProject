@@ -200,40 +200,20 @@ public class MyGame extends Game {
 		return batch;
 	}
 
-	public void setBatch(SpriteBatch batch) {
-		this.batch = batch;
-	}
-
 	public GameStateManager getGsm() {
 		return gsm;
-	}
-
-	public void setGsm(GameStateManager gsm) {
-		this.gsm = gsm;
 	}
 
 	public HeroStats getHeroStats() {
 		return heroStats;
 	}
 
-	public void setHeroStats(HeroStats heroStats) {
-		this.heroStats = heroStats;
-	}
-
 	public AssetManager getAssetManager() {
 		return assetManager;
 	}
 
-	public void setAssetManager(AssetManager assetManager) {
-		this.assetManager = assetManager;
-	}
-
 	public FileReader getFileReader() {
 		return fileReader;
-	}
-
-	public void setFileReader(FileReader fileReader) {
-		this.fileReader = fileReader;
 	}
 
 	@Override

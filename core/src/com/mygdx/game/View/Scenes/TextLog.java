@@ -20,8 +20,6 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class TextLog {
-    private GameScreen screen;
-    private MyGame game;
     private Stage stage;
     private Viewport viewport;
     private BitmapFont font;
@@ -31,17 +29,12 @@ public class TextLog {
     private int id;
 
     public TextLog(MyGame game, GameScreen screen) {
-        this.game=game;
-        this.screen=screen;
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, game.getBatch());
-        font = screen.getGame().getAssetManager().get("Fonts/score.fnt", BitmapFont.class);
-
+        font = screen.getGame().getAssetManager().get("Fonts/textFont.fnt", BitmapFont.class);
         logImage=new Image(screen.getGame().getAssetManager().get("Game/log.png", Texture.class));
         logImage.setPosition(5,0);
         stage.addActor(logImage);
-
-        //Label creation
         labels();
     }
 
@@ -53,10 +46,10 @@ public class TextLog {
         textLabel= new Label(text, new Label.LabelStyle(font, Color.WHITE));
         textLabel.setSize(5,5);
 
-        table.add(textLabel).width(500).height(500);
+        table.add(textLabel).width(70).height(100);
         stage.addActor(table);
     }
-    public void update(float dt){
+    public void update(){
         textLabel.setText(text);
     }
 
@@ -74,9 +67,5 @@ public class TextLog {
 
     public Stage getStage() {
         return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 }

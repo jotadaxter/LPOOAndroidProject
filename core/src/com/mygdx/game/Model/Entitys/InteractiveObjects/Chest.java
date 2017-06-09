@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class Chest extends Sprite{
-    //Loot Ratios
     public static final int GREEN_RUPEE_RATIO = 40;
     public static final int BLUE_RUPEE_RATIO = 60;
     public static final int RED_RUPEE_RATIO = 100;

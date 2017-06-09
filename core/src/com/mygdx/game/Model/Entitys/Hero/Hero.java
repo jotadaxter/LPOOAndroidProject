@@ -67,7 +67,6 @@ public class Hero extends Sprite{
 
     private Sound soundHurt;
     private Sound soundDying;
-    private boolean fallAnimationOn;
 
     public Hero(GameScreen screen, Vector2 vec){
         super(screen.getAtlas().findRegion("hero_front"));
@@ -108,7 +107,6 @@ public class Hero extends Sprite{
         setSignWasOpened(false);
         wasHit=false;
         setFell(false);
-        setFallAnimationOn(false);
         setBombExploding(false);
         throwBomb=false;
         addBomb=true;
@@ -145,7 +143,6 @@ public class Hero extends Sprite{
 
     public void update(float dt){
         if(isFell()){
-            setFallAnimationOn(true);
             if(screen.isD1blck())
                 heroBody.getBody().setTransform(RESET_POS1X, RESET_POS1Y, 0);
             else if(!screen.isD1blck())
@@ -377,10 +374,6 @@ public class Hero extends Sprite{
         this.bomb = bomb;
     }
 
-    public boolean isBombExploding() {
-        return bombExploding;
-    }
-
     public void setBombExploding(boolean bombExploding) {
         this.bombExploding = bombExploding;
     }
@@ -393,9 +386,6 @@ public class Hero extends Sprite{
         isInPlatform = inPlatform;
     }
 
-    public int getPlatformId() {
-        return platformId;
-    }
 
     public boolean isInPitfall() {
         return isInPitfall;
@@ -405,9 +395,6 @@ public class Hero extends Sprite{
         isInPitfall = inPitfall;
     }
 
-    public boolean isOpenChest() {
-        return openChest;
-    }
 
     public void setOpenChest(boolean openChest) {
         this.openChest = openChest;
@@ -429,11 +416,4 @@ public class Hero extends Sprite{
         this.fell = fell;
     }
 
-    public boolean isFallAnimationOn() {
-        return fallAnimationOn;
-    }
-
-    public void setFallAnimationOn(boolean fallAnimationOn) {
-        this.fallAnimationOn = fallAnimationOn;
-    }
 }

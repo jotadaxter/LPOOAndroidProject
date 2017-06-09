@@ -47,16 +47,4 @@ public class ChestBody{
     public Body getBody() {
         return body;
     }
-
-    public TextureRegion getFrame(float dt) {
-        TextureRegion region;
-
-        if (chest.isOpen()) {
-            region = chest.getOpenTex();
-        } else {
-            region = chest.getClosedTex();
-        }
-
-        return region;
-    }
 }

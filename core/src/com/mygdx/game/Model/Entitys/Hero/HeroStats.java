@@ -10,7 +10,7 @@ public class HeroStats {
 
     private int score;
     private int hearts;
-    private boolean volcanoRuby;//forestEmerald, oceanSaffire
+    private boolean volcanoRuby;
 
     public HeroStats() {
         this.score=0;

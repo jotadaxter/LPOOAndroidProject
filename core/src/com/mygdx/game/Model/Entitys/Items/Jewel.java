@@ -21,7 +21,6 @@ public class Jewel extends Item {
         super(screen, vec);
         this.value=value;
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_rupee.wav"));
-        //Texture Dimentions
         if(value>1 && value<50)
             setBounds(getX(),getY(), 7*MyGame.PIXEL_TO_METER,14*MyGame.PIXEL_TO_METER);
         else

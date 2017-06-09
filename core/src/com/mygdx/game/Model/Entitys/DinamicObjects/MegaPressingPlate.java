@@ -77,10 +77,6 @@ public class MegaPressingPlate extends Sprite {
         return notpressedTex;
     }
 
-    public boolean isPressAndHold(){
-        return press_and_hold;
-    }
-
     public TextureRegion getFrame(float dt) {
         TextureRegion region;
         if(isPressed()>=2) {
