@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Controller.Entitys.Weapons.BombBody;
 import com.mygdx.game.Controller.Entitys.Weapons.ExplosionBody;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
@@ -32,8 +31,8 @@ public class Bomb extends Sprite{
     private BombBody bombBody;
     private ExplosionBody explosionBody;
     private float soundTimer;
-    public enum State {TIC_TAC, BOOM, LAST};
-    public State currentState;
+    public enum State {TIC_TAC, BOOM}
+    private State currentState;
     private State previousState;
 
     //textures
@@ -42,7 +41,7 @@ public class Bomb extends Sprite{
     //Animations
     private Animation<TextureRegion> tic_tac;
     private Animation<TextureRegion> boom;
-    public float timer;
+    private float timer;
     private float tic_tac_timer;
     private Sound sound1;
     private Sound sound2;
@@ -55,12 +54,12 @@ public class Bomb extends Sprite{
         setPosition(vec.x,vec.y);
         toDestroy=false;
         destroyed=false;
-        timer=0;
+        setTimer(0);
         explosionBody= new ExplosionBody(world,new Vector2(0,0));
         tic_tac_timer=0;
         soundTimer=0;
         textureLoad();
-        currentState=State.TIC_TAC;
+        setCurrentState(State.TIC_TAC);
         animationLoad();
         setRegion(blue);
         setBounds(0, 0, 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
@@ -76,7 +75,7 @@ public class Bomb extends Sprite{
         frames.clear();
 
         for (int i = 0; i < 11; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/explosion.png", Texture.class), i * 47, 0, 47, 51));
+            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/explosion.png", Texture.class), i * 47, 0, 47, 51));
         }
         boom = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -84,8 +83,8 @@ public class Bomb extends Sprite{
     }
 
     private void textureLoad() {
-        blue= new TextureRegion(screen.getGame().assetManager.get("Game/bombs.png", Texture.class), 0,0,12,16);
-        red= new TextureRegion(screen.getGame().assetManager.get("Game/bombs.png", Texture.class), 12,0,12,16);
+        blue= new TextureRegion(screen.getGame().getAssetManager().get("Game/bombs.png", Texture.class), 0,0,12,16);
+        red= new TextureRegion(screen.getGame().getAssetManager().get("Game/bombs.png", Texture.class), 12,0,12,16);
     }
 
     public void destroy() {
@@ -99,9 +98,9 @@ public class Bomb extends Sprite{
             destroyed=true;
         }
         setPosition(bombBody.getBody().getPosition().x-getWidth()/2, bombBody.getBody().getPosition().y-getHeight()/2);
-        timer+=dt;
+        setTimer(getTimer() + dt);
         soundUpdate();
-        if(this.timer<MAX_TIMING)
+        if(this.getTimer() <MAX_TIMING)
             setRegion(getFrame(dt));
         else destroy();
     }
@@ -135,18 +134,18 @@ public class Bomb extends Sprite{
     }
 
     public State getState() {
-        if(timer<2){
-            hero.bombExploding=false;
+        if(getTimer() <2){
+            hero.setBombExploding(false);
             return State.TIC_TAC;
         }
         else{
-            hero.bombExploding=true;
+            hero.setBombExploding(true);
             return State.BOOM;
         }
     }
 
     public TextureRegion getFrame(float dt) {
-        currentState = getState();
+        setCurrentState(getState());
         TextureRegion region = getRegion();
         timerUpdate(dt);
         return region;
@@ -154,10 +153,10 @@ public class Bomb extends Sprite{
 
     public TextureRegion getRegion() {
         TextureRegion region= new TextureRegion();
-        if(currentState==State.TIC_TAC){
+        if(getCurrentState() ==State.TIC_TAC){
             setBounds(getX(), getY(), 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
             region = tic_tac.getKeyFrame(tic_tac_timer, true);
-        }else if(currentState==State.BOOM){
+        }else if(getCurrentState() ==State.BOOM){
             setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
             region = boom.getKeyFrame(tic_tac_timer, false);
         }
@@ -165,16 +164,33 @@ public class Bomb extends Sprite{
     }
 
     private void timerUpdate(float dt) {
-        tic_tac_timer=currentState == previousState ?tic_tac_timer + dt : 0;
-        if(previousState==currentState){
+        tic_tac_timer= getCurrentState() == previousState ?tic_tac_timer + dt : 0;
+        if(previousState== getCurrentState()){
             tic_tac_timer+=(dt);
         }else{
             tic_tac_timer=0;
         }
-        previousState=currentState;
+        previousState= getCurrentState();
     }
 
     public World getWorld() {
         return world;
     }
+
+    public State getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(State currentState) {
+        this.currentState = currentState;
+    }
+
+    public float getTimer() {
+        return timer;
+    }
+
+    public void setTimer(float timer) {
+        this.timer = timer;
+    }
+
 }

@@ -17,11 +17,9 @@ public class WayBlockerBody{
     private Body body;
     private BodyDef bdef;
     private FixtureDef fdef;
-    private WayBlocker blocker;
 
     public WayBlockerBody(World world, WayBlocker blocker, Vector2 vec) {
         bdef = new BodyDef();
-        this.blocker = blocker;
         bdef.position.set(vec.x * MyGame.PIXEL_TO_METER, vec.y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;//ver solidez do objeto
         body = world.createBody(bdef);

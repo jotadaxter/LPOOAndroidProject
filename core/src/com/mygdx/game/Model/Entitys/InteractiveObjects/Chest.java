@@ -49,8 +49,8 @@ public class Chest extends Sprite{
     }
 
     private void textureLoad() {
-        chest_open = new TextureRegion(screen.getGame().assetManager.get("Game/chests.png", Texture.class), 16,0,16,16);
-        chest_closed = new TextureRegion(screen.getGame().assetManager.get("Game/chests.png", Texture.class), 0,0,16,16);
+        chest_open = new TextureRegion(screen.getGame().getAssetManager().get("Game/chests.png", Texture.class), 16,0,16,16);
+        chest_closed = new TextureRegion(screen.getGame().getAssetManager().get("Game/chests.png", Texture.class), 0,0,16,16);
     }
 
     public void update(float dt) {

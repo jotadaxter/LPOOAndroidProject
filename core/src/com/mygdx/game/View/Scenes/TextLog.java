@@ -22,7 +22,7 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 public class TextLog {
     private GameScreen screen;
     private MyGame game;
-    public Stage stage;
+    private Stage stage;
     private Viewport viewport;
     private BitmapFont font;
     private String text;
@@ -34,10 +34,10 @@ public class TextLog {
         this.game=game;
         this.screen=screen;
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, game.batch);
-        font = screen.getGame().assetManager.get("Fonts/score.fnt", BitmapFont.class);
+        stage = new Stage(viewport, game.getBatch());
+        font = screen.getGame().getAssetManager().get("Fonts/score.fnt", BitmapFont.class);
 
-        logImage=new Image(screen.getGame().assetManager.get("Game/log.png", Texture.class));
+        logImage=new Image(screen.getGame().getAssetManager().get("Game/log.png", Texture.class));
         logImage.setPosition(5,0);
         stage.addActor(logImage);
 
@@ -70,5 +70,13 @@ public class TextLog {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

@@ -37,43 +37,42 @@ public class Hero extends Sprite{
     private TextureRegion standFront;
 
     //Animations
-    public Animation<TextureRegion> heroWalkRight;
-    public Animation<TextureRegion> heroWalkUp;
-    public Animation<TextureRegion> heroWalkDown;
-    public Animation<TextureRegion> heroDying;
-    public Animation<TextureRegion> heroHurt;
-    public float upDownTimer;
-    public float leftRightTimer;
+    private Animation<TextureRegion> heroWalkRight;
+    private Animation<TextureRegion> heroWalkUp;
+    private Animation<TextureRegion> heroWalkDown;
+    private Animation<TextureRegion> heroDying;
+    private Animation<TextureRegion> heroHurt;
+    private float upDownTimer;
+    private float leftRightTimer;
 
-    public World world;
+    private World world;
     private HeroBody heroBody;
     private GameScreen screen;
     private ArrayList<Bomb> bombs;
-    public Bomb bomb;
+    private Bomb bomb;
 
     private boolean throwBomb;
     private boolean addBomb;
     private float bombCount;
-    public boolean bombExploding;
-    public boolean isInPlatform;
-    public int platformId;
-    public boolean isInPitfall;
-    public boolean openChest;
+    private boolean bombExploding;
+    private boolean isInPlatform;
+    private int platformId;
+    private boolean isInPitfall;
+    private boolean openChest;
     private int openedChestId;
-    private boolean openLog;
     private int openedSignId;
-    public boolean signWasOpened;
+    private boolean signWasOpened;
     private boolean wasHit;
-    public boolean fell;
+    private boolean fell;
 
     private Sound soundHurt;
     private Sound soundDying;
-    public boolean fallAnimationOn;
+    private boolean fallAnimationOn;
 
     public Hero(GameScreen screen, Vector2 vec){
         super(screen.getAtlas().findRegion("hero_front"));
         this.screen=screen;
-        this.world=screen.getWorld();
+        this.setWorld(screen.getWorld());
         booleanDefinition();
         resetCounters();
         this.bombs=new ArrayList<Bomb>();
@@ -97,38 +96,37 @@ public class Hero extends Sprite{
         bombCount=0;
         openedChestId=-1;
         openedSignId=-1;
-        platformId=-1;
-        upDownTimer=0;
-        leftRightTimer=0;
+        setPlatformId(-1);
+        setUpDownTimer(0);
+        setLeftRightTimer(0);
     }
 
     private void booleanDefinition() {
-        isInPlatform=false;
-        isInPitfall=false;
-        openChest=false;
-        openLog=false;
-        signWasOpened=false;
+        setInPlatform(false);
+        setInPitfall(false);
+        setOpenChest(false);
+        setSignWasOpened(false);
         wasHit=false;
-        fell=false;
-        fallAnimationOn=false;
-        bombExploding=false;
+        setFell(false);
+        setFallAnimationOn(false);
+        setBombExploding(false);
         throwBomb=false;
         addBomb=true;
     }
 
     private void heroAnimations() {
-        heroWalkUp=animationAtlasLoad("hero_walk_up", new Vector3(18,24,9));
-        heroWalkDown=animationAtlasLoad("hero_walk_down", new Vector3(18,24,9));
-        heroWalkRight=animationAtlasLoad("hero_walk_right", new Vector3(23,23,9));
+        setHeroWalkUp(animationAtlasLoad("hero_walk_up", new Vector3(18,24,9)));
+        setHeroWalkDown(animationAtlasLoad("hero_walk_down", new Vector3(18,24,9)));
+        setHeroWalkRight(animationAtlasLoad("hero_walk_right", new Vector3(23,23,9)));
 
-        heroHurt= animationAssetLoad("Game/hero_hurt.png", new Vector3(31,32,2));
-        heroDying= animationAssetLoad("Game/hero_dying.png", new Vector3(25,24,5));
+        setHeroHurt(animationAssetLoad("Game/hero_hurt.png", new Vector3(31,32,2)));
+        setHeroDying(animationAssetLoad("Game/hero_dying.png", new Vector3(25,24,5)));
     }
 
     private Animation<TextureRegion> animationAssetLoad(String name, Vector3 vec) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < (int)vec.z; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get(name, Texture.class), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
+            frames.add(new TextureRegion(screen.getGame().getAssetManager().get(name, Texture.class), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
         }
         Animation<TextureRegion> animation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -146,13 +144,13 @@ public class Hero extends Sprite{
     }
 
     public void update(float dt){
-        if(fell){
-            fallAnimationOn=true;
-            if(screen.d1blck)
-                heroBody.getBody().setTransform(RESET_POS1X , RESET_POS1Y, 0);
-            else if(!screen.d1blck)
-                heroBody.getBody().setTransform(RESET_POS2X , RESET_POS2Y, 0);
-            fell=false;
+        if(isFell()){
+            setFallAnimationOn(true);
+            if(screen.isD1blck())
+                heroBody.getBody().setTransform(RESET_POS1X, RESET_POS1Y, 0);
+            else if(!screen.isD1blck())
+                heroBody.getBody().setTransform(RESET_POS2X, RESET_POS2Y, 0);
+            setFell(false);
         }
       else setPosition(heroBody.getBody().getPosition().x-getWidth()/2, heroBody.getBody().getPosition().y-getHeight()/2);
         setRegion(heroBody.getFrame(this,dt));
@@ -177,13 +175,13 @@ public class Hero extends Sprite{
         if(item.getType()=="jewel")
             addScore(((Jewel)item).getValue());
         else if(item.getType()=="heart")
-            screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()+1);
+            screen.getGame().getHeroStats().setHearts(screen.getGame().getHeroStats().getHearts()+1);
         else if(item.getType()=="volcano_ruby")
-            screen.getGame().heroStats.gotVolcanoRuby();
+            screen.getGame().getHeroStats().gotVolcanoRuby();
     }
 
     public void addScore(int value) {
-        screen.getGame().heroStats.setScore(screen.getGame().heroStats.getScore()+value);
+        screen.getGame().getHeroStats().setScore(screen.getGame().getHeroStats().getScore()+value);
     }
 
     public TextureRegion getStandRight(){
@@ -207,20 +205,20 @@ public class Hero extends Sprite{
     }
 
     public int getHealth() {
-        return screen.getGame().heroStats.getHearts();
+        return screen.getGame().getHeroStats().getHearts();
     }
 
     public void hit(){
         Gdx.input.vibrate(MyGame.VIBRATION);
-        screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
+        screen.getGame().getHeroStats().setHearts(screen.getGame().getHeroStats().getHearts()-1);
         wasHit=true;
     }
 
     public void fall(){
         Gdx.input.vibrate(MyGame.VIBRATION);
         soundHurt.play(MyGame.SOUND_VOLUME);
-        screen.getGame().heroStats.setHearts(screen.getGame().heroStats.getHearts()-1);
-        fell=true;
+        screen.getGame().getHeroStats().setHearts(screen.getGame().getHeroStats().getHearts()-1);
+        setFell(true);
     }
 
     public void throwBomb() {
@@ -228,21 +226,21 @@ public class Hero extends Sprite{
             return;
         throwBomb=true;
         Vector2 v1 = getNewBombPosition();
-        bomb= new Bomb(screen,this,new Vector2(0,0));
-        bomb.setNewPosition(v1.x*MyGame.PIXEL_TO_METER,v1.y*MyGame.PIXEL_TO_METER);
-        bombs.add(bomb);
+        setBomb(new Bomb(screen,this,new Vector2(0,0)));
+        getBomb().setNewPosition(v1.x*MyGame.PIXEL_TO_METER,v1.y*MyGame.PIXEL_TO_METER);
+        bombs.add(getBomb());
         addBomb=false;
     }
 
     private Vector2 getNewBombPosition() {
         float xx=heroBody.getBody().getPosition().x*16, yy=heroBody.getBody().getPosition().y*16;
-        if(heroBody.currentState == HeroBody.State.STAND_UP || heroBody.currentState == HeroBody.State.WALK_UP)
+        if(heroBody.getCurrentState() == HeroBody.State.STAND_UP || heroBody.getCurrentState() == HeroBody.State.WALK_UP)
             yy+=16;
-        else if(heroBody.currentState == HeroBody.State.STAND_DOWN || heroBody.currentState == HeroBody.State.WALK_DOWN)
+        else if(heroBody.getCurrentState() == HeroBody.State.STAND_DOWN || heroBody.getCurrentState() == HeroBody.State.WALK_DOWN)
             yy-=16;
-        else if(heroBody.currentState == HeroBody.State.STAND_RIGHT || heroBody.currentState == HeroBody.State.WALK_RIGHT)
+        else if(heroBody.getCurrentState() == HeroBody.State.STAND_RIGHT || heroBody.getCurrentState() == HeroBody.State.WALK_RIGHT)
             xx+=16;
-        else if(heroBody.currentState == HeroBody.State.STAND_LEFT || heroBody.currentState == HeroBody.State.WALK_LEFT)
+        else if(heroBody.getCurrentState() == HeroBody.State.STAND_LEFT || heroBody.getCurrentState() == HeroBody.State.WALK_LEFT)
             xx-=16;
         return new Vector2(xx,yy);
     }
@@ -260,11 +258,11 @@ public class Hero extends Sprite{
     }
 
     public void setIsInPlatform(boolean val){
-        isInPlatform=val;
+        setInPlatform(val);
     }
 
     public boolean getIsInPlatform(){
-        return isInPlatform;
+        return isInPlatform();
     }
 
     public void setOpenedChestId(int id) {
@@ -305,5 +303,137 @@ public class Hero extends Sprite{
 
     public Sound getSoundDying() {
         return soundDying;
+    }
+
+    public Animation<TextureRegion> getHeroWalkRight() {
+        return heroWalkRight;
+    }
+
+    public void setHeroWalkRight(Animation<TextureRegion> heroWalkRight) {
+        this.heroWalkRight = heroWalkRight;
+    }
+
+    public Animation<TextureRegion> getHeroWalkUp() {
+        return heroWalkUp;
+    }
+
+    public void setHeroWalkUp(Animation<TextureRegion> heroWalkUp) {
+        this.heroWalkUp = heroWalkUp;
+    }
+
+    public Animation<TextureRegion> getHeroWalkDown() {
+        return heroWalkDown;
+    }
+
+    public void setHeroWalkDown(Animation<TextureRegion> heroWalkDown) {
+        this.heroWalkDown = heroWalkDown;
+    }
+
+    public Animation<TextureRegion> getHeroDying() {
+        return heroDying;
+    }
+
+    public void setHeroDying(Animation<TextureRegion> heroDying) {
+        this.heroDying = heroDying;
+    }
+
+    public Animation<TextureRegion> getHeroHurt() {
+        return heroHurt;
+    }
+
+    public void setHeroHurt(Animation<TextureRegion> heroHurt) {
+        this.heroHurt = heroHurt;
+    }
+
+    public float getUpDownTimer() {
+        return upDownTimer;
+    }
+
+    public void setUpDownTimer(float upDownTimer) {
+        this.upDownTimer = upDownTimer;
+    }
+
+    public float getLeftRightTimer() {
+        return leftRightTimer;
+    }
+
+    public void setLeftRightTimer(float leftRightTimer) {
+        this.leftRightTimer = leftRightTimer;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    public Bomb getBomb() {
+        return bomb;
+    }
+
+    public void setBomb(Bomb bomb) {
+        this.bomb = bomb;
+    }
+
+    public boolean isBombExploding() {
+        return bombExploding;
+    }
+
+    public void setBombExploding(boolean bombExploding) {
+        this.bombExploding = bombExploding;
+    }
+
+    public boolean isInPlatform() {
+        return isInPlatform;
+    }
+
+    public void setInPlatform(boolean inPlatform) {
+        isInPlatform = inPlatform;
+    }
+
+    public int getPlatformId() {
+        return platformId;
+    }
+
+    public boolean isInPitfall() {
+        return isInPitfall;
+    }
+
+    public void setInPitfall(boolean inPitfall) {
+        isInPitfall = inPitfall;
+    }
+
+    public boolean isOpenChest() {
+        return openChest;
+    }
+
+    public void setOpenChest(boolean openChest) {
+        this.openChest = openChest;
+    }
+
+    public boolean isSignWasOpened() {
+        return signWasOpened;
+    }
+
+    public void setSignWasOpened(boolean signWasOpened) {
+        this.signWasOpened = signWasOpened;
+    }
+
+    public boolean isFell() {
+        return fell;
+    }
+
+    public void setFell(boolean fell) {
+        this.fell = fell;
+    }
+
+    public boolean isFallAnimationOn() {
+        return fallAnimationOn;
+    }
+
+    public void setFallAnimationOn(boolean fallAnimationOn) {
+        this.fallAnimationOn = fallAnimationOn;
     }
 }

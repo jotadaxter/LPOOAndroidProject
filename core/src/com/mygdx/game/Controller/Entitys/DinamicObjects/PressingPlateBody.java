@@ -18,6 +18,7 @@ public class PressingPlateBody{
     private Body body;
     private BodyDef bdef;
     private FixtureDef fdef;
+
     public PressingPlateBody(World world, PressingPlate pressingPlate, Vector2 vec) {
        bdef = new BodyDef();
        bdef.position.set(vec.x * MyGame.PIXEL_TO_METER, vec.y * MyGame.PIXEL_TO_METER);

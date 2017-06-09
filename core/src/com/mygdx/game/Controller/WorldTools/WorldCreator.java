@@ -21,12 +21,7 @@ import com.mygdx.game.Controller.Entitys.TileObjects.Obstacle;
 
 public class WorldCreator {
     public WorldCreator(GameScreen screen) {
-        World world=screen.getWorld();
         TiledMap tiledMap= screen.getMap();
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
 
         //Obstacle Fixtures
         for(MapObject object : tiledMap.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
@@ -40,7 +35,6 @@ public class WorldCreator {
             String name="";
             name= (String)object.getProperties().get("Id");
             new Door(screen, object, Integer.parseInt(name));
-            Gdx.app.log("DoorId",name);
         }
 
         //PitFall Fixtures

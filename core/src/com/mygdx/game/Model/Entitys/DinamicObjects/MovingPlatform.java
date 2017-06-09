@@ -23,15 +23,13 @@ import static sun.misc.VM.getState;
  */
 
 public class MovingPlatform extends Sprite {
-  private GameScreen screen;
+    private GameScreen screen;
     private World world;
     private Animation<TextureRegion> movingDown;
     private Animation<TextureRegion> movingUp;
     private Animation<TextureRegion> movingLeft;
     private MovingPlatformBody platformBody;
     private int id;
-    private Sound sound;
-    private int soundTimer;
     private float moving_timer;
     private int type;
 
@@ -44,8 +42,6 @@ public class MovingPlatform extends Sprite {
         this.screen=screen;
         this.type=type;
         id = 0;
-        sound = Gdx.audio.newSound(Gdx.files.internal("Sounds/moving_platform.wav"));
-        soundTimer=0;
         moving_timer=0;
         platformBody = new MovingPlatformBody(world, this, vec);
         loadAnimation();
@@ -56,38 +52,32 @@ public class MovingPlatform extends Sprite {
     private void loadAnimation() {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/moving_platform_down.png", Texture.class), i * 32, 0, 32, 32));
+            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/moving_platform_down.png", Texture.class), i * 32, 0, 32, 32));
         }
         movingDown = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/moving_platform_up.png", Texture.class), i * 32, 0, 32, 32));
+            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/moving_platform_up.png", Texture.class), i * 32, 0, 32, 32));
         }
         movingUp = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/moving_platform_left.png", Texture.class), 0, i * 32, 32, 32));
+            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/moving_platform_left.png", Texture.class), 0, i * 32, 32, 32));
         }
         movingLeft = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
     }
 
     public void update(float dt) {
-        if(soundTimer>6){
-            //sound.play(MyGame.SOUND_VOLUME);
-            soundTimer=0;
-        }
         float speed;
         if(Gdx.app.getType() == Application.ApplicationType.Android)
             speed=MyGame.PLATFORM_VELOCITY_ANDROID;
         else speed=MyGame.PLATFORM_VELOCITY_PC;
         movementType(dt, speed);
-
         setPosition(platformBody.getBody().getPosition().x - getWidth() / 2, platformBody.getBody().getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
-        soundTimer+=dt;
     }
 
     private void movementType(float dt, float speed) {

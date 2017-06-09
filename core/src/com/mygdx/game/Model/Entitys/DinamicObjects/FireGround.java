@@ -23,16 +23,12 @@ public class FireGround extends Sprite{
     private Animation<TextureRegion> fireAnimation;
     private FireGroundBody fireGroundBody;
     private float fire_timer;
-    private Sound sound;
-    private float soundTimer;
 
     public FireGround(GameScreen screen, Vector2 vec) {
         super(screen.getAtlas().findRegion("spikes"));
         this.screen=screen;
         this.world=screen.getWorld();
         fire_timer=0;
-        sound= Gdx.audio.newSound(Gdx.files.internal("Sounds/fire.wav"));
-        soundTimer=0;
         fireGroundBody= new FireGroundBody(world,this,vec);
         loadAnimation();
         setPosition(vec.x,vec.y);
@@ -41,7 +37,7 @@ public class FireGround extends Sprite{
     private void loadAnimation() {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(screen.getGame().assetManager.get("Game/fire.png", Texture.class), i * 16, 0, 16, 16));
+            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/fire.png", Texture.class), i * 16, 0, 16, 16));
         }
         fireAnimation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -50,13 +46,8 @@ public class FireGround extends Sprite{
     }
 
     public void update(float dt){
-        if(soundTimer>3){
-          //  sound.play(MyGame.FIREGROUND_SOUND);
-            soundTimer=0;
-        }
         setPosition(fireGroundBody.getBody().getPosition().x-getWidth()/2, fireGroundBody.getBody().getPosition().y-getHeight()/2);
         setRegion(getFrame(dt));
-        soundTimer+=dt;
     }
 
     private TextureRegion getFrame(float dt) {

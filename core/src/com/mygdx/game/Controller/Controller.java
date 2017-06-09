@@ -1,11 +1,9 @@
 package com.mygdx.game.Controller;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 22/04/2017.
@@ -23,7 +20,7 @@ public class Controller {
     public static final int VIEWPORT_WIDTH=240;
     public static final int VIEWPORT_HEIGHT=160;
     public static final int BTN_WIDTH = 20;
-    public static final int BTN_HEIGTH = 20;
+    public static final int BTN_HEIGHT = 20;
     public static final int BTN_AB_WIDTH = 50;
     public static final int BTN_AB_HEIGHT = 50;
 
@@ -45,7 +42,7 @@ public class Controller {
         this.game=game;
         cam = new OrthographicCamera();
         viewport = new FitViewport(VIEWPORT_WIDTH,VIEWPORT_HEIGHT,cam);
-        stage= new Stage(viewport,game.batch);
+        stage= new Stage(viewport,game.getBatch());
         addKeyDownListener();
         addKeyUpListener();
         Gdx.input.setInputProcessor(stage);
@@ -138,21 +135,21 @@ public class Controller {
     }
 
     private void imageLoad() {
-        downImg = new Image(game.assetManager.get("Buttons/down_arrow.png", Texture.class));
+        downImg = new Image(game.getAssetManager().get("Buttons/down_arrow.png", Texture.class));
         btnDownConfig(downImg);
-        upImg =new Image(game.assetManager.get("Buttons/up_arrow.png", Texture.class));
+        upImg =new Image(game.getAssetManager().get("Buttons/up_arrow.png", Texture.class));
         btnUpConfig(upImg);
-        rightImg =new Image(game.assetManager.get("Buttons/right_arrow.png", Texture.class));
+        rightImg =new Image(game.getAssetManager().get("Buttons/right_arrow.png", Texture.class));
         btnRightConfig(rightImg);
-        leftImg = new Image(game.assetManager.get("Buttons/left_arrow.png", Texture.class));
+        leftImg = new Image(game.getAssetManager().get("Buttons/left_arrow.png", Texture.class));
         btnLeftConfig(leftImg);
-        aImg =new Image(game.assetManager.get("Buttons/a_button.png", Texture.class));
+        aImg =new Image(game.getAssetManager().get("Buttons/a_button.png", Texture.class));
         aConfig(aImg);
-        bImg =new Image(game.assetManager.get("Buttons/b_button.png", Texture.class));
+        bImg =new Image(game.getAssetManager().get("Buttons/b_button.png", Texture.class));
         bConfig(bImg);
-        escImg =new Image(game.assetManager.get("Buttons/esc_button.png", Texture.class));
+        escImg =new Image(game.getAssetManager().get("Buttons/esc_button.png", Texture.class));
         escConfig(escImg);
-        optionsImg =new Image(game.assetManager.get("Buttons/options_menu.png", Texture.class));
+        optionsImg =new Image(game.getAssetManager().get("Buttons/options_menu.png", Texture.class));
         optionsConfig(optionsImg);
     }
 
@@ -221,7 +218,7 @@ public class Controller {
     }
 
     private void btnDownConfig(Image image) {
-        image.setSize(BTN_WIDTH,BTN_HEIGTH);
+        image.setSize(BTN_WIDTH, BTN_HEIGHT);
         image.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -236,7 +233,7 @@ public class Controller {
     }
 
     private void btnUpConfig(Image image) {
-        image.setSize(BTN_WIDTH,BTN_HEIGTH);
+        image.setSize(BTN_WIDTH, BTN_HEIGHT);
         image.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -251,7 +248,7 @@ public class Controller {
     }
 
     private void btnRightConfig(Image image) {
-        image.setSize(BTN_WIDTH,BTN_HEIGTH);
+        image.setSize(BTN_WIDTH, BTN_HEIGHT);
         image.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -266,7 +263,7 @@ public class Controller {
     }
 
     private void btnLeftConfig(Image image) {
-        image.setSize(BTN_WIDTH,BTN_HEIGTH);
+        image.setSize(BTN_WIDTH, BTN_HEIGHT);
         image.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

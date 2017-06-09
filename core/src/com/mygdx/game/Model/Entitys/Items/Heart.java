@@ -14,7 +14,7 @@ import com.mygdx.game.Model.Entitys.Hero.Hero;
 
 public class Heart extends Item {
     private HeartBody heartBody;
-    Sound sound;
+    private Sound sound;
 
     public Heart(GameScreen screen, Vector2 vec) {
         super(screen, vec);

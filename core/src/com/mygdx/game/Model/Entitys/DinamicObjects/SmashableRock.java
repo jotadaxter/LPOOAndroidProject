@@ -24,7 +24,6 @@ public class SmashableRock extends Sprite{
     private boolean toDestroy;
     private boolean destroyed;
     private SmashableRockBody rockBody;
-    private Sound sound;
     private int timer;
     private boolean incTimer;
 
@@ -39,7 +38,6 @@ public class SmashableRock extends Sprite{
         setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(blockFigure);
-        sound= Gdx.audio.newSound(Gdx.files.internal("Sounds/rock_shatter.wav"));
     }
 
     public void destroy(){
@@ -48,7 +46,6 @@ public class SmashableRock extends Sprite{
 
     public void update(float dt){
         if(toDestroy && !destroyed){
-            //sound.play(MyGame.SOUND_VOLUME);
             world.destroyBody(rockBody.getBody());
             destroyed=true;
         }

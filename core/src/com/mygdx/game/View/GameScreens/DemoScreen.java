@@ -24,13 +24,10 @@ public class DemoScreen extends GameScreen {
     public static final int PP_X = 8+14*16;
     public static final int PP_Y = 8+8*16;
 
-    public static final int DOOR_ID=2;
-
     public DemoScreen(MyGame game, Vector2 vec) {
         super(game, vec);
         type= DemoScreen.class;
         Gdx.input.setInputProcessor(controller.getStage());
-
     }
 
     @Override
@@ -59,7 +56,7 @@ public class DemoScreen extends GameScreen {
         sign1.addSignId(0);
         signs.add(sign1);
         TextLog log1 = new TextLog(game, this);
-        log1.setText(game.fileReader.getSignText("sign1"));
+        log1.setText(game.getFileReader().getSignText("sign1"));
         log1.setId(0);
         textlogs.add(log1);
 
@@ -67,7 +64,7 @@ public class DemoScreen extends GameScreen {
         sign2.addSignId(1);
         signs.add(sign2);
         TextLog log2 = new TextLog(game, this);
-        log2.setText(game.fileReader.getSignText("sign2"));
+        log2.setText(game.getFileReader().getSignText("sign2"));
         log2.setId(1);
         textlogs.add(log2);
 
@@ -75,7 +72,7 @@ public class DemoScreen extends GameScreen {
         sign3.addSignId(2);
         signs.add(sign3);
         TextLog log3 = new TextLog(game, this);
-        log3.setText(game.fileReader.getSignText("sign3"));
+        log3.setText(game.getFileReader().getSignText("sign3"));
         log3.setId(2);
         textlogs.add(log3);
 
@@ -83,7 +80,7 @@ public class DemoScreen extends GameScreen {
         sign4.addSignId(3);
         signs.add(sign4);
         TextLog log4 = new TextLog(game, this);
-        log4.setText(game.fileReader.getSignText("sign4"));
+        log4.setText(game.getFileReader().getSignText("sign4"));
         log4.setId(3);
         textlogs.add(log4);
     }
@@ -121,13 +118,13 @@ public class DemoScreen extends GameScreen {
     @Override
     public void objectsDraw() {
         for(SmashableRock sm : smashRocks)
-            sm.draw(game.batch);
+            sm.draw(game.getBatch());
         for(PressingPlate pp : pps)
-            pp.draw(game.batch);
+            pp.draw(game.getBatch());
         for(Boulder boulder : boulders)
-            boulder.draw(game.batch);
+            boulder.draw(game.getBatch());
         for(Sign sign :signs)
-            sign.draw(game.batch);
+            sign.draw(game.getBatch());
 
     }
 }

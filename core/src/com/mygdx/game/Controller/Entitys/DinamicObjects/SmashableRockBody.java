@@ -17,11 +17,9 @@ public class SmashableRockBody{
     private Body body;
     private BodyDef bdef;
     private FixtureDef fdef;
-    private SmashableRock rock;
 
     public SmashableRockBody(World world, SmashableRock rock, Vector2 vec) {
         bdef = new BodyDef();
-        this.rock = rock;
         bdef.position.set(vec.x * MyGame.PIXEL_TO_METER, vec.y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;//ver solidez do objeto
         body = world.createBody(bdef);

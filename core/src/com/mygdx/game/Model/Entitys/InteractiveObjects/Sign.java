@@ -27,7 +27,6 @@ public class Sign extends Sprite{
     private boolean openLog;
     private int id;
 
-
     public Sign(GameScreen screen, Vector2 vec) {
         this.world=screen.getWorld();
         this.screen=screen;
@@ -40,7 +39,7 @@ public class Sign extends Sprite{
     }
 
     private void textureLoad() {
-        signTex = new TextureRegion(screen.getGame().assetManager.get("Game/sign.png", Texture.class), 0,0,15,16);
+        signTex = new TextureRegion(screen.getGame().getAssetManager().get("Game/sign.png", Texture.class), 0,0,15,16);
     }
 
     public void update(){

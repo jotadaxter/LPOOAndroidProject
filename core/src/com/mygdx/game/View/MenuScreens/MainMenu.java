@@ -22,9 +22,6 @@ import java.util.ArrayList;
  */
 
 public class MainMenu extends MenuScreen {
-    //Hero starting position in the tutorial
-    public static final int POSX = 8+9*16+8;
-    public static final int POSY = 8+11*16;
     private Stage stage;
     private Texture texture;
     private Texture title;
@@ -43,13 +40,13 @@ public class MainMenu extends MenuScreen {
 
     public MainMenu(MyGame game) {
         super(game);
-        stage= new Stage(viewPort,game.batch);
-        texture =game.assetManager.get("Menus/main_menu.jpg", Texture.class);
-        title = game.assetManager.get("Menus/game_title.png", Texture.class);
-        arcadetex =game.assetManager.get("Buttons/arcade_button.png", Texture.class);
-        storytex =game.assetManager.get("Buttons/story_button.png", Texture.class);
-        optionstex =game.assetManager.get("Buttons/options_button.png", Texture.class);
-        quittex =game.assetManager.get("Buttons/quit_button.png", Texture.class);
+        stage= new Stage(viewPort,game.getBatch());
+        texture =game.getAssetManager().get("Menus/main_menu.jpg", Texture.class);
+        title = game.getAssetManager().get("Menus/game_title.png", Texture.class);
+        arcadetex =game.getAssetManager().get("Buttons/arcade_button.png", Texture.class);
+        storytex =game.getAssetManager().get("Buttons/story_button.png", Texture.class);
+        optionstex =game.getAssetManager().get("Buttons/options_button.png", Texture.class);
+        quittex =game.getAssetManager().get("Buttons/quit_button.png", Texture.class);
 
 
         Drawable storydrawable = new TextureRegionDrawable(new TextureRegion(storytex));
@@ -76,23 +73,23 @@ public class MainMenu extends MenuScreen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.begin();
+        game.getBatch().begin();
 
-        game.batch.draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
-        game.batch.draw(title, 180,400-20);
-        game.batch.end();
+        game.getBatch().draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
+        game.getBatch().draw(title, 180,400-20);
+        game.getBatch().end();
 
         stage.draw();
 
         if(storyButton.isPressed()){
             //game.setScreen(new Dungeon1(game));
             //game.gsm.push(new FreeWorld(game));
-            game.gsm.push(new GameState(new FreeWorld(game)));
+            game.getGsm().push(new GameState(new FreeWorld(game)));
             //game.gsm.push(new DemoScreen(game,POSX,POSY));
         }
 
         if (optionsButton.isPressed()){
-            game.gsm.push(new GameState(new OptionsMenu(game)));
+            game.getGsm().push(new GameState(new OptionsMenu(game)));
         }
 
         if (quitButton.isPressed()){

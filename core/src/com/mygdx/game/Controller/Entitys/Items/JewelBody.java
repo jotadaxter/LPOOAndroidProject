@@ -16,18 +16,13 @@ import com.mygdx.game.MyGame;
 public class JewelBody {
     private BodyDef bdef;
     private Body body;
-    private Jewel jewel;
 
     public JewelBody(World world,Jewel jewel,int value, Vector2 vec) {
-        //Body Definition
-        bdef= new BodyDef();
         bdef.position.set(vec.x*MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;
         body=world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-
-        //Fisical Dimentions
         if(value>1 && value<50)
             shape.setAsBox(4*MyGame.PIXEL_TO_METER,6*MyGame.PIXEL_TO_METER);
         else

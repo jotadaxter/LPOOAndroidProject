@@ -14,12 +14,10 @@ import com.mygdx.game.MyGame;
  */
 
 public class SignBody{
-    private Sign sign;
     private Body body;
     private BodyDef bdef;
 
     public SignBody(World world, Sign sign, Vector2 vec) {
-        this.sign=sign;
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y* MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;

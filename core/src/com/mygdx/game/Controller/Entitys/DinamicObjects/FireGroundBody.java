@@ -15,7 +15,6 @@ import com.mygdx.game.MyGame;
  */
 
 public class FireGroundBody{
-    private Rectangle bounds;
     private Body body;
     private BodyDef bdef;
     private FixtureDef fdef;
@@ -38,7 +37,6 @@ public class FireGroundBody{
         fdef.shape= shape;
         fdef.restitution = 3f;
         body.createFixture(fdef).setUserData(fireGround);
-
     }
 
     public Body getBody() {

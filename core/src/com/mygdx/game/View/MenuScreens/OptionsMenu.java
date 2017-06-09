@@ -21,9 +21,6 @@ import java.awt.Color;
  */
 
 public class OptionsMenu extends MenuScreen {
-    //Hero starting position in the tutorial
-    public static final int POSX = 8+9*16+8;
-    public static final int POSY = 8+11*16;
     private Stage stage;
     private Texture texture;
     private Texture title;
@@ -34,17 +31,16 @@ public class OptionsMenu extends MenuScreen {
     private Texture checked;
     private Texture unchecked;
 
-    CheckBox musicCheck;
-    CheckBox soundCheck;
-    CheckBox vibrationCheck;
+    private CheckBox musicCheck;
+    private CheckBox soundCheck;
+    private CheckBox vibrationCheck;
 
     private Texture backtex;
     private ImageButton backButton;
 
-
     public OptionsMenu(MyGame game) {
         super(game);
-        stage= new Stage(viewPort,game.batch);
+        stage= new Stage(viewPort,game.getBatch());
         loadAssets();
         backButtonDefine();
 
@@ -92,14 +88,14 @@ public class OptionsMenu extends MenuScreen {
     }
 
     private void loadAssets() {
-        texture =game.assetManager.get("Menus/main_menu.jpg", Texture.class);
-        title = game.assetManager.get("Menus/options_title.png", Texture.class);
-        music = game.assetManager.get("Menus/music_text.png", Texture.class);
-        sounds = game.assetManager.get("Menus/sounds_text.png", Texture.class);
-        vibration = game.assetManager.get("Menus/vibration_text.png", Texture.class);
-        checked = game.assetManager.get("Menus/checked.png", Texture.class);
-        unchecked = game.assetManager.get("Menus/unchecked.png", Texture.class);
-        backtex = game.assetManager.get("Buttons/back_button.png", Texture.class);
+        texture =game.getAssetManager().get("Menus/main_menu.jpg", Texture.class);
+        title = game.getAssetManager().get("Menus/options_title.png", Texture.class);
+        music = game.getAssetManager().get("Menus/music_text.png", Texture.class);
+        sounds = game.getAssetManager().get("Menus/sounds_text.png", Texture.class);
+        vibration = game.getAssetManager().get("Menus/vibration_text.png", Texture.class);
+        checked = game.getAssetManager().get("Menus/checked.png", Texture.class);
+        unchecked = game.getAssetManager().get("Menus/unchecked.png", Texture.class);
+        backtex = game.getAssetManager().get("Buttons/back_button.png", Texture.class);
     }
 
     @Override
@@ -114,7 +110,7 @@ public class OptionsMenu extends MenuScreen {
 
     private void buttonUpdate() {
         if (backButton.isPressed())
-            game.gsm.set(new MainMenu(game));
+            game.getGsm().set(new MainMenu(game));
         if(!musicCheck.isChecked())
             game.muteMusic();
         else if(musicCheck.isChecked())
@@ -130,13 +126,13 @@ public class OptionsMenu extends MenuScreen {
     }
 
     private void menuDraw() {
-        game.batch.begin();
-        game.batch.draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
-        game.batch.draw(title, MENU_WIDTH/3/2 - title.getWidth()/2,400);
-        game.batch.draw(music, MENU_WIDTH/3/4,300);
-        game.batch.draw(sounds, MENU_WIDTH/3/4,240);
-        game.batch.draw(vibration, MENU_WIDTH/3/4,180);
-        game.batch.end();
+        game.getBatch().begin();
+        game.getBatch().draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
+        game.getBatch().draw(title, MENU_WIDTH/3/2 - title.getWidth()/2,400);
+        game.getBatch().draw(music, MENU_WIDTH/3/4,300);
+        game.getBatch().draw(sounds, MENU_WIDTH/3/4,240);
+        game.getBatch().draw(vibration, MENU_WIDTH/3/4,180);
+        game.getBatch().end();
     }
 
     @Override

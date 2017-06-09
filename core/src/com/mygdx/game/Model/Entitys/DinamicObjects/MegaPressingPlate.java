@@ -42,8 +42,8 @@ public class MegaPressingPlate extends Sprite {
     }
 
     public void textureLoad(){
-        pressedTex = new TextureRegion(screen.getGame().assetManager.get("Game/mega_pressing_plates.png", Texture.class), 64,0,64,64);
-        notpressedTex = new TextureRegion(screen.getGame().assetManager.get("Game/mega_pressing_plates.png", Texture.class), 0,0,64,64);
+        pressedTex = new TextureRegion(screen.getGame().getAssetManager().get("Game/mega_pressing_plates.png", Texture.class), 64,0,64,64);
+        notpressedTex = new TextureRegion(screen.getGame().getAssetManager().get("Game/mega_pressing_plates.png", Texture.class), 0,0,64,64);
     }
 
     public void update(float dt){

@@ -31,11 +31,11 @@ public class WayBlocker extends Sprite{
         destroyed=false;
         toDestroy=false;
         if(texChoose==0){
-            blockFigure = new TextureRegion(screen.getGame().assetManager.get("Game/way_blocker.png", Texture.class));
+            blockFigure = new TextureRegion(screen.getGame().getAssetManager().get("Game/way_blocker.png", Texture.class));
             setRegion(blockFigure);
         }
         else {
-            blockFigure2 = new TextureRegion(screen.getGame().assetManager.get("Game/way_blocker2.png", Texture.class));
+            blockFigure2 = new TextureRegion(screen.getGame().getAssetManager().get("Game/way_blocker2.png", Texture.class));
             setRegion(blockFigure2);
         }
         setPosition(vec.x,vec.y);

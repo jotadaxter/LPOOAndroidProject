@@ -25,16 +25,13 @@ public class D1TopDoor extends Sprite {
     private World world;
     private Body body;
     private BodyDef bdef;
-    private GameScreen screen;
     private FixtureDef fdef;
-    private Fixture fixture;
     private TextureRegion textureRegion1;
     private TextureRegion textureRegion2;
 
     public D1TopDoor(GameScreen screen, Vector2 vec, int choose){
         setPosition(vec.x,vec.y);
         bdef= new BodyDef();
-        this.screen=screen;
         this.world=screen.getWorld();
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
@@ -46,8 +43,8 @@ public class D1TopDoor extends Sprite {
             shape.setAsBox(24*MyGame.PIXEL_TO_METER, 8*MyGame.PIXEL_TO_METER);
             fdef.shape=shape;
             fdef.isSensor=true;
-            fixture=body.createFixture(fdef);
-            textureRegion1 = new TextureRegion(screen.getGame().assetManager.get("Game/door_top.png", Texture.class), 0,0,48,16);
+            body.createFixture(fdef);
+            textureRegion1 = new TextureRegion(screen.getGame().getAssetManager().get("Game/door_top.png", Texture.class), 0,0,48,16);
             setBounds(0,0,48*MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
             setRegion(textureRegion1);
         }
@@ -55,8 +52,8 @@ public class D1TopDoor extends Sprite {
             shape.setAsBox(8*MyGame.PIXEL_TO_METER, 24*MyGame.PIXEL_TO_METER);
             fdef.shape=shape;
             fdef.isSensor=true;
-            fixture=body.createFixture(fdef);
-            textureRegion2 = new TextureRegion(screen.getGame().assetManager.get("Game/door_top2.png", Texture.class), 0,0,16,48);
+            body.createFixture(fdef);
+            textureRegion2 = new TextureRegion(screen.getGame().getAssetManager().get("Game/door_top2.png", Texture.class), 0,0,16,48);
             setBounds(0,0,16*MyGame.PIXEL_TO_METER,48*MyGame.PIXEL_TO_METER);
             setRegion(textureRegion2);
         }
@@ -64,7 +61,7 @@ public class D1TopDoor extends Sprite {
 
 
     }
-    public void update(float dt) {
+    public void update() {
        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
     }
 

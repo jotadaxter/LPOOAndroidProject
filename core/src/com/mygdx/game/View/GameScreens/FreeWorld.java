@@ -35,13 +35,6 @@ public class FreeWorld extends GameScreen {
     //Hero Info
     public static final int POSX = 8+11*16;
     public static final int POSY = 8+2*16;
-    public static final int TUTORIAL_PX = 8+9*16+8;
-    public static final int TUTORIAL_PY = 8+11*16;
-    //Boulder Position
-    public static final int BOULDER1_X = 8+16*8;
-    public static final int BOULDER1_Y = 8+16*54;
-    public static final int BOULDER2_X = 8+16*10;
-    public static final int BOULDER2_Y = 8+16*54;
     //PressingPlate Position
     public static final int PP1_X = 8+16*8;
     public static final int PP1_Y = 8+16*35;
@@ -94,7 +87,7 @@ public class FreeWorld extends GameScreen {
     }
 
     private void itemsLoad() {
-        ArrayList<Vector2> positions = game.fileReader.ReadFile("rupee_locations","free_world");
+        ArrayList<Vector2> positions = game.getFileReader().ReadFile("rupee_locations","free_world");
         for(int i=0; i<positions.size();i++){
             int val;
             Random random= new Random();
@@ -115,7 +108,7 @@ public class FreeWorld extends GameScreen {
         sign1.addSignId(0);
         signs.add(sign1);
         TextLog log1 = new TextLog(game, this);
-        log1.setText(game.fileReader.getSignText("sign5"));
+        log1.setText(game.getFileReader().getSignText("sign5"));
         log1.setId(0);
         textlogs.add(log1);
 
@@ -123,13 +116,13 @@ public class FreeWorld extends GameScreen {
         sign2.addSignId(1);
         signs.add(sign2);
         TextLog log2 = new TextLog(game, this);
-        log2.setText(game.fileReader.getSignText("sign0"));
+        log2.setText(game.getFileReader().getSignText("sign0"));
         log2.setId(1);
         textlogs.add(log2);
     }
 
     private void chestsLoad() {
-        ArrayList<Vector2> positions = game.fileReader.ReadFile("chest_locations","free_world");
+        ArrayList<Vector2> positions = game.getFileReader().ReadFile("chest_locations","free_world");
         for(int i=0; i<positions.size();i++){
             Chest c= new Chest(this, positions.get(i));
             c.addChestId(i);
@@ -199,15 +192,15 @@ public class FreeWorld extends GameScreen {
     @Override
     public void objectsDraw() {
         for(WayBlocker wb : wayblocks)
-            wb.draw(game.batch);
+            wb.draw(game.getBatch());
         for(PressingPlate pp : pps)
-            pp.draw(game.batch);
+            pp.draw(game.getBatch());
         for(Boulder boulder : boulders)
-            boulder.draw(game.batch);
+            boulder.draw(game.getBatch());
         for(Chest chest : chests)
-            chest.draw(game.batch);
+            chest.draw(game.getBatch());
         for(Sign sign :signs)
-            sign.draw(game.batch);
+            sign.draw(game.getBatch());
     }
 
     public void resetBoulders() {

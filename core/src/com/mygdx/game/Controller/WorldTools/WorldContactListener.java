@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject;
@@ -16,9 +15,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
-import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.Model.Entitys.Items.Item;
 
 /**
@@ -141,12 +138,12 @@ public class WorldContactListener implements ContactListener {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
             if(!((HeroBody) fixA.getUserData()).getHero().getIsInPlatform())
                 ((HeroBody) fixA.getUserData()).getHero().fall();
-            ((HeroBody) fixA.getUserData()).getHero().isInPitfall=true;
+            ((HeroBody) fixA.getUserData()).getHero().setInPitfall(true);
         }
         else {
             if(!((HeroBody) fixB.getUserData()).getHero().getIsInPlatform())
                 ((HeroBody) fixB.getUserData()).getHero().fall();
-            ((HeroBody) fixB.getUserData()).getHero().isInPitfall=true;
+            ((HeroBody) fixB.getUserData()).getHero().setInPitfall(true);
         }
     }
 
@@ -154,12 +151,12 @@ public class WorldContactListener implements ContactListener {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
             ((HeroBody) fixA.getUserData()).getHero().setIsInPlatform(true);
             ((HeroBody) fixA.getUserData()).getHero().setPlatformId(((MovingPlatform) fixB.getUserData()).getId());
-            ((HeroBody) fixA.getUserData()).getHero().isInPitfall=true;
+            ((HeroBody) fixA.getUserData()).getHero().setInPitfall(true);
         }
         else {
             ((HeroBody) fixB.getUserData()).getHero().setIsInPlatform(true);
             ((HeroBody) fixB.getUserData()).getHero().setPlatformId(((MovingPlatform) fixA.getUserData()).getId());
-            ((HeroBody) fixB.getUserData()).getHero().isInPitfall=true;
+            ((HeroBody) fixB.getUserData()).getHero().setInPitfall(true);
         }
     }
 
@@ -267,14 +264,14 @@ public class WorldContactListener implements ContactListener {
 
     private void heroMovingPlatformEnd(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
-            if(((HeroBody) fixA.getUserData()).getHero().isInPitfall){
+            if(((HeroBody) fixA.getUserData()).getHero().isInPitfall()){
                 ((HeroBody) fixA.getUserData()).getHero().fall();
             }
             ((HeroBody) fixA.getUserData()).getHero().setIsInPlatform(false);
             ((HeroBody) fixA.getUserData()).getHero().setPlatformId(-1);
         }
         else{
-            if(((HeroBody) fixA.getUserData()).getHero().isInPitfall){
+            if(((HeroBody) fixA.getUserData()).getHero().isInPitfall()){
                 ((HeroBody) fixB.getUserData()).getHero().fall();
             }
             ((HeroBody) fixB.getUserData()).getHero().setIsInPlatform(false);
@@ -284,10 +281,10 @@ public class WorldContactListener implements ContactListener {
 
     private void pitfallHeroEnd(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
-            ((HeroBody) fixA.getUserData()).getHero().isInPitfall=false;
+            ((HeroBody) fixA.getUserData()).getHero().setInPitfall(false);
         }
         else {
-            ((HeroBody) fixB.getUserData()).getHero().isInPitfall=false;
+            ((HeroBody) fixB.getUserData()).getHero().setInPitfall(false);
         }
     }
 

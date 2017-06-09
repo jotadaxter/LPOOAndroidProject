@@ -42,7 +42,7 @@ public class Dungeon1 extends GameScreen{
     private PressingEvent megaPressingEvent;
 
     public Dungeon1(MyGame game) {
-        super(game, new Vector2(8+ 46*16, 8+40*16));
+        super(game, new Vector2(POSX, POSY));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
     }
@@ -69,7 +69,7 @@ public class Dungeon1 extends GameScreen{
     }
 
     private void spikesLoad() {
-        ArrayList<Vector2> positions = game.fileReader.ReadFile("spikes_locations","dungeon1");
+        ArrayList<Vector2> positions = game.getFileReader().ReadFile("spikes_locations","dungeon1");
         for(int i=0; i<positions.size();i++){
             Spikes sp = new Spikes(this, positions.get(i));
             spikes.add(sp);
@@ -110,14 +110,14 @@ public class Dungeon1 extends GameScreen{
 
     private void itemsLoad() {
         spawnItem(new ItemDef(new Vector2(8+46*16,8+42*16), SpecialItem.class));
-        ArrayList<Vector2> positions = game.fileReader.ReadFile("heart_locations","dungeon1");
+        ArrayList<Vector2> positions = game.getFileReader().ReadFile("heart_locations","dungeon1");
         for(int i=0; i<positions.size();i++){
             spawnItem(new ItemDef(new Vector2(positions.get(i).x,positions.get(i).y), Heart.class));
         }
     }
 
     private void chestsLoad() {
-        ArrayList<Vector2> positions = game.fileReader.ReadFile("chest_locations","dungeon1");
+        ArrayList<Vector2> positions = game.getFileReader().ReadFile("chest_locations","dungeon1");
         for(int i=0; i<positions.size();i++){
             Chest c= new Chest(this, positions.get(i));
             c.addChestId(i);
@@ -126,7 +126,7 @@ public class Dungeon1 extends GameScreen{
     }
 
     private void smashRockLoad() {
-        ArrayList<Vector2> positions = game.fileReader.ReadFile("rock_locations","dungeon1");
+        ArrayList<Vector2> positions = game.getFileReader().ReadFile("rock_locations","dungeon1");
         for(Vector2 vec :positions){
             SmashableRock sm = new SmashableRock(this, vec);
             smashRocks.add(sm);
@@ -134,7 +134,7 @@ public class Dungeon1 extends GameScreen{
     }
 
     private void fireGroundLoad() {
-        ArrayList<Vector2> positions = game.fileReader.ReadFile("fireground_locations","dungeon1");
+        ArrayList<Vector2> positions = game.getFileReader().ReadFile("fireground_locations","dungeon1");
         for(Vector2 vec :positions){
             FireGround fg= new FireGround(this,vec);
             fireGrounds.add(fg);
@@ -181,21 +181,21 @@ public class Dungeon1 extends GameScreen{
     @Override
     public void objectsDraw() {
         for(WayBlocker wb : wayblocks)
-            wb.draw(game.batch);
+            wb.draw(game.getBatch());
         for(MegaPressingPlate mpp : mpps)
-            mpp.draw(game.batch);
+            mpp.draw(game.getBatch());
         for(SmashableRock sm : smashRocks)
-            sm.draw(game.batch);
+            sm.draw(game.getBatch());
         for(FireGround fg : fireGrounds)
-            fg.draw(game.batch);
+            fg.draw(game.getBatch());
         for(Spikes spike : spikes)
-            spike.draw(game.batch);
+            spike.draw(game.getBatch());
         for(Chest chest : chests)
-            chest.draw(game.batch);
+            chest.draw(game.getBatch());
         for(Boulder boulder : boulders)
-            boulder.draw(game.batch);
+            boulder.draw(game.getBatch());
         for(MovingPlatform m : mps)
-            m.draw(game.batch);
+            m.draw(game.getBatch());
     }
 
     @Override

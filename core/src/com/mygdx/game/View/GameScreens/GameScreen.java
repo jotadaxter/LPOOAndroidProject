@@ -90,11 +90,11 @@ public abstract class GameScreen implements Screen{
     protected Array<D1TopDoor> topDoors;
     protected ArrayList<FireGround> fireGrounds;
     protected ArrayList<SmashableRock> smashRocks;
-    public boolean d1blck;
+    protected boolean d1blck;
     protected Music music;
 
     public GameScreen(MyGame game, Vector2 vec) {
-        atlas=game.assetManager.get("Game/link_and_objects.pack", TextureAtlas.class);
+        atlas=game.getAssetManager().get("Game/link_and_objects.pack", TextureAtlas.class);
         this.game=game;
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
         viewPort= new FitViewport(MyGame.VIEWPORT_WIDTH*MyGame.PIXEL_TO_METER,MyGame.VIEWPORT_HEIGHT*MyGame.PIXEL_TO_METER, gameCam);
@@ -154,30 +154,29 @@ public abstract class GameScreen implements Screen{
         //ajust the camera to follow the player
         gameCam.position.x=player.getHeroBody().getBody().getPosition().x;
         gameCam.position.y=player.getHeroBody().getBody().getPosition().y;
-        hud.update(dt,this);
+        hud.update();
         gameCam.update();
         renderer.setView(gameCam);
         endUpdate(dt);
     }
 
     private void endUpdate(float dt) {
-        if(game.heroStats.getHearts()<=0){
-            game.gsm.push(new GameState(new GameOver(game)));
-            game.heroStats.resetStats();
+        if(game.getHeroStats().getHearts()<=0){
+            game.getGsm().push(new GameState(new GameOver(game)));
+            game.getHeroStats().resetStats();
         }
-        if(game.heroStats.hasVolcanoRuby() && endTimer<0)
+        if(game.getHeroStats().hasVolcanoRuby() && endTimer<0)
             endTimer=0;
-        System.out.println(endTimer);
         if(endTimer>=0)
             endTimer+=dt;
         if(endTimer>=10){
-            game.gsm.push(new GameState(new GameCompleted(game)));
+            game.getGsm().push(new GameState(new GameCompleted(game)));
         }
     }
 
     private void gameOptions() {
         if(controller.isOptionsPressed()){
-            game.gsm.push(new GameState(new GameMenu(game)));
+            game.getGsm().push(new GameState(new GameMenu(game)));
             controller.setOptionsPressed(false);
         }
     }
@@ -230,7 +229,7 @@ public abstract class GameScreen implements Screen{
         renderer.render();
         //Render Box2DDebugLines
         b2dr.render(world, gameCam.combined);
-        game.batch.setProjectionMatrix(gameCam.combined);
+        game.getBatch().setProjectionMatrix(gameCam.combined);
         gameDraw();
         hudDraw();
         //Controller
@@ -240,12 +239,12 @@ public abstract class GameScreen implements Screen{
 
     private void hudDraw() {
         //HUD Rendering
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
-        hud.heartStage.draw();
+        game.getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);
+        hud.getStage().draw();
+        hud.getHeartStage().draw();
         for(TextLog tlog: textlogs) {
             if(signs.get(tlog.getId()).getIsOpen())
-                tlog.stage.draw();
+                tlog.getStage().draw();
         }
     }
 
@@ -256,18 +255,18 @@ public abstract class GameScreen implements Screen{
     }
 
     private void gameDraw() {
-        game.batch.begin();
+        game.getBatch().begin();
         objectsDraw();
         if(player.getThrowBomb()){
             for(Bomb bombs: player.getBombs())
-                bombs.draw(game.batch);
+                bombs.draw(game.getBatch());
         }
-        player.draw(game.batch);
+        player.draw(game.getBatch());
         for(D1TopDoor top : topDoors)
-            top.draw(game.batch);
+            top.draw(game.getBatch());
         for(Item item : items)
-            item.draw(game.batch);
-        game.batch.end();
+            item.draw(game.getBatch());
+        game.getBatch().end();
     }
 
     public abstract void objectsDraw();
@@ -342,5 +341,13 @@ public abstract class GameScreen implements Screen{
 
     public Music getMusic() {
         return music;
+    }
+
+    public boolean isD1blck() {
+        return d1blck;
+    }
+
+    public void setD1blck(boolean d1blck) {
+        this.d1blck = d1blck;
     }
 }

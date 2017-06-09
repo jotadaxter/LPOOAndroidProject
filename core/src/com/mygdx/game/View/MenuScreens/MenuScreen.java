@@ -26,15 +26,11 @@ public abstract class MenuScreen implements Screen {
     protected FillViewport viewPort;
     protected OrthographicCamera gameCam;
     protected MyGame game;
-    private Music music;
-    private Stage stage;
-
 
     public MenuScreen(MyGame game) {
         this.game=game;
         gameCam= new OrthographicCamera();
         viewPort= new FillViewport(MENU_WIDTH/3,MENU_HEIGHT/3, gameCam);
-
     }
 
     @Override
@@ -69,13 +65,5 @@ public abstract class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-    }
-
-    public Music getMusic() {
-        return music;
-    }
-
-    public Stage getStage() {
-        return stage;
     }
 }

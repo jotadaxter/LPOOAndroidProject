@@ -1,6 +1,5 @@
 package com.mygdx.game.Model.Events;
 
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Model.States.GameState;
 
 /**
@@ -8,13 +7,37 @@ import com.mygdx.game.Model.States.GameState;
  */
 
 public class WarpEvent {
-    public int id;
-    public Class<?> type;//door or stairs
-    public GameState travelPoint;//next screen
+    private int id;
+    private Class<?> type;//door or stairs
+    private GameState travelPoint;//next screen
 
     public WarpEvent(int id, Class<?> type, GameState gs){
-        this.type=type;
-        this.id=id;
-        this.travelPoint=gs;
+        this.setType(type);
+        this.setId(id);
+        this.setTravelPoint(gs);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Class<?> getType() {
+        return type;
+    }
+
+    public void setType(Class<?> type) {
+        this.type = type;
+    }
+
+    public GameState getTravelPoint() {
+        return travelPoint;
+    }
+
+    public void setTravelPoint(GameState travelPoint) {
+        this.travelPoint = travelPoint;
     }
 }

@@ -65,11 +65,12 @@ public class MyGame extends Game {
 	public static float MUSIC_VOLUME=1f;
 	public static float SOUND_VOLUME=0.25f;
 	public static int VIBRATION=500;
-	public SpriteBatch batch;
-	public GameStateManager gsm;
-	public HeroStats heroStats;
-	public AssetManager assetManager;
-	public FileReader fileReader;
+
+	private SpriteBatch batch;
+	private GameStateManager gsm;
+	private HeroStats heroStats;
+	private AssetManager assetManager;
+	private FileReader fileReader;
 
 	@Override
 	public void create () {
@@ -195,6 +196,45 @@ public class MyGame extends Game {
 		assetManager.load("Game/door_top2.png", Texture.class);
 	}
 
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+
+	public void setBatch(SpriteBatch batch) {
+		this.batch = batch;
+	}
+
+	public GameStateManager getGsm() {
+		return gsm;
+	}
+
+	public void setGsm(GameStateManager gsm) {
+		this.gsm = gsm;
+	}
+
+	public HeroStats getHeroStats() {
+		return heroStats;
+	}
+
+	public void setHeroStats(HeroStats heroStats) {
+		this.heroStats = heroStats;
+	}
+
+	public AssetManager getAssetManager() {
+		return assetManager;
+	}
+
+	public void setAssetManager(AssetManager assetManager) {
+		this.assetManager = assetManager;
+	}
+
+	public FileReader getFileReader() {
+		return fileReader;
+	}
+
+	public void setFileReader(FileReader fileReader) {
+		this.fileReader = fileReader;
+	}
 
 	@Override
 	public void render () {

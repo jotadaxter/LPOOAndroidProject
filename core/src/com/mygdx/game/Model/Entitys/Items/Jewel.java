@@ -15,8 +15,7 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 public class Jewel extends Item {
     private int value;
     private JewelBody jewelBody;
-
-    Sound sound;
+    private Sound sound;
 
     public Jewel(int value, GameScreen screen, Vector2 vec) {
         super(screen, vec);

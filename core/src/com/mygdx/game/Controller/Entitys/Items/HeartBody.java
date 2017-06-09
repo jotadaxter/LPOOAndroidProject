@@ -16,11 +16,8 @@ import com.mygdx.game.MyGame;
 public class HeartBody {
     private BodyDef bdef;
     private Body body;
-    private Heart heart;
 
     public HeartBody(World world, Heart heart, Vector2 vec) {
-        //Body Definition
-        this.heart=heart;
         bdef= new BodyDef();
         bdef.position.set(vec.x*MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.DynamicBody;

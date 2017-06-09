@@ -27,13 +27,13 @@ public class Door extends StaticTileObject {
     public void warp() {
         if(screen.getClass()==DemoScreen.class){
             sound.play(MyGame.SOUND_VOLUME);
-            screen.getGame().gsm.pop();
+            screen.getGame().getGsm().pop();
         }
         else {
             for (WarpEvent warpEvent : screen.getWarpEvents())
-                if (warpEvent.id == this.id) {
+                if (warpEvent.getId() == this.id) {
                     sound.play(MyGame.SOUND_VOLUME);
-                    screen.getGame().gsm.push(warpEvent.travelPoint);
+                    screen.getGame().getGsm().push(warpEvent.getTravelPoint());
                 }
         }
     }

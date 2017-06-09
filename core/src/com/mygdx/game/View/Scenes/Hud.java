@@ -38,8 +38,8 @@ public class Hud implements Disposable{
     public static final int RUBY_Y = 145-12;
 
     private MyGame game;
-    public Stage stage;
-    public Stage heartStage;
+    private Stage stage;
+    private Stage heartStage;
     private Viewport viewport;
     private BitmapFont font;
 
@@ -59,14 +59,14 @@ public class Hud implements Disposable{
 
     public Hud(MyGame game, GameScreen screen) {
         this.game=game;
-        score = game.heroStats.getScore();
-        health = game.heroStats.getHearts();
+        score = game.getHeroStats().getScore();
+        health = game.getHeroStats().getHearts();
         previousHealth=health;
         displayRuby=false;
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, game.batch);
-        heartStage = new Stage(viewport, game.batch);
-        font = game.assetManager.get("Fonts/myFont.fnt", BitmapFont.class);
+        stage = new Stage(viewport, game.getBatch());
+        heartStage = new Stage(viewport, game.getBatch());
+        font = game.getAssetManager().get("Fonts/myFont.fnt", BitmapFont.class);
 
         //Label creation
         labels();
@@ -82,7 +82,7 @@ public class Hud implements Disposable{
     private void displayHearts() {
         int i=0;
         while (i<health){
-            Image new_heart= new Image(new TextureRegion(game.assetManager.get("Game/life_hearts.png", Texture.class), 0,0,9,8));
+            Image new_heart= new Image(new TextureRegion(game.getAssetManager().get("Game/life_hearts.png", Texture.class), 0,0,9,8));
             new_heart.setBounds(HEART_X+12*i,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
             heartStage.addActor(new_heart);
             i++;
@@ -90,7 +90,7 @@ public class Hud implements Disposable{
     }
 
     private void displayVolcano_Ruby() {
-        ruby = new Image(new TextureRegion(game.assetManager.get("Game/volcano_ruby.png", Texture.class)));
+        ruby = new Image(new TextureRegion(game.getAssetManager().get("Game/volcano_ruby.png", Texture.class)));
         ruby.setBounds(RUBY_X,RUBY_Y,RUBY_WIDTH,RUBY_HEIGTH);
     }
 
@@ -101,19 +101,19 @@ public class Hud implements Disposable{
         stage.addActor(rupee);
 
         //Heart images
-        heart_full=new Image(new TextureRegion(game.assetManager.get("Game/life_hearts.png", Texture.class), 0,0,9,8));
+        heart_full=new Image(new TextureRegion(game.getAssetManager().get("Game/life_hearts.png", Texture.class), 0,0,9,8));
         heart_full.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
 
-        heart_empty= new Image(new TextureRegion(game.assetManager.get("Game/life_hearts.png", Texture.class), 36,0,9,8));
+        heart_empty= new Image(new TextureRegion(game.getAssetManager().get("Game/life_hearts.png", Texture.class), 36,0,9,8));
         heart_empty.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
 
-        heart_half=new Image(new TextureRegion(game.assetManager.get("Game/life_hearts.png", Texture.class), 18,0,9,8));
+        heart_half=new Image(new TextureRegion(game.getAssetManager().get("Game/life_hearts.png", Texture.class), 18,0,9,8));
         heart_half.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
 
-        heart_quarter=new Image(new TextureRegion(game.assetManager.get("Game/life_hearts.png", Texture.class), 27,0,9,8));
+        heart_quarter=new Image(new TextureRegion(game.getAssetManager().get("Game/life_hearts.png", Texture.class), 27,0,9,8));
         heart_quarter.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
 
-        heart_three_quarts= new Image(new TextureRegion(game.assetManager.get("Game/life_hearts.png", Texture.class), 9,0,9,8));
+        heart_three_quarts= new Image(new TextureRegion(game.getAssetManager().get("Game/life_hearts.png", Texture.class), 9,0,9,8));
         heart_three_quarts.setBounds(HEART_X,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
     }
 
@@ -136,11 +136,11 @@ public class Hud implements Disposable{
 
     }
 
-    public void update(float dt, GameScreen screen){
-        this.score=game.heroStats.getScore();
+    public void update(){
+        this.score=game.getHeroStats().getScore();
         scoreLabel.setText(String.format("%04d", score));
-        this.health=game.heroStats.getHearts();
-        this.displayRuby=game.heroStats.displayVolcanoRuby();
+        this.health=game.getHeroStats().getHearts();
+        this.displayRuby=game.getHeroStats().displayVolcanoRuby();
         updateHearts();
         updateRuby();
         previousHealth=health;
@@ -157,11 +157,26 @@ public class Hud implements Disposable{
         heartStage.clear();
         //redesenhar corações
         while (i<health){
-            Image new_heart= new Image(new TextureRegion(game.assetManager.get("Game/life_hearts.png", Texture.class), 0,0,9,8));
+            Image new_heart= new Image(new TextureRegion(game.getAssetManager().get("Game/life_hearts.png", Texture.class), 0,0,9,8));
             new_heart.setBounds(HEART_X+12*i,HEART_Y,HEART_WIDTH,HEART_HEIGTH);
             heartStage.addActor(new_heart);
             i++;
         }
+    }
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Stage getHeartStage() {
+        return heartStage;
+    }
+
+    public void setHeartStage(Stage heartStage) {
+        this.heartStage = heartStage;
     }
 }

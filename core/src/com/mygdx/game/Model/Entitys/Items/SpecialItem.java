@@ -16,13 +16,13 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 
 public class SpecialItem extends Item{
     private SpecialItemBody specialItemBody;
-    Sound sound;
+    private Sound sound;
 
     public SpecialItem(GameScreen screen, Vector2 vec) {
         super(screen, vec);
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_heart_container.wav"));
         specialItemBody=new SpecialItemBody(world,this, vec);
-        setRegion(new TextureRegion(screen.getGame().assetManager.get("Game/volcano_ruby.png", Texture.class)));
+        setRegion(new TextureRegion(screen.getGame().getAssetManager().get("Game/volcano_ruby.png", Texture.class)));
     }
 
     @Override

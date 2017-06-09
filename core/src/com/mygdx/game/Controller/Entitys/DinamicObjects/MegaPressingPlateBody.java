@@ -15,14 +15,11 @@ import com.mygdx.game.MyGame;
  */
 
 public class MegaPressingPlateBody {
-    private Rectangle bounds;
     private Body body;
     private BodyDef bdef;
     private FixtureDef fdef;
-    private MegaPressingPlate megaPressingPlate;
 
     public MegaPressingPlateBody(World world, MegaPressingPlate megaPressingPlate, Vector2 vec) {
-        this.megaPressingPlate=megaPressingPlate;
         bdef = new BodyDef();
         bdef.position.set(vec.x * MyGame.PIXEL_TO_METER, vec.y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;//ver solidez do objeto
