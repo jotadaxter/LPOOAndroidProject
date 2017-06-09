@@ -185,7 +185,7 @@ public abstract class GameScreen implements Screen{
         player.update(dt);
         objectsUpdate(dt);
         for(D1TopDoor top : topDoors)
-            top.update(dt);
+            top.update();
         //Items Update
         for(Item item : items)
             item.update(dt, player);

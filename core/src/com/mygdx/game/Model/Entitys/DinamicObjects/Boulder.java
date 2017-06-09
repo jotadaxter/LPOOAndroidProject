@@ -22,7 +22,7 @@ public class Boulder extends Sprite{
     public Boulder(GameScreen screen, Vector2 vec) {
         super(screen.getAtlas().findRegion("boulder"));
         this.world=screen.getWorld();
-        boulderBody= new BoulderBody(world,this, vec);
+        boulderBody= new BoulderBody(world,vec);
         boulderFigure = new TextureRegion(screen.getAtlas().findRegion("boulder"), 0,0,16,16);
         setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
