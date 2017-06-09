@@ -84,11 +84,8 @@ public class GameOver extends MenuScreen {
         }
 
         if (mainMenuButton.isPressed()) {
-            //game.getScreen().dispose();
-            //game.setScreen(new MainMenu(game));
-            //game.gsm.states.clear();
+            game.gsm.states.clear();
             game.gsm.push(new GameState(new MainMenu(game)));
-            //game.gsm.restartStack();
         }
 
         if (quitButton.isPressed()) {

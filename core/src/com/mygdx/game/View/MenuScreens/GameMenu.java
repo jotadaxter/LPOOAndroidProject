@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 
@@ -35,6 +36,7 @@ public class GameMenu extends MenuScreen {
     private Texture unchecked;
     private Texture saveGameTex;
     private Texture loadGameTex;
+    private Texture mainMenutex;
 
     CheckBox musicCheck;
     CheckBox soundCheck;
@@ -42,6 +44,9 @@ public class GameMenu extends MenuScreen {
 
     private Texture backtex;
     private ImageButton backButton;
+    private ImageButton loadButton;
+    private ImageButton saveButton;
+    private ImageButton mainMenuButton;
 
 
     public GameMenu(MyGame game) {
@@ -58,6 +63,21 @@ public class GameMenu extends MenuScreen {
         soundCheck = new CheckBox("",style);
         vibrationCheck = new CheckBox("",style);
         CheckBoxConfig();
+
+        Drawable loadDrawable = new TextureRegionDrawable(new TextureRegion(loadGameTex));
+        loadButton = new ImageButton(loadDrawable);
+        loadButton.setPosition(300-150,300-150);
+        stage.addActor(loadButton);
+
+        Drawable saveDrawable = new TextureRegionDrawable(new TextureRegion(saveGameTex));
+        saveButton = new ImageButton(saveDrawable);
+        saveButton.setPosition(300+150,300-150);
+        stage.addActor(saveButton);
+
+        Drawable mainMenuDrawable = new TextureRegionDrawable(new TextureRegion(mainMenutex));
+        mainMenuButton = new ImageButton(mainMenuDrawable);
+        mainMenuButton.setPosition(300-150,240-150-20);
+        stage.addActor(mainMenuButton);
 
         stage.addActor(musicCheck);
         stage.addActor(soundCheck);
@@ -88,7 +108,7 @@ public class GameMenu extends MenuScreen {
     private void backButtonDefine() {
         Drawable backDrawable = new TextureRegionDrawable(new TextureRegion(backtex));
         backButton = new ImageButton(backDrawable);
-        backButton.setPosition(MENU_WIDTH/3/2 - backButton.getWidth()/2,100);
+        backButton.setPosition(MENU_WIDTH/3/2 - backButton.getWidth()/2+150,100-30);
         stage.addActor(backButton);
     }
 
@@ -103,6 +123,7 @@ public class GameMenu extends MenuScreen {
         backtex = game.assetManager.get("Buttons/back_button.png", Texture.class);
         saveGameTex = game.assetManager.get("Buttons/save_game_button.png", Texture.class);
         loadGameTex = game.assetManager.get("Buttons/load_button.png", Texture.class);
+        mainMenutex = game.assetManager.get("Buttons/main_menu_button.png", Texture.class);
     }
 
     @Override
@@ -126,6 +147,14 @@ public class GameMenu extends MenuScreen {
             game.muteSound();
         else if(soundCheck.isChecked())
             game.normalizeSound();
+        if (loadButton.isPressed()) {//fazer load de uma savegame
+        }
+        if (saveButton.isPressed()) {
+        }
+        if (mainMenuButton.isPressed()) {
+            game.gsm.states.clear();
+            game.gsm.push(new GameState(new MainMenu(game)));
+        }
     }
 
     private void menuDraw() {
