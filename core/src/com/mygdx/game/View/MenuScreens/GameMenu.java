@@ -160,7 +160,7 @@ public class GameMenu extends MenuScreen {
     private void menuDraw() {
         game.batch.begin();
         game.batch.draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
-        game.batch.draw(title, MENU_WIDTH/3/2 - title.getWidth()/2,400+40);
+        game.batch.draw(title, MENU_WIDTH/3/2 - title.getWidth()/2,400+20);
         game.batch.draw(music, MENU_WIDTH/3/4,300+40);
         game.batch.draw(sounds, MENU_WIDTH/3/4,240+40);
         game.batch.draw(vibration, MENU_WIDTH/3/4,180+40);

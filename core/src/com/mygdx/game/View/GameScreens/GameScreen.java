@@ -32,6 +32,7 @@ import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.MenuScreens.GameCompleted;
 import com.mygdx.game.View.MenuScreens.GameMenu;
 import com.mygdx.game.View.MenuScreens.GameOver;
 import com.mygdx.game.View.Scenes.Hud;
@@ -58,6 +59,7 @@ public abstract class GameScreen implements Screen{
     protected Hud hud;
     protected ArrayList<TextLog> textlogs;
     protected float accumulator;
+    protected float endTimer;
 
     //Controllers
     protected Controller controller;
@@ -119,6 +121,7 @@ public abstract class GameScreen implements Screen{
         smashRocks= new ArrayList<SmashableRock>();
         fireGrounds= new ArrayList<FireGround>();
         warpEvents= new Array<WarpEvent>();
+        endTimer=-1;
     }
 
     private void mapDefine() {
@@ -154,9 +157,21 @@ public abstract class GameScreen implements Screen{
         hud.update(dt,this);
         gameCam.update();
         renderer.setView(gameCam);
+        endUpdate(dt);
+    }
+
+    private void endUpdate(float dt) {
         if(game.heroStats.getHearts()<=0){
             game.gsm.push(new GameState(new GameOver(game)));
             game.heroStats.resetStats();
+        }
+        if(game.heroStats.hasVolcanoRuby() && endTimer<0)
+            endTimer=0;
+        System.out.println(endTimer);
+        if(endTimer>=0)
+            endTimer+=dt;
+        if(endTimer>=10){
+            game.gsm.push(new GameState(new GameCompleted(game)));
         }
     }
 

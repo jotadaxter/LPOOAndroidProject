@@ -35,7 +35,7 @@ public class TextLog {
         this.screen=screen;
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, game.batch);
-        font = screen.getGame().assetManager.get("Fonts/textFont.fnt", BitmapFont.class);
+        font = screen.getGame().assetManager.get("Fonts/score.fnt", BitmapFont.class);
 
         logImage=new Image(screen.getGame().assetManager.get("Game/log.png", Texture.class));
         logImage.setPosition(5,0);
@@ -53,7 +53,7 @@ public class TextLog {
         textLabel= new Label(text, new Label.LabelStyle(font, Color.WHITE));
         textLabel.setSize(5,5);
 
-        table.add(textLabel).width(35).height(25);
+        table.add(textLabel).width(500).height(500);
         stage.addActor(table);
     }
     public void update(float dt){

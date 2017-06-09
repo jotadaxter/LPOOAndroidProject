@@ -140,6 +140,7 @@ public class MyGame extends Game {
 		assetManager.load("Menus/checked.png", Texture.class);
 		assetManager.load("Menus/unchecked.png", Texture.class);
 		assetManager.load("Menus/game_over.png", Texture.class);
+		assetManager.load("Menus/game_completed.png", Texture.class);
 		assetManager.load("Buttons/main_menu_button.png", Texture.class);
 		assetManager.load("Buttons/load_button.png", Texture.class);
 		assetManager.load("Buttons/save_game_button.png", Texture.class);
@@ -165,6 +166,7 @@ public class MyGame extends Game {
 	private void fontsLoad() {
 		assetManager.load("Fonts/myFont.fnt", BitmapFont.class);
 		assetManager.load("Fonts/textFont.fnt", BitmapFont.class);
+		assetManager.load("Fonts/score.fnt", BitmapFont.class);
 	}
 
 	private void gameLoad() {

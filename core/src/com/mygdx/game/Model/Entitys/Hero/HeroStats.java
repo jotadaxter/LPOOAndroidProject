@@ -38,6 +38,10 @@ public class HeroStats {
        volcanoRuby=true;
     }
 
+    public boolean hasVolcanoRuby(){
+        return volcanoRuby;
+    }
+
     public boolean displayVolcanoRuby() {
         return volcanoRuby;
     }

@@ -79,7 +79,7 @@ public class MainMenu extends MenuScreen {
         game.batch.begin();
 
         game.batch.draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
-        game.batch.draw(title, 180,400);
+        game.batch.draw(title, 180,400-20);
         game.batch.end();
 
         stage.draw();
