@@ -32,6 +32,7 @@ import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.MenuScreens.GameMenu;
 import com.mygdx.game.View.MenuScreens.GameOver;
 import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Item;
@@ -142,6 +143,7 @@ public abstract class GameScreen implements Screen{
     public void update(float dt){
         handleSpawningItems();
         player.getHeroBody().InputUpdate(controller,dt);
+        gameOptions();
         //takes 1 step in the physics simulation (60 times per second)
         framesPerSecUpdate(dt);
         //Sprites Update
@@ -154,6 +156,14 @@ public abstract class GameScreen implements Screen{
         renderer.setView(gameCam);
         if(game.heroStats.getHearts()<=0){
             game.gsm.push(new GameState(new GameOver(game)));
+            game.heroStats.resetStats();
+        }
+    }
+
+    private void gameOptions() {
+        if(controller.isOptionsPressed()){
+            game.gsm.push(new GameState(new GameMenu(game)));
+            controller.setOptionsPressed(false);
         }
     }
 

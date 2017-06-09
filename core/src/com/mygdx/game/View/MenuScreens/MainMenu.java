@@ -87,13 +87,12 @@ public class MainMenu extends MenuScreen {
         if(storyButton.isPressed()){
             //game.setScreen(new Dungeon1(game));
             //game.gsm.push(new FreeWorld(game));
-            game.gsm.push(new GameState(new Dungeon1(game)));
-            System.out.println(game.gsm.states.size());
+            game.gsm.push(new GameState(new FreeWorld(game)));
             //game.gsm.push(new DemoScreen(game,POSX,POSY));
         }
 
         if (optionsButton.isPressed()){
-            game.gsm.push(new GameState(new OptionsMenu((game))));
+            game.gsm.push(new GameState(new OptionsMenu(game)));
         }
 
         if (quitButton.isPressed()){

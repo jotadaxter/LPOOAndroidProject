@@ -142,6 +142,7 @@ public class MyGame extends Game {
 		assetManager.load("Menus/game_over.png", Texture.class);
 		assetManager.load("Buttons/main_menu_button.png", Texture.class);
 		assetManager.load("Buttons/load_button.png", Texture.class);
+		assetManager.load("Buttons/save_game_button.png", Texture.class);
 	}
 
 	private void buttonsLoad() {

@@ -102,6 +102,9 @@ public class Controller {
             aPressed = false;
         else if(keycode==Input.Keys.ESCAPE)
             escPressed = false;
+        else if(keycode==Input.Keys.ENTER){
+            optionsPressed=false;
+        }
     }
 
     private void addKeyDownListener() {
@@ -129,6 +132,9 @@ public class Controller {
             aPressed = true;
         else if(keycode==Input.Keys.ESCAPE)
             escPressed = true;
+        else if(keycode==Input.Keys.ENTER){
+            optionsPressed=true;
+        }
     }
 
     private void imageLoad() {
@@ -332,6 +338,14 @@ public class Controller {
 
     public void setEscPressed(boolean escPressed) {
         this.escPressed = escPressed;
+    }
+
+    public void setOptionsPressed(boolean optionsPressed) {
+        this.optionsPressed = optionsPressed;
+    }
+
+    public boolean isOptionsPressed() {
+        return optionsPressed;
     }
 
     public void resize(int width, int height){

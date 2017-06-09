@@ -41,4 +41,10 @@ public class HeroStats {
     public boolean displayVolcanoRuby() {
         return volcanoRuby;
     }
+
+    public void resetStats() {
+        this.score=0;
+        this.hearts=3;
+        this.volcanoRuby=false;
+    }
 }

@@ -7,8 +7,10 @@ import com.mygdx.game.View.GameScreens.DemoScreen;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.View.GameScreens.TestScreen;
+import com.mygdx.game.View.MenuScreens.GameOver;
 import com.mygdx.game.View.MenuScreens.MainMenu;
 import com.mygdx.game.View.MenuScreens.MenuScreen;
+import com.mygdx.game.View.MenuScreens.OptionsMenu;
 
 import java.util.Stack;
 
@@ -19,6 +21,8 @@ import java.util.Stack;
 public class GameStateManager {
     public Stack<GameState> states;
     private MyGame game;
+
+
 
     public GameStateManager(MyGame game){
         this.game=game;
@@ -60,22 +64,21 @@ public class GameStateManager {
                 states.peek().getGameScreen().getMusic().setVolume(0f);
             }
         }
-        else if(states.peek().isMenuScreen()){
-//            if(states.size()!=0)
-//                states.peek().getMenuScreen().getMusic().stop();
-        }
         states.pop();
+
         if(states.peek().isGameScreen()) {
             game.setScreen(states.peek().getGameScreen());
-            states.peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
-            states.peek().getGameScreen().getMusic().play();
+
             Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
             states.peek().getGameScreen().getController().reset();
-        }
+            states.peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
+            states.peek().getGameScreen().getMusic().play();
+        }/*
         else if(states.peek().isMenuScreen()) {
             game.setScreen(states.peek().getMenuScreen());
             Gdx.input.setInputProcessor(states.peek().getMenuScreen().getStage());
-        }
+        }*/
+
     }
 
     public void set(GameScreen screen){
