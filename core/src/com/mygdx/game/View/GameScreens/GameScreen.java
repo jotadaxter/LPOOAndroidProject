@@ -30,7 +30,9 @@ import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.Model.Events.WarpEvent;
+import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.MenuScreens.GameOver;
 import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.Model.Entitys.Items.ItemDef;
@@ -150,6 +152,9 @@ public abstract class GameScreen implements Screen{
         hud.update(dt,this);
         gameCam.update();
         renderer.setView(gameCam);
+        if(game.heroStats.getHearts()<=0){
+            game.gsm.push(new GameState(new GameOver(game)));
+        }
     }
 
     private void spritesUpdate(float dt) {

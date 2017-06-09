@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
 import com.mygdx.game.View.GameScreens.Dungeon1;
@@ -84,13 +85,15 @@ public class MainMenu extends MenuScreen {
         stage.draw();
 
         if(storyButton.isPressed()){
-            game.gsm.push(new FreeWorld(game));
-            //game.gsm.push(new Dungeon1(game));
+            //game.setScreen(new Dungeon1(game));
+            //game.gsm.push(new FreeWorld(game));
+            game.gsm.push(new GameState(new Dungeon1(game)));
+            System.out.println(game.gsm.states.size());
             //game.gsm.push(new DemoScreen(game,POSX,POSY));
         }
 
         if (optionsButton.isPressed()){
-            game.gsm.push(new OptionsMenu((game)));
+            game.gsm.push(new GameState(new OptionsMenu((game))));
         }
 
         if (quitButton.isPressed()){

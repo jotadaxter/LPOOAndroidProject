@@ -28,44 +28,22 @@ public class GameStateManager {
         game.setScreen(states.peek().getMenuScreen());
     }
 
-    public void push(GameScreen screen){
-        if(states.size()!=0 && states.peek().isGameScreen()){
-            //states.peek().getGameScreen().getMusic().stop();
-            states.peek().getGameScreen().getMusic().setVolume(0f);
-        }
-        states.push(new GameState(screen));
-        game.setScreen(states.peek().getGameScreen());
-        Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
-        states.peek().getGameScreen().getController().reset();
-        states.peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
-        states.peek().getGameScreen().getMusic().play();
-    }
-
-    public void push(MenuScreen screen){
-      // if(states.size()!=0 && states.peek().isMenuScreen())
-        states.push(new GameState(screen));
-        game.setScreen(states.peek().getMenuScreen());
-        //Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
-        //states.peek().getGameScreen().getController().reset();
-        //states.peek().getGameScreen().getMusic().play();
-    }
-
     public void push(GameState state){
         if(state.isGameScreen()){
-           if(states.size()!=0){
+           if(states.size()!=0&& !states.peek().isMenuScreen()){
               // states.peek().getGameScreen().getMusic().stop();
                states.peek().getGameScreen().getMusic().setVolume(0f);
            }
         }
         else if(state.isMenuScreen()){
-            if(states.size()!=0)
-                states.peek().getMenuScreen().getMusic().stop();
+            if(states.size()!=0 && !states.peek().isMenuScreen())
+                states.peek().getGameScreen().getMusic().setVolume(0f);
         }
 
         states.push(state);
 
         if(state.isGameScreen()){
-           game.setScreen(states.peek().getGameScreen());
+            game.setScreen(states.peek().getGameScreen());
             states.peek().getGameScreen().getController().reset();
             Gdx.input.setInputProcessor(states.peek().getGameScreen().getController().getStage());
             states.peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
@@ -96,15 +74,15 @@ public class GameStateManager {
         }
         else if(states.peek().isMenuScreen()) {
             game.setScreen(states.peek().getMenuScreen());
-            System.out.println(states.size());
             Gdx.input.setInputProcessor(states.peek().getMenuScreen().getStage());
-//            states.peek().getMenuScreen().getMusic().play();
         }
     }
 
     public void set(GameScreen screen){
-        if(states.size()!=0 && states.peek().isGameScreen());
-            states.peek().getGameScreen().getMusic().stop();
+        if(states.size()!=0 && states.peek().isGameScreen()){
+            // states.peek().getGameScreen().getMusic().stop();
+            states.peek().getGameScreen().getMusic().setVolume(0f);
+        }
         states.pop();
         states.push(new GameState(screen));
         game.setScreen(states.peek().getGameScreen());
@@ -114,10 +92,18 @@ public class GameStateManager {
     }
 
     public void set(MenuScreen screen){
-       // if(states.size()!=0 && states.peek().isMenuScreen());
-            //states.peek().getMenuScreen().getMusic().stop();
+        if(states.size()!=0 && states.peek().isGameScreen()){
+            // states.peek().getGameScreen().getMusic().stop();
+            states.peek().getGameScreen().getMusic().setVolume(0f);
+        }
         states.pop();
         states.push(new GameState(screen));
+        game.setScreen(states.peek().getMenuScreen());
+    }
+
+    public void restartStack() {
+        states.clear();
+        states.push(new GameState(new MainMenu(game)));
         game.setScreen(states.peek().getMenuScreen());
     }
 }
