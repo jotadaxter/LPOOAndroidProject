@@ -4,7 +4,7 @@ package com.mygdx.game.Model.Entitys.Hero;
  * Created by Utilizador on 16-05-2017.
  */
 
-public class HeroStats {
+public class HeroStats implements java.io.Serializable {
     public static final int MIN_HEALTH = 1;
     public static final int MAX__HEALTH = 10;
 
