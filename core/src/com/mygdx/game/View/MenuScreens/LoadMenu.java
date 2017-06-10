@@ -96,11 +96,20 @@ public class LoadMenu extends MenuScreen {
             FileHandle saveFile = null;
 
             if(S1Button.isPressed())
-                saveFile = Gdx.files.local("/Saves/Save1.sav");
+                if(!Gdx.files.local("/Saves/Save1.sav").exists())
+                    return;
+                else
+                    saveFile = Gdx.files.local("/Saves/Save1.sav");
             else if(S2Button.isPressed())
-                saveFile = Gdx.files.local("/Saves/Save2.sav");
+                if(!Gdx.files.local("/Saves/Save2.sav").exists())
+                    return;
+                else
+                    saveFile = Gdx.files.local("/Saves/Save2.sav");
             else if(S3Button.isPressed())
-                saveFile = Gdx.files.local("/Saves/Save3.sav");
+                if(!Gdx.files.local("/Saves/Save3.sav").exists())
+                    return;
+                else
+                    saveFile = Gdx.files.local("/Saves/Save3.sav");
 
             byte[] bytes = saveFile.readBytes();
 
