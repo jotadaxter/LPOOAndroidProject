@@ -12,7 +12,6 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
@@ -30,16 +29,18 @@ public class Dungeon1 extends GameScreen{
         Gdx.input.setInputProcessor(logicController.getController().getStage());
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.GameScreens.GameScreen#getDescType()
+    /**
+     * Gets the desc type.
+     *
+     * @return the desc type
      */
     @Override
     protected Class<?> getDescType() {
         return Dungeon1.class;
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.GameScreens.GameScreen#musicDefine()
+    /**
+     * Music define.
      */
     @Override
     protected void musicDefine() {
@@ -48,8 +49,8 @@ public class Dungeon1 extends GameScreen{
         music.setVolume(MyGame.MUSIC_VOLUME);
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.GameScreens.GameScreen#objectsDraw()
+    /**
+     * Objects draw.
      */
     @Override
     public void objectsDraw() {
@@ -71,8 +72,10 @@ public class Dungeon1 extends GameScreen{
             m.draw(game.getBatch());
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.GameScreens.GameScreen#getMapName()
+    /**
+     * Gets the map name.
+     *
+     * @return the map name
      */
     @Override
     public String getMapName() {

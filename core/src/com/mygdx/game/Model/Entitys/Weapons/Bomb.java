@@ -17,7 +17,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 18/05/2017.
  */
@@ -108,7 +107,7 @@ TIC_TAC,
     public Bomb(LogicController logicController, Hero hero, Vector2 vec) {
         this.world= logicController.getWorld();
         this.hero=hero;
-        bombBody= new BombBody(world, this,new Vector2( vec.x,vec.y));
+        bombBody= new BombBody(world,new Vector2( vec.x,vec.y));
         this.logicController=logicController;
         position=vec;
         sprite= new Sprite();

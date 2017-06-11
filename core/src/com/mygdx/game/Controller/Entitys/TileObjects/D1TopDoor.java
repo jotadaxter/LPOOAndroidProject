@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 24/05/2017.
  */
@@ -25,10 +24,10 @@ public class D1TopDoor extends Sprite {
     /** The body. */
     private Body body;
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
-    /** The fdef. */
+    /** The fixture definition. */
     private FixtureDef fdef;
     
     /** The texture region 1. */
@@ -38,7 +37,7 @@ public class D1TopDoor extends Sprite {
     private TextureRegion textureRegion2;
 
     /**
-     * Instantiates a new d 1 top door.
+     * Instantiates a new dungeon1 top door.
      *
      * @param logicController the logic controller
      * @param vec the vec

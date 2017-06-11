@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
@@ -108,8 +107,10 @@ public class SaveMenuIG extends MenuScreen {
         back = game.getAssetManager().get("Buttons/back_button.png", Texture.class);
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+    /**
+     * Render.
+     *
+     * @param delta the delta
      */
     @Override
     public void render(float delta) {
@@ -195,8 +196,11 @@ public class SaveMenuIG extends MenuScreen {
         game.getBatch().end();
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+    /**
+     * Resize.
+     *
+     * @param width the width
+     * @param height the height
      */
     @Override
     public void resize(int width, int height) {

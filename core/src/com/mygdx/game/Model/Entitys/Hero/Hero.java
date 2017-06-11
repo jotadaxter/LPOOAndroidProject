@@ -19,7 +19,6 @@ import com.mygdx.game.Model.Entitys.Items.Jewel;
 
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 05-04-2017.
  */
@@ -42,7 +41,6 @@ public class Hero{
     protected Vector2 position;
     
     /** The stand right. */
-    //Standing Textures
     private TextureRegion standRight;
     
     /** The stand left. */
@@ -55,7 +53,6 @@ public class Hero{
     private TextureRegion standFront;
     
     /** The hero walk right. */
-    //Animations
     private Animation<TextureRegion> heroWalkRight;
     
     /** The hero walk up. */

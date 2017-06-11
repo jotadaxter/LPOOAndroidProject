@@ -15,7 +15,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
@@ -33,8 +32,10 @@ public class PitFall extends StaticTileObject{
         setCategoryFilter(MyGame.PITFALL_BIT);
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject#setSensor()
+    /**
+     * Sets the sensor
+     *
+     * @return false
      */
     @Override
     protected boolean setSensor() {

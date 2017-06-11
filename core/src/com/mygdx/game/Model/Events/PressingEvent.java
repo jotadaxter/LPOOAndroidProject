@@ -6,7 +6,6 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 17-05-2017.
  */
@@ -79,7 +78,7 @@ public class PressingEvent {
      */
     public void update(float dt) {
         if (condition()) {
-          //  logicController.setD1blck(false);
+            logicController.setD1blck(false);
             System.out.println("megaPressurePlate was pressed with success");
         }
     }

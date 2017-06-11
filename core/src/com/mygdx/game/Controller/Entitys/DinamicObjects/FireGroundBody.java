@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
@@ -20,14 +19,14 @@ public class FireGroundBody{
     /** The body. */
     private Body body;
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
-    /** The fdef. */
+    /** The fixture definition. */
     private FixtureDef fdef;
 
     /**
-     * Instantiates a new fire ground body.
+     * Instantiates a new fireGround body.
      *
      * @param world the world
      * @param fireGround the fire ground
@@ -63,7 +62,7 @@ public class FireGroundBody{
     }
 
     /**
-     * Gets the fdef.
+     * Gets the fixture definition.
      *
      * @return the fdef
      */

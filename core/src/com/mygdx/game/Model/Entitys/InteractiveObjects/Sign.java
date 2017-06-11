@@ -11,7 +11,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 21-05-2017.
  */

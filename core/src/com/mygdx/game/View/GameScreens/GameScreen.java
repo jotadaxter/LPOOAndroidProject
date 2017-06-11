@@ -23,7 +23,6 @@ import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.View.Scenes.TextLog;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 04/04/2017.
  */
@@ -112,7 +111,6 @@ public abstract class GameScreen implements Screen{
     public void update(float dt){
         logicController.update(dt);
         gameOptions();
-        //ajust the camera to follow the player
         gameCam.position.x= logicController.getPlayer().getHeroBody().getBody().getPosition().x;
         gameCam.position.y= logicController.getPlayer().getHeroBody().getBody().getPosition().y;
         hud.update();

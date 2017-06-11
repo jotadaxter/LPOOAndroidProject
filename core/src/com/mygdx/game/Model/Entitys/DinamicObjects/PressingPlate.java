@@ -12,7 +12,6 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.PressingPlateBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 02/05/2017.
  */

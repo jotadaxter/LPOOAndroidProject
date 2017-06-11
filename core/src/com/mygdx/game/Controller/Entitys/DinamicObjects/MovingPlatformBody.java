@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
@@ -19,10 +18,10 @@ public class MovingPlatformBody{
     /** The body. */
     private Body body;
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
-    /** The fdef. */
+    /** The fixture definition. */
     private FixtureDef fdef;
 
     /**
@@ -62,7 +61,7 @@ public class MovingPlatformBody{
     }
 
     /**
-     * Gets the fdef.
+     * Gets the fixture definition.
      *
      * @return the fdef
      */

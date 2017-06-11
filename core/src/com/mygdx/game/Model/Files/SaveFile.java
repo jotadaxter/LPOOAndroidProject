@@ -4,7 +4,6 @@ import com.mygdx.game.Model.Entitys.Hero.HeroStats;
 
 import java.io.IOException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Francisco Moreira on 10/06/2017.
  */

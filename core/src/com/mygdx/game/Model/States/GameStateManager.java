@@ -8,7 +8,6 @@ import com.mygdx.game.View.MenuScreens.MenuScreen;
 
 import java.util.Stack;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 09-05-2017.
  */

@@ -15,7 +15,6 @@ import com.mygdx.game.MyGame;
 
 import java.util.Random;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 21-05-2017.
  */

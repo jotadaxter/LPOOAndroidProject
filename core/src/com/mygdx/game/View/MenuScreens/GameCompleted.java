@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
@@ -93,8 +92,10 @@ public class GameCompleted extends MenuScreen {
         return temp;
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+    /**
+     * Render.
+     *
+     * @param delta the delta
      */
     @Override
     public void render(float delta) {
@@ -120,9 +121,12 @@ public class GameCompleted extends MenuScreen {
 
 
     }
-    
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+
+    /**
+     * Resize.
+     *
+     * @param width the width
+     * @param height the height
      */
     @Override
     public void resize(int width, int height) {

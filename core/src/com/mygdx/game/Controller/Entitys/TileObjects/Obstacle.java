@@ -7,7 +7,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 06-04-2017.
  */
@@ -31,8 +30,10 @@ public class Obstacle extends StaticTileObject {
         this.code=code;
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject#setSensor()
+    /**
+     * Sets the sensor
+     *
+     * @return false
      */
     @Override
     protected boolean setSensor() {

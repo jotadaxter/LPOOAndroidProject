@@ -18,11 +18,9 @@ import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Model.Entitys.Items.Item;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 09-04-2017.
  *
- * @see WorldContactEvent
  */
 
 public class WorldContactListener implements ContactListener {
@@ -42,18 +40,18 @@ public class WorldContactListener implements ContactListener {
         impactVerify("leftContact", fixVec);
         impactVerify("leftContact", fixVec);
 
-        dinamicBeginContactVerify1(cDef, fixVec);
-        dinamicBeginContactVerify2(cDef, fixVec);
-        dinamicBeginContactVerify3(cDef, fixVec);
+        dynamicBeginContactVerify1(cDef, fixVec);
+        dynamicBeginContactVerify2(cDef, fixVec);
+        dynamicBeginContactVerify3(cDef, fixVec);
     }
 
     /**
-     * Dinamic begin contact verify 1.
+     * Dynamic begin contact verify 1.
      *
      * @param cDef the c def
      * @param fixVec the fix vec
      */
-    private void dinamicBeginContactVerify1(int cDef,FixtureVector fixVec) {
+    private void dynamicBeginContactVerify1(int cDef,FixtureVector fixVec) {
         switch(cDef) {
             case MyGame.ITEM_BIT | MyGame.HERO_BIT:
                 heroItemBegin(fixVec.getFixA(), fixVec.getFixB());
@@ -76,7 +74,7 @@ public class WorldContactListener implements ContactListener {
      * @param cDef the c def
      * @param fixVec the fix vec
      */
-    private void dinamicBeginContactVerify2(int cDef,FixtureVector fixVec) {
+    private void dynamicBeginContactVerify2(int cDef,FixtureVector fixVec) {
         switch(cDef){
             case MyGame.BOULDER_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
                 bolderMegaPlateBegin(fixVec.getFixA(),fixVec.getFixB());
@@ -94,12 +92,12 @@ public class WorldContactListener implements ContactListener {
     }
 
     /**
-     * Dinamic begin contact verify 3.
+     * Dynamic begin contact verify 3.
      *
      * @param cDef the c def
      * @param fixVec the fix vec
      */
-    private void dinamicBeginContactVerify3(int cDef,FixtureVector fixVec) {
+    private void dynamicBeginContactVerify3(int cDef,FixtureVector fixVec) {
         switch(cDef){
             case MyGame.HERO_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
                 heroMegaPlateBegin(fixVec.getFixA(), fixVec.getFixB());

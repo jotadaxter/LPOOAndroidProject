@@ -9,14 +9,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 28/04/2017.
  */
 
 public class JewelBody {
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
     /** The body. */

@@ -13,7 +13,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 28/04/2017.
  */
@@ -29,7 +28,7 @@ public class HeroBody{
     /** The logic controller. */
     private LogicController logicController;
     
-    /** The fdef. */
+    /** The fixture definition. */
     private FixtureDef fdef;
     
     /** The hero. */
@@ -249,7 +248,7 @@ WALK_UP,
     }
 
     /**
-     * Region state update 1.
+     * Region state update part1.
      *
      * @return the texture region
      */
@@ -261,7 +260,7 @@ WALK_UP,
     }
 
     /**
-     * Region state update 2.
+     * Region state update part2.
      *
      * @return the texture region
      */
@@ -273,7 +272,7 @@ WALK_UP,
     }
 
     /**
-     * Region update 4.
+     * Region update part4.
      *
      * @return the texture region
      */
@@ -295,7 +294,7 @@ WALK_UP,
     }
 
     /**
-     * Region update 3.
+     * Region update part3.
      *
      * @return the texture region
      */
@@ -317,7 +316,7 @@ WALK_UP,
     }
 
     /**
-     * Region update 2.
+     * Region update part2.
      *
      * @return the texture region
      */
@@ -339,7 +338,7 @@ WALK_UP,
     }
 
     /**
-     * Region update 1.
+     * Region update part1.
      *
      * @return the texture region
      */
@@ -472,7 +471,7 @@ WALK_UP,
     }
 
     /**
-     * Gets the fdef.
+     * Gets the fixture definition.
      *
      * @return the fdef
      */

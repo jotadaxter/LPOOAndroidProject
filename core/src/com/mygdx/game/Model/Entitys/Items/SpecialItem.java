@@ -10,7 +10,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
@@ -37,8 +36,8 @@ public class SpecialItem extends Item{
             sprite.setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/volcano_ruby.png", Texture.class)));
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Model.Entitys.Items.Item#defineItem()
+    /**
+     * Define item.
      */
     @Override
     public void defineItem() {
@@ -47,16 +46,21 @@ public class SpecialItem extends Item{
             sprite.setBounds(sprite.getX(),sprite.getY(), 16* MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Model.Entitys.Items.Item#use(com.mygdx.game.Model.Entitys.Hero.Hero)
+    /**
+     * Use.
+     *
+     * @param hero the hero
      */
     @Override
     public void use(Hero hero) {
         destroy();
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Model.Entitys.Items.Item#update(float, com.mygdx.game.Model.Entitys.Hero.Hero)
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     * @param hero the hero
      */
     @Override
     public void update(float dt, Hero hero) {

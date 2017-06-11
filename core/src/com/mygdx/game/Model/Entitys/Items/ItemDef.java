@@ -2,7 +2,6 @@ package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.math.Vector2;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 09-04-2017.
  */
@@ -12,7 +11,7 @@ public class ItemDef {
     /** The position. */
     public Vector2 position;
     
-    /** The type. */
+    /** The type type. */
     public Class<?> type;
     
     /** The val. */

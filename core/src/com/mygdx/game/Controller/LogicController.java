@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 11/06/2017.
  */
@@ -68,14 +67,12 @@ public class LogicController implements Disposable{
     public static final int BOULDER_Y = 8+8*16;
     
     /** The Constant PP_X. */
-    //PressingPlate Position
     public static final int PP_X = 8+14*16;
     
     /** The Constant PP_Y. */
     public static final int PP_Y = 8+8*16;
     
     /** The Constant PP1_X. */
-    //PressingPlate Position
     public static final int PP1_X = 8+16*8;
     
     /** The Constant PP1_Y. */
@@ -100,7 +97,6 @@ public class LogicController implements Disposable{
     public static final int PP4_Y = 8+16*32;
     
     /** The Constant WB1_X. */
-    //WayBlockers
     public static final int WB1_X = 8+16*23;
     
     /** The Constant WB1_Y. */
@@ -155,11 +151,9 @@ public class LogicController implements Disposable{
     private TiledMap tiledMap;
     
     /** The controller. */
-    //Controllers
     private Controller controller;
     
     /** The player. */
-    //Sprites
     private Hero player;
     
     /** The boulders. */
@@ -413,7 +407,7 @@ public class LogicController implements Disposable{
     }
     
     /**
-     * F witems load.
+     * Free world items load.
      */
     private void FWitemsLoad() {
         ArrayList<Vector2> positions = getGame().getFileReader().ReadFile("rupee_locations","free_world");
@@ -433,7 +427,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * F wsign load.
+     * Free world sign load.
      */
     private void FWsignLoad() {
         Sign sign1= new Sign(this, new Vector2(29*16+8,35*16-8));
@@ -454,7 +448,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * F wchests load.
+     * Free world chests load.
      */
     private void FWchestsLoad() {
         ArrayList<Vector2> positions = getGame().getFileReader().ReadFile("chest_locations","free_world");
@@ -466,7 +460,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * F wpressing plates load.
+     * Free world pressing plates load.
      */
     private void FWpressingPlatesLoad() {
         PressingPlate pp1= new PressingPlate(this,new Vector2( PP1_X, PP1_Y));
@@ -485,7 +479,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * F wboulder load.
+     * Free world boulder load.
      */
     private void FWboulderLoad() {
         WayBlocker wb =  new WayBlocker(this,new Vector2(WB1_X,WB1_Y),0);
@@ -517,7 +511,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D 1 spikes load.
+     * Dungeon 1 spikes load.
      */
     private void D1spikesLoad() {
         ArrayList<Vector2> positions = getGame().getFileReader().ReadFile("spikes_locations","dungeon1");
@@ -528,7 +522,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D 1 moving platforms load.
+     * Dungeon 1 moving platforms load.
      */
     private void D1movingPlatformsLoad() {
         MovingPlatform m1= new MovingPlatform(this, new Vector2(MOV_PLAT1_X,MOV_PLAT1_Y), 0);
@@ -544,7 +538,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D 1 boulder load.
+     * Dungeon 1 boulder load.
      */
     private void D1boulderLoad() {
         Boulder boulder1= new Boulder(this,new Vector2(8+10*16, 8+22*16));
@@ -558,7 +552,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D 1 pressing plates load.
+     * Dungeon 1 pressing plates load.
      */
     private void D1pressingPlatesLoad() {
         MegaPressingPlate megapp1= new MegaPressingPlate(this,new Vector2(4*16+8,23*16+8));
@@ -569,7 +563,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D 1 items load.
+     * Dungeon 1 items load.
      */
     private void D1itemsLoad() {
         spawnItem(new ItemDef(new Vector2(8+46*16,8+42*16), SpecialItem.class));
@@ -580,7 +574,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D 1 chests load.
+     * Dungeon 1 chests load.
      */
     private void D1chestsLoad() {
         ArrayList<Vector2> positions = getGame().getFileReader().ReadFile("chest_locations","dungeon1");
@@ -592,7 +586,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D 1 smash rock load.
+     * Dungeon 1 smash rock load.
      */
     private void D1smashRockLoad() {
         ArrayList<Vector2> positions = getGame().getFileReader().ReadFile("rock_locations","dungeon1");
@@ -603,7 +597,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D 1 fire ground load.
+     * Dungeon 1 fire ground load.
      */
     private void D1fireGroundLoad() {
         ArrayList<Vector2> positions = getGame().getFileReader().ReadFile("fireground_locations","dungeon1");
@@ -630,7 +624,7 @@ public class LogicController implements Disposable{
     }
 
     /**
-     * D ssign load.
+     * Demo screen sign load.
      */
     private void DSsignLoad() {
         Sign sign1= new Sign(this, new Vector2(5*16+8,13*16+8));

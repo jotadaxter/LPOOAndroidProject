@@ -17,7 +17,6 @@ import com.mygdx.game.View.GameScreens.FreeWorld;
 
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
@@ -84,8 +83,10 @@ public class MainMenu extends MenuScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+    /**
+     * Render.
+     *
+     * @param delta the delta
      */
     @Override
     public void render(float delta) {
@@ -102,10 +103,7 @@ public class MainMenu extends MenuScreen {
         stage.draw();
 
         if(storyButton.isPressed()){
-            //game.setScreen(new Dungeon1(game));
-            //game.gsm.push(new FreeWorld(game));
             game.getGsm().push(new GameState(new StoryMenu(game)));
-            //game.gsm.push(new DemoScreen(game,POSX,POSY));
         }
 
         if (optionsButton.isPressed()){
@@ -118,8 +116,11 @@ public class MainMenu extends MenuScreen {
 
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+    /**
+     * Resize.
+     *
+     * @param width the width
+     * @param height the height
      */
     @Override
     public void resize(int width, int height) {

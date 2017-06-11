@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
@@ -20,17 +19,17 @@ public class MegaPressingPlateBody {
     /** The body. */
     private Body body;
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
-    /** The fdef. */
+    /** The fixture definition. */
     private FixtureDef fdef;
 
     /**
-     * Instantiates a new mega pressing plate body.
+     * Instantiates a new megaPressingPlate body.
      *
      * @param world the world
-     * @param megaPressingPlate the mega pressing plate
+     * @param megaPressingPlate the megaPressingPlate
      * @param vec the vec
      */
     public MegaPressingPlateBody(World world, MegaPressingPlate megaPressingPlate, Vector2 vec) {
@@ -62,7 +61,7 @@ public class MegaPressingPlateBody {
     }
 
     /**
-     * Gets the fdef.
+     * Gets the fixture definition.
      *
      * @return the fdef
      */

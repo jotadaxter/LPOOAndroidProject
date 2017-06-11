@@ -10,7 +10,6 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.BoulderBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 06-04-2017.
  */

@@ -9,14 +9,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.Items.SpecialItem;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
 
 public class SpecialItemBody {
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
     /** The body. */

@@ -2,7 +2,6 @@ package com.mygdx.game.Controller.WorldTools;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 29-05-2017.
  */

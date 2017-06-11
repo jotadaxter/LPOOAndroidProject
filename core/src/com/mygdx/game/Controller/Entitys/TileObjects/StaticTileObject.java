@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 06-04-2017.
  */

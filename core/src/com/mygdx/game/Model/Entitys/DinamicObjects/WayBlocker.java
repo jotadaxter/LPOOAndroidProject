@@ -12,7 +12,6 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.WayBlockerBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 17-05-2017.
  */

@@ -7,14 +7,13 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 28-05-2017.
  */
 
 public class StaticContactShapes {
     
-    /** The sensorfix. */
+    /** The sensorfix fixture definition. */
     private FixtureDef sensorfix;
     
     /** The body. */

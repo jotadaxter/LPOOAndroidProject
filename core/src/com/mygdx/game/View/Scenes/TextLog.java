@@ -15,7 +15,6 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 22-05-2017.
  */
@@ -49,13 +48,15 @@ public class TextLog {
      * @param game the game
      */
     public TextLog(MyGame game) {
-        viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, game.getBatch());
-        font = game.getAssetManager().get("Fonts/textFont.fnt", BitmapFont.class);
-        logImage=new Image(game.getAssetManager().get("Game/log.png", Texture.class));
-        logImage.setPosition(5,0);
-        stage.addActor(logImage);
-        labels();
+        if(!game.getIsTest()) {
+            viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
+            stage = new Stage(viewport, game.getBatch());
+            font = game.getAssetManager().get("Fonts/textFont.fnt", BitmapFont.class);
+            logImage = new Image(game.getAssetManager().get("Game/log.png", Texture.class));
+            logImage.setPosition(5, 0);
+            stage.addActor(logImage);
+            labels();
+        }
     }
 
     /**

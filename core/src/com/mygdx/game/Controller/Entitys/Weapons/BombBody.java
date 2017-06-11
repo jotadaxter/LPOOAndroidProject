@@ -11,7 +11,6 @@ import com.mygdx.game.Model.Entitys.Items.Heart;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 18/05/2017.
  */
@@ -21,7 +20,7 @@ public class BombBody {
     /** The Constant DAMPING_NORMAL. */
     public static final float DAMPING_NORMAL= 0f;
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
     /** The body. */
@@ -30,17 +29,16 @@ public class BombBody {
     /** The normal shape. */
     private CircleShape normalShape;
     
-    /** The fdef. */
+    /** The fixture definition. */
     private FixtureDef fdef;
 
     /**
      * Instantiates a new bomb body.
      *
      * @param world the world
-     * @param bomb the bomb
      * @param vec the vec
      */
-    public BombBody(World world, Bomb bomb,Vector2 vec) {
+    public BombBody(World world,Vector2 vec) {
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;

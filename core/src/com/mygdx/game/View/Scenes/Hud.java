@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 21/04/2017.
  */
@@ -242,7 +241,6 @@ public class Hud implements Disposable{
         int delta = health-previousHealth;
         int i = 0;
         heartStage.clear();
-        //redesenhar corações
         while (i<health){
             Image new_heart= new Image(new TextureRegion(game.getAssetManager().get("Game/life_hearts.png", Texture.class), 0,0,9,8));
             new_heart.setBounds(HEART_X+12*i,HEART_Y,HEART_WIDTH,HEART_HEIGTH);

@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 21-05-2017.
  */
@@ -20,7 +19,7 @@ public class ChestBody{
     /** The body. */
     private Body body;
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
 
     /**

@@ -12,7 +12,6 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.SmashableRockBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 24/05/2017.
  */

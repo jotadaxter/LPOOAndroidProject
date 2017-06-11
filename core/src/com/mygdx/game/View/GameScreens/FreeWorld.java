@@ -9,7 +9,6 @@ import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 10-05-2017.
  */
@@ -27,24 +26,28 @@ public class FreeWorld extends GameScreen {
         Gdx.input.setInputProcessor(logicController.getController().getStage());
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.GameScreens.GameScreen#getDescType()
+    /**
+     * Gets the desc type.
+     *
+     * @return the desc type
      */
     @Override
     protected Class<?> getDescType() {
         return FreeWorld.class;
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.GameScreens.GameScreen#getMapName()
+    /**
+     * Gets the map name.
+     *
+     * @return the map name
      */
     @Override
     public String getMapName() {
         return "free_world.tmx";
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.GameScreens.GameScreen#musicDefine()
+    /**
+     * Music define.
      */
     @Override
     protected void musicDefine() {
@@ -53,8 +56,8 @@ public class FreeWorld extends GameScreen {
         music.setVolume(MyGame.MUSIC_VOLUME);
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.GameScreens.GameScreen#objectsDraw()
+    /**
+     * Objects draw.
      */
     @Override
     public void objectsDraw() {

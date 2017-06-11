@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 26-05-2017.
  */

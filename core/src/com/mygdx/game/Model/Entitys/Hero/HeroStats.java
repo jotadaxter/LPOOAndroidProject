@@ -1,6 +1,5 @@
 package com.mygdx.game.Model.Entitys.Hero;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 16-05-2017.
  */

@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 18/05/2017.
  */
@@ -18,7 +17,7 @@ public class ExplosionBody {
     /** The Constant DAMPING_NORMAL. */
     public static final float DAMPING_NORMAL= 3f;
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
     /** The body. */
@@ -27,7 +26,7 @@ public class ExplosionBody {
     /** The shape. */
     private CircleShape shape;
     
-    /** The fdef. */
+    /** The fixture definition. */
     private FixtureDef fdef;
 
     /**

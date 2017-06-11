@@ -10,7 +10,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 06-04-2017.
  */
@@ -67,24 +66,29 @@ public class Jewel extends Item {
             sprite.setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/big_red_rupee.png", Texture.class), 0,0,12,16));
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Model.Entitys.Items.Item#defineItem()
+    /**
+     * Define item.
      */
     @Override
     public void defineItem() {
         type="jewel";
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Model.Entitys.Items.Item#use(com.mygdx.game.Model.Entitys.Hero.Hero)
+    /**
+     * Use.
+     *
+     * @param hero the hero
      */
     @Override
     public void use(Hero hero) {
         destroy();
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Model.Entitys.Items.Item#update(float, com.mygdx.game.Model.Entitys.Hero.Hero)
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     * @param hero the hero
      */
     @Override
     public void update(float dt, Hero hero) {

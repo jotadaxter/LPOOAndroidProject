@@ -8,7 +8,6 @@ import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 09-05-2017.
  */
@@ -62,8 +61,10 @@ public class Door extends StaticTileObject {
         return id;
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject#setSensor()
+    /**
+     * Sets the sensor
+     *
+     * @return false
      */
     @Override
     protected boolean setSensor() {

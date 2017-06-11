@@ -4,7 +4,6 @@ import com.badlogic.gdx.Screen;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.View.MenuScreens.MenuScreen;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 09-05-2017.
  */

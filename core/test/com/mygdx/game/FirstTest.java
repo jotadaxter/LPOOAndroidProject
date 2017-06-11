@@ -60,4 +60,16 @@ public class FirstTest extends GameTest{
         assertTrue(logicController.getPlayer().getHeroBody().getBody().getPosition().x>=3.0);
         assertEquals(2, logicController.getPlayer().getHeroBody().getBody().getPosition().y, FIRST_POSY);
     }
+
+    @Test
+    public void testPlayerBomb() {
+        int initialBombs = logicController.getPlayer().getBombs().size();
+        logicController.getController().setbPressed(true);
+        for(float dt= 0; dt <1; dt++) {
+            logicController.update(dt);
+        }
+        int finalBombs = logicController.getPlayer().getBombs().size();
+        assertTrue(initialBombs < finalBombs);
+
+    }
 }

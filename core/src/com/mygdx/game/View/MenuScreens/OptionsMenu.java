@@ -16,7 +16,6 @@ import com.mygdx.game.View.GameScreens.FreeWorld;
 
 import java.awt.Color;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
@@ -141,8 +140,10 @@ public class OptionsMenu extends MenuScreen {
         backtex = game.getAssetManager().get("Buttons/back_button.png", Texture.class);
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+    /**
+     * Render.
+     *
+     * @param delta the delta
      */
     @Override
     public void render(float delta) {
@@ -187,8 +188,11 @@ public class OptionsMenu extends MenuScreen {
         game.getBatch().end();
     }
 
-    /* (non-Javadoc)
-     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+    /**
+     * Resize.
+     *
+     * @param width the width
+     * @param height the height
      */
     @Override
     public void resize(int width, int height) {

@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.MyGame;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 02/05/2017.
  */
@@ -20,17 +19,17 @@ public class PressingPlateBody{
     /** The body. */
     private Body body;
     
-    /** The bdef. */
+    /** The body definition. */
     private BodyDef bdef;
     
-    /** The fdef. */
+    /** The fixture definition. */
     private FixtureDef fdef;
 
     /**
      * Instantiates a new pressing plate body.
      *
      * @param world the world
-     * @param pressingPlate the pressing plate
+     * @param pressingPlate the pressingPlate
      * @param vec the vec
      */
     public PressingPlateBody(World world, PressingPlate pressingPlate, Vector2 vec) {
@@ -62,7 +61,7 @@ public class PressingPlateBody{
     }
 
     /**
-     * Gets the fdef.
+     * Gets the fixture definition.
      *
      * @return the fdef
      */

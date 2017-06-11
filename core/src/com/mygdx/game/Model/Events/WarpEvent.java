@@ -2,7 +2,6 @@ package com.mygdx.game.Model.Events;
 
 import com.mygdx.game.Model.States.GameState;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 10-05-2017.
  */
