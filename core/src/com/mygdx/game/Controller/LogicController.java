@@ -148,7 +148,7 @@ public class LogicController implements Disposable{
     }
 
     public void update(float dt) {
-       // handleSpawningItems();
+        handleSpawningItems();
         getPlayer().getHeroBody().InputUpdate(getController(), dt);
         //takes 1 step in the physics simulation (60 times per second)
         framesPerSecUpdate(dt);
@@ -175,7 +175,7 @@ public class LogicController implements Disposable{
         getPlayer().update(dt);
         for(Boulder boulder : getBoulders())
             boulder.update();
-       /*for(PressingPlate pp : getPps())
+       for(PressingPlate pp : getPps())
             pp.update(dt);
         for(MegaPressingPlate mpp : getMpps())
             mpp.update(dt);
@@ -207,7 +207,7 @@ public class LogicController implements Disposable{
             item.update(dt, getPlayer());
         for(TextLog tlog: getTextlogs()) {
             tlog.update();
-        }*/
+        }
     }
 
     private void framesPerSecUpdate(float dt) {

@@ -25,7 +25,7 @@ public class Door extends StaticTileObject {
     }
 
     public void warp() {
-       /* if(logicController.getScreenType() ==DemoScreen.class){
+        if(logicController.getScreenType() ==DemoScreen.class){
             sound.play(MyGame.SOUND_VOLUME);
             logicController.getGame().getGsm().pop();
         }
@@ -35,7 +35,7 @@ public class Door extends StaticTileObject {
                     sound.play(MyGame.SOUND_VOLUME);
                     logicController.getGame().getGsm().push(warpEvent.getTravelPoint());
                 }
-        }*/
+        }
     }
 
     public int getId() {

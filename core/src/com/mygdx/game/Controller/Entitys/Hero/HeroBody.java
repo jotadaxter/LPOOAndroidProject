@@ -280,20 +280,20 @@ public class HeroBody{
 
     private void auxControl(Controller controller, float dt) {
         if(controller.isaPressed()){
-           /* if(hero.getOpenedChestId()>-1) {
+            if(hero.getOpenedChestId()>-1) {
                 logicController.getChests().get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
             }
             else if(hero.getOpenedSignId()>-1){
                 logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
-            }*/
+            }
         }
         else if(controller.isEscPressed()){
-           /* if(hero.getOpenedSignId()>-1){
+            if(hero.getOpenedSignId()>-1){
                 logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(false);
                 hero.setSignWasOpened(false);
                 hero.setOpenedSignId(-1);
-            }*/
+            }
         }
         else getBody().setLinearVelocity(0, 0);
     }
@@ -304,14 +304,14 @@ public class HeroBody{
                 this.hero.throwBomb();
         }
         else if(controller.isaPressed()){
-           /* if(hero.getOpenedChestId()>-1) {
+            if(hero.getOpenedChestId()>-1) {
                 logicController.getChests().get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
             }
             else if(hero.getOpenedSignId()>-1 && !hero.isSignWasOpened()){
                 logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
                 hero.setSignWasOpened(true);
-            }*/
+            }
         }
     }
 
