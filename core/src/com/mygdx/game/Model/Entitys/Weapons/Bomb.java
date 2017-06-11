@@ -21,9 +21,8 @@ import com.mygdx.game.MyGame;
  * Created by Jotadaxter on 18/05/2017.
  */
 
-public class Bomb extends Sprite{
+public class Bomb{
     public static final float MAX_TIMING=2.575f;
-    private LogicController logicController;
     private Hero hero;
     private World world;
     private boolean toDestroy;
@@ -45,24 +44,30 @@ public class Bomb extends Sprite{
     private float tic_tac_timer;
     private Sound sound1;
     private Sound sound2;
+    private Sprite sprite;
+    private LogicController logicController;
+    private Vector2 position;
 
     public Bomb(LogicController logicController, Hero hero, Vector2 vec) {
         this.world= logicController.getWorld();
-        this.logicController=logicController;
         this.hero=hero;
         bombBody= new BombBody(world, this,new Vector2( vec.x,vec.y));
-        setPosition(vec.x,vec.y);
+        this.logicController=logicController;
+        position=vec;
+        sprite= new Sprite();
         toDestroy=false;
         destroyed=false;
         setTimer(0);
         explosionBody= new ExplosionBody(world,new Vector2(0,0));
         tic_tac_timer=0;
         soundTimer=0;
-        textureLoad();
-        setCurrentState(State.TIC_TAC);
-        animationLoad();
-        setRegion(blue);
-        setBounds(0, 0, 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
+        if(!logicController.getGame().getIsTest()) {
+            textureLoad();
+            setCurrentState(State.TIC_TAC);
+            animationLoad();
+            sprite.setRegion(blue);
+            sprite.setBounds(0, 0, 12 * MyGame.PIXEL_TO_METER, 16 * MyGame.PIXEL_TO_METER);
+        }
         sound1=Gdx.audio.newSound(Gdx.files.internal("Sounds/bomb_tic_tac.wav"));
         sound2=Gdx.audio.newSound(Gdx.files.internal("Sounds/bomb_boom.wav"));
     }
@@ -97,12 +102,16 @@ public class Bomb extends Sprite{
             world.destroyBody(explosionBody.getBody());
             destroyed=true;
         }
-        setPosition(bombBody.getBody().getPosition().x-getWidth()/2, bombBody.getBody().getPosition().y-getHeight()/2);
         setTimer(getTimer() + dt);
         soundUpdate();
-        if(this.getTimer() <MAX_TIMING)
-            setRegion(getFrame(dt));
-        else destroy();
+        if(!logicController.getGame().getIsTest()) {
+            if(this.getTimer() <MAX_TIMING)
+                sprite.setRegion(getFrame(dt));
+            else destroy();
+            sprite.setPosition(bombBody.getBody().getPosition().x-sprite.getWidth()/2, bombBody.getBody().getPosition().y-sprite.getHeight()/2);
+        }else {
+            position=new Vector2(bombBody.getBody().getPosition().x, bombBody.getBody().getPosition().y);
+        }
     }
 
     private void soundUpdate() {
@@ -121,7 +130,7 @@ public class Bomb extends Sprite{
 
     public void draw(Batch batch){
         if(!destroyed)
-            super.draw(batch);
+            sprite.draw(batch);
     }
 
     public Body getBody(){
@@ -154,10 +163,10 @@ public class Bomb extends Sprite{
     public TextureRegion getRegion() {
         TextureRegion region= new TextureRegion();
         if(getCurrentState() ==State.TIC_TAC){
-            setBounds(getX(), getY(), 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
+            sprite.setBounds(sprite.getX(), sprite.getY(), 12*MyGame.PIXEL_TO_METER, 16*MyGame.PIXEL_TO_METER);
             region = tic_tac.getKeyFrame(tic_tac_timer, true);
         }else if(getCurrentState() ==State.BOOM){
-            setBounds(getX(), getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
+            sprite.setBounds(sprite.getX(), sprite.getY(), 47*MyGame.PIXEL_TO_METER, 51*MyGame.PIXEL_TO_METER);
             region = boom.getKeyFrame(tic_tac_timer, false);
         }
         return region;

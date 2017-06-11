@@ -16,7 +16,7 @@ import com.mygdx.game.MyGame;
  * Created by Jotadaxter on 24/05/2017.
  */
 
-public class SmashableRock extends Sprite{
+public class SmashableRock{
     private World world;
     private TextureRegion blockFigure;
     private boolean toDestroy;
@@ -24,6 +24,9 @@ public class SmashableRock extends Sprite{
     private SmashableRockBody rockBody;
     private int timer;
     private boolean incTimer;
+    private Vector2 position;
+    private Sprite sprite;
+    private LogicController logicController;
 
     public SmashableRock(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
@@ -32,10 +35,15 @@ public class SmashableRock extends Sprite{
         destroyed=false;
         toDestroy=false;
         timer=0;
+        position=vec;
+        this.logicController=logicController;
+        sprite=new Sprite();
         blockFigure = new TextureRegion(logicController.getGame().getAssetManager().get("Game/destroyable_rock.png", Texture.class), 0,0,16,16);
-        setPosition(vec.x,vec.y);
-        setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
-        setRegion(blockFigure);
+        if(!logicController.getGame().getIsTest()) {
+            sprite.setPosition(vec.x, vec.y);
+            sprite.setBounds(0, 0, 16 * MyGame.PIXEL_TO_METER, 16 * MyGame.PIXEL_TO_METER);
+            sprite.setRegion(blockFigure);
+        }
     }
 
     public void destroy(){
@@ -47,7 +55,13 @@ public class SmashableRock extends Sprite{
             world.destroyBody(rockBody.getBody());
             destroyed=true;
         }
-        setPosition(rockBody.getBody().getPosition().x-getWidth()/2, rockBody.getBody().getPosition().y-getHeight()/2);
+
+        if(!logicController.getGame().getIsTest()) {
+            sprite.setPosition(rockBody.getBody().getPosition().x-sprite.getWidth()/2, rockBody.getBody().getPosition().y-sprite.getHeight()/2);
+        }else {
+            position=new Vector2(rockBody.getBody().getPosition().x, rockBody.getBody().getPosition().y);
+        }
+
         if(incTimer)
             timer+=dt*100;
         if(timer>=130 && !(Gdx.app.getType() == Application.ApplicationType.Android)){
@@ -57,9 +71,8 @@ public class SmashableRock extends Sprite{
         }
     }
 
-    @Override
     public void draw(Batch batch) {
         if(!destroyed)
-            super.draw(batch);
+            sprite.draw(batch);
     }
 }

@@ -22,13 +22,15 @@ public class Heart extends Item {
         super(logicController, vec);
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_heart.wav"));
         heartBody=new HeartBody(world,this, vec);
-        setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/heart.png", Texture.class), 0,0,15,15));
+        if(!logicController.getGame().getIsTest())
+            sprite.setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/heart.png", Texture.class), 0,0,15,15));
     }
 
     @Override
     public void defineItem() {
         type="heart";
-        setBounds(getX(),getY(), 15*MyGame.PIXEL_TO_METER,15*MyGame.PIXEL_TO_METER);
+        if(!logicController.getGame().getIsTest())
+            sprite.setBounds(sprite.getX(),sprite.getY(), 15*MyGame.PIXEL_TO_METER,15*MyGame.PIXEL_TO_METER);
     }
 
     @Override
@@ -44,6 +46,10 @@ public class Heart extends Item {
             destroyed=true;
             hero.addItem(this);
         }
-        setPosition(heartBody.getBody().getPosition().x-getWidth()/2, heartBody.getBody().getPosition().y-getHeight()/2);
+        if(!logicController.getGame().getIsTest()) {
+            sprite.setPosition(heartBody.getBody().getPosition().x-sprite.getWidth()/2, heartBody.getBody().getPosition().y-sprite.getHeight()/2);
+        }else {
+            position=new Vector2(heartBody.getBody().getPosition().x, heartBody.getBody().getPosition().y);
+        }
     }
 }

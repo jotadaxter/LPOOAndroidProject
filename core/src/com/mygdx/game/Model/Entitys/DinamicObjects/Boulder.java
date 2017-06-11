@@ -15,19 +15,19 @@ import com.mygdx.game.MyGame;
  */
 
 public class Boulder{
-    private LogicController logicController;
     private World world;
-    private Vector2 position;
     private TextureRegion boulderFigure;
     private BoulderBody boulderBody;
     private Sprite sprite;
+    private LogicController logicController;
+    private Vector2 position;
 
     public Boulder(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
         this.logicController=logicController;
         position=vec;
-        boulderBody= new BoulderBody(world,vec);
         sprite= new Sprite();
+        boulderBody= new BoulderBody(world,vec);
         if(!logicController.getGame().getIsTest()) {
             boulderFigure = new TextureRegion(logicController.getGame().getAssetManager().get("Game/boulder.png", Texture.class), 0, 0, 16, 16);
             sprite.setPosition(vec.x, vec.y);

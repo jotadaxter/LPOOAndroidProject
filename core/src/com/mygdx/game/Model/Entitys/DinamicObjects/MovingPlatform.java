@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -17,7 +18,7 @@ import com.mygdx.game.MyGame;
  * Created by Utilizador on 20-05-2017.
  */
 
-public class MovingPlatform extends Sprite {
+public class MovingPlatform {
     private World world;
     private Animation<TextureRegion> movingDown;
     private Animation<TextureRegion> movingUp;
@@ -26,6 +27,9 @@ public class MovingPlatform extends Sprite {
     private int id;
     private float moving_timer;
     private int type;
+    private Vector2 position;
+    private Sprite sprite;
+    private LogicController logicController;
 
     public enum State {UP, DOWN, LEFT, RIGHT};
     public State currentState;
@@ -36,10 +40,15 @@ public class MovingPlatform extends Sprite {
         this.type=type;
         id = 0;
         moving_timer=0;
+        position=vec;
+        this.logicController=logicController;
+        sprite=new Sprite();
         platformBody = new MovingPlatformBody(world, this, vec);
-        loadAnimation(logicController.getGame());
-        setBounds(0, 0, 32 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
-        setPosition(vec.x, vec.y);
+        if(!logicController.getGame().getIsTest()) {
+            loadAnimation(logicController.getGame());
+            sprite.setBounds(0, 0, 32 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
+            sprite.setPosition(vec.x, vec.y);
+        }
     }
 
     private void loadAnimation(MyGame game) {
@@ -69,8 +78,12 @@ public class MovingPlatform extends Sprite {
             speed=MyGame.PLATFORM_VELOCITY_ANDROID;
         else speed=MyGame.PLATFORM_VELOCITY_PC;
         movementType(dt, speed);
-        setPosition(platformBody.getBody().getPosition().x - getWidth() / 2, platformBody.getBody().getPosition().y - getHeight() / 2);
-        setRegion(getFrame(dt));
+        if(!logicController.getGame().getIsTest()) {
+            sprite.setRegion(getFrame(dt));
+            sprite.setPosition(platformBody.getBody().getPosition().x-sprite.getWidth()/2, platformBody.getBody().getPosition().y-sprite.getHeight()/2);
+        }else {
+            position=new Vector2(platformBody.getBody().getPosition().x, platformBody.getBody().getPosition().y);
+        }
     }
 
     private void movementType(float dt, float speed) {
@@ -154,4 +167,9 @@ public class MovingPlatform extends Sprite {
     public void setId(int n) {
         id = n;
     }
+
+    public void draw(SpriteBatch batch){
+        sprite.draw(batch);
+    }
+
 }

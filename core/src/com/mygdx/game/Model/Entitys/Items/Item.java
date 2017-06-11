@@ -11,18 +11,22 @@ import com.mygdx.game.Model.Entitys.Hero.Hero;
  * Created by Utilizador on 09-04-2017.
  */
 
-public abstract class Item extends Sprite {
-    protected LogicController logicController;
+public abstract class Item{
     protected World world;
     protected boolean toDestroy;
     protected boolean destroyed;
     protected String type;
+    protected Sprite sprite;
+    protected LogicController logicController;
+    protected Vector2 position;
 
     public Item(LogicController logicController, Vector2 vec){
         this.logicController=logicController;
         this.world= logicController.getWorld();
         type="";
-        setPosition(vec.x,vec.y);
+        this.logicController=logicController;
+        position=vec;
+        sprite= new Sprite();
         //Define Item
         defineItem();
         toDestroy=false;
@@ -36,7 +40,7 @@ public abstract class Item extends Sprite {
 
     public void draw(Batch batch){
         if(!destroyed)
-            super.draw(batch);
+            sprite.draw(batch);
     }
 
     public void destroy(){

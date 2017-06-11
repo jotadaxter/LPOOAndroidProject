@@ -116,17 +116,17 @@ public class LogicController implements Disposable{
         setController(new Controller(game));
         getWorld().setContactListener(new WorldContactListener());
         if(type== FreeWorld.class){
-           // getWarpEvents().add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,new Vector2(247,35)))));
-            //getWarpEvents().add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game,new Vector2(DUNGEON1_POSX,DUNGEON1_POSY)))));
+            getWarpEvents().add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,new Vector2(247,35)))));
+            getWarpEvents().add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game,new Vector2(DUNGEON1_POSX,DUNGEON1_POSY)))));
         }
     }
 
     private void objectsDefine(Vector2 vec) {
-        //setItems(new Array<Item>());
-       // setItemsToSpawn(new LinkedBlockingQueue<ItemDef>());
+        setItems(new Array<Item>());
+        setItemsToSpawn(new LinkedBlockingQueue<ItemDef>());
         setPlayer(new Hero(this,vec));
         setBoulders(new ArrayList<Boulder>());
-       /* setSpikes(new ArrayList<Spikes>());
+        setSpikes(new ArrayList<Spikes>());
         setPps(new ArrayList<PressingPlate>());
         setMpps(new ArrayList<MegaPressingPlate>());
         setWayblocks(new ArrayList<WayBlocker>());
@@ -138,7 +138,7 @@ public class LogicController implements Disposable{
         setFireGrounds(new ArrayList<FireGround>());
         setWarpEvents(new Array<WarpEvent>());
         setTextlogs(new ArrayList<TextLog>());
-        setD1blck(true);*/
+        setD1blck(true);
     }
 
     public void defineMap(String mapName) {
@@ -155,7 +155,7 @@ public class LogicController implements Disposable{
         //Sprites Update
         spritesUpdate(dt);
     }
-/*
+
     private void handleSpawningItems() {
         if(!getItemsToSpawn().isEmpty()){
             ItemDef idef= getItemsToSpawn().poll();
@@ -169,7 +169,7 @@ public class LogicController implements Disposable{
                 getItems().add(new SpecialItem(this, idef.position));
             }
         }
-    }*/
+    }
 
     private void spritesUpdate(float dt) {
         getPlayer().update(dt);
@@ -225,20 +225,20 @@ public class LogicController implements Disposable{
     }
 
     private void objectsLoad() {
-        /*if(getScreenType() ==FreeWorld.class){
+        if(getScreenType() ==FreeWorld.class){
             freeWorldLoad();
         }else if(getScreenType() ==Dungeon1.class){
             dungeon1Load();
         }else if(getScreenType() ==DemoScreen.class){
             demoScreenLoad();
-        }else*/ if(getScreenType() ==Null.class){
+        }else if(getScreenType() ==Null.class){
             testLoad();
         }
     }
 
     private void testLoad() {
     }
-/*
+
     public void spawnItem(ItemDef idef){
         getItemsToSpawn().add(idef);
     }
@@ -297,7 +297,7 @@ public class LogicController implements Disposable{
     private void FWpressingPlatesLoad() {
         PressingPlate pp1= new PressingPlate(this,new Vector2( PP1_X, PP1_Y));
         PressingPlate pp2= new PressingPlate(this,new Vector2( PP2_X, PP2_Y));
-        PressingPlate pp3= new PressingPlate(this,new Vector2(getPp3X(), PP3_Y));
+        PressingPlate pp3= new PressingPlate(this,new Vector2(PP3_X, PP3_Y));
         PressingPlate pp4= new PressingPlate(this,new Vector2( PP4_X, PP4_Y));
         ArrayList<PressingPlate> dungeon1_plates= new ArrayList<PressingPlate>();
         dungeon1_plates.add(pp2);//ordem: 2-4-3
@@ -454,7 +454,7 @@ public class LogicController implements Disposable{
         log4.setText(getGame().getFileReader().getSignText("sign4"));
         log4.setId(3);
         getTextlogs().add(log4);
-    }*/
+    }
 
 
     public Class<?> getScreenType() {
@@ -529,7 +529,7 @@ public class LogicController implements Disposable{
         this.boulders = boulders;
     }
 
-    /*
+
     public ArrayList<Spikes> getSpikes() {
         return spikes;
     }
@@ -664,11 +664,11 @@ public class LogicController implements Disposable{
 
     public void setMegaPressingEvent(PressingEvent megaPressingEvent) {
         this.megaPressingEvent = megaPressingEvent;
-    }*/
+    }
 
     @Override
     public void dispose() {
-        //tiledMap.dispose();
-       // world.dispose();
+        tiledMap.dispose();
+        world.dispose();
     }
 }

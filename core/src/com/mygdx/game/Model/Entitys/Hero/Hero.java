@@ -132,21 +132,21 @@ public class Hero{
     }
 
     public void update(float dt){
-        /*if(isFell()){
+        if(isFell()){
             if(logicController.isD1blck())
                 heroBody.getBody().setTransform(RESET_POS1X, RESET_POS1Y, 0);
             else if(!logicController.isD1blck())
                 heroBody.getBody().setTransform(RESET_POS2X, RESET_POS2Y, 0);
             setFell(false);
         }
-      else {*/
+      else {
             if(!logicController.getGame().getIsTest()) {
                 sprite.setRegion(heroBody.getFrame(this, dt));
                 sprite.setPosition(heroBody.getBody().getPosition().x-sprite.getWidth()/2, heroBody.getBody().getPosition().y-sprite.getHeight()/2);
             }else {
                 position=new Vector2(heroBody.getBody().getPosition().x, heroBody.getBody().getPosition().y);
             }
-       // }
+       }
         heroBombUpdate(dt);
     }
 

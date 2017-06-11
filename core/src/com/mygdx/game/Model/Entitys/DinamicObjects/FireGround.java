@@ -3,6 +3,7 @@ package com.mygdx.game.Model.Entitys.DinamicObjects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -16,18 +17,19 @@ import com.mygdx.game.MyGame;
  */
 
 public class FireGround{
-    private LogicController logicController;
     private World world;
     private Vector2 position;
     private Sprite sprite;
+    private LogicController logicController;
     private Animation<TextureRegion> fireAnimation;
     private FireGroundBody fireGroundBody;
     private float fire_timer;
 
     public FireGround(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
-        this.logicController=logicController;
         fire_timer=0;
+        position=vec;
+        this.logicController=logicController;
         sprite=new Sprite();
         fireGroundBody= new FireGroundBody(world,this,vec);
         if(!logicController.getGame().getIsTest()) {
@@ -61,4 +63,9 @@ public class FireGround{
         fire_timer+=(dt);
         return region;
     }
+    public void draw(SpriteBatch batch){
+        sprite.draw(batch);
+    }
+
+
 }

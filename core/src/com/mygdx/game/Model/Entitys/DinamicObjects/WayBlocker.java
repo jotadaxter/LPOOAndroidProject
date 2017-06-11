@@ -16,7 +16,7 @@ import com.mygdx.game.MyGame;
  * Created by Utilizador on 17-05-2017.
  */
 
-public class WayBlocker extends Sprite{
+public class WayBlocker{
     private World world;
     private TextureRegion blockFigure;
     private TextureRegion blockFigure2;
@@ -24,22 +24,29 @@ public class WayBlocker extends Sprite{
     private boolean destroyed;
     private WayBlockerBody wayBlockerBody;
     private Sound sound;
+    private Vector2 position;
+    private Sprite sprite;
+    private LogicController logicController;
 
     public WayBlocker(LogicController logicController, Vector2 vec, int texChoose) {
         this.world= logicController.getWorld();
         wayBlockerBody= new WayBlockerBody(world,this,vec);
         destroyed=false;
         toDestroy=false;
-        if(texChoose==0){
-            blockFigure = new TextureRegion(logicController.getGame().getAssetManager().get("Game/way_blocker.png", Texture.class));
-            setRegion(blockFigure);
+        position=vec;
+        this.logicController=logicController;
+        sprite=new Sprite();
+        if(!logicController.getGame().getIsTest()){
+            if (texChoose == 0) {
+                blockFigure = new TextureRegion(logicController.getGame().getAssetManager().get("Game/way_blocker.png", Texture.class));
+                sprite.setRegion(blockFigure);
+            } else {
+                blockFigure2 = new TextureRegion(logicController.getGame().getAssetManager().get("Game/way_blocker2.png", Texture.class));
+                sprite.setRegion(blockFigure2);
+            }
+            sprite.setPosition(vec.x, vec.y);
+            sprite.setBounds(0, 0, 16 * MyGame.PIXEL_TO_METER, 16 * MyGame.PIXEL_TO_METER);
         }
-        else {
-            blockFigure2 = new TextureRegion(logicController.getGame().getAssetManager().get("Game/way_blocker2.png", Texture.class));
-            setRegion(blockFigure2);
-        }
-        setPosition(vec.x,vec.y);
-        setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         sound=Gdx.audio.newSound(Gdx.files.internal("Sounds/secret.wav"));
     }
 
@@ -54,12 +61,14 @@ public class WayBlocker extends Sprite{
             world.destroyBody(wayBlockerBody.getBody());
             destroyed=true;
         }
-        setPosition(wayBlockerBody.getBody().getPosition().x-getWidth()/2, wayBlockerBody.getBody().getPosition().y-getHeight()/2);
-    }
+        if(!logicController.getGame().getIsTest()) {
+            sprite.setPosition(wayBlockerBody.getBody().getPosition().x-sprite.getWidth()/2, wayBlockerBody.getBody().getPosition().y-sprite.getHeight()/2);
+        }else {
+            position=new Vector2(wayBlockerBody.getBody().getPosition().x, wayBlockerBody.getBody().getPosition().y);
+        }    }
 
-    @Override
     public void draw(Batch batch) {
         if(!destroyed)
-            super.draw(batch);
+            sprite.draw(batch);
     }
 }

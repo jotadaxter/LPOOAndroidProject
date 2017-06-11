@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -18,12 +19,13 @@ import java.util.Random;
  * Created by Utilizador on 21-05-2017.
  */
 
-public class Chest extends Sprite{
+public class Chest{
     public static final int GREEN_RUPEE_RATIO = 40;
     public static final int BLUE_RUPEE_RATIO = 60;
     public static final int RED_RUPEE_RATIO = 100;
+    private Sprite sprite;
     private LogicController logicController;
-
+    private Vector2 position;
     private World world;
     private TextureRegion chest_open;
     private TextureRegion chest_closed;
@@ -36,14 +38,18 @@ public class Chest extends Sprite{
     public Chest(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
         this.logicController=logicController;
+        position=vec;
+        sprite= new Sprite();
         sound1=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_chest_item.wav"));
         chestBody= new ChestBody(world,this,vec);
         isOpen=false;
         dropLoot=0;
-        textureLoad();
-        setPosition(vec.x,vec.y);
-        setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
-        setRegion(chest_closed);
+        if(!logicController.getGame().getIsTest()) {
+            textureLoad();
+            sprite.setPosition(vec.x, vec.y);
+            sprite.setBounds(0, 0, 16 * MyGame.PIXEL_TO_METER, 16 * MyGame.PIXEL_TO_METER);
+            sprite.setRegion(chest_closed);
+        }
     }
 
     private void textureLoad() {
@@ -52,8 +58,12 @@ public class Chest extends Sprite{
     }
 
     public void update(float dt) {
-        setPosition(chestBody.getBody().getPosition().x - getWidth() / 2, chestBody.getBody().getPosition().y - getHeight() / 2);
-        setRegion(getFrame(dt));
+        if(!logicController.getGame().getIsTest()) {
+            sprite.setRegion(getFrame(dt));
+            sprite.setPosition(chestBody.getBody().getPosition().x-sprite.getWidth()/2, chestBody.getBody().getPosition().y-sprite.getHeight()/2);
+        }else {
+            position=new Vector2(chestBody.getBody().getPosition().x, chestBody.getBody().getPosition().y);
+        }
         if (dropLoot == 1) {
             loot();
             sound1.play(MyGame.SOUND_VOLUME);
@@ -117,5 +127,9 @@ public class Chest extends Sprite{
             region=getClosedTex();
         }
         return region;
+    }
+
+    public void draw(SpriteBatch batch){
+        sprite.draw(batch);
     }
 }

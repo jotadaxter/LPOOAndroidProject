@@ -22,13 +22,15 @@ public class SpecialItem extends Item{
         super(logicController, vec);
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_heart_container.wav"));
         specialItemBody=new SpecialItemBody(world,this, vec);
-        setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/volcano_ruby.png", Texture.class)));
+        if(!logicController.getGame().getIsTest())
+            sprite.setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/volcano_ruby.png", Texture.class)));
     }
 
     @Override
     public void defineItem() {
         type="volcano_ruby";
-        setBounds(getX(),getY(), 16* MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
+        if(!logicController.getGame().getIsTest())
+            sprite.setBounds(sprite.getX(),sprite.getY(), 16* MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
     }
 
     @Override
@@ -44,6 +46,10 @@ public class SpecialItem extends Item{
             destroyed=true;
             hero.addItem(this);
         }
-        setPosition(specialItemBody.getBody().getPosition().x-getWidth()/2, specialItemBody.getBody().getPosition().y-getHeight()/2);
+        if(!logicController.getGame().getIsTest()) {
+            sprite.setPosition(specialItemBody.getBody().getPosition().x-sprite.getWidth()/2, specialItemBody.getBody().getPosition().y-sprite.getHeight()/2);
+        }else {
+            position=new Vector2(specialItemBody.getBody().getPosition().x, specialItemBody.getBody().getPosition().y);
+        }
     }
 }
