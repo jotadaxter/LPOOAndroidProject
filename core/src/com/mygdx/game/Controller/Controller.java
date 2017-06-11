@@ -40,15 +40,17 @@ public class Controller {
 
     public Controller(MyGame game){
         this.game=game;
-        cam = new OrthographicCamera();
-        viewport = new FitViewport(VIEWPORT_WIDTH,VIEWPORT_HEIGHT,cam);
-        stage= new Stage(viewport,game.getBatch());
-        addKeyDownListener();
-        addKeyUpListener();
-        Gdx.input.setInputProcessor(stage);
-        imageLoad();
-        tableConfig();
-        abConfig();
+        if(!game.getIsTest()) {
+            cam = new OrthographicCamera();
+            viewport = new FitViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, cam);
+            stage = new Stage(viewport, game.getBatch());
+            Gdx.input.setInputProcessor(stage);
+            addKeyDownListener();
+            addKeyUpListener();
+            imageLoad();
+            tableConfig();
+            abConfig();
+        }
     }
 
     private void abConfig() {

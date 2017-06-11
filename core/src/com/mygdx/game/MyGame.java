@@ -71,6 +71,11 @@ public class MyGame extends Game {
 	private HeroStats heroStats;
 	private AssetManager assetManager;
 	private FileReader fileReader;
+	private boolean isTest;
+
+	public MyGame(boolean isTest) {
+		this.isTest = isTest;
+	}
 
 	@Override
 	public void create () {
@@ -244,5 +249,10 @@ public class MyGame extends Game {
 		super.dispose();
 		batch.dispose();
 
+	}
+
+
+	public boolean getIsTest() {
+		return isTest;
 	}
 }

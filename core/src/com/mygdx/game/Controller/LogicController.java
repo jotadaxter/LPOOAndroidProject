@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.Controller.Entitys.TileObjects.D1TopDoor;
 import com.mygdx.game.Controller.Entitys.TileObjects.Door;
 import com.mygdx.game.Controller.WorldTools.WorldContactListener;
@@ -34,6 +35,8 @@ import com.mygdx.game.View.GameScreens.Dungeon1;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.Scenes.TextLog;
 
+import org.mockito.internal.matchers.Null;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -42,7 +45,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Created by Jotadaxter on 11/06/2017.
  */
 
-public class LogicController {
+public class LogicController implements Disposable{
     //Hero Info
     public static final int DUNGEON1_POSX = 8+3*16;
     public static final int DUNGEON1_POSY = 8+3*16;
@@ -86,7 +89,7 @@ public class LogicController {
     //Sprites
     private Hero player;
     private ArrayList<Boulder> boulders;
-    private ArrayList<Spikes> spikes;
+   /* private ArrayList<Spikes> spikes;
     private ArrayList<PressingPlate> pps;
     private ArrayList<MegaPressingPlate>mpps;
     private ArrayList<WayBlocker> wayblocks;
@@ -102,7 +105,7 @@ public class LogicController {
     private ArrayList<TextLog> textlogs;
     private boolean d1blck;
     private PressingEvent pressingEvent;
-    private PressingEvent megaPressingEvent;
+    private PressingEvent megaPressingEvent;*/
 
     public LogicController(MyGame game, Vector2 vec,Class<?> type){
         this.setScreenType(type);
@@ -113,21 +116,17 @@ public class LogicController {
         setController(new Controller(game));
         getWorld().setContactListener(new WorldContactListener());
         if(type== FreeWorld.class){
-            getWarpEvents().add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,new Vector2(247,35)))));
-            getWarpEvents().add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game,new Vector2(DUNGEON1_POSX,DUNGEON1_POSY)))));
+           // getWarpEvents().add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,new Vector2(247,35)))));
+            //getWarpEvents().add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game,new Vector2(DUNGEON1_POSX,DUNGEON1_POSY)))));
         }
     }
 
-    public static int getPp3X() {
-        return PP3_X;
-    }
-
     private void objectsDefine(Vector2 vec) {
-        setItems(new Array<Item>());
-        setItemsToSpawn(new LinkedBlockingQueue<ItemDef>());
+        //setItems(new Array<Item>());
+       // setItemsToSpawn(new LinkedBlockingQueue<ItemDef>());
         setPlayer(new Hero(this,vec));
         setBoulders(new ArrayList<Boulder>());
-        setSpikes(new ArrayList<Spikes>());
+       /* setSpikes(new ArrayList<Spikes>());
         setPps(new ArrayList<PressingPlate>());
         setMpps(new ArrayList<MegaPressingPlate>());
         setWayblocks(new ArrayList<WayBlocker>());
@@ -139,24 +138,24 @@ public class LogicController {
         setFireGrounds(new ArrayList<FireGround>());
         setWarpEvents(new Array<WarpEvent>());
         setTextlogs(new ArrayList<TextLog>());
-        setD1blck(true);
+        setD1blck(true);*/
     }
 
     public void defineMap(String mapName) {
-        setMapLoader(new TmxMapLoader());
-        setTiledMap(getMapLoader().load(mapName));
+        mapLoader=new TmxMapLoader();
+        tiledMap=mapLoader.load(mapName);
         new WorldCreator(this);
     }
 
     public void update(float dt) {
-        handleSpawningItems();
+       // handleSpawningItems();
         getPlayer().getHeroBody().InputUpdate(getController(), dt);
         //takes 1 step in the physics simulation (60 times per second)
         framesPerSecUpdate(dt);
         //Sprites Update
         spritesUpdate(dt);
     }
-
+/*
     private void handleSpawningItems() {
         if(!getItemsToSpawn().isEmpty()){
             ItemDef idef= getItemsToSpawn().poll();
@@ -170,13 +169,13 @@ public class LogicController {
                 getItems().add(new SpecialItem(this, idef.position));
             }
         }
-    }
+    }*/
 
     private void spritesUpdate(float dt) {
         getPlayer().update(dt);
         for(Boulder boulder : getBoulders())
             boulder.update();
-        for(PressingPlate pp : getPps())
+       /*for(PressingPlate pp : getPps())
             pp.update(dt);
         for(MegaPressingPlate mpp : getMpps())
             mpp.update(dt);
@@ -208,7 +207,7 @@ public class LogicController {
             item.update(dt, getPlayer());
         for(TextLog tlog: getTextlogs()) {
             tlog.update();
-        }
+        }*/
     }
 
     private void framesPerSecUpdate(float dt) {
@@ -226,15 +225,20 @@ public class LogicController {
     }
 
     private void objectsLoad() {
-        if(getScreenType() ==FreeWorld.class){
+        /*if(getScreenType() ==FreeWorld.class){
             freeWorldLoad();
         }else if(getScreenType() ==Dungeon1.class){
             dungeon1Load();
         }else if(getScreenType() ==DemoScreen.class){
             demoScreenLoad();
+        }else*/ if(getScreenType() ==Null.class){
+            testLoad();
         }
     }
 
+    private void testLoad() {
+    }
+/*
     public void spawnItem(ItemDef idef){
         getItemsToSpawn().add(idef);
     }
@@ -450,7 +454,7 @@ public class LogicController {
         log4.setText(getGame().getFileReader().getSignText("sign4"));
         log4.setId(3);
         getTextlogs().add(log4);
-    }
+    }*/
 
 
     public Class<?> getScreenType() {
@@ -525,6 +529,7 @@ public class LogicController {
         this.boulders = boulders;
     }
 
+    /*
     public ArrayList<Spikes> getSpikes() {
         return spikes;
     }
@@ -659,5 +664,11 @@ public class LogicController {
 
     public void setMegaPressingEvent(PressingEvent megaPressingEvent) {
         this.megaPressingEvent = megaPressingEvent;
+    }*/
+
+    @Override
+    public void dispose() {
+        //tiledMap.dispose();
+       // world.dispose();
     }
 }

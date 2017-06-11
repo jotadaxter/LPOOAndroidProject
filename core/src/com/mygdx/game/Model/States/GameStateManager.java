@@ -16,12 +16,14 @@ public class GameStateManager {
     private Stack<GameState> states;
     private MyGame game;
 
-    public GameStateManager(MyGame game){
-        this.game=game;
-        setStates(new Stack<GameState>());
-        getStates().clear();
-        getStates().push(new GameState(new MainMenu(game)));
-        game.setScreen(getStates().peek().getMenuScreen());
+    public GameStateManager(MyGame game) {
+        this.game = game;
+        if (!game.getIsTest()) {
+            setStates(new Stack<GameState>());
+            getStates().clear();
+            getStates().push(new GameState(new MainMenu(game)));
+            game.setScreen(getStates().peek().getMenuScreen());
+        }
     }
 
     public void push(GameState state){

@@ -38,13 +38,13 @@ public class DemoScreen extends GameScreen {
 
     @Override
     public void objectsDraw() {
-        for(SmashableRock sm : logicController.getSmashRocks())
+       /* for(SmashableRock sm : logicController.getSmashRocks())
             sm.draw(game.getBatch());
         for(PressingPlate pp : logicController.getPps())
             pp.draw(game.getBatch());
         for(Boulder boulder : logicController.getBoulders())
             boulder.draw(game.getBatch());
         for(Sign sign : logicController.getSigns())
-            sign.draw(game.getBatch());
+            sign.draw(game.getBatch());*/
     }
 }

@@ -39,7 +39,7 @@ public class FreeWorld extends GameScreen {
 
     @Override
     public void objectsDraw() {
-        for(WayBlocker wb : logicController.getWayblocks())
+       /* for(WayBlocker wb : logicController.getWayblocks())
             wb.draw(game.getBatch());
         for(PressingPlate pp : logicController.getPps())
             pp.draw(game.getBatch());
@@ -48,7 +48,7 @@ public class FreeWorld extends GameScreen {
         for(Chest chest : logicController.getChests())
             chest.draw(game.getBatch());
         for(Sign sign : logicController.getSigns())
-            sign.draw(game.getBatch());
+            sign.draw(game.getBatch());*/
     }
 
 

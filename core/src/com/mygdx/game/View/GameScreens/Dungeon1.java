@@ -36,7 +36,7 @@ public class Dungeon1 extends GameScreen{
 
     @Override
     public void objectsDraw() {
-        for(WayBlocker wb : logicController.getWayblocks())
+        /*for(WayBlocker wb : logicController.getWayblocks())
             wb.draw(game.getBatch());
         for(MegaPressingPlate mpp : logicController.getMpps())
             mpp.draw(game.getBatch());
@@ -51,7 +51,7 @@ public class Dungeon1 extends GameScreen{
         for(Boulder boulder : logicController.getBoulders())
             boulder.draw(game.getBatch());
         for(MovingPlatform m : logicController.getMps())
-            m.draw(game.getBatch());
+            m.draw(game.getBatch());*/
     }
 
     @Override

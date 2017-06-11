@@ -122,10 +122,10 @@ public abstract class GameScreen implements Screen{
         game.getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);
         hud.getStage().draw();
         hud.getHeartStage().draw();
-        for(TextLog tlog: logicController.getTextlogs()) {
+        /*for(TextLog tlog: logicController.getTextlogs()) {
             if(logicController.getSigns().get(tlog.getId()).getIsOpen())
                 tlog.getStage().draw();
-        }
+        }*/
     }
 
     private void clearScreen() {
@@ -141,11 +141,11 @@ public abstract class GameScreen implements Screen{
             for(Bomb bombs: logicController.getPlayer().getBombs())
                 bombs.draw(game.getBatch());
         }
-        logicController.getPlayer().draw(game.getBatch());
-        for(D1TopDoor top : logicController.getTopDoors())
+        logicController.getPlayer().draw();
+       /* for(D1TopDoor top : logicController.getTopDoors())
             top.draw(game.getBatch());
         for(Item item : logicController.getItems())
-            item.draw(game.getBatch());
+            item.draw(game.getBatch());*/
         game.getBatch().end();
     }
 

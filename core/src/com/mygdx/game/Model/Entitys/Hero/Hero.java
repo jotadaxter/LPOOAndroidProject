@@ -23,19 +23,17 @@ import java.util.ArrayList;
  * Created by Utilizador on 05-04-2017.
  */
 
-public class Hero extends Sprite{
+public class Hero{
     public static final float RESET_POS1X = 8+44-7-0.5f;
     public static final float RESET_POS1Y = 8+20-6-0.5f;
-
     public static final float RESET_POS2X = 8+9-7-0.5f;
     public static final float RESET_POS2Y = 8+40-6-0.5f;
-
+    protected Vector2 position;
     //Standing Textures
     private TextureRegion standRight;
     private TextureRegion standLeft;
     private TextureRegion standBack;
     private TextureRegion standFront;
-
     //Animations
     private Animation<TextureRegion> heroWalkRight;
     private Animation<TextureRegion> heroWalkUp;
@@ -44,13 +42,11 @@ public class Hero extends Sprite{
     private Animation<TextureRegion> heroHurt;
     private float upDownTimer;
     private float leftRightTimer;
-
     private World world;
     private HeroBody heroBody;
     private ArrayList<Bomb> bombs;
     private Bomb bomb;
     private LogicController logicController;
-
     private boolean throwBomb;
     private boolean addBomb;
     private float bombCount;
@@ -64,21 +60,26 @@ public class Hero extends Sprite{
     private boolean signWasOpened;
     private boolean wasHit;
     private boolean fell;
-
+    private Sprite sprite;
     private Sound soundHurt;
     private Sound soundDying;
 
     public Hero(LogicController logicController, Vector2 vec){
         this.setWorld(logicController.getWorld());
         this.logicController=logicController;
+        sprite = new Sprite();
+        position=vec;
         booleanDefinition();
         resetCounters();
         this.bombs=new ArrayList<Bomb>();
-        heroAnimations();
+        if(!logicController.getGame().getIsTest())
+            heroAnimations();
         heroBody = new HeroBody(logicController, this,vec);
-        heroStandingTextureLoad();
-        standRight.flip(true, false);
-        setBounds(0, 0, 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
+        if(!logicController.getGame().getIsTest()) {
+            heroStandingTextureLoad();
+            standRight.flip(true, false);
+            sprite.setBounds(0, 0, 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
+        }
         soundHurt=  Gdx.audio.newSound(Gdx.files.internal("Sounds/hero_hurt.wav"));
         soundDying=  Gdx.audio.newSound(Gdx.files.internal("Sounds/hero_dying.wav"));
     }
@@ -131,15 +132,23 @@ public class Hero extends Sprite{
     }
 
     public void update(float dt){
-        if(isFell()){
+        /*if(isFell()){
             if(logicController.isD1blck())
                 heroBody.getBody().setTransform(RESET_POS1X, RESET_POS1Y, 0);
             else if(!logicController.isD1blck())
                 heroBody.getBody().setTransform(RESET_POS2X, RESET_POS2Y, 0);
             setFell(false);
         }
-      else setPosition(heroBody.getBody().getPosition().x-getWidth()/2, heroBody.getBody().getPosition().y-getHeight()/2);
-        setRegion(heroBody.getFrame(this,dt));
+      else {*/
+            if(!logicController.getGame().getIsTest()) {
+                sprite.setRegion(heroBody.getFrame(this, dt));
+                sprite.setPosition(heroBody.getBody().getPosition().x-sprite.getWidth()/2, heroBody.getBody().getPosition().y-sprite.getHeight()/2);
+            }else {
+                position=new Vector2(heroBody.getBody().getPosition().x, heroBody.getBody().getPosition().y);
+            }
+       // }
+        if(!logicController.getGame().getIsTest())
+            sprite.setRegion(heroBody.getFrame(this,dt));
         heroBombUpdate(dt);
     }
 
@@ -229,6 +238,22 @@ public class Hero extends Sprite{
         else if(heroBody.getCurrentState() == HeroBody.State.STAND_LEFT || heroBody.getCurrentState() == HeroBody.State.WALK_LEFT)
             xx-=16;
         return new Vector2(xx,yy);
+    }
+
+    public void draw(){
+        sprite.draw(logicController.getGame().getBatch());
+    }
+
+    public float getX(){
+        return sprite.getX();
+    }
+
+    public float getY(){
+        return sprite.getY();
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 
     public ArrayList<Bomb> getBombs() {

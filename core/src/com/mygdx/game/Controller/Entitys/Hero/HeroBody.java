@@ -19,7 +19,7 @@ import com.mygdx.game.MyGame;
 
 public class HeroBody{
     public static final float DAMPING_NORMAL= 3f;
-    private Body b2body;
+    private Body body;
     private LogicController logicController;
     private FixtureDef fdef;
     private Hero hero;
@@ -36,25 +36,25 @@ public class HeroBody{
         bdef.position.set(vec.x*MyGame.PIXEL_TO_METER,vec.y*MyGame.PIXEL_TO_METER);
         bdef.type=BodyDef.BodyType.DynamicBody;
         bdef.linearDamping=DAMPING_NORMAL;
-        setB2body(logicController.getWorld().createBody(bdef));
+        setBody(logicController.getWorld().createBody(bdef));
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(4*MyGame.PIXEL_TO_METER,6.5f*MyGame.PIXEL_TO_METER);
         fdef.filter.categoryBits= MyGame.HERO_BIT;
         fdef.filter.maskBits = MyGame.ALL_BIT;
         fdef.shape= shape;
-        getB2body().createFixture(fdef).setUserData(this);
+        getBody().createFixture(fdef).setUserData(this);
         shapesDefine();
     }
 
     private void shapesDefine(){
-        StaticContactShapes shapeUp = new StaticContactShapes(getB2body(), new EdgeShape());
+        StaticContactShapes shapeUp = new StaticContactShapes(getBody(), new EdgeShape());
         shapeUpConfig(shapeUp);
-        StaticContactShapes shapeDown = new StaticContactShapes(getB2body(), new EdgeShape());
+        StaticContactShapes shapeDown = new StaticContactShapes(getBody(), new EdgeShape());
         shapeDownConfig(shapeDown);
-        StaticContactShapes shapeRight = new StaticContactShapes(getB2body(), new EdgeShape());
+        StaticContactShapes shapeRight = new StaticContactShapes(getBody(), new EdgeShape());
         shapeRightConfig(shapeRight);
-        StaticContactShapes shapeLeft = new StaticContactShapes(getB2body(), new EdgeShape());
+        StaticContactShapes shapeLeft = new StaticContactShapes(getBody(), new EdgeShape());
         shapeLeftConfig(shapeLeft);
     }
 
@@ -94,9 +94,9 @@ public class HeroBody{
             return State.GAME_OVER;
         else if(hero.getWasHit())
             return State.HURT;
-        else if (getB2body().getLinearVelocity().x != 0 && getB2body().getLinearVelocity().y == 0
-                || getB2body().getLinearVelocity().x == 0 && getB2body().getLinearVelocity().y != 0
-                || getB2body().getLinearVelocity().x != 0 && getB2body().getLinearVelocity().y != 0)
+        else if (getBody().getLinearVelocity().x != 0 && getBody().getLinearVelocity().y == 0
+                || getBody().getLinearVelocity().x == 0 && getBody().getLinearVelocity().y != 0
+                || getBody().getLinearVelocity().x != 0 && getBody().getLinearVelocity().y != 0)
             return bodyMovingState();
 
         else return bodyQuietState();
@@ -117,14 +117,14 @@ public class HeroBody{
     }
 
     private State bodyMovingState() {
-        if (Math.abs(getB2body().getLinearVelocity().x) > Math.abs(getB2body().getLinearVelocity().y)) {
-            if (getB2body().getLinearVelocity().x > 0)
+        if (Math.abs(getBody().getLinearVelocity().x) > Math.abs(getBody().getLinearVelocity().y)) {
+            if (getBody().getLinearVelocity().x > 0)
                 return State.WALK_RIGHT;
             else
                 return State.WALK_LEFT;
         }
         else{
-            if (getB2body().getLinearVelocity().y < 0)
+            if (getBody().getLinearVelocity().y < 0)
                 return State.WALK_DOWN;
             else
                 return State.WALK_UP;
@@ -167,15 +167,15 @@ public class HeroBody{
     private TextureRegion regionUpdate4() {
         TextureRegion region = new TextureRegion();
         if(getCurrentState() == State.WALK_DOWN){
-            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
             region = hero.getHeroWalkDown().getKeyFrame(hero.getUpDownTimer(), true);
         }
         else if(getCurrentState() == State.WALK_LEFT){
-            hero.setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
             region = hero.getHeroWalkRight().getKeyFrame(hero.getLeftRightTimer(), true);
         }
         else if(getCurrentState() == State.WALK_RIGHT){
-            hero.setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 23 * MyGame.PIXEL_TO_METER, 23 * MyGame.PIXEL_TO_METER);
             region = hero.getHeroWalkRight().getKeyFrame(hero.getLeftRightTimer(), true);
         }
         return region;
@@ -184,15 +184,15 @@ public class HeroBody{
     private TextureRegion regionUpdate3() {
         TextureRegion region = new TextureRegion();
        if(getCurrentState() == State.STAND_LEFT){
-            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
             region = hero.getStandLeft();
         }
        else if(getCurrentState() == State.STAND_RIGHT){
-            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
             region = hero.getStandRight();
         }
        else if(getCurrentState() == State.WALK_UP){
-            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
             region = hero.getHeroWalkUp().getKeyFrame(hero.getUpDownTimer(), true);
         }
         return region;
@@ -201,15 +201,15 @@ public class HeroBody{
     private TextureRegion regionUpdate2() {
         TextureRegion region = new TextureRegion();
         if(getCurrentState() ==State.GAME_OVER){
-            hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
             region = hero.getHeroDying().getKeyFrame(hero.getUpDownTimer(), false);
         }
         else if(getCurrentState() ==State.STAND_UP){
-            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
             region = hero.getStandBack();
         }
         else if(getCurrentState() ==State.STAND_DOWN){
-            hero.setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
+            hero.getSprite().setBounds(hero.getX(), hero.getY(), 17 * MyGame.PIXEL_TO_METER, 22 * MyGame.PIXEL_TO_METER);
             region = hero.getStandFront();
         }
        return region;
@@ -218,14 +218,14 @@ public class HeroBody{
     private TextureRegion regionUpdate1() {
         TextureRegion region = new TextureRegion();
         if(getCurrentState() ==State.HURT){
-                hero.setBounds(hero.getX(), hero.getY(), 31 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
+                hero.getSprite().setBounds(hero.getX(), hero.getY(), 31 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
                 region = hero.getHeroHurt().getKeyFrame(hero.getUpDownTimer(), false);
                 hero.getSoundHurt().play(MyGame.SOUND_VOLUME);
                 hero.setWasHit(false);
             }
             else if(getCurrentState() ==State.DYING){
                 hero.getSoundDying().play(MyGame.SOUND_VOLUME);
-                hero.setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
+                hero.getSprite().setBounds(hero.getX(), hero.getY(), 25 * MyGame.PIXEL_TO_METER, 24 * MyGame.PIXEL_TO_METER);
                 region = hero.getHeroDying().getKeyFrame(1);
             }
         return region;
@@ -242,11 +242,11 @@ public class HeroBody{
     }
 
     private void flipBodyAnimation(TextureRegion region) {
-        if((getB2body().getLinearVelocity().x<0|| getCurrentState() ==State.WALK_LEFT)&&!region.isFlipX()){
+        if((getBody().getLinearVelocity().x<0|| getCurrentState() ==State.WALK_LEFT)&&!region.isFlipX()){
             region.flip(true, false);
             setCurrentState(State.WALK_LEFT);
         }
-        else if((getB2body().getLinearVelocity().x>0|| getCurrentState() ==State.WALK_RIGHT)&&region.isFlipX()){
+        else if((getBody().getLinearVelocity().x>0|| getCurrentState() ==State.WALK_RIGHT)&&region.isFlipX()){
             region.flip(true, false);
             setCurrentState(State.WALK_RIGHT);
         }
@@ -254,19 +254,19 @@ public class HeroBody{
 
     public void InputUpdate(Controller controller, float dt){
         if(controller.isRightPressed()){
-            getB2body().applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), getB2body().getWorldCenter(), true);
+            getBody().applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), getBody().getWorldCenter(), true);
             movementPress(controller, dt);
         }
         else if(controller.isLeftPressed()) {
-            getB2body().applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt, 0), getB2body().getWorldCenter(), true);
+            getBody().applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt, 0), getBody().getWorldCenter(), true);
             movementPress(controller, dt);
         }
         else if(controller.isUpPressed()){
-            getB2body().applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt), getB2body().getWorldCenter(), true);
+            getBody().applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt), getBody().getWorldCenter(), true);
             movementPress(controller, dt);
         }
         else if(controller.isDownPressed()){
-            getB2body().applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt), getB2body().getWorldCenter(), true);
+            getBody().applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt), getBody().getWorldCenter(), true);
             movementPress(controller, dt);
         }
         else if(controller.isbPressed()){
@@ -280,22 +280,22 @@ public class HeroBody{
 
     private void auxControl(Controller controller, float dt) {
         if(controller.isaPressed()){
-            if(hero.getOpenedChestId()>-1) {
+           /* if(hero.getOpenedChestId()>-1) {
                 logicController.getChests().get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
             }
             else if(hero.getOpenedSignId()>-1){
                 logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
-            }
+            }*/
         }
         else if(controller.isEscPressed()){
-            if(hero.getOpenedSignId()>-1){
+           /* if(hero.getOpenedSignId()>-1){
                 logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(false);
                 hero.setSignWasOpened(false);
                 hero.setOpenedSignId(-1);
-            }
+            }*/
         }
-        else getB2body().setLinearVelocity(0, 0);
+        else getBody().setLinearVelocity(0, 0);
     }
 
     private void movementPress(Controller controller, float dt) {
@@ -304,19 +304,15 @@ public class HeroBody{
                 this.hero.throwBomb();
         }
         else if(controller.isaPressed()){
-            if(hero.getOpenedChestId()>-1) {
+           /* if(hero.getOpenedChestId()>-1) {
                 logicController.getChests().get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
             }
             else if(hero.getOpenedSignId()>-1 && !hero.isSignWasOpened()){
                 logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
                 hero.setSignWasOpened(true);
-            }
+            }*/
         }
-    }
-
-    public Body getBody() {
-        return getB2body();
     }
 
     public FixtureDef getFdef() {
@@ -327,12 +323,12 @@ public class HeroBody{
         return hero;
     }
 
-    public Body getB2body() {
-        return b2body;
+    public Body getBody() {
+        return body;
     }
 
-    public void setB2body(Body b2body) {
-        this.b2body = b2body;
+    public void setBody(Body body) {
+        this.body = body;
     }
 
     public State getCurrentState() {

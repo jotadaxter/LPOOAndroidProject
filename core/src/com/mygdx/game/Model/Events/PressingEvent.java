@@ -49,7 +49,7 @@ public class PressingEvent {
 
     public void update(float dt) {
         if (condition()) {
-            logicController.setD1blck(false);
+          //  logicController.setD1blck(false);
             System.out.println("megaPressurePlate was pressed with success");
         }
     }
