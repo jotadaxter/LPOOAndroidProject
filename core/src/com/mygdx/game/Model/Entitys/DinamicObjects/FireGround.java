@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.FireGroundBody;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -18,26 +19,23 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class FireGround extends Sprite{
-    private GameScreen screen;
     private World world;
     private Animation<TextureRegion> fireAnimation;
     private FireGroundBody fireGroundBody;
     private float fire_timer;
 
-    public FireGround(GameScreen screen, Vector2 vec) {
-        super(screen.getAtlas().findRegion("spikes"));
-        this.screen=screen;
-        this.world=screen.getWorld();
+    public FireGround(LogicController logicController, Vector2 vec) {
+        this.world=logicController.world;
         fire_timer=0;
         fireGroundBody= new FireGroundBody(world,this,vec);
-        loadAnimation();
+        loadAnimation(logicController.game);
         setPosition(vec.x,vec.y);
     }
 
-    private void loadAnimation() {
+    private void loadAnimation(MyGame game) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/fire.png", Texture.class), i * 16, 0, 16, 16));
+            frames.add(new TextureRegion(game.getAssetManager().get("Game/fire.png", Texture.class), i * 16, 0, 16, 16));
         }
         fireAnimation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();

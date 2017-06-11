@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.Weapons.BombBody;
 import com.mygdx.game.Controller.Entitys.Weapons.ExplosionBody;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -23,7 +24,7 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 
 public class Bomb extends Sprite{
     public static final float MAX_TIMING=2.575f;
-    private GameScreen screen;
+    private LogicController logicController;
     private Hero hero;
     private World world;
     private boolean toDestroy;
@@ -46,9 +47,9 @@ public class Bomb extends Sprite{
     private Sound sound1;
     private Sound sound2;
 
-    public Bomb(GameScreen screen, Hero hero, Vector2 vec) {
-        this.screen=screen;
-        this.world=screen.getWorld();
+    public Bomb(LogicController logicController, Hero hero, Vector2 vec) {
+        this.world=logicController.world;
+        this.logicController=logicController;
         this.hero=hero;
         bombBody= new BombBody(world, this,new Vector2( vec.x,vec.y));
         setPosition(vec.x,vec.y);
@@ -75,7 +76,7 @@ public class Bomb extends Sprite{
         frames.clear();
 
         for (int i = 0; i < 11; i++) {
-            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/explosion.png", Texture.class), i * 47, 0, 47, 51));
+            frames.add(new TextureRegion(logicController.game.getAssetManager().get("Game/explosion.png", Texture.class), i * 47, 0, 47, 51));
         }
         boom = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -83,8 +84,8 @@ public class Bomb extends Sprite{
     }
 
     private void textureLoad() {
-        blue= new TextureRegion(screen.getGame().getAssetManager().get("Game/bombs.png", Texture.class), 0,0,12,16);
-        red= new TextureRegion(screen.getGame().getAssetManager().get("Game/bombs.png", Texture.class), 12,0,12,16);
+        blue= new TextureRegion(logicController.game.getAssetManager().get("Game/bombs.png", Texture.class), 0,0,12,16);
+        red= new TextureRegion(logicController.game.getAssetManager().get("Game/bombs.png", Texture.class), 12,0,12,16);
     }
 
     public void destroy() {

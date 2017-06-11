@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
@@ -47,9 +48,9 @@ public class Hero extends Sprite{
 
     private World world;
     private HeroBody heroBody;
-    private GameScreen screen;
     private ArrayList<Bomb> bombs;
     private Bomb bomb;
+    private LogicController logicController;
 
     private boolean throwBomb;
     private boolean addBomb;
@@ -68,15 +69,14 @@ public class Hero extends Sprite{
     private Sound soundHurt;
     private Sound soundDying;
 
-    public Hero(GameScreen screen, Vector2 vec){
-        super(screen.getAtlas().findRegion("hero_front"));
-        this.screen=screen;
-        this.setWorld(screen.getWorld());
+    public Hero(LogicController logicController, Vector2 vec){
+        this.setWorld(logicController.world);
+        this.logicController=logicController;
         booleanDefinition();
         resetCounters();
         this.bombs=new ArrayList<Bomb>();
         heroAnimations();
-        heroBody = new HeroBody(screen, this,vec);
+        heroBody = new HeroBody(logicController, this,vec);
         heroStandingTextureLoad();
         standRight.flip(true, false);
         setBounds(0, 0, 17*MyGame.PIXEL_TO_METER, 22*MyGame.PIXEL_TO_METER);
@@ -85,10 +85,10 @@ public class Hero extends Sprite{
     }
 
     private void heroStandingTextureLoad() {
-        standLeft = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
-        standBack = new TextureRegion(screen.getAtlas().findRegion("hero_back"), 1, 1, 16, 21);
-        standFront = new TextureRegion(screen.getAtlas().findRegion("hero_front"), 1, 1, 17, 22);
-        standRight = new TextureRegion(screen.getAtlas().findRegion("hero_left"), 1, 1, 16, 21);
+        standLeft = new TextureRegion(logicController.game.getAssetManager().get("Game/hero_left.png", Texture.class), 1, 1, 16, 21);
+        standBack = new TextureRegion(logicController.game.getAssetManager().get("Game/hero_back.png", Texture.class), 1, 1, 16, 21);
+        standFront = new TextureRegion(logicController.game.getAssetManager().get("Game/hero_front.png", Texture.class), 1, 1, 17, 22);
+        standRight = new TextureRegion(logicController.game.getAssetManager().get("Game/hero_left.png", Texture.class), 1, 1, 16, 21);
     }
 
     private void resetCounters() {
@@ -113,9 +113,9 @@ public class Hero extends Sprite{
     }
 
     private void heroAnimations() {
-        setHeroWalkUp(animationAtlasLoad("hero_walk_up", new Vector3(18,24,9)));
-        setHeroWalkDown(animationAtlasLoad("hero_walk_down", new Vector3(18,24,9)));
-        setHeroWalkRight(animationAtlasLoad("hero_walk_right", new Vector3(23,23,9)));
+        setHeroWalkUp(animationAssetLoad("Game/hero_walk_up.png", new Vector3(18,24,9)));
+        setHeroWalkDown(animationAssetLoad("Game/hero_walk_down.png", new Vector3(18,24,9)));
+        setHeroWalkRight(animationAssetLoad("Game/hero_walk_right.png", new Vector3(23,23,9)));
 
         setHeroHurt(animationAssetLoad("Game/hero_hurt.png", new Vector3(31,32,2)));
         setHeroDying(animationAssetLoad("Game/hero_dying.png", new Vector3(25,24,5)));
@@ -124,17 +124,7 @@ public class Hero extends Sprite{
     private Animation<TextureRegion> animationAssetLoad(String name, Vector3 vec) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < (int)vec.z; i++) {
-            frames.add(new TextureRegion(screen.getGame().getAssetManager().get(name, Texture.class), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
-        }
-        Animation<TextureRegion> animation = new Animation<TextureRegion>(0.1f, frames);
-        frames.clear();
-        return animation;
-    }
-
-    private Animation<TextureRegion> animationAtlasLoad(String path, Vector3 vec) {
-        Array<TextureRegion> frames = new Array<TextureRegion>();
-        for (int i = 0; i < (int)vec.z; i++) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion(path), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
+            frames.add(new TextureRegion(logicController.game.getAssetManager().get(name, Texture.class), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
         }
         Animation<TextureRegion> animation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -143,9 +133,9 @@ public class Hero extends Sprite{
 
     public void update(float dt){
         if(isFell()){
-            if(screen.isD1blck())
+            if(logicController.d1blck)
                 heroBody.getBody().setTransform(RESET_POS1X, RESET_POS1Y, 0);
-            else if(!screen.isD1blck())
+            else if(!logicController.d1blck)
                 heroBody.getBody().setTransform(RESET_POS2X, RESET_POS2Y, 0);
             setFell(false);
         }
@@ -172,13 +162,13 @@ public class Hero extends Sprite{
         if(item.getType()=="jewel")
             addScore(((Jewel)item).getValue());
         else if(item.getType()=="heart")
-            screen.getGame().getHeroStats().setHearts(screen.getGame().getHeroStats().getHearts()+1);
+            logicController.game.getHeroStats().setHearts(logicController.game.getHeroStats().getHearts()+1);
         else if(item.getType()=="volcano_ruby")
-            screen.getGame().getHeroStats().gotVolcanoRuby();
+            logicController.game.getHeroStats().gotVolcanoRuby();
     }
 
     public void addScore(int value) {
-        screen.getGame().getHeroStats().setScore(screen.getGame().getHeroStats().getScore()+value);
+        logicController.game.getHeroStats().setScore(logicController.game.getHeroStats().getScore()+value);
     }
 
     public TextureRegion getStandRight(){
@@ -202,19 +192,19 @@ public class Hero extends Sprite{
     }
 
     public int getHealth() {
-        return screen.getGame().getHeroStats().getHearts();
+        return logicController.game.getHeroStats().getHearts();
     }
 
     public void hit(){
         Gdx.input.vibrate(MyGame.VIBRATION);
-        screen.getGame().getHeroStats().setHearts(screen.getGame().getHeroStats().getHearts()-1);
+        logicController.game.getHeroStats().setHearts(logicController.game.getHeroStats().getHearts()-1);
         wasHit=true;
     }
 
     public void fall(){
         Gdx.input.vibrate(MyGame.VIBRATION);
         soundHurt.play(MyGame.SOUND_VOLUME);
-        screen.getGame().getHeroStats().setHearts(screen.getGame().getHeroStats().getHearts()-1);
+        logicController.game.getHeroStats().setHearts(logicController.game.getHeroStats().getHearts()-1);
         setFell(true);
     }
 
@@ -223,7 +213,7 @@ public class Hero extends Sprite{
             return;
         throwBomb=true;
         Vector2 v1 = getNewBombPosition();
-        setBomb(new Bomb(screen,this,new Vector2(0,0)));
+        setBomb(new Bomb(logicController,this,new Vector2(0,0)));
         getBomb().setNewPosition(v1.x*MyGame.PIXEL_TO_METER,v1.y*MyGame.PIXEL_TO_METER);
         bombs.add(getBomb());
         addBomb=false;
@@ -264,10 +254,6 @@ public class Hero extends Sprite{
 
     public void setOpenedChestId(int id) {
         this.openedChestId=id;
-    }
-
-    public GameScreen getScreen() {
-        return screen;
     }
 
     public int getOpenedChestId() {

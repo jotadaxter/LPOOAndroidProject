@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Controller.Entitys.TileObjects.D1TopDoor;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
@@ -29,6 +30,7 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
+import com.mygdx.game.Model.Events.PressingEvent;
 import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
@@ -53,107 +55,52 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public abstract class GameScreen implements Screen{
     protected MyGame game;
-    protected TextureAtlas atlas;
     protected OrthographicCamera gameCam;
     protected Viewport viewPort;
     protected Hud hud;
-    protected ArrayList<TextLog> textlogs;
-    protected float accumulator;
     protected float endTimer;
-
-    //Controllers
-    protected Controller controller;
+    protected LogicController logicController;
 
     //Tiled Map Variables
-    protected TmxMapLoader mapLoader;
-    protected TiledMap tiledMap;
     protected OrthogonalTiledMapRenderer renderer;
     protected Class<?> type;
 
     //Box2d Variables
-    protected World world;
     protected Box2DDebugRenderer b2dr;
-
-    //Sprites
-    protected Hero player;
-    protected ArrayList<Boulder> boulders;
-    protected ArrayList<Spikes> spikes;
-    protected ArrayList<PressingPlate> pps;
-    protected ArrayList<MegaPressingPlate>mpps;
-    protected ArrayList<WayBlocker> wayblocks;
-    protected ArrayList<Chest> chests;
-    protected ArrayList<MovingPlatform> mps;
-    protected Array<Item> items;
-    protected ArrayList<Sign> signs;
-    protected LinkedBlockingQueue<ItemDef> itemsToSpawn;
-    protected Array<WarpEvent> warpEvents;
-    protected Array<D1TopDoor> topDoors;
-    protected ArrayList<FireGround> fireGrounds;
-    protected ArrayList<SmashableRock> smashRocks;
-    protected boolean d1blck;
     protected Music music;
 
     public GameScreen(MyGame game, Vector2 vec) {
-        atlas=game.getAssetManager().get("Game/link_and_objects.pack", TextureAtlas.class);
         this.game=game;
+        type=getDescType();
+        logicController= new LogicController(game, vec, getType());
         gameCam= new OrthographicCamera(MyGame.VIEWPORT_WIDTH , MyGame.VIEWPORT_WIDTH);
         viewPort= new FitViewport(MyGame.VIEWPORT_WIDTH*MyGame.PIXEL_TO_METER,MyGame.VIEWPORT_HEIGHT*MyGame.PIXEL_TO_METER, gameCam);
         mapDefine();
-        items = new Array<Item>();
-        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
-        spriteDefine(vec);
-        objectLoad();
-        world.setContactListener(new WorldContactListener());
         musicDefine();
     }
 
-    private void spriteDefine(Vector2 vec) {
-        player=new Hero(this,vec);
-        boulders=new ArrayList<Boulder>();
-        spikes = new ArrayList<Spikes>();
-        pps= new ArrayList<PressingPlate>();
-        mpps = new ArrayList<MegaPressingPlate>();
-        wayblocks = new ArrayList<WayBlocker>();
-        mps=new ArrayList<MovingPlatform>();
-        chests= new ArrayList<Chest>();
-        signs=new ArrayList<Sign>();
-        topDoors= new Array<D1TopDoor>();
-        smashRocks= new ArrayList<SmashableRock>();
-        fireGrounds= new ArrayList<FireGround>();
-        warpEvents= new Array<WarpEvent>();
-        endTimer=-1;
-    }
+    protected abstract Class<?> getDescType();
 
     private void mapDefine() {
         String mapName = "Maps/" + getMapName();
-        mapLoader = new TmxMapLoader();
-        tiledMap = mapLoader.load(mapName);
-        renderer = new OrthogonalTiledMapRenderer(tiledMap, 1*MyGame.PIXEL_TO_METER);
+        logicController.defineMap(mapName);
+        renderer = new OrthogonalTiledMapRenderer(logicController.tiledMap, 1*MyGame.PIXEL_TO_METER);
         gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
         hud= new Hud(game, this);
-        controller= new Controller(game);
-        textlogs=new ArrayList<TextLog>();
         //box2d
-        world= new World(new Vector2(0,0), true);
         b2dr= new Box2DDebugRenderer();
-        new WorldCreator(this);
+        endTimer=-1;
     }
 
     protected abstract void musicDefine();
 
-    public abstract void objectLoad();
 
     public void update(float dt){
-        handleSpawningItems();
-        player.getHeroBody().InputUpdate(controller,dt);
+        logicController.update(dt);
         gameOptions();
-        //takes 1 step in the physics simulation (60 times per second)
-        framesPerSecUpdate(dt);
-        //Sprites Update
-        spritesUpdate(dt);
         //ajust the camera to follow the player
-        gameCam.position.x=player.getHeroBody().getBody().getPosition().x;
-        gameCam.position.y=player.getHeroBody().getBody().getPosition().y;
+        gameCam.position.x=logicController.player.getHeroBody().getBody().getPosition().x;
+        gameCam.position.y=logicController.player.getHeroBody().getBody().getPosition().y;
         hud.update();
         gameCam.update();
         renderer.setView(gameCam);
@@ -175,46 +122,11 @@ public abstract class GameScreen implements Screen{
     }
 
     private void gameOptions() {
-        if(controller.isOptionsPressed()){
+        if(logicController.controller.isOptionsPressed()){
             game.getGsm().push(new GameState(new GameMenu(game)));
-            controller.setOptionsPressed(false);
+            logicController.controller.setOptionsPressed(false);
         }
     }
-
-    private void spritesUpdate(float dt) {
-        player.update(dt);
-        objectsUpdate(dt);
-        for(D1TopDoor top : topDoors)
-            top.update();
-        //Items Update
-        for(Item item : items)
-            item.update(dt, player);
-        for(TextLog tlog: textlogs) {
-            tlog.update();
-        }
-    }
-
-    private void framesPerSecUpdate(float dt) {
-        float frameTime = Math.min(dt, 0.25f);
-        accumulator += frameTime;
-        while (accumulator >= 1/60f) {
-            world.step(1/60f, 6, 2);
-            accumulator -= 1/60f;
-        }
-    }
-
-    public abstract void objectsUpdate(float dt);
-
-
-    public TextureAtlas getAtlas(){
-        return atlas;
-    }
-
-    public void spawnItem(ItemDef idef){
-        itemsToSpawn.add(idef);
-    }
-
-    public abstract void handleSpawningItems();
 
     @Override
     public void show() {
@@ -228,13 +140,13 @@ public abstract class GameScreen implements Screen{
         //Render the game map
         renderer.render();
         //Render Box2DDebugLines
-        b2dr.render(world, gameCam.combined);
+        b2dr.render(logicController.world, gameCam.combined);
         game.getBatch().setProjectionMatrix(gameCam.combined);
         gameDraw();
         hudDraw();
         //Controller
         if(Gdx.app.getType() == Application.ApplicationType.Android)
-            controller.draw();
+            logicController.controller.draw();
     }
 
     private void hudDraw() {
@@ -242,8 +154,8 @@ public abstract class GameScreen implements Screen{
         game.getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);
         hud.getStage().draw();
         hud.getHeartStage().draw();
-        for(TextLog tlog: textlogs) {
-            if(signs.get(tlog.getId()).getIsOpen())
+        for(TextLog tlog: logicController.textlogs) {
+            if(logicController.signs.get(tlog.getId()).getIsOpen())
                 tlog.getStage().draw();
         }
     }
@@ -257,32 +169,24 @@ public abstract class GameScreen implements Screen{
     private void gameDraw() {
         game.getBatch().begin();
         objectsDraw();
-        if(player.getThrowBomb()){
-            for(Bomb bombs: player.getBombs())
+        if(logicController.player.getThrowBomb()){
+            for(Bomb bombs: logicController.player.getBombs())
                 bombs.draw(game.getBatch());
         }
-        player.draw(game.getBatch());
-        for(D1TopDoor top : topDoors)
+        logicController.player.draw(game.getBatch());
+        for(D1TopDoor top : logicController.topDoors)
             top.draw(game.getBatch());
-        for(Item item : items)
+        for(Item item : logicController.items)
             item.draw(game.getBatch());
         game.getBatch().end();
     }
 
     public abstract void objectsDraw();
 
-    public TiledMap getMap(){
-        return tiledMap;
-    }
-
-    public World getWorld(){
-        return world;
-    }
-
     @Override
     public void resize(int width, int height) {
         viewPort.update(width, height);
-        controller.resize(width,height);
+        logicController.controller.resize(width,height);
     }
 
     @Override
@@ -302,52 +206,26 @@ public abstract class GameScreen implements Screen{
 
     @Override
     public void dispose() {
-        tiledMap.dispose();
-        world.dispose();
         b2dr.dispose();
         renderer.dispose();
         hud.dispose();
     }
 
-    public Hero getHero(){
-        return this.player;
-    }
-
-    public abstract String getMapName();
+   public abstract String getMapName();
 
     public MyGame getGame() {
         return game;
-    }
-
-    public Array<WarpEvent> getWarpEvents() {
-        return warpEvents;
     }
 
     public Class<?> getType() {
         return type;
     }
 
-    public Controller getController() {
-        return controller;
-    }
-
-    public ArrayList<Chest> getChests() {
-        return chests;
-    }
-
-    public ArrayList<Sign> getSigns() {
-        return signs;
-    }
-
     public Music getMusic() {
         return music;
     }
 
-    public boolean isD1blck() {
-        return d1blck;
-    }
-
-    public void setD1blck(boolean d1blck) {
-        this.d1blck = d1blck;
+    public LogicController getLogicController() {
+        return logicController;
     }
 }

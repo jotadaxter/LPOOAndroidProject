@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -29,10 +30,10 @@ public class D1TopDoor extends Sprite {
     private TextureRegion textureRegion1;
     private TextureRegion textureRegion2;
 
-    public D1TopDoor(GameScreen screen, Vector2 vec, int choose){
+    public D1TopDoor(LogicController logicController, Vector2 vec, int choose){
         setPosition(vec.x,vec.y);
         bdef= new BodyDef();
-        this.world=screen.getWorld();
+        this.world=logicController.world;
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         bdef.type = BodyDef.BodyType.StaticBody;
@@ -44,7 +45,7 @@ public class D1TopDoor extends Sprite {
             fdef.shape=shape;
             fdef.isSensor=true;
             body.createFixture(fdef);
-            textureRegion1 = new TextureRegion(screen.getGame().getAssetManager().get("Game/door_top.png", Texture.class), 0,0,48,16);
+            textureRegion1 = new TextureRegion(logicController.game.getAssetManager().get("Game/door_top.png", Texture.class), 0,0,48,16);
             setBounds(0,0,48*MyGame.PIXEL_TO_METER,16*MyGame.PIXEL_TO_METER);
             setRegion(textureRegion1);
         }
@@ -53,7 +54,7 @@ public class D1TopDoor extends Sprite {
             fdef.shape=shape;
             fdef.isSensor=true;
             body.createFixture(fdef);
-            textureRegion2 = new TextureRegion(screen.getGame().getAssetManager().get("Game/door_top2.png", Texture.class), 0,0,16,48);
+            textureRegion2 = new TextureRegion(logicController.game.getAssetManager().get("Game/door_top2.png", Texture.class), 0,0,16,48);
             setBounds(0,0,16*MyGame.PIXEL_TO_METER,48*MyGame.PIXEL_TO_METER);
             setRegion(textureRegion2);
         }

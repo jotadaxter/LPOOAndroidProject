@@ -3,12 +3,14 @@ package com.mygdx.game.Model.Entitys.DinamicObjects;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.SmashableRockBody;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -27,14 +29,14 @@ public class SmashableRock extends Sprite{
     private int timer;
     private boolean incTimer;
 
-    public SmashableRock(GameScreen screen, Vector2 vec) {
-        this.world=screen.getWorld();
+    public SmashableRock(LogicController logicController, Vector2 vec) {
+        this.world=logicController.world;
         rockBody= new SmashableRockBody(world,this,vec);
         incTimer=false;
         destroyed=false;
         toDestroy=false;
         timer=0;
-        blockFigure = new TextureRegion(screen.getAtlas().findRegion("destroyable_rock"), 0,0,16,16);
+        blockFigure = new TextureRegion(logicController.game.getAssetManager().get("Game/destroyable_rock.png", Texture.class), 0,0,16,16);
         setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(blockFigure);

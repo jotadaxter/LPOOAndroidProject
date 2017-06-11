@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -25,17 +26,17 @@ public abstract class StaticTileObject {
     protected Rectangle bounds;
     protected Body body;
     protected BodyDef bdef;
-    protected GameScreen screen;
     protected MapObject object;
     protected FixtureDef fdef;
     protected Fixture fixture;
+    protected LogicController logicController;
 
-    public StaticTileObject(GameScreen screen, MapObject object) {
-        this.screen=screen;
+    public StaticTileObject(LogicController logicController, MapObject object) {
         this.object=object;
+        this.logicController=logicController;
         this.bounds =((RectangleMapObject) object).getRectangle();
-        this.map=screen.getMap();
-        this.world=screen.getWorld();
+        this.map=logicController.tiledMap;
+        this.world=logicController.world;
         defineBody();
     }
 

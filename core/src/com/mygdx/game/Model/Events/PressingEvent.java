@@ -1,5 +1,6 @@
 package com.mygdx.game.Model.Events;
 
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -13,17 +14,18 @@ import java.util.ArrayList;
 public class PressingEvent {
     private ArrayList<PressingPlate> plates;
     private ArrayList<MegaPressingPlate> megaPlates;
-    private GameScreen screen;
+    private LogicController logicController;
 
-    public PressingEvent(ArrayList<PressingPlate> plates,GameScreen screen, int bla){//o bla só serve para não haver erro em haver dois construtores...
+    public PressingEvent(ArrayList<PressingPlate> plates, LogicController logicController, int bla){//o bla só serve para não haver erro em haver dois construtores...
         this.plates=plates;
-        this.screen=screen;
+        this.logicController=logicController;
+
         this.megaPlates=null;
     }
 
-    public PressingEvent(ArrayList<MegaPressingPlate> megaPlates, GameScreen screen){
+    public PressingEvent(ArrayList<MegaPressingPlate> megaPlates, LogicController logicController){
         this.plates=null;
-        this.screen=screen;
+        this.logicController=logicController;
         this.megaPlates=megaPlates;
     }
 
@@ -48,7 +50,7 @@ public class PressingEvent {
 
     public void update(float dt) {
         if (condition()) {
-            screen.setD1blck(false);
+            logicController.d1blck=false;
             System.out.println("megaPressurePlate was pressed with success");
         }
     }

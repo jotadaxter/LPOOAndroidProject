@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.MegaPressingPlateBody;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.PressingPlateBody;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -17,7 +18,6 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class MegaPressingPlate extends Sprite {
-    private GameScreen screen;
     private World world;
     private int ispressed;//0 - false, >=2 - true
     private boolean press_and_hold;
@@ -27,13 +27,12 @@ public class MegaPressingPlate extends Sprite {
     private Sound sound1;
     private Sound sound2;
 
-    public MegaPressingPlate(GameScreen screen, Vector2 vec) {
-        this.world=screen.getWorld();
-        this.screen=screen;
+    public MegaPressingPlate(LogicController logicController, Vector2 vec) {
+        this.world=logicController.world;
         ispressed=0;
         press_and_hold=true;
         megaPressingPlateBody= new MegaPressingPlateBody(world,this,vec);
-        textureLoad();
+        textureLoad(logicController.game);
         setPosition(vec.x,vec.y);
         setBounds(0,0,64* MyGame.PIXEL_TO_METER,64* MyGame.PIXEL_TO_METER);
         setRegion(notpressedTex);
@@ -41,9 +40,9 @@ public class MegaPressingPlate extends Sprite {
         sound2=  Gdx.audio.newSound(Gdx.files.internal("Sounds/lever.wav"));
     }
 
-    public void textureLoad(){
-        pressedTex = new TextureRegion(screen.getGame().getAssetManager().get("Game/mega_pressing_plates.png", Texture.class), 64,0,64,64);
-        notpressedTex = new TextureRegion(screen.getGame().getAssetManager().get("Game/mega_pressing_plates.png", Texture.class), 0,0,64,64);
+    public void textureLoad(MyGame game){
+        pressedTex = new TextureRegion(game.getAssetManager().get("Game/mega_pressing_plates.png", Texture.class), 64,0,64,64);
+        notpressedTex = new TextureRegion(game.getAssetManager().get("Game/mega_pressing_plates.png", Texture.class), 0,0,64,64);
     }
 
     public void update(float dt){

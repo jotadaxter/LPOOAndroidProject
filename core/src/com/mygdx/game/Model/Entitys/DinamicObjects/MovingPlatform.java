@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.MovingPlatformBody;
 import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -23,7 +24,6 @@ import static sun.misc.VM.getState;
  */
 
 public class MovingPlatform extends Sprite {
-    private GameScreen screen;
     private World world;
     private Animation<TextureRegion> movingDown;
     private Animation<TextureRegion> movingUp;
@@ -37,34 +37,33 @@ public class MovingPlatform extends Sprite {
     public State currentState;
     public State previousState;
 
-    public MovingPlatform(GameScreen screen, Vector2 vec, int type) {
-        this.world = screen.getWorld();
-        this.screen=screen;
+    public MovingPlatform(LogicController logicController, Vector2 vec, int type) {
+        this.world = logicController.world;
         this.type=type;
         id = 0;
         moving_timer=0;
         platformBody = new MovingPlatformBody(world, this, vec);
-        loadAnimation();
+        loadAnimation(logicController.game);
         setBounds(0, 0, 32 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
         setPosition(vec.x, vec.y);
     }
 
-    private void loadAnimation() {
+    private void loadAnimation(MyGame game) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/moving_platform_down.png", Texture.class), i * 32, 0, 32, 32));
+            frames.add(new TextureRegion(game.getAssetManager().get("Game/moving_platform_down.png", Texture.class), i * 32, 0, 32, 32));
         }
         movingDown = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/moving_platform_up.png", Texture.class), i * 32, 0, 32, 32));
+            frames.add(new TextureRegion(game.getAssetManager().get("Game/moving_platform_up.png", Texture.class), i * 32, 0, 32, 32));
         }
         movingUp = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for (int i = 0; i < 2; i++) {
-            frames.add(new TextureRegion(screen.getGame().getAssetManager().get("Game/moving_platform_left.png", Texture.class), 0, i * 32, 32, 32));
+            frames.add(new TextureRegion(game.getAssetManager().get("Game/moving_platform_left.png", Texture.class), 0, i * 32, 32, 32));
         }
         movingLeft = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();

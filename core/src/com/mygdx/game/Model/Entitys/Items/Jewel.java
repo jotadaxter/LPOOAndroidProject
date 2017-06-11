@@ -2,8 +2,11 @@ package com.mygdx.game.Model.Entitys.Items;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Controller.Entitys.Items.JewelBody;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -17,8 +20,8 @@ public class Jewel extends Item {
     private JewelBody jewelBody;
     private Sound sound;
 
-    public Jewel(int value, GameScreen screen, Vector2 vec) {
-        super(screen, vec);
+    public Jewel(int value, LogicController logicController, Vector2 vec) {
+        super(logicController, vec);
         this.value=value;
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_rupee.wav"));
         if(value>1 && value<50)
@@ -32,17 +35,17 @@ public class Jewel extends Item {
 
     private void defineTexture(int value) {
         if(value==1)
-            setRegion(screen.getAtlas().findRegion("green_rupee"), 0,0,7,14);
+            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/green_rupee.png", Texture.class), 0,0,7,14));
         if(value==5)
-            setRegion(screen.getAtlas().findRegion("blue_rupee"), 0,0,7,14);
+            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/blue_rupee.png", Texture.class), 0,0,7,14));
         if(value==20)
-            setRegion(screen.getAtlas().findRegion("red_rupee"), 0,0,7,14);
+            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/red_rupee.png", Texture.class), 0,0,7,14));
         if(value==50)
-            setRegion(screen.getAtlas().findRegion("big_green_rupee"), 0,0,12,16);
+            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/big_green_rupee.png", Texture.class), 0,0,12,16));
         if(value==100)
-            setRegion(screen.getAtlas().findRegion("big_blue_rupee"), 0,0,12,16);
+            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/big_blue_rupee.png", Texture.class), 0,0,12,16));
         if(value==500)
-            setRegion(screen.getAtlas().findRegion("big_red_rupee"), 0,0,12,16);
+            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/big_red_rupee.png", Texture.class), 0,0,12,16));
     }
 
     @Override

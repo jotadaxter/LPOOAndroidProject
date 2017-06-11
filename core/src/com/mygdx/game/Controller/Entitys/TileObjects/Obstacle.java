@@ -3,6 +3,7 @@ package com.mygdx.game.Controller.Entitys.TileObjects;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -13,8 +14,8 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 public class Obstacle extends StaticTileObject {
     private String code;
 
-    public Obstacle(GameScreen screen, MapObject object, String code){
-        super(screen, object);
+    public Obstacle(LogicController logicController, MapObject object, String code) {
+        super(logicController, object);
         setCategoryFilter(MyGame.DEFAULT_BIT);
         fixture.setUserData(this);
         this.code=code;

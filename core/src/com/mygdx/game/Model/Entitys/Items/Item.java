@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 
@@ -12,15 +13,15 @@ import com.mygdx.game.Model.Entitys.Hero.Hero;
  */
 
 public abstract class Item extends Sprite {
-    protected GameScreen screen;
+    protected LogicController logicController;
     protected World world;
     protected boolean toDestroy;
     protected boolean destroyed;
     protected String type;
 
-    public Item(GameScreen screen,Vector2 vec){
-        this.screen=screen;
-        this.world=screen.getWorld();
+    public Item(LogicController logicController, Vector2 vec){
+        this.logicController=logicController;
+        this.world=logicController.world;
         type="";
         setPosition(vec.x,vec.y);
         //Define Item

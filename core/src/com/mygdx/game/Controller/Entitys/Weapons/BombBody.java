@@ -17,16 +17,12 @@ import com.mygdx.game.MyGame;
 
 public class BombBody {
     public static final float DAMPING_NORMAL= 0f;
-    private World world;
     private BodyDef bdef;
     private Body body;
-    private Bomb bomb;
     private CircleShape normalShape;
     private FixtureDef fdef;
 
     public BombBody(World world, Bomb bomb,Vector2 vec) {
-        this.bomb=bomb;
-        this.world=world;
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;

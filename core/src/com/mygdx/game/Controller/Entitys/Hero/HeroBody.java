@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Controller.Entitys.StaticContactShapes;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
@@ -20,24 +21,24 @@ import com.mygdx.game.View.GameScreens.GameScreen;
 
 public class HeroBody{
     public static final float DAMPING_NORMAL= 3f;
-    private GameScreen screen;
     private Body b2body;
+    private LogicController logicController;
     private FixtureDef fdef;
     private Hero hero;
     public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, GAME_OVER, DYING}
     private State currentState;
     private State previousState;
 
-    public HeroBody(GameScreen screen, Hero hero, Vector2 vec) {
+    public HeroBody(LogicController logicController, Hero hero, Vector2 vec) {
+        this.logicController= logicController;
         setCurrentState(State.STAND_DOWN);
         setPreviousState(State.STAND_DOWN);
-        this.screen=screen;
         this.hero=hero;
         BodyDef bdef =  new BodyDef();
         bdef.position.set(vec.x*MyGame.PIXEL_TO_METER,vec.y*MyGame.PIXEL_TO_METER);
         bdef.type=BodyDef.BodyType.DynamicBody;
         bdef.linearDamping=DAMPING_NORMAL;
-        setB2body(screen.getWorld().createBody(bdef));
+        setB2body(logicController.world.createBody(bdef));
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(4*MyGame.PIXEL_TO_METER,6.5f*MyGame.PIXEL_TO_METER);
@@ -89,7 +90,7 @@ public class HeroBody{
 
     public State getState() {
         if(hero.getHealth()==0){
-            screen.getGame().getHeroStats().setHearts(-1);
+            logicController.game.getHeroStats().setHearts(-1);
             return State.DYING;
         }else if(hero.getHealth()<0)
             return State.GAME_OVER;
@@ -282,16 +283,16 @@ public class HeroBody{
     private void auxControl(Controller controller, float dt) {
         if(controller.isaPressed()){
             if(hero.getOpenedChestId()>-1) {
-                hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
+                logicController.chests.get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
             }
             else if(hero.getOpenedSignId()>-1){
-                hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
+                logicController.signs.get(hero.getOpenedSignId()).setOpenLog(true);
             }
         }
         else if(controller.isEscPressed()){
             if(hero.getOpenedSignId()>-1){
-                hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(false);
+                logicController.signs.get(hero.getOpenedSignId()).setOpenLog(false);
                 hero.setSignWasOpened(false);
                 hero.setOpenedSignId(-1);
             }
@@ -306,11 +307,11 @@ public class HeroBody{
         }
         else if(controller.isaPressed()){
             if(hero.getOpenedChestId()>-1) {
-                hero.getScreen().getChests().get(hero.getOpenedChestId()).setOpen(true);
+                logicController.chests.get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
             }
             else if(hero.getOpenedSignId()>-1 && !hero.isSignWasOpened()){
-                hero.getScreen().getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
+                logicController.signs.get(hero.getOpenedSignId()).setOpenLog(true);
                 hero.setSignWasOpened(true);
             }
         }

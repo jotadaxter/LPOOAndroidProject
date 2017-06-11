@@ -63,7 +63,7 @@ public class MyGame extends Game {
 	public static final int BIG_BLUE_RUPEE =100;
 	public static final int BIG_RED_RUPEE =200;
 	public static float MUSIC_VOLUME=1f;
-	public static float SOUND_VOLUME=0.25f;
+	public static float SOUND_VOLUME=0.5f;
 	public static int VIBRATION=500;
 
 	private SpriteBatch batch;
@@ -92,7 +92,7 @@ public class MyGame extends Game {
 		SOUND_VOLUME=0f;
 	}
 	public void normalizeSound(){
-		SOUND_VOLUME=0.25f;
+		SOUND_VOLUME=0.5f;
 	}
 	public void vibrationOn(){
 		VIBRATION=500;
@@ -126,12 +126,7 @@ public class MyGame extends Game {
 		fontsLoad();
 		buttonsLoad();
 		menusLoad();
-		texturePacksLoad();
 		assetManager.finishLoading();
-	}
-
-	private void texturePacksLoad() {
-		assetManager.load("Game/link_and_objects.pack", TextureAtlas.class);
 	}
 
 	private void menusLoad() {
@@ -198,6 +193,25 @@ public class MyGame extends Game {
 		assetManager.load("Game/way_blocker2.png", Texture.class);
 		assetManager.load("Game/door_top.png", Texture.class);
 		assetManager.load("Game/door_top2.png", Texture.class);
+		assetManager.load("Game/hero_walk_down.png", Texture.class);
+		assetManager.load("Game/hero_walk_right.png", Texture.class);
+		assetManager.load("Game/hero_walk_up.png", Texture.class);
+		assetManager.load("Game/pressing_plate_not_pressed.png", Texture.class);
+		assetManager.load("Game/pressing_plate_pressed.png", Texture.class);
+		assetManager.load("Game/spikes.png", Texture.class);
+		assetManager.load("Game/destroyable_rock.png", Texture.class);
+		assetManager.load("Game/big_blue_rupee.png", Texture.class);
+		assetManager.load("Game/big_green_rupee.png", Texture.class);
+		assetManager.load("Game/big_red_rupee.png", Texture.class);
+		assetManager.load("Game/blue_rupee.png", Texture.class);
+		assetManager.load("Game/green_rupee.png", Texture.class);
+		assetManager.load("Game/red_rupee.png", Texture.class);
+		assetManager.load("Game/hero_back.png", Texture.class);
+		assetManager.load("Game/hero_left.png", Texture.class);
+		assetManager.load("Game/hero_front.png", Texture.class);
+		assetManager.load("Game/hero_right.png", Texture.class);
+		assetManager.load("Game/boulder.png", Texture.class);
+		assetManager.load("Game/heart.png", Texture.class);
 	}
 
 	public SpriteBatch getBatch() {

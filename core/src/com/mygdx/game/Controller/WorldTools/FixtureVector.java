@@ -19,15 +19,7 @@ public class FixtureVector {
         return fixA;
     }
 
-    public void setFixA(Fixture fixA) {
-        this.fixA = fixA;
-    }
-
     public Fixture getFixB() {
         return fixB;
-    }
-
-    public void setFixB(Fixture fixB) {
-        this.fixB = fixB;
     }
 }

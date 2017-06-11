@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
@@ -19,8 +20,8 @@ import com.mygdx.game.View.GameScreens.GameScreen;
  */
 
 public class PitFall extends StaticTileObject{
-    public PitFall(GameScreen screen, MapObject object) {
-        super(screen,object);
+    public PitFall(LogicController logicController, MapObject object) {
+        super(logicController, object);
         setCategoryFilter(MyGame.PITFALL_BIT);
     }
 

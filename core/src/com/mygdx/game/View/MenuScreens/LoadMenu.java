@@ -136,7 +136,7 @@ public class LoadMenu extends MenuScreen {
             System.out.println(save.PlayerY);
             System.out.println(save.topStackName);
             System.out.println("Hearts " + save.heroStats.getHearts());
-            
+
             if(save.topStackName=="free_world"){
                 game.getHeroStats().setHearts(save.heroStats.getHearts());
                 game.getHeroStats().setScore(save.heroStats.getScore());

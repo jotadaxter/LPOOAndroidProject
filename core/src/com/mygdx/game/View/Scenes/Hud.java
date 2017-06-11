@@ -96,7 +96,7 @@ public class Hud implements Disposable{
 
     private void textureLoad(GameScreen screen, Table table) {
         //Rupee image
-        rupee = new Image(new TextureRegion(screen.getAtlas().findRegion("green_rupee"), 0,0,7,14));
+        rupee = new Image(new TextureRegion(game.getAssetManager().get("Game/green_rupee.png", Texture.class), 0,0,7,14));
         rupee.setBounds(RUPEE_X,RUPEE_Y,RUPEE_WIDTH,RUPEE_HEIGTH);
         stage.addActor(rupee);
 

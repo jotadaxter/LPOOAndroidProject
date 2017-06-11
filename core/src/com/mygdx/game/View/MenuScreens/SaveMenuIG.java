@@ -98,8 +98,8 @@ public class SaveMenuIG extends MenuScreen {
             for (int i = 0; i < game.getGsm().getStates().size(); i++){
                 if (game.getGsm().getStates().get(i).getGameScreen() != null){
                     save = new SaveFile(game.getHeroStats(),
-                            game.getGsm().getStates().get(i).getGameScreen().getHero().getHeroBody().getBody().getPosition().x,
-                            game.getGsm().getStates().get(i).getGameScreen().getHero().getHeroBody().getBody().getPosition().y,
+                            game.getGsm().getStates().get(i).getGameScreen().getLogicController().player.getHeroBody().getBody().getPosition().x,
+                            game.getGsm().getStates().get(i).getGameScreen().getLogicController().player.getHeroBody().getBody().getPosition().y,
                             stackTopName());
                     break;
                 }

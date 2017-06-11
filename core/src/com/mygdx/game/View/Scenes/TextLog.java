@@ -28,11 +28,11 @@ public class TextLog {
     private Image logImage;
     private int id;
 
-    public TextLog(MyGame game, GameScreen screen) {
+    public TextLog(MyGame game) {
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, game.getBatch());
-        font = screen.getGame().getAssetManager().get("Fonts/textFont.fnt", BitmapFont.class);
-        logImage=new Image(screen.getGame().getAssetManager().get("Game/log.png", Texture.class));
+        font = game.getAssetManager().get("Fonts/textFont.fnt", BitmapFont.class);
+        logImage=new Image(game.getAssetManager().get("Game/log.png", Texture.class));
         logImage.setPosition(5,0);
         stage.addActor(logImage);
         labels();

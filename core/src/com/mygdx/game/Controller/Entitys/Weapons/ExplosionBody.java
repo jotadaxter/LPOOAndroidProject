@@ -19,7 +19,6 @@ public class ExplosionBody {
     private CircleShape shape;
     private FixtureDef fdef;
 
-
     public ExplosionBody(World world, Vector2 vec) {
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);

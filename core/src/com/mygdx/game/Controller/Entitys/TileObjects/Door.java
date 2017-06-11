@@ -3,6 +3,7 @@ package com.mygdx.game.Controller.Entitys.TileObjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
+import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
@@ -16,8 +17,8 @@ public class Door extends StaticTileObject {
     private Integer id;
     private Sound sound;
 
-    public Door(GameScreen screen, MapObject object, Integer id) {
-        super(screen, object);
+    public Door(LogicController logicController, MapObject object, Integer id) {
+        super(logicController, object);
         fixture.setUserData(this);
         sound= Gdx.audio.newSound(Gdx.files.internal("Sounds/door.wav"));
         this.id=id;
@@ -25,15 +26,15 @@ public class Door extends StaticTileObject {
     }
 
     public void warp() {
-        if(screen.getClass()==DemoScreen.class){
+        if(logicController.screenType==DemoScreen.class){
             sound.play(MyGame.SOUND_VOLUME);
-            screen.getGame().getGsm().pop();
+            logicController.game.getGsm().pop();
         }
         else {
-            for (WarpEvent warpEvent : screen.getWarpEvents())
+            for (WarpEvent warpEvent : logicController.warpEvents)
                 if (warpEvent.getId() == this.id) {
                     sound.play(MyGame.SOUND_VOLUME);
-                    screen.getGame().getGsm().push(warpEvent.getTravelPoint());
+                    logicController.game.getGsm().push(warpEvent.getTravelPoint());
                 }
         }
     }

@@ -17,10 +17,8 @@ import com.mygdx.game.MyGame;
 public class ChestBody{
     private Body body;
     private BodyDef bdef;
-    private Chest chest;
 
     public ChestBody(World world, Chest chest, Vector2 vec) {
-        this.chest = chest;
         bdef = new BodyDef();
         bdef.position.set(vec.x * MyGame.PIXEL_TO_METER, vec.y * MyGame.PIXEL_TO_METER);
         bdef.type = BodyDef.BodyType.StaticBody;
