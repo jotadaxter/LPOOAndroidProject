@@ -5,12 +5,11 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Controller.Entitys.Items.HeartBody;
 import com.mygdx.game.Controller.Entitys.Items.SpecialItemBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
+
 /**
  * Created by Utilizador on 20-05-2017.
  */
@@ -23,7 +22,7 @@ public class SpecialItem extends Item{
         super(logicController, vec);
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_heart_container.wav"));
         specialItemBody=new SpecialItemBody(world,this, vec);
-        setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/volcano_ruby.png", Texture.class)));
+        setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/volcano_ruby.png", Texture.class)));
     }
 
     @Override

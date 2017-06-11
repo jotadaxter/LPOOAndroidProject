@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.WayBlockerBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Utilizador on 17-05-2017.
@@ -27,16 +26,16 @@ public class WayBlocker extends Sprite{
     private Sound sound;
 
     public WayBlocker(LogicController logicController, Vector2 vec, int texChoose) {
-        this.world=logicController.world;
+        this.world= logicController.getWorld();
         wayBlockerBody= new WayBlockerBody(world,this,vec);
         destroyed=false;
         toDestroy=false;
         if(texChoose==0){
-            blockFigure = new TextureRegion(logicController.game.getAssetManager().get("Game/way_blocker.png", Texture.class));
+            blockFigure = new TextureRegion(logicController.getGame().getAssetManager().get("Game/way_blocker.png", Texture.class));
             setRegion(blockFigure);
         }
         else {
-            blockFigure2 = new TextureRegion(logicController.game.getAssetManager().get("Game/way_blocker2.png", Texture.class));
+            blockFigure2 = new TextureRegion(logicController.getGame().getAssetManager().get("Game/way_blocker2.png", Texture.class));
             setRegion(blockFigure2);
         }
         setPosition(vec.x,vec.y);

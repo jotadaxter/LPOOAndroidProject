@@ -1,6 +1,5 @@
 package com.mygdx.game.Controller.Entitys.Hero;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -13,7 +12,6 @@ import com.mygdx.game.Controller.Entitys.StaticContactShapes;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 28/04/2017.
@@ -38,7 +36,7 @@ public class HeroBody{
         bdef.position.set(vec.x*MyGame.PIXEL_TO_METER,vec.y*MyGame.PIXEL_TO_METER);
         bdef.type=BodyDef.BodyType.DynamicBody;
         bdef.linearDamping=DAMPING_NORMAL;
-        setB2body(logicController.world.createBody(bdef));
+        setB2body(logicController.getWorld().createBody(bdef));
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(4*MyGame.PIXEL_TO_METER,6.5f*MyGame.PIXEL_TO_METER);
@@ -90,7 +88,7 @@ public class HeroBody{
 
     public State getState() {
         if(hero.getHealth()==0){
-            logicController.game.getHeroStats().setHearts(-1);
+            logicController.getGame().getHeroStats().setHearts(-1);
             return State.DYING;
         }else if(hero.getHealth()<0)
             return State.GAME_OVER;
@@ -283,16 +281,16 @@ public class HeroBody{
     private void auxControl(Controller controller, float dt) {
         if(controller.isaPressed()){
             if(hero.getOpenedChestId()>-1) {
-                logicController.chests.get(hero.getOpenedChestId()).setOpen(true);
+                logicController.getChests().get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
             }
             else if(hero.getOpenedSignId()>-1){
-                logicController.signs.get(hero.getOpenedSignId()).setOpenLog(true);
+                logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
             }
         }
         else if(controller.isEscPressed()){
             if(hero.getOpenedSignId()>-1){
-                logicController.signs.get(hero.getOpenedSignId()).setOpenLog(false);
+                logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(false);
                 hero.setSignWasOpened(false);
                 hero.setOpenedSignId(-1);
             }
@@ -307,11 +305,11 @@ public class HeroBody{
         }
         else if(controller.isaPressed()){
             if(hero.getOpenedChestId()>-1) {
-                logicController.chests.get(hero.getOpenedChestId()).setOpen(true);
+                logicController.getChests().get(hero.getOpenedChestId()).setOpen(true);
                 hero.setOpenedChestId(-1);
             }
             else if(hero.getOpenedSignId()>-1 && !hero.isSignWasOpened()){
-                logicController.signs.get(hero.getOpenedSignId()).setOpenLog(true);
+                logicController.getSigns().get(hero.getOpenedSignId()).setOpenLog(true);
                 hero.setSignWasOpened(true);
             }
         }

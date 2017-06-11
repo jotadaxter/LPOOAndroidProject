@@ -2,7 +2,6 @@ package com.mygdx.game.Model.Entitys.DinamicObjects;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -11,13 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.MovingPlatformBody;
-import com.mygdx.game.Controller.Entitys.Hero.HeroBody;
 import com.mygdx.game.Controller.LogicController;
-import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
-
-import static sun.misc.VM.getState;
 
 /**
  * Created by Utilizador on 20-05-2017.
@@ -38,12 +32,12 @@ public class MovingPlatform extends Sprite {
     public State previousState;
 
     public MovingPlatform(LogicController logicController, Vector2 vec, int type) {
-        this.world = logicController.world;
+        this.world = logicController.getWorld();
         this.type=type;
         id = 0;
         moving_timer=0;
         platformBody = new MovingPlatformBody(world, this, vec);
-        loadAnimation(logicController.game);
+        loadAnimation(logicController.getGame());
         setBounds(0, 0, 32 * MyGame.PIXEL_TO_METER, 32 * MyGame.PIXEL_TO_METER);
         setPosition(vec.x, vec.y);
     }

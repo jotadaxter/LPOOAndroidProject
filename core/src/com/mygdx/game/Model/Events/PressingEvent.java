@@ -3,7 +3,6 @@ package com.mygdx.game.Model.Events;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
 import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 import java.util.ArrayList;
 
@@ -50,7 +49,7 @@ public class PressingEvent {
 
     public void update(float dt) {
         if (condition()) {
-            logicController.d1blck=false;
+            logicController.setD1blck(false);
             System.out.println("megaPressurePlate was pressed with success");
         }
     }

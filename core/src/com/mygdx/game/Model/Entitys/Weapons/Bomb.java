@@ -16,7 +16,6 @@ import com.mygdx.game.Controller.Entitys.Weapons.ExplosionBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Jotadaxter on 18/05/2017.
@@ -48,7 +47,7 @@ public class Bomb extends Sprite{
     private Sound sound2;
 
     public Bomb(LogicController logicController, Hero hero, Vector2 vec) {
-        this.world=logicController.world;
+        this.world= logicController.getWorld();
         this.logicController=logicController;
         this.hero=hero;
         bombBody= new BombBody(world, this,new Vector2( vec.x,vec.y));
@@ -76,7 +75,7 @@ public class Bomb extends Sprite{
         frames.clear();
 
         for (int i = 0; i < 11; i++) {
-            frames.add(new TextureRegion(logicController.game.getAssetManager().get("Game/explosion.png", Texture.class), i * 47, 0, 47, 51));
+            frames.add(new TextureRegion(logicController.getGame().getAssetManager().get("Game/explosion.png", Texture.class), i * 47, 0, 47, 51));
         }
         boom = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -84,8 +83,8 @@ public class Bomb extends Sprite{
     }
 
     private void textureLoad() {
-        blue= new TextureRegion(logicController.game.getAssetManager().get("Game/bombs.png", Texture.class), 0,0,12,16);
-        red= new TextureRegion(logicController.game.getAssetManager().get("Game/bombs.png", Texture.class), 12,0,12,16);
+        blue= new TextureRegion(logicController.getGame().getAssetManager().get("Game/bombs.png", Texture.class), 0,0,12,16);
+        red= new TextureRegion(logicController.getGame().getAssetManager().get("Game/bombs.png", Texture.class), 12,0,12,16);
     }
 
     public void destroy() {

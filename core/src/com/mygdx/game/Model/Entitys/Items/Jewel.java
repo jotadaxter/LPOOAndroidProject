@@ -9,7 +9,6 @@ import com.mygdx.game.Controller.Entitys.Items.JewelBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Utilizador on 06-04-2017.
@@ -35,17 +34,17 @@ public class Jewel extends Item {
 
     private void defineTexture(int value) {
         if(value==1)
-            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/green_rupee.png", Texture.class), 0,0,7,14));
+            setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/green_rupee.png", Texture.class), 0,0,7,14));
         if(value==5)
-            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/blue_rupee.png", Texture.class), 0,0,7,14));
+            setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/blue_rupee.png", Texture.class), 0,0,7,14));
         if(value==20)
-            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/red_rupee.png", Texture.class), 0,0,7,14));
+            setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/red_rupee.png", Texture.class), 0,0,7,14));
         if(value==50)
-            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/big_green_rupee.png", Texture.class), 0,0,12,16));
+            setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/big_green_rupee.png", Texture.class), 0,0,12,16));
         if(value==100)
-            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/big_blue_rupee.png", Texture.class), 0,0,12,16));
+            setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/big_blue_rupee.png", Texture.class), 0,0,12,16));
         if(value==500)
-            setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/big_red_rupee.png", Texture.class), 0,0,12,16));
+            setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/big_red_rupee.png", Texture.class), 0,0,12,16));
     }
 
     @Override

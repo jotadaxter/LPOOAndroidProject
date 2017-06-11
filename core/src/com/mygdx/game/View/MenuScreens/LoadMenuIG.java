@@ -27,16 +27,12 @@ import java.io.ObjectInputStream;
  */
 
 public class LoadMenuIG extends MenuScreen {
-
     private Stage stage;
-
     private Texture texture;
-
     private Texture S1;
     private Texture S2;
     private Texture S3;
     private Texture back;
-
     private ImageButton S1Button;
     private ImageButton S2Button;
     private ImageButton S3Button;

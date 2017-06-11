@@ -15,7 +15,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class Hero extends Sprite{
     private Sound soundDying;
 
     public Hero(LogicController logicController, Vector2 vec){
-        this.setWorld(logicController.world);
+        this.setWorld(logicController.getWorld());
         this.logicController=logicController;
         booleanDefinition();
         resetCounters();
@@ -85,10 +84,10 @@ public class Hero extends Sprite{
     }
 
     private void heroStandingTextureLoad() {
-        standLeft = new TextureRegion(logicController.game.getAssetManager().get("Game/hero_left.png", Texture.class), 1, 1, 16, 21);
-        standBack = new TextureRegion(logicController.game.getAssetManager().get("Game/hero_back.png", Texture.class), 1, 1, 16, 21);
-        standFront = new TextureRegion(logicController.game.getAssetManager().get("Game/hero_front.png", Texture.class), 1, 1, 17, 22);
-        standRight = new TextureRegion(logicController.game.getAssetManager().get("Game/hero_left.png", Texture.class), 1, 1, 16, 21);
+        standLeft = new TextureRegion(logicController.getGame().getAssetManager().get("Game/hero_left.png", Texture.class), 1, 1, 16, 21);
+        standBack = new TextureRegion(logicController.getGame().getAssetManager().get("Game/hero_back.png", Texture.class), 1, 1, 16, 21);
+        standFront = new TextureRegion(logicController.getGame().getAssetManager().get("Game/hero_front.png", Texture.class), 1, 1, 17, 22);
+        standRight = new TextureRegion(logicController.getGame().getAssetManager().get("Game/hero_left.png", Texture.class), 1, 1, 16, 21);
     }
 
     private void resetCounters() {
@@ -124,7 +123,7 @@ public class Hero extends Sprite{
     private Animation<TextureRegion> animationAssetLoad(String name, Vector3 vec) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < (int)vec.z; i++) {
-            frames.add(new TextureRegion(logicController.game.getAssetManager().get(name, Texture.class), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
+            frames.add(new TextureRegion(logicController.getGame().getAssetManager().get(name, Texture.class), i * (int)vec.x, 0, (int)vec.x, (int)vec.y));
         }
         Animation<TextureRegion> animation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
@@ -133,9 +132,9 @@ public class Hero extends Sprite{
 
     public void update(float dt){
         if(isFell()){
-            if(logicController.d1blck)
+            if(logicController.isD1blck())
                 heroBody.getBody().setTransform(RESET_POS1X, RESET_POS1Y, 0);
-            else if(!logicController.d1blck)
+            else if(!logicController.isD1blck())
                 heroBody.getBody().setTransform(RESET_POS2X, RESET_POS2Y, 0);
             setFell(false);
         }
@@ -162,13 +161,13 @@ public class Hero extends Sprite{
         if(item.getType()=="jewel")
             addScore(((Jewel)item).getValue());
         else if(item.getType()=="heart")
-            logicController.game.getHeroStats().setHearts(logicController.game.getHeroStats().getHearts()+1);
+            logicController.getGame().getHeroStats().setHearts(logicController.getGame().getHeroStats().getHearts()+1);
         else if(item.getType()=="volcano_ruby")
-            logicController.game.getHeroStats().gotVolcanoRuby();
+            logicController.getGame().getHeroStats().gotVolcanoRuby();
     }
 
     public void addScore(int value) {
-        logicController.game.getHeroStats().setScore(logicController.game.getHeroStats().getScore()+value);
+        logicController.getGame().getHeroStats().setScore(logicController.getGame().getHeroStats().getScore()+value);
     }
 
     public TextureRegion getStandRight(){
@@ -192,19 +191,19 @@ public class Hero extends Sprite{
     }
 
     public int getHealth() {
-        return logicController.game.getHeroStats().getHearts();
+        return logicController.getGame().getHeroStats().getHearts();
     }
 
     public void hit(){
         Gdx.input.vibrate(MyGame.VIBRATION);
-        logicController.game.getHeroStats().setHearts(logicController.game.getHeroStats().getHearts()-1);
+        logicController.getGame().getHeroStats().setHearts(logicController.getGame().getHeroStats().getHearts()-1);
         wasHit=true;
     }
 
     public void fall(){
         Gdx.input.vibrate(MyGame.VIBRATION);
         soundHurt.play(MyGame.SOUND_VOLUME);
-        logicController.game.getHeroStats().setHearts(logicController.game.getHeroStats().getHearts()-1);
+        logicController.getGame().getHeroStats().setHearts(logicController.getGame().getHeroStats().getHearts()-1);
         setFell(true);
     }
 

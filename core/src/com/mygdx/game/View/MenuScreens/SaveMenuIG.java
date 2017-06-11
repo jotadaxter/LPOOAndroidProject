@@ -26,16 +26,12 @@ import java.io.ObjectOutputStream;
  */
 
 public class SaveMenuIG extends MenuScreen {
-
     private Stage stage;
-
     private Texture texture;
-
     private Texture S1;
     private Texture S2;
     private Texture S3;
     private Texture back;
-
     private ImageButton S1Button;
     private ImageButton S2Button;
     private ImageButton S3Button;
@@ -98,8 +94,8 @@ public class SaveMenuIG extends MenuScreen {
             for (int i = 0; i < game.getGsm().getStates().size(); i++){
                 if (game.getGsm().getStates().get(i).getGameScreen() != null){
                     save = new SaveFile(game.getHeroStats(),
-                            game.getGsm().getStates().get(i).getGameScreen().getLogicController().player.getHeroBody().getBody().getPosition().x,
-                            game.getGsm().getStates().get(i).getGameScreen().getLogicController().player.getHeroBody().getBody().getPosition().y,
+                            game.getGsm().getStates().get(i).getGameScreen().getLogicController().getPlayer().getHeroBody().getBody().getPosition().x,
+                            game.getGsm().getStates().get(i).getGameScreen().getLogicController().getPlayer().getHeroBody().getBody().getPosition().y,
                             stackTopName());
                     break;
                 }

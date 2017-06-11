@@ -7,7 +7,6 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.DemoScreen;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Utilizador on 09-05-2017.
@@ -26,15 +25,15 @@ public class Door extends StaticTileObject {
     }
 
     public void warp() {
-        if(logicController.screenType==DemoScreen.class){
+        if(logicController.getScreenType() ==DemoScreen.class){
             sound.play(MyGame.SOUND_VOLUME);
-            logicController.game.getGsm().pop();
+            logicController.getGame().getGsm().pop();
         }
         else {
-            for (WarpEvent warpEvent : logicController.warpEvents)
+            for (WarpEvent warpEvent : logicController.getWarpEvents())
                 if (warpEvent.getId() == this.id) {
                     sound.play(MyGame.SOUND_VOLUME);
-                    logicController.game.getGsm().push(warpEvent.getTravelPoint());
+                    logicController.getGame().getGsm().push(warpEvent.getTravelPoint());
                 }
         }
     }

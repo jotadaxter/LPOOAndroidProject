@@ -11,10 +11,8 @@ import com.mygdx.game.Controller.Entitys.InteractiveObjects.ChestBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Utilizador on 21-05-2017.
@@ -36,7 +34,7 @@ public class Chest extends Sprite{
     private Sound sound1;
 
     public Chest(LogicController logicController, Vector2 vec) {
-        this.world=logicController.world;
+        this.world= logicController.getWorld();
         this.logicController=logicController;
         sound1=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_chest_item.wav"));
         chestBody= new ChestBody(world,this,vec);
@@ -49,8 +47,8 @@ public class Chest extends Sprite{
     }
 
     private void textureLoad() {
-        chest_open = new TextureRegion(logicController.game.getAssetManager().get("Game/chests.png", Texture.class), 16,0,16,16);
-        chest_closed = new TextureRegion(logicController.game.getAssetManager().get("Game/chests.png", Texture.class), 0,0,16,16);
+        chest_open = new TextureRegion(logicController.getGame().getAssetManager().get("Game/chests.png", Texture.class), 16,0,16,16);
+        chest_closed = new TextureRegion(logicController.getGame().getAssetManager().get("Game/chests.png", Texture.class), 0,0,16,16);
     }
 
     public void update(float dt) {
@@ -70,17 +68,17 @@ public class Chest extends Sprite{
         Jewel j;
         if(rand>0 && rand<=GREEN_RUPEE_RATIO){
             j= new Jewel(MyGame.BIG_GREEN_RUPEE,logicController, new Vector2(0, 0));
-            logicController.player.addItem(j);
+            logicController.getPlayer().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }
         else if(rand> GREEN_RUPEE_RATIO && rand<= BLUE_RUPEE_RATIO){
             j= new Jewel(MyGame.BIG_BLUE_RUPEE,logicController,  new Vector2(0, 0));
-            logicController.player.addItem(j);
+            logicController.getPlayer().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }
         else if(rand> BLUE_RUPEE_RATIO && rand<= RED_RUPEE_RATIO){
             j= new Jewel(MyGame.BIG_RED_RUPEE,logicController, new Vector2( 0, 0));
-            logicController.player.addItem(j);
+            logicController.getPlayer().addItem(j);
             world.destroyBody(j.getJewelBody().getBody());
         }
     }

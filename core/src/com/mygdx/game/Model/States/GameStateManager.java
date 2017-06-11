@@ -32,8 +32,8 @@ public class GameStateManager {
         getStates().push(state);
         if(state.isGameScreen()){
             game.setScreen(getStates().peek().getGameScreen());
-            getStates().peek().getGameScreen().getLogicController().controller.reset();
-            Gdx.input.setInputProcessor(getStates().peek().getGameScreen().getLogicController().controller.getStage());
+            getStates().peek().getGameScreen().getLogicController().getController().reset();
+            Gdx.input.setInputProcessor(getStates().peek().getGameScreen().getLogicController().getController().getStage());
             getStates().peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
             getStates().peek().getGameScreen().getMusic().play();
         }
@@ -47,8 +47,8 @@ public class GameStateManager {
         getStates().pop();
         if(getStates().peek().isGameScreen()) {
             game.setScreen(getStates().peek().getGameScreen());
-            Gdx.input.setInputProcessor(getStates().peek().getGameScreen().getLogicController().controller.getStage());
-            getStates().peek().getGameScreen().getLogicController().controller.reset();
+            Gdx.input.setInputProcessor(getStates().peek().getGameScreen().getLogicController().getController().getStage());
+            getStates().peek().getGameScreen().getLogicController().getController().reset();
             getStates().peek().getGameScreen().getMusic().setVolume(MyGame.MUSIC_VOLUME);
             getStates().peek().getGameScreen().getMusic().play();
         }
@@ -60,8 +60,8 @@ public class GameStateManager {
         getStates().pop();
         getStates().push(new GameState(screen));
         game.setScreen(getStates().peek().getGameScreen());
-        Gdx.input.setInputProcessor(getStates().peek().getGameScreen().getLogicController().controller.getStage());
-        getStates().peek().getGameScreen().getLogicController().controller.reset();
+        Gdx.input.setInputProcessor(getStates().peek().getGameScreen().getLogicController().getController().getStage());
+        getStates().peek().getGameScreen().getLogicController().getController().reset();
         getStates().peek().getGameScreen().getMusic().play();
     }
 

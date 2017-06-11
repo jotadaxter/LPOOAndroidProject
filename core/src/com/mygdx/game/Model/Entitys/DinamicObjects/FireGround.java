@@ -1,7 +1,5 @@
 package com.mygdx.game.Model.Entitys.DinamicObjects;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.FireGroundBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Utilizador on 20-05-2017.
@@ -25,10 +22,10 @@ public class FireGround extends Sprite{
     private float fire_timer;
 
     public FireGround(LogicController logicController, Vector2 vec) {
-        this.world=logicController.world;
+        this.world= logicController.getWorld();
         fire_timer=0;
         fireGroundBody= new FireGroundBody(world,this,vec);
-        loadAnimation(logicController.game);
+        loadAnimation(logicController.getGame());
         setPosition(vec.x,vec.y);
     }
 

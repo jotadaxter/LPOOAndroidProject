@@ -8,10 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.MegaPressingPlateBody;
-import com.mygdx.game.Controller.Entitys.DinamicObjects.PressingPlateBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 
 /**
  * Created by Utilizador on 20-05-2017.
@@ -28,11 +26,11 @@ public class MegaPressingPlate extends Sprite {
     private Sound sound2;
 
     public MegaPressingPlate(LogicController logicController, Vector2 vec) {
-        this.world=logicController.world;
+        this.world= logicController.getWorld();
         ispressed=0;
         press_and_hold=true;
         megaPressingPlateBody= new MegaPressingPlateBody(world,this,vec);
-        textureLoad(logicController.game);
+        textureLoad(logicController.getGame());
         setPosition(vec.x,vec.y);
         setBounds(0,0,64* MyGame.PIXEL_TO_METER,64* MyGame.PIXEL_TO_METER);
         setRegion(notpressedTex);

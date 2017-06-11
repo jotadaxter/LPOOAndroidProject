@@ -10,9 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.Entitys.DinamicObjects.PressingPlateBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
-
-import java.util.ArrayList;
 
 /**
  * Created by Jotadaxter on 02/05/2017.
@@ -29,12 +26,12 @@ public class PressingPlate extends Sprite {
     private Sound sound2;
 
     public PressingPlate(LogicController logicController, Vector2 vec) {
-        this.world=logicController.world;
+        this.world= logicController.getWorld();
         isPressed=0;
         press_and_hold=true;
         pressingPlateBody= new PressingPlateBody(world,this,vec);
-        pressedTex = new TextureRegion(logicController.game.getAssetManager().get("Game/pressing_plate_pressed.png", Texture.class), 0,0,16,16);
-        notPressedTex = new TextureRegion(logicController.game.getAssetManager().get("Game/pressing_plate_not_pressed.png", Texture.class), 0,0,16,16);
+        pressedTex = new TextureRegion(logicController.getGame().getAssetManager().get("Game/pressing_plate_pressed.png", Texture.class), 0,0,16,16);
+        notPressedTex = new TextureRegion(logicController.getGame().getAssetManager().get("Game/pressing_plate_not_pressed.png", Texture.class), 0,0,16,16);
         setPosition(vec.x,vec.y);
         setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
         setRegion(notPressedTex);

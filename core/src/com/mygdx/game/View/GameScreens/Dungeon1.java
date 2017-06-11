@@ -1,10 +1,7 @@
 package com.mygdx.game.View.GameScreens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Controller.Entitys.DinamicObjects.SmashableRockBody;
-import com.mygdx.game.Controller.Entitys.TileObjects.D1TopDoor;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
 import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
@@ -13,25 +10,16 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
-import com.mygdx.game.Model.Entitys.Items.Heart;
-import com.mygdx.game.Model.Entitys.Items.ItemDef;
-import com.mygdx.game.Model.Entitys.Items.Jewel;
-import com.mygdx.game.Model.Entitys.Items.SpecialItem;
-import com.mygdx.game.Model.Events.PressingEvent;
 import com.mygdx.game.MyGame;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Utilizador on 20-05-2017.
  */
 
 public class Dungeon1 extends GameScreen{
-
     public Dungeon1(MyGame game, Vector2 vec) {
         super(game, vec);
-        Gdx.input.setInputProcessor(logicController.controller.getStage());
+        Gdx.input.setInputProcessor(logicController.getController().getStage());
     }
 
     @Override
@@ -48,21 +36,21 @@ public class Dungeon1 extends GameScreen{
 
     @Override
     public void objectsDraw() {
-        for(WayBlocker wb : logicController.wayblocks)
+        for(WayBlocker wb : logicController.getWayblocks())
             wb.draw(game.getBatch());
-        for(MegaPressingPlate mpp : logicController.mpps)
+        for(MegaPressingPlate mpp : logicController.getMpps())
             mpp.draw(game.getBatch());
-        for(SmashableRock sm : logicController.smashRocks)
+        for(SmashableRock sm : logicController.getSmashRocks())
             sm.draw(game.getBatch());
-        for(FireGround fg : logicController.fireGrounds)
+        for(FireGround fg : logicController.getFireGrounds())
             fg.draw(game.getBatch());
-        for(Spikes spike : logicController.spikes)
+        for(Spikes spike : logicController.getSpikes())
             spike.draw(game.getBatch());
-        for(Chest chest : logicController.chests)
+        for(Chest chest : logicController.getChests())
             chest.draw(game.getBatch());
-        for(Boulder boulder : logicController.boulders)
+        for(Boulder boulder : logicController.getBoulders())
             boulder.draw(game.getBatch());
-        for(MovingPlatform m :logicController.mps)
+        for(MovingPlatform m : logicController.getMps())
             m.draw(game.getBatch());
     }
 

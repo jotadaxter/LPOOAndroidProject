@@ -6,32 +6,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.Controller.Controller;
 import com.mygdx.game.Controller.Entitys.TileObjects.D1TopDoor;
 import com.mygdx.game.Controller.LogicController;
-import com.mygdx.game.Model.Entitys.DinamicObjects.FireGround;
-import com.mygdx.game.Model.Entitys.DinamicObjects.MegaPressingPlate;
-import com.mygdx.game.Model.Entitys.DinamicObjects.MovingPlatform;
-import com.mygdx.game.Model.Entitys.DinamicObjects.PressingPlate;
-import com.mygdx.game.Model.Entitys.DinamicObjects.SmashableRock;
-import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
-import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
-import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
-import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.Model.Entitys.Weapons.Bomb;
-import com.mygdx.game.Model.Events.PressingEvent;
-import com.mygdx.game.Model.Events.WarpEvent;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.MenuScreens.GameCompleted;
@@ -39,15 +21,7 @@ import com.mygdx.game.View.MenuScreens.GameMenu;
 import com.mygdx.game.View.MenuScreens.GameOver;
 import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Item;
-import com.mygdx.game.Model.Entitys.Items.ItemDef;
-import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
-import com.mygdx.game.Model.Entitys.Hero.Hero;
-import com.mygdx.game.Controller.WorldTools.WorldContactListener;
-import com.mygdx.game.Controller.WorldTools.WorldCreator;
 import com.mygdx.game.View.Scenes.TextLog;
-
-import java.util.ArrayList;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by Jotadaxter on 04/04/2017.
@@ -60,11 +34,9 @@ public abstract class GameScreen implements Screen{
     protected Hud hud;
     protected float endTimer;
     protected LogicController logicController;
-
     //Tiled Map Variables
     protected OrthogonalTiledMapRenderer renderer;
     protected Class<?> type;
-
     //Box2d Variables
     protected Box2DDebugRenderer b2dr;
     protected Music music;
@@ -84,23 +56,21 @@ public abstract class GameScreen implements Screen{
     private void mapDefine() {
         String mapName = "Maps/" + getMapName();
         logicController.defineMap(mapName);
-        renderer = new OrthogonalTiledMapRenderer(logicController.tiledMap, 1*MyGame.PIXEL_TO_METER);
+        renderer = new OrthogonalTiledMapRenderer(logicController.getTiledMap(), 1*MyGame.PIXEL_TO_METER);
         gameCam.position.set(viewPort.getWorldWidth()/2, viewPort.getWorldHeight()/2, 0);
         hud= new Hud(game, this);
         //box2d
         b2dr= new Box2DDebugRenderer();
         endTimer=-1;
     }
-
     protected abstract void musicDefine();
-
 
     public void update(float dt){
         logicController.update(dt);
         gameOptions();
         //ajust the camera to follow the player
-        gameCam.position.x=logicController.player.getHeroBody().getBody().getPosition().x;
-        gameCam.position.y=logicController.player.getHeroBody().getBody().getPosition().y;
+        gameCam.position.x= logicController.getPlayer().getHeroBody().getBody().getPosition().x;
+        gameCam.position.y= logicController.getPlayer().getHeroBody().getBody().getPosition().y;
         hud.update();
         gameCam.update();
         renderer.setView(gameCam);
@@ -122,16 +92,14 @@ public abstract class GameScreen implements Screen{
     }
 
     private void gameOptions() {
-        if(logicController.controller.isOptionsPressed()){
+        if(logicController.getController().isOptionsPressed()){
             game.getGsm().push(new GameState(new GameMenu(game)));
-            logicController.controller.setOptionsPressed(false);
+            logicController.getController().setOptionsPressed(false);
         }
     }
 
     @Override
-    public void show() {
-
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {
@@ -140,13 +108,13 @@ public abstract class GameScreen implements Screen{
         //Render the game map
         renderer.render();
         //Render Box2DDebugLines
-        b2dr.render(logicController.world, gameCam.combined);
+        b2dr.render(logicController.getWorld(), gameCam.combined);
         game.getBatch().setProjectionMatrix(gameCam.combined);
         gameDraw();
         hudDraw();
         //Controller
         if(Gdx.app.getType() == Application.ApplicationType.Android)
-            logicController.controller.draw();
+            logicController.getController().draw();
     }
 
     private void hudDraw() {
@@ -154,8 +122,8 @@ public abstract class GameScreen implements Screen{
         game.getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);
         hud.getStage().draw();
         hud.getHeartStage().draw();
-        for(TextLog tlog: logicController.textlogs) {
-            if(logicController.signs.get(tlog.getId()).getIsOpen())
+        for(TextLog tlog: logicController.getTextlogs()) {
+            if(logicController.getSigns().get(tlog.getId()).getIsOpen())
                 tlog.getStage().draw();
         }
     }
@@ -169,14 +137,14 @@ public abstract class GameScreen implements Screen{
     private void gameDraw() {
         game.getBatch().begin();
         objectsDraw();
-        if(logicController.player.getThrowBomb()){
-            for(Bomb bombs: logicController.player.getBombs())
+        if(logicController.getPlayer().getThrowBomb()){
+            for(Bomb bombs: logicController.getPlayer().getBombs())
                 bombs.draw(game.getBatch());
         }
-        logicController.player.draw(game.getBatch());
-        for(D1TopDoor top : logicController.topDoors)
+        logicController.getPlayer().draw(game.getBatch());
+        for(D1TopDoor top : logicController.getTopDoors())
             top.draw(game.getBatch());
-        for(Item item : logicController.items)
+        for(Item item : logicController.getItems())
             item.draw(game.getBatch());
         game.getBatch().end();
     }
@@ -186,23 +154,17 @@ public abstract class GameScreen implements Screen{
     @Override
     public void resize(int width, int height) {
         viewPort.update(width, height);
-        logicController.controller.resize(width,height);
+        logicController.getController().resize(width,height);
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void hide() {
-
-    }
+    public void hide() {}
 
     @Override
     public void dispose() {
@@ -211,7 +173,7 @@ public abstract class GameScreen implements Screen{
         hud.dispose();
     }
 
-   public abstract String getMapName();
+    public abstract String getMapName();
 
     public MyGame getGame() {
         return game;

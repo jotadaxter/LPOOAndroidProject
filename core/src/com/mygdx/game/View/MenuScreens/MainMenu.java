@@ -25,16 +25,10 @@ public class MainMenu extends MenuScreen {
     private Stage stage;
     private Texture texture;
     private Texture title;
-
-    private Texture arcadetex;
-    private ImageButton arcadeButton;
-
     private Texture storytex;
     private ImageButton storyButton;
-
     private Texture optionstex;
     private ImageButton optionsButton;
-
     private Texture quittex;
     private ImageButton quitButton;
 
@@ -43,7 +37,6 @@ public class MainMenu extends MenuScreen {
         stage= new Stage(viewPort,game.getBatch());
         texture =game.getAssetManager().get("Menus/main_menu.jpg", Texture.class);
         title = game.getAssetManager().get("Menus/game_title.png", Texture.class);
-        arcadetex =game.getAssetManager().get("Buttons/arcade_button.png", Texture.class);
         storytex =game.getAssetManager().get("Buttons/story_button.png", Texture.class);
         optionstex =game.getAssetManager().get("Buttons/options_button.png", Texture.class);
         quittex =game.getAssetManager().get("Buttons/quit_button.png", Texture.class);

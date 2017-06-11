@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Controller.Entitys.Items.HeartBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
-import com.mygdx.game.View.GameScreens.GameScreen;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 
 /**
@@ -23,7 +22,7 @@ public class Heart extends Item {
         super(logicController, vec);
         sound=  Gdx.audio.newSound(Gdx.files.internal("Sounds/get_heart.wav"));
         heartBody=new HeartBody(world,this, vec);
-        setRegion(new TextureRegion(logicController.game.getAssetManager().get("Game/heart.png", Texture.class), 0,0,15,15));
+        setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/heart.png", Texture.class), 0,0,15,15));
     }
 
     @Override
