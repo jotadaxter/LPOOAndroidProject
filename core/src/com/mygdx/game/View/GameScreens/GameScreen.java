@@ -166,7 +166,7 @@ public abstract class GameScreen implements Screen{
         //Render the game map
         renderer.render();
         //Render Box2DDebugLines
-        b2dr.render(logicController.getWorld(), gameCam.combined);
+        //b2dr.render(logicController.getWorld(), gameCam.combined);
         game.getBatch().setProjectionMatrix(gameCam.combined);
         gameDraw();
         hudDraw();
