@@ -254,7 +254,6 @@ public class HeroBody{
     }
 
     public void InputUpdate(Controller controller, float dt){
-        //accelMovement(controller,dt);
         if(controller.isRightPressed()){
             getB2body().applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), getB2body().getWorldCenter(), true);
             movementPress(controller, dt);
@@ -279,26 +278,6 @@ public class HeroBody{
             auxControl(controller, dt);
         }
     }
-
-    private void accelMovement(Controller controller, float dt) {
-        if(Gdx.input.getAccelerometerX()>0){
-            getB2body().applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt*Gdx.input.getAccelerometerX(),0), getB2body().getWorldCenter(), true);
-            movementPress(controller, dt);
-        }
-        else if(Gdx.input.getAccelerometerX()<0){
-            getB2body().applyLinearImpulse(new Vector2(-MyGame.VELOCITY * dt*Gdx.input.getAccelerometerX(), 0), getB2body().getWorldCenter(), true);
-            movementPress(controller, dt);
-        }
-        else if(Gdx.input.getAccelerometerY()<0){
-            getB2body().applyLinearImpulse(new Vector2(0,-MyGame.VELOCITY*dt*Gdx.input.getAccelerometerY()), getB2body().getWorldCenter(), true);
-            movementPress(controller, dt);
-        }
-        else if(Gdx.input.getAccelerometerY()>0){
-            getB2body().applyLinearImpulse(new Vector2(0,MyGame.VELOCITY*dt*Gdx.input.getAccelerometerY()), getB2body().getWorldCenter(), true);
-            movementPress(controller, dt);
-        }
-    }
-
 
     private void auxControl(Controller controller, float dt) {
         if(controller.isaPressed()){

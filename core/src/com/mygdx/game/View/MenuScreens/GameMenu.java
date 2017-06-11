@@ -145,7 +145,7 @@ public class GameMenu extends MenuScreen {
             game.vibrationOff();
         else if(vibrationCheck.isChecked())
             game.vibrationOn();
-        if (loadButton.isPressed()) {//fazer load de uma savegame
+        if (loadButton.isPressed()) {
             game.getGsm().push(new GameState(new LoadMenuIG(game)));
         }
         if (saveButton.isPressed()) {

@@ -28,9 +28,7 @@ import java.util.Random;
  */
 
 public class Dungeon1 extends GameScreen{
-    //Hero Info
-    public static final int POSX = 8+3*16;
-    public static final int POSY = 8+3*16;
+
 
     public static final int MOV_PLAT1_X = 45*16;
     public static final int MOV_PLAT1_Y = 16*23;
@@ -41,8 +39,9 @@ public class Dungeon1 extends GameScreen{
 
     private PressingEvent megaPressingEvent;
 
-    public Dungeon1(MyGame game) {
-        super(game, new Vector2(POSX, POSY));
+    public Dungeon1(MyGame game, Vector2 vec) {
+        super(game, vec);
+        type=Dungeon1.class;
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
     }

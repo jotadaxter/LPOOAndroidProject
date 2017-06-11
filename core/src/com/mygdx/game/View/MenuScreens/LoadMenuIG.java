@@ -5,12 +5,17 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Model.Files.SaveFile;
+import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.GameScreens.DemoScreen;
+import com.mygdx.game.View.GameScreens.Dungeon1;
+import com.mygdx.game.View.GameScreens.FreeWorld;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -128,11 +133,28 @@ public class LoadMenuIG extends MenuScreen {
             }
 
             //All save information is ready from this point
-            System.out.println(save.PlayerX);
-            System.out.println(save.PlayerY);
-            System.out.println(save.topStackName);
-            System.out.println("Hearts " + save.heroStats.getHearts());
 
+            if(save.topStackName=="free_world"){
+                game.getHeroStats().setHearts(save.heroStats.getHearts());
+                game.getHeroStats().setScore(save.heroStats.getScore());
+                Vector2 vec = new Vector2(save.PlayerX,save.PlayerY);
+                game.getGsm().getStates().clear();
+                game.getGsm().push(new GameState(new FreeWorld(game, vec)));
+            }
+            else if(save.topStackName=="dungeon1"){
+                game.getHeroStats().setHearts(save.heroStats.getHearts());
+                game.getHeroStats().setScore(save.heroStats.getScore());
+                Vector2 vec = new Vector2(save.PlayerX,save.PlayerY);
+                game.getGsm().getStates().clear();
+                game.getGsm().push(new GameState(new Dungeon1(game, vec)));
+            }
+            else if(save.topStackName=="dungeon1"){
+                game.getHeroStats().setHearts(save.heroStats.getHearts());
+                game.getHeroStats().setScore(save.heroStats.getScore());
+                Vector2 vec = new Vector2(save.PlayerX,save.PlayerY);
+                game.getGsm().getStates().clear();
+                game.getGsm().push(new GameState(new DemoScreen(game, vec)));
+            }
         }
 
         if (backButton.isPressed()){

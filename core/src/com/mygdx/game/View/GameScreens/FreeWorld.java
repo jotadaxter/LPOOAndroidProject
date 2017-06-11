@@ -33,8 +33,8 @@ import java.util.Random;
 
 public class FreeWorld extends GameScreen {
     //Hero Info
-    public static final int POSX = 8+11*16;
-    public static final int POSY = 8+2*16;
+    public static final int DUNGEON1_POSX = 8+3*16;
+    public static final int DUNGEON1_POSY = 8+3*16;
     //PressingPlate Position
     public static final int PP1_X = 8+16*8;
     public static final int PP1_Y = 8+16*35;
@@ -56,11 +56,11 @@ public class FreeWorld extends GameScreen {
 
     private PressingEvent pressingEvent;
 
-    public FreeWorld(MyGame game) {
-        super(game,new Vector2(POSX, POSY));
+    public FreeWorld(MyGame game, Vector2 vec) {
+        super(game,vec);
         type= FreeWorld.class;
         warpEvents.add(new WarpEvent(TUTORIAL_DOOR_ID,Door.class, new GameState(new DemoScreen(game,new Vector2(247,35)))));
-        warpEvents.add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game))));
+        warpEvents.add(new WarpEvent(DUNGEON1_DOOR_ID,Door.class, new GameState(new Dungeon1(game,new Vector2(DUNGEON1_POSX,DUNGEON1_POSY)))));
         Gdx.input.setInputProcessor(controller.getStage());
         d1blck=true;
     }

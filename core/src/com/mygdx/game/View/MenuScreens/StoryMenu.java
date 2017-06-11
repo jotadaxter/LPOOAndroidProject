@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -17,15 +18,14 @@ import com.mygdx.game.View.GameScreens.FreeWorld;
  */
 
 public class StoryMenu extends MenuScreen {
-
+    //Hero Info
+    public static final int POSX = 8+11*16;
+    public static final int POSY = 8+2*16;
     private Stage stage;
-
     private Texture texture;
-
     private Texture NG;
     private Texture LG;
     private Texture back;
-
     private ImageButton NGButton;
     private ImageButton LGButton;
     private ImageButton backButton;
@@ -75,7 +75,7 @@ public class StoryMenu extends MenuScreen {
 
     private void buttonUpdate() {
         if (NGButton.isPressed()){
-            game.getGsm().push(new GameState(new FreeWorld(game)));
+            game.getGsm().push(new GameState(new FreeWorld(game, new Vector2(POSX,POSY))));
         }
         if (LGButton.isPressed()){
             game.getGsm().push(new GameState(new LoadMenu(game)));

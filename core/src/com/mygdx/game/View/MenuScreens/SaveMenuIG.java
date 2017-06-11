@@ -11,6 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Model.Files.SaveFile;
 import com.mygdx.game.MyGame;
+import com.mygdx.game.View.GameScreens.DemoScreen;
+import com.mygdx.game.View.GameScreens.Dungeon1;
+import com.mygdx.game.View.GameScreens.FreeWorld;
+
 import java.io.ByteArrayOutputStream;
 
 import java.io.IOException;
@@ -96,7 +100,7 @@ public class SaveMenuIG extends MenuScreen {
                     save = new SaveFile(game.getHeroStats(),
                             game.getGsm().getStates().get(i).getGameScreen().getHero().getHeroBody().getBody().getPosition().x,
                             game.getGsm().getStates().get(i).getGameScreen().getHero().getHeroBody().getBody().getPosition().y,
-                            game.getGsm().getStates().get(i).toString());
+                            stackTopName());
                     break;
                 }
             }
@@ -128,6 +132,19 @@ public class SaveMenuIG extends MenuScreen {
         if (backButton.isPressed()){
             game.getGsm().pop();
         }
+    }
+
+    private String stackTopName() {
+        if(game.getGsm().getStates().peek().getGameScreen().getType()==FreeWorld.class){
+            return "free_world";
+        }
+        else if(game.getGsm().getStates().peek().getGameScreen().getType()==Dungeon1.class){
+            return "dungeon1";
+        }
+        else if(game.getGsm().getStates().peek().getGameScreen().getType()==DemoScreen.class){
+            return "demoScreen";
+        }
+        else return "";
     }
 
     private void menuDraw() {
