@@ -15,18 +15,25 @@ import com.mygdx.game.MyGame;
  * Created by Utilizador on 20-05-2017.
  */
 
-public class FireGround extends Sprite{
+public class FireGround{
+    private LogicController logicController;
     private World world;
+    private Vector2 position;
+    private Sprite sprite;
     private Animation<TextureRegion> fireAnimation;
     private FireGroundBody fireGroundBody;
     private float fire_timer;
 
     public FireGround(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
+        this.logicController=logicController;
         fire_timer=0;
+        sprite=new Sprite();
         fireGroundBody= new FireGroundBody(world,this,vec);
-        loadAnimation(logicController.getGame());
-        setPosition(vec.x,vec.y);
+        if(!logicController.getGame().getIsTest()) {
+            loadAnimation(logicController.getGame());
+            sprite.setPosition(vec.x, vec.y);
+        }
     }
 
     private void loadAnimation(MyGame game) {
@@ -37,12 +44,16 @@ public class FireGround extends Sprite{
         fireAnimation = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
-        setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
+        sprite.setBounds(0,0,16* MyGame.PIXEL_TO_METER,16* MyGame.PIXEL_TO_METER);
     }
 
     public void update(float dt){
-        setPosition(fireGroundBody.getBody().getPosition().x-getWidth()/2, fireGroundBody.getBody().getPosition().y-getHeight()/2);
-        setRegion(getFrame(dt));
+        if(!logicController.getGame().getIsTest()) {
+            sprite.setRegion(getFrame(dt));
+            sprite.setPosition(fireGroundBody.getBody().getPosition().x-sprite.getWidth()/2, fireGroundBody.getBody().getPosition().y-sprite.getHeight()/2);
+        }else {
+            position=new Vector2(fireGroundBody.getBody().getPosition().x, fireGroundBody.getBody().getPosition().y);
+        }
     }
 
     private TextureRegion getFrame(float dt) {

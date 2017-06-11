@@ -17,7 +17,7 @@ import com.mygdx.game.MyGame;
 public class Boulder{
     private LogicController logicController;
     private World world;
-    protected Vector2 position;
+    private Vector2 position;
     private TextureRegion boulderFigure;
     private BoulderBody boulderBody;
     private Sprite sprite;

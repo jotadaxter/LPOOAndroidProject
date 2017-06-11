@@ -89,7 +89,7 @@ public class LogicController implements Disposable{
     //Sprites
     private Hero player;
     private ArrayList<Boulder> boulders;
-   /* private ArrayList<Spikes> spikes;
+    private ArrayList<Spikes> spikes;
     private ArrayList<PressingPlate> pps;
     private ArrayList<MegaPressingPlate>mpps;
     private ArrayList<WayBlocker> wayblocks;
@@ -105,7 +105,7 @@ public class LogicController implements Disposable{
     private ArrayList<TextLog> textlogs;
     private boolean d1blck;
     private PressingEvent pressingEvent;
-    private PressingEvent megaPressingEvent;*/
+    private PressingEvent megaPressingEvent;
 
     public LogicController(MyGame game, Vector2 vec,Class<?> type){
         this.setScreenType(type);

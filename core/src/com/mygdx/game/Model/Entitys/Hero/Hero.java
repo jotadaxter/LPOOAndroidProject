@@ -147,8 +147,6 @@ public class Hero{
                 position=new Vector2(heroBody.getBody().getPosition().x, heroBody.getBody().getPosition().y);
             }
        // }
-        if(!logicController.getGame().getIsTest())
-            sprite.setRegion(heroBody.getFrame(this,dt));
         heroBombUpdate(dt);
     }
 

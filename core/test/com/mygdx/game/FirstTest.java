@@ -34,6 +34,11 @@ public class FirstTest extends GameTest{
     public void testPlayerMove() {
         assertEquals(4, logicController.getPlayer().getHeroBody().getBody().getPosition().x, FIRST_POSX);
         assertEquals(2, logicController.getPlayer().getHeroBody().getBody().getPosition().y, FIRST_POSY);
-
+        logicController.getController().setRightPressed(true);
+        for(float dt= 0; dt <1000; dt++) {
+            logicController.update(dt);
+        }
+        assertTrue(logicController.getPlayer().getHeroBody().getBody().getPosition().x>=3.0);
+        assertEquals(2, logicController.getPlayer().getHeroBody().getBody().getPosition().y, FIRST_POSY);
     }
 }
