@@ -6,7 +6,17 @@ import android.view.WindowManager;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AndroidLauncher.
+ */
 public class AndroidLauncher extends AndroidApplication {
+	
+	/**
+	 * On create.
+	 *
+	 * @param savedInstanceState the saved instance state
+	 */
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -18,11 +18,20 @@ import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.Model.Entitys.Items.Item;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 09-04-2017.
+ *
+ * @see WorldContactEvent
  */
 
 public class WorldContactListener implements ContactListener {
+    
+    /**
+     * Begin contact.
+     *
+     * @param contact the contact
+     */
     @Override
     public void beginContact(Contact contact) {
         FixtureVector fixVec = new FixtureVector(contact.getFixtureA(), contact.getFixtureB());
@@ -38,6 +47,12 @@ public class WorldContactListener implements ContactListener {
         dinamicBeginContactVerify3(cDef, fixVec);
     }
 
+    /**
+     * Dinamic begin contact verify 1.
+     *
+     * @param cDef the c def
+     * @param fixVec the fix vec
+     */
     private void dinamicBeginContactVerify1(int cDef,FixtureVector fixVec) {
         switch(cDef) {
             case MyGame.ITEM_BIT | MyGame.HERO_BIT:
@@ -55,6 +70,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Dinamic begin contact verify 2.
+     *
+     * @param cDef the c def
+     * @param fixVec the fix vec
+     */
     private void dinamicBeginContactVerify2(int cDef,FixtureVector fixVec) {
         switch(cDef){
             case MyGame.BOULDER_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
@@ -72,6 +93,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Dinamic begin contact verify 3.
+     *
+     * @param cDef the c def
+     * @param fixVec the fix vec
+     */
     private void dinamicBeginContactVerify3(int cDef,FixtureVector fixVec) {
         switch(cDef){
             case MyGame.HERO_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
@@ -86,6 +113,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Hero item begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroItemBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.ITEM_BIT)
             ((Item) fixA.getUserData()).use(((HeroBody) fixB.getUserData()).getHero());
@@ -93,6 +126,12 @@ public class WorldContactListener implements ContactListener {
             ((Item) fixB.getUserData()).use(((HeroBody) fixA.getUserData()).getHero());
     }
 
+    /**
+     * Hero spikes begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroSpikesBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT)
             ((HeroBody) fixA.getUserData()).getHero().hit();
@@ -100,6 +139,12 @@ public class WorldContactListener implements ContactListener {
             ((HeroBody) fixB.getUserData()).getHero().hit();
     }
 
+    /**
+     * Hero plate begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroPlateBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT)
             ((PressingPlate) fixA.getUserData()).incIsPressed();
@@ -107,6 +152,12 @@ public class WorldContactListener implements ContactListener {
             ((PressingPlate) fixB.getUserData()).incIsPressed();
     }
 
+    /**
+     * Boulder plate begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void boulderPlateBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT)
             ((PressingPlate) fixA.getUserData()).incIsPressed();
@@ -114,6 +165,12 @@ public class WorldContactListener implements ContactListener {
             ((PressingPlate) fixB.getUserData()).incIsPressed();
     }
 
+    /**
+     * Hero mega plate begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroMegaPlateBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT){
             ((MegaPressingPlate) fixA.getUserData()).incIsPressed();
@@ -123,6 +180,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Bolder mega plate begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void bolderMegaPlateBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT){
             ((MegaPressingPlate) fixA.getUserData()).incIsPressed();
@@ -134,6 +197,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Hero pitfall begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroPitfallBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
             if(!((HeroBody) fixA.getUserData()).getHero().getIsInPlatform())
@@ -147,6 +216,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Hero platform begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroPlatformBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
             ((HeroBody) fixA.getUserData()).getHero().setIsInPlatform(true);
@@ -160,6 +235,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Hero chest begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroChestBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.CHEST_BIT)
             ((HeroBody) fixB.getUserData()).getHero().setOpenedChestId(((Chest) fixA.getUserData()).getId());
@@ -167,6 +248,12 @@ public class WorldContactListener implements ContactListener {
             ((HeroBody) fixA.getUserData()).getHero().setOpenedChestId(((Chest) fixB.getUserData()).getId());
     }
 
+    /**
+     * Bomb smash begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void bombSmashBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.SMASH_BIT)
             ((SmashableRock) fixA.getUserData()).destroy();
@@ -174,6 +261,12 @@ public class WorldContactListener implements ContactListener {
             ((SmashableRock) fixB.getUserData()).destroy();
     }
 
+    /**
+     * Signal hero begin.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void signalHeroBegin(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.SIGN_BIT)
             ((HeroBody) fixB.getUserData()).getHero().setOpenedSignId(((Sign) fixA.getUserData()).getId());
@@ -181,6 +274,12 @@ public class WorldContactListener implements ContactListener {
             ((HeroBody) fixA.getUserData()).getHero().setOpenedSignId(((Sign) fixB.getUserData()).getId());
     }
 
+    /**
+     * Impact verify.
+     *
+     * @param surfaceName the surface name
+     * @param fixVec the fix vec
+     */
     private void impactVerify(String surfaceName,FixtureVector fixVec)  {
         if(fixVec.getFixA().getUserData()==surfaceName || fixVec.getFixB().getUserData() == surfaceName){
             Fixture surface = fixVec.getFixA().getUserData()==surfaceName ? fixVec.getFixA() : fixVec.getFixB();
@@ -195,6 +294,11 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * End contact.
+     *
+     * @param contact the contact
+     */
     @Override
     public void endContact(Contact contact) {
         FixtureVector fixVec = new FixtureVector(contact.getFixtureA(), contact.getFixtureB());
@@ -203,6 +307,12 @@ public class WorldContactListener implements ContactListener {
         dinamicEndContactVerify2(cDef, fixVec);
     }
 
+    /**
+     * Dinamic end contact verify 1.
+     *
+     * @param cDef the c def
+     * @param fixVec the fix vec
+     */
     private void dinamicEndContactVerify1(int cDef,FixtureVector fixVec) {
         switch(cDef) {
             case MyGame.HERO_BIT | MyGame.PRESSING_PLATE_BIT:
@@ -217,6 +327,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Dinamic end contact verify 2.
+     *
+     * @param cDef the c def
+     * @param fixVec the fix vec
+     */
     private void dinamicEndContactVerify2(int cDef,FixtureVector fixVec) {
         switch(cDef) {
             case MyGame.BOULDER_BIT | MyGame.MEGA_PRESSING_PLATE_BIT:
@@ -231,6 +347,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Boulder plate end.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void boulderPlateEnd(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT) {
             if (((PressingPlate) fixA.getUserData()).isPressAndHold() && ((PressingPlate) fixA.getUserData()).isPressed()>0)
@@ -242,6 +364,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Hero mega plate end.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroMegaPlateEnd(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT) {
             ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
@@ -251,6 +379,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Boulder mega plate end.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void boulderMegaPlateEnd(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.MEGA_PRESSING_PLATE_BIT) {
             ((MegaPressingPlate) fixA.getUserData()).decIsPressed();
@@ -262,6 +396,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Hero moving platform end.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroMovingPlatformEnd(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT){
             if(((HeroBody) fixA.getUserData()).getHero().isInPitfall()){
@@ -279,6 +419,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Pitfall hero end.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void pitfallHeroEnd(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.HERO_BIT) {
             ((HeroBody) fixA.getUserData()).getHero().setInPitfall(false);
@@ -288,6 +434,12 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Hero plate end.
+     *
+     * @param fixA the fix A
+     * @param fixB the fix B
+     */
     private void heroPlateEnd(Fixture fixA, Fixture fixB) {
         if(fixA.getFilterData().categoryBits==MyGame.PRESSING_PLATE_BIT) {
             if (((PressingPlate) fixA.getUserData()).isPressAndHold() && ((PressingPlate) fixA.getUserData()).isPressed()>0)
@@ -299,11 +451,23 @@ public class WorldContactListener implements ContactListener {
         }
     }
 
+    /**
+     * Pre solve.
+     *
+     * @param contact the contact
+     * @param oldManifold the old manifold
+     */
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
 
     }
 
+    /**
+     * Post solve.
+     *
+     * @param contact the contact
+     * @param impulse the impulse
+     */
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 

@@ -23,24 +23,51 @@ import com.mygdx.game.View.Scenes.Hud;
 import com.mygdx.game.Model.Entitys.Items.Item;
 import com.mygdx.game.View.Scenes.TextLog;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 04/04/2017.
  */
 
 public abstract class GameScreen implements Screen{
+    
+    /** The game. */
     protected MyGame game;
+    
+    /** The game cam. */
     protected OrthographicCamera gameCam;
+    
+    /** The view port. */
     protected Viewport viewPort;
+    
+    /** The hud. */
     protected Hud hud;
+    
+    /** The end timer. */
     protected float endTimer;
+    
+    /** The logic controller. */
     protected LogicController logicController;
+    
+    /** The renderer. */
     //Tiled Map Variables
     protected OrthogonalTiledMapRenderer renderer;
+    
+    /** The type. */
     protected Class<?> type;
+    
+    /** The b 2 dr. */
     //Box2d Variables
     protected Box2DDebugRenderer b2dr;
+    
+    /** The music. */
     protected Music music;
 
+    /**
+     * Instantiates a new game screen.
+     *
+     * @param game the game
+     * @param vec the vec
+     */
     public GameScreen(MyGame game, Vector2 vec) {
         this.game=game;
         type=getDescType();
@@ -51,8 +78,16 @@ public abstract class GameScreen implements Screen{
         musicDefine();
     }
 
+    /**
+     * Gets the desc type.
+     *
+     * @return the desc type
+     */
     protected abstract Class<?> getDescType();
 
+    /**
+     * Map define.
+     */
     private void mapDefine() {
         String mapName = "Maps/" + getMapName();
         logicController.defineMap(mapName);
@@ -63,8 +98,17 @@ public abstract class GameScreen implements Screen{
         b2dr= new Box2DDebugRenderer();
         endTimer=-1;
     }
+    
+    /**
+     * Music define.
+     */
     protected abstract void musicDefine();
 
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     */
     public void update(float dt){
         logicController.update(dt);
         gameOptions();
@@ -77,6 +121,11 @@ public abstract class GameScreen implements Screen{
         endUpdate(dt);
     }
 
+    /**
+     * End update.
+     *
+     * @param dt the dt
+     */
     private void endUpdate(float dt) {
         if(game.getHeroStats().getHearts()<=0){
             game.getGsm().push(new GameState(new GameOver(game)));
@@ -91,6 +140,9 @@ public abstract class GameScreen implements Screen{
         }
     }
 
+    /**
+     * Game options.
+     */
     private void gameOptions() {
         if(logicController.getController().isOptionsPressed()){
             game.getGsm().push(new GameState(new GameMenu(game)));
@@ -98,9 +150,17 @@ public abstract class GameScreen implements Screen{
         }
     }
 
+    /**
+     * Show.
+     */
     @Override
     public void show() {}
 
+    /**
+     * Render.
+     *
+     * @param delta the delta
+     */
     @Override
     public void render(float delta) {
         update(delta);
@@ -117,6 +177,9 @@ public abstract class GameScreen implements Screen{
             logicController.getController().draw();
     }
 
+    /**
+     * Hud draw.
+     */
     private void hudDraw() {
         //HUD Rendering
         game.getBatch().setProjectionMatrix(hud.getStage().getCamera().combined);
@@ -128,12 +191,18 @@ public abstract class GameScreen implements Screen{
         }
     }
 
+    /**
+     * Clear screen.
+     */
     private void clearScreen() {
         //Clear the screen
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    /**
+     * Game draw.
+     */
     private void gameDraw() {
         game.getBatch().begin();
         objectsDraw();
@@ -149,23 +218,44 @@ public abstract class GameScreen implements Screen{
         game.getBatch().end();
     }
 
+    /**
+     * Objects draw.
+     */
     public abstract void objectsDraw();
 
+    /**
+     * Resize.
+     *
+     * @param width the width
+     * @param height the height
+     */
     @Override
     public void resize(int width, int height) {
         viewPort.update(width, height);
         logicController.getController().resize(width,height);
     }
 
+    /**
+     * Pause.
+     */
     @Override
     public void pause() {}
 
+    /**
+     * Resume.
+     */
     @Override
     public void resume() {}
 
+    /**
+     * Hide.
+     */
     @Override
     public void hide() {}
 
+    /**
+     * Dispose.
+     */
     @Override
     public void dispose() {
         b2dr.dispose();
@@ -173,20 +263,45 @@ public abstract class GameScreen implements Screen{
         hud.dispose();
     }
 
+    /**
+     * Gets the map name.
+     *
+     * @return the map name
+     */
     public abstract String getMapName();
 
+    /**
+     * Gets the game.
+     *
+     * @return the game
+     */
     public MyGame getGame() {
         return game;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public Class<?> getType() {
         return type;
     }
 
+    /**
+     * Gets the music.
+     *
+     * @return the music
+     */
     public Music getMusic() {
         return music;
     }
 
+    /**
+     * Gets the logic controller.
+     *
+     * @return the logic controller
+     */
     public LogicController getLogicController() {
         return logicController;
     }

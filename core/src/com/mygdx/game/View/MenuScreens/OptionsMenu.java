@@ -16,28 +16,57 @@ import com.mygdx.game.View.GameScreens.FreeWorld;
 
 import java.awt.Color;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
 
 public class OptionsMenu extends MenuScreen {
+    
+    /** The stage. */
     private Stage stage;
+    
+    /** The texture. */
     private Texture texture;
+    
+    /** The title. */
     private Texture title;
+    
+    /** The music. */
     private Texture music;
+    
+    /** The sounds. */
     private Texture sounds;
+    
+    /** The vibration. */
     private Texture vibration;
 
+    /** The checked. */
     private Texture checked;
+    
+    /** The unchecked. */
     private Texture unchecked;
 
+    /** The music check. */
     private CheckBox musicCheck;
+    
+    /** The sound check. */
     private CheckBox soundCheck;
+    
+    /** The vibration check. */
     private CheckBox vibrationCheck;
 
+    /** The backtex. */
     private Texture backtex;
+    
+    /** The back button. */
     private ImageButton backButton;
 
+    /**
+     * Instantiates a new options menu.
+     *
+     * @param game the game
+     */
     public OptionsMenu(MyGame game) {
         super(game);
         stage= new Stage(viewPort,game.getBatch());
@@ -60,6 +89,9 @@ public class OptionsMenu extends MenuScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Check box config.
+     */
     private void CheckBoxConfig() {
         musicCheck.setPosition(MENU_WIDTH/5,300);
         musicCheck.setSize(50,50);
@@ -72,6 +104,11 @@ public class OptionsMenu extends MenuScreen {
         vibrationCheck.setChecked(true);
     }
 
+    /**
+     * Check box style define.
+     *
+     * @param style the style
+     */
     private void CheckBoxStyleDefine(CheckBox.CheckBoxStyle style) {
         Drawable checkedDrawable = new TextureRegionDrawable(new TextureRegion(checked));
         Drawable uncheckedDrawable = new TextureRegionDrawable(new TextureRegion(unchecked));
@@ -80,6 +117,9 @@ public class OptionsMenu extends MenuScreen {
         style.font = new BitmapFont();
     }
 
+    /**
+     * Back button define.
+     */
     private void backButtonDefine() {
         Drawable backDrawable = new TextureRegionDrawable(new TextureRegion(backtex));
         backButton = new ImageButton(backDrawable);
@@ -87,6 +127,9 @@ public class OptionsMenu extends MenuScreen {
         stage.addActor(backButton);
     }
 
+    /**
+     * Load assets.
+     */
     private void loadAssets() {
         texture =game.getAssetManager().get("Menus/main_menu.jpg", Texture.class);
         title = game.getAssetManager().get("Menus/options_title.png", Texture.class);
@@ -98,6 +141,9 @@ public class OptionsMenu extends MenuScreen {
         backtex = game.getAssetManager().get("Buttons/back_button.png", Texture.class);
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+     */
     @Override
     public void render(float delta) {
         //Clear the screen
@@ -108,6 +154,9 @@ public class OptionsMenu extends MenuScreen {
         buttonUpdate();
     }
 
+    /**
+     * Button update.
+     */
     private void buttonUpdate() {
         if (backButton.isPressed())
             game.getGsm().set(new MainMenu(game));
@@ -125,6 +174,9 @@ public class OptionsMenu extends MenuScreen {
             game.vibrationOn();
     }
 
+    /**
+     * Menu draw.
+     */
     private void menuDraw() {
         game.getBatch().begin();
         game.getBatch().draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
@@ -135,6 +187,9 @@ public class OptionsMenu extends MenuScreen {
         game.getBatch().end();
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

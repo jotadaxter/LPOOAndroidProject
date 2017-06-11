@@ -12,22 +12,50 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.WayBlockerBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 17-05-2017.
  */
 
 public class WayBlocker{
+    
+    /** The world. */
     private World world;
+    
+    /** The block figure. */
     private TextureRegion blockFigure;
+    
+    /** The block figure 2. */
     private TextureRegion blockFigure2;
+    
+    /** The to destroy. */
     private boolean toDestroy;
+    
+    /** The destroyed. */
     private boolean destroyed;
+    
+    /** The way blocker body. */
     private WayBlockerBody wayBlockerBody;
+    
+    /** The sound. */
     private Sound sound;
+    
+    /** The position. */
     private Vector2 position;
+    
+    /** The sprite. */
     private Sprite sprite;
+    
+    /** The logic controller. */
     private LogicController logicController;
 
+    /**
+     * Instantiates a new way blocker.
+     *
+     * @param logicController the logic controller
+     * @param vec the vec
+     * @param texChoose the tex choose
+     */
     public WayBlocker(LogicController logicController, Vector2 vec, int texChoose) {
         this.world= logicController.getWorld();
         wayBlockerBody= new WayBlockerBody(world,this,vec);
@@ -50,11 +78,17 @@ public class WayBlocker{
         sound=Gdx.audio.newSound(Gdx.files.internal("Sounds/secret.wav"));
     }
 
+    /**
+     * Destroy.
+     */
     public void destroy(){
         toDestroy=true;
         Gdx.app.log("destroyed","");
     }
 
+    /**
+     * Update.
+     */
     public void update(){
         if(toDestroy && !destroyed){
             sound.play(MyGame.SOUND_VOLUME);
@@ -67,6 +101,11 @@ public class WayBlocker{
             position=new Vector2(wayBlockerBody.getBody().getPosition().x, wayBlockerBody.getBody().getPosition().y);
         }    }
 
+    /**
+     * Draw.
+     *
+     * @param batch the batch
+     */
     public void draw(Batch batch) {
         if(!destroyed)
             sprite.draw(batch);

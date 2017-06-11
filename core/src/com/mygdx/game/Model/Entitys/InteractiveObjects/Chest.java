@@ -15,26 +15,61 @@ import com.mygdx.game.MyGame;
 
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 21-05-2017.
  */
 
 public class Chest{
+    
+    /** The Constant GREEN_RUPEE_RATIO. */
     public static final int GREEN_RUPEE_RATIO = 40;
+    
+    /** The Constant BLUE_RUPEE_RATIO. */
     public static final int BLUE_RUPEE_RATIO = 60;
+    
+    /** The Constant RED_RUPEE_RATIO. */
     public static final int RED_RUPEE_RATIO = 100;
+    
+    /** The sprite. */
     private Sprite sprite;
+    
+    /** The logic controller. */
     private LogicController logicController;
+    
+    /** The position. */
     private Vector2 position;
+    
+    /** The world. */
     private World world;
+    
+    /** The chest open. */
     private TextureRegion chest_open;
+    
+    /** The chest closed. */
     private TextureRegion chest_closed;
+    
+    /** The chest body. */
     private ChestBody chestBody;
+    
+    /** The is open. */
     private boolean isOpen;
+    
+    /** The drop loot. */
     private int dropLoot;
+    
+    /** The id. */
     private int id;
+    
+    /** The sound 1. */
     private Sound sound1;
 
+    /**
+     * Instantiates a new chest.
+     *
+     * @param logicController the logic controller
+     * @param vec the vec
+     */
     public Chest(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
         this.logicController=logicController;
@@ -52,11 +87,19 @@ public class Chest{
         }
     }
 
+    /**
+     * Texture load.
+     */
     private void textureLoad() {
         chest_open = new TextureRegion(logicController.getGame().getAssetManager().get("Game/chests.png", Texture.class), 16,0,16,16);
         chest_closed = new TextureRegion(logicController.getGame().getAssetManager().get("Game/chests.png", Texture.class), 0,0,16,16);
     }
 
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     */
     public void update(float dt) {
         if(!logicController.getGame().getIsTest()) {
             sprite.setRegion(getFrame(dt));
@@ -71,6 +114,9 @@ public class Chest{
         }
     }
 
+    /**
+     * Loot.
+     */
     private void loot() {
         //Random Loot
         Random random= new Random();
@@ -93,32 +139,68 @@ public class Chest{
         }
     }
 
+    /**
+     * Gets the closed tex.
+     *
+     * @return the closed tex
+     */
     public TextureRegion getClosedTex() {
         return chest_closed;
     }
 
+    /**
+     * Gets the open tex.
+     *
+     * @return the open tex
+     */
     public TextureRegion getOpenTex() {
         return chest_open;
     }
 
+    /**
+     * Checks if is open.
+     *
+     * @return true, if is open
+     */
     public boolean isOpen() {
         return isOpen;
     }
 
+    /**
+     * Sets the open.
+     *
+     * @param open the new open
+     */
     public void setOpen(boolean open) {
         this.isOpen = open;
         if(open && dropLoot!=2)
             dropLoot=1;
     }
 
+    /**
+     * Adds the chest id.
+     *
+     * @param id the id
+     */
     public void addChestId(int id) {
         this.id=id;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets the frame.
+     *
+     * @param dt the dt
+     * @return the frame
+     */
     public TextureRegion getFrame(float dt) {
         TextureRegion region;
         if(isOpen()) {
@@ -129,6 +211,11 @@ public class Chest{
         return region;
     }
 
+    /**
+     * Draw.
+     *
+     * @param batch the batch
+     */
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }

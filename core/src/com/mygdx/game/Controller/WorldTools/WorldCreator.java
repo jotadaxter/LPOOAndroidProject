@@ -8,11 +8,18 @@ import com.mygdx.game.Controller.Entitys.TileObjects.SafeGround;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Controller.Entitys.TileObjects.Obstacle;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 06-04-2017.
  */
 
 public class WorldCreator {
+    
+    /**
+     * Instantiates a new world creator.
+     *
+     * @param logicController the logic controller
+     */
     public WorldCreator(LogicController logicController) {
 
         //Obstacle Fixtures

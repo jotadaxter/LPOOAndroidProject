@@ -14,21 +14,46 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 06-04-2017.
  */
 
 public abstract class StaticTileObject {
+    
+    /** The world. */
     protected World world;
+    
+    /** The map. */
     protected TiledMap map;
+    
+    /** The bounds. */
     protected Rectangle bounds;
+    
+    /** The body. */
     protected Body body;
+    
+    /** The bdef. */
     protected BodyDef bdef;
+    
+    /** The object. */
     protected MapObject object;
+    
+    /** The fdef. */
     protected FixtureDef fdef;
+    
+    /** The fixture. */
     protected Fixture fixture;
+    
+    /** The logic controller. */
     protected LogicController logicController;
 
+    /**
+     * Instantiates a new static tile object.
+     *
+     * @param logicController the logic controller
+     * @param object the object
+     */
     public StaticTileObject(LogicController logicController, MapObject object) {
         this.object=object;
         this.logicController=logicController;
@@ -38,6 +63,9 @@ public abstract class StaticTileObject {
         defineBody();
     }
 
+    /**
+     * Define body.
+     */
     private void defineBody() {
         bdef= new BodyDef();
         fdef = new FixtureDef();
@@ -53,8 +81,18 @@ public abstract class StaticTileObject {
         fixture=body.createFixture(fdef);
     }
 
+    /**
+     * Sets the sensor.
+     *
+     * @return true, if successful
+     */
     protected abstract boolean setSensor();
 
+    /**
+     * Sets the category filter.
+     *
+     * @param filterBit the new category filter
+     */
     public void setCategoryFilter(short filterBit){
         Filter filter= new Filter();
         filter.categoryBits=filterBit;

@@ -9,14 +9,20 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 29-05-2017.
  */
 
 public class GameTest {
+    
+    /** The application. */
     // This is our "test" application
     private static Application application;
 
+    /**
+     * Inits the.
+     */
     // Before running any tests, initialize the application with the headless backend
     @BeforeClass
     public static void init() {
@@ -35,6 +41,9 @@ public class GameTest {
         Gdx.gl = Gdx.gl20;
     }
 
+    /**
+     * Clean up.
+     */
     // After we are done, clean up the application
     @AfterClass
     public static void cleanUp() {

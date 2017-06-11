@@ -8,17 +8,34 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 18/05/2017.
  */
 
 public class ExplosionBody {
+    
+    /** The Constant DAMPING_NORMAL. */
     public static final float DAMPING_NORMAL= 3f;
+    
+    /** The bdef. */
     private BodyDef bdef;
+    
+    /** The body. */
     private Body body;
+    
+    /** The shape. */
     private CircleShape shape;
+    
+    /** The fdef. */
     private FixtureDef fdef;
 
+    /**
+     * Instantiates a new explosion body.
+     *
+     * @param world the world
+     * @param vec the vec
+     */
     public ExplosionBody(World world, Vector2 vec) {
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
@@ -43,6 +60,11 @@ public class ExplosionBody {
         body.createFixture(fdef).setUserData(this);
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody(){
         return body;
     }

@@ -13,23 +13,49 @@ import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
 
 public class StoryMenu extends MenuScreen {
+    
+    /** The Constant POSX. */
     //Hero Info
     public static final int POSX = 8+11*16;
+    
+    /** The Constant POSY. */
     public static final int POSY = 8+2*16;
+    
+    /** The stage. */
     private Stage stage;
+    
+    /** The texture. */
     private Texture texture;
+    
+    /** The ng. */
     private Texture NG;
+    
+    /** The lg. */
     private Texture LG;
+    
+    /** The back. */
     private Texture back;
+    
+    /** The NG button. */
     private ImageButton NGButton;
+    
+    /** The LG button. */
     private ImageButton LGButton;
+    
+    /** The back button. */
     private ImageButton backButton;
 
+    /**
+     * Instantiates a new story menu.
+     *
+     * @param game the game
+     */
     public StoryMenu(MyGame game) {
         super(game);
         stage= new Stage(viewPort,game.getBatch());
@@ -49,6 +75,9 @@ public class StoryMenu extends MenuScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Back button define.
+     */
     private void backButtonDefine() {
         Drawable backDrawable = new TextureRegionDrawable(new TextureRegion(back));
         backButton = new ImageButton(backDrawable);
@@ -56,6 +85,9 @@ public class StoryMenu extends MenuScreen {
         stage.addActor(backButton);
     }
 
+    /**
+     * Load assets.
+     */
     private void loadAssets() {
         texture = game.getAssetManager().get("Menus/main_menu.jpg", Texture.class);
         NG =game.getAssetManager().get("Buttons/newgame_button.png", Texture.class);
@@ -63,6 +95,9 @@ public class StoryMenu extends MenuScreen {
         back = game.getAssetManager().get("Buttons/back_button.png", Texture.class);
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+     */
     @Override
     public void render(float delta) {
         //Clear the screen
@@ -73,6 +108,9 @@ public class StoryMenu extends MenuScreen {
         buttonUpdate();
     }
 
+    /**
+     * Button update.
+     */
     private void buttonUpdate() {
         if (NGButton.isPressed()){
             game.getGsm().push(new GameState(new FreeWorld(game, new Vector2(POSX,POSY))));
@@ -88,12 +126,18 @@ public class StoryMenu extends MenuScreen {
         }
     }
 
+    /**
+     * Menu draw.
+     */
     private void menuDraw() {
         game.getBatch().begin();
         game.getBatch().draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
         game.getBatch().end();
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

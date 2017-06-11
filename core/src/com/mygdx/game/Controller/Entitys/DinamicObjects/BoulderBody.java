@@ -9,14 +9,25 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Boulder;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 28/04/2017.
  */
 
 public class BoulderBody{
+    
+    /** The body. */
     private Body body;
+    
+    /** The bdef. */
     private BodyDef bdef;
 
+    /**
+     * Instantiates a new boulder body.
+     *
+     * @param world the world
+     * @param vec the vec
+     */
     public BoulderBody(World world,Vector2 vec) {
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y* MyGame.PIXEL_TO_METER);
@@ -39,6 +50,11 @@ public class BoulderBody{
                 body.createFixture(fdef);
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody(){
         return body;
     }

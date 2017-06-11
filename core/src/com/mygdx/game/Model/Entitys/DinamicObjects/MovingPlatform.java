@@ -14,27 +14,68 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.MovingPlatformBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
 
 public class MovingPlatform {
+    
+    /** The world. */
     private World world;
+    
+    /** The moving down. */
     private Animation<TextureRegion> movingDown;
+    
+    /** The moving up. */
     private Animation<TextureRegion> movingUp;
+    
+    /** The moving left. */
     private Animation<TextureRegion> movingLeft;
+    
+    /** The platform body. */
     private MovingPlatformBody platformBody;
+    
+    /** The id. */
     private int id;
+    
+    /** The moving timer. */
     private float moving_timer;
+    
+    /** The type. */
     private int type;
+    
+    /** The position. */
     private Vector2 position;
+    
+    /** The sprite. */
     private Sprite sprite;
+    
+    /** The logic controller. */
     private LogicController logicController;
 
-    public enum State {UP, DOWN, LEFT, RIGHT};
+    /**
+     * The Enum State.
+     */
+    public enum State {/** The up. */
+UP, /** The down. */
+ DOWN, /** The left. */
+ LEFT, /** The right. */
+ RIGHT};
+    
+    /** The current state. */
     public State currentState;
+    
+    /** The previous state. */
     public State previousState;
 
+    /**
+     * Instantiates a new moving platform.
+     *
+     * @param logicController the logic controller
+     * @param vec the vec
+     * @param type the type
+     */
     public MovingPlatform(LogicController logicController, Vector2 vec, int type) {
         this.world = logicController.getWorld();
         this.type=type;
@@ -51,6 +92,11 @@ public class MovingPlatform {
         }
     }
 
+    /**
+     * Load animation.
+     *
+     * @param game the game
+     */
     private void loadAnimation(MyGame game) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 0; i < 2; i++) {
@@ -72,6 +118,11 @@ public class MovingPlatform {
         frames.clear();
     }
 
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     */
     public void update(float dt) {
         float speed;
         if(Gdx.app.getType() == Application.ApplicationType.Android)
@@ -86,6 +137,12 @@ public class MovingPlatform {
         }
     }
 
+    /**
+     * Movement type.
+     *
+     * @param dt the dt
+     * @param speed the speed
+     */
     private void movementType(float dt, float speed) {
         if(type==0){
            firstPitfall(dt,speed);
@@ -98,6 +155,12 @@ public class MovingPlatform {
         }
     }
 
+    /**
+     * Third pitfall.
+     *
+     * @param dt the dt
+     * @param speed the speed
+     */
     private void thirdPitfall(float dt, float speed) {
         if (platformBody.getBody().getPosition().x >= 42)
             platformBody.getBody().setLinearVelocity(new Vector2(-speed * dt, 0));
@@ -105,6 +168,12 @@ public class MovingPlatform {
             platformBody.getBody().setLinearVelocity(new Vector2(speed * dt, 0));
     }
 
+    /**
+     * Second pitfall.
+     *
+     * @param dt the dt
+     * @param speed the speed
+     */
     private void secondPitfall(float dt, float speed) {
         if (platformBody.getBody().getPosition().x >= 25.5)
             platformBody.getBody().setLinearVelocity(new Vector2(-speed * dt, 0));
@@ -112,6 +181,12 @@ public class MovingPlatform {
             platformBody.getBody().setLinearVelocity(new Vector2(speed * dt, 0));
     }
 
+    /**
+     * First pitfall.
+     *
+     * @param dt the dt
+     * @param speed the speed
+     */
     private void firstPitfall(float dt, float speed) {
         if (platformBody.getBody().getPosition().y <= 23 && platformBody.getBody().getPosition().x >= 31) {
             platformBody.getBody().setLinearVelocity(new Vector2(-speed * dt, 0));
@@ -124,6 +199,11 @@ public class MovingPlatform {
         }
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public State getState(){
         if(platformBody.getBody().getLinearVelocity().x<0)
             return State.LEFT;
@@ -137,6 +217,12 @@ public class MovingPlatform {
             return State.UP;
     }
 
+    /**
+     * Gets the frame.
+     *
+     * @param dt the dt
+     * @return the frame
+     */
     public TextureRegion getFrame(float dt) {
         currentState = getState();
         TextureRegion region = new TextureRegion();
@@ -151,6 +237,11 @@ public class MovingPlatform {
         return region;
     }
 
+    /**
+     * Timer update.
+     *
+     * @param dt the dt
+     */
     private void timerUpdate(float dt) {
         if(previousState==currentState){
             moving_timer+=(dt/2);
@@ -160,14 +251,29 @@ public class MovingPlatform {
         previousState=currentState;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param n the new id
+     */
     public void setId(int n) {
         id = n;
     }
 
+    /**
+     * Draw.
+     *
+     * @param batch the batch
+     */
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }

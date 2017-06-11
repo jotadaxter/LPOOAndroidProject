@@ -9,14 +9,26 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 26-05-2017.
  */
 
 public class FileReader {
+    
+    /** The filename. */
     private String filename;
+    
+    /** The screen type. */
     private String screenType;
 
+    /**
+     * Read file.
+     *
+     * @param filename the filename
+     * @param screenType the screen type
+     * @return the array list
+     */
     public ArrayList<Vector2> ReadFile(String filename, String screenType){
         this.filename=filename;
         this.screenType=screenType;
@@ -24,6 +36,11 @@ public class FileReader {
         return positions;
     }
 
+    /**
+     * Read positions.
+     *
+     * @return the array list
+     */
     private ArrayList<Vector2> readPositions() {
         ArrayList<Vector2> positions = new ArrayList<Vector2>();
         FileHandle handle = Gdx.files.internal("Locations/" + filename + ".txt");
@@ -38,6 +55,12 @@ public class FileReader {
         return positions;
     }
 
+    /**
+     * Gets the sign text.
+     *
+     * @param filename the filename
+     * @return the sign text
+     */
     public String getSignText(String filename) {
         FileHandle handle = Gdx.files.internal("Locations/" + filename + ".txt");
         String text = handle.readString();

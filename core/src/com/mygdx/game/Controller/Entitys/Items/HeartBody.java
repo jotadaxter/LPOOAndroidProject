@@ -9,14 +9,26 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.Items.Heart;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 28/04/2017.
  */
 
 public class HeartBody {
+    
+    /** The bdef. */
     private BodyDef bdef;
+    
+    /** The body. */
     private Body body;
 
+    /**
+     * Instantiates a new heart body.
+     *
+     * @param world the world
+     * @param heart the heart
+     * @param vec the vec
+     */
     public HeartBody(World world, Heart heart, Vector2 vec) {
         bdef= new BodyDef();
         bdef.position.set(vec.x*MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
@@ -37,6 +49,11 @@ public class HeartBody {
         body.createFixture(fdef).setUserData(heart);
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody(){
         return body;
     }

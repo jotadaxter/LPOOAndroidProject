@@ -14,21 +14,45 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
 
 public class GameCompleted extends MenuScreen {
+    
+    /** The stage. */
     private Stage stage;
+    
+    /** The texture. */
     private Texture texture;
+    
+    /** The title. */
     private Texture title;
+    
+    /** The text label. */
     private Label textLabel;
+    
+    /** The main menutex. */
     private Texture mainMenutex;
+    
+    /** The main menu button. */
     private ImageButton mainMenuButton;
+    
+    /** The font. */
     private BitmapFont font;
+    
+    /** The quittex. */
     private Texture quittex;
+    
+    /** The quit button. */
     private ImageButton quitButton;
 
+    /**
+     * Instantiates a new game completed.
+     *
+     * @param game the game
+     */
     public GameCompleted(MyGame game) {
         super(game);
         stage= new Stage(viewPort,game.getBatch());
@@ -59,11 +83,19 @@ public class GameCompleted extends MenuScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Text define.
+     *
+     * @return the string
+     */
     private String textDefine() {
         String temp="Score: " + game.getHeroStats().getScore() + "\n" + "Hearts: " + game.getHeroStats().getHearts();
         return temp;
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+     */
     @Override
     public void render(float delta) {
         //Clear the screen
@@ -88,6 +120,10 @@ public class GameCompleted extends MenuScreen {
 
 
     }
+    
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

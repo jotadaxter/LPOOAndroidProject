@@ -13,20 +13,68 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 28/04/2017.
  */
 
 public class HeroBody{
+    
+    /** The Constant DAMPING_NORMAL. */
     public static final float DAMPING_NORMAL= 3f;
+    
+    /** The body. */
     private Body body;
+    
+    /** The logic controller. */
     private LogicController logicController;
+    
+    /** The fdef. */
     private FixtureDef fdef;
+    
+    /** The hero. */
     private Hero hero;
-    public enum State {WALK_UP, WALK_DOWN, WALK_LEFT, WALK_RIGHT, STAND_UP, STAND_DOWN, STAND_RIGHT, STAND_LEFT, HURT, GAME_OVER, DYING}
+    
+    /**
+     * The Enum State.
+     */
+    public enum State {
+/** The walk up. */
+WALK_UP, 
+ /** The walk down. */
+ WALK_DOWN, 
+ /** The walk left. */
+ WALK_LEFT, 
+ /** The walk right. */
+ WALK_RIGHT, 
+ /** The stand up. */
+ STAND_UP, 
+ /** The stand down. */
+ STAND_DOWN, 
+ /** The stand right. */
+ STAND_RIGHT, 
+ /** The stand left. */
+ STAND_LEFT, 
+ /** The hurt. */
+ HURT, 
+ /** The game over. */
+ GAME_OVER, 
+ /** The dying. */
+ DYING}
+    
+    /** The current state. */
     private State currentState;
+    
+    /** The previous state. */
     private State previousState;
 
+    /**
+     * Instantiates a new hero body.
+     *
+     * @param logicController the logic controller
+     * @param hero the hero
+     * @param vec the vec
+     */
     public HeroBody(LogicController logicController, Hero hero, Vector2 vec) {
         this.logicController= logicController;
         setCurrentState(State.STAND_DOWN);
@@ -47,6 +95,9 @@ public class HeroBody{
         shapesDefine();
     }
 
+    /**
+     * Shapes define.
+     */
     private void shapesDefine(){
         StaticContactShapes shapeUp = new StaticContactShapes(getBody(), new EdgeShape());
         shapeUpConfig(shapeUp);
@@ -58,6 +109,11 @@ public class HeroBody{
         shapeLeftConfig(shapeLeft);
     }
 
+    /**
+     * Shape left config.
+     *
+     * @param shape the shape
+     */
     private void shapeLeftConfig(StaticContactShapes shape) {
         shape.setName("leftContact");
         shape.setVec1(new Vector2(5*MyGame.PIXEL_TO_METER,-5*MyGame.PIXEL_TO_METER));
@@ -65,6 +121,11 @@ public class HeroBody{
         shape.shapeDef();
     }
 
+    /**
+     * Shape right config.
+     *
+     * @param shape the shape
+     */
     private void shapeRightConfig(StaticContactShapes shape) {
         shape.setName("rightContact");
         shape.setVec1(new Vector2(-5*MyGame.PIXEL_TO_METER,-5*MyGame.PIXEL_TO_METER));
@@ -72,6 +133,11 @@ public class HeroBody{
         shape.shapeDef();
     }
 
+    /**
+     * Shape down config.
+     *
+     * @param shape the shape
+     */
     private void shapeDownConfig(StaticContactShapes shape) {
         shape.setName("downContact");
         shape.setVec1(new Vector2(-4*MyGame.PIXEL_TO_METER,-10*MyGame.PIXEL_TO_METER));
@@ -79,6 +145,11 @@ public class HeroBody{
         shape.shapeDef();
     }
 
+    /**
+     * Shape up config.
+     *
+     * @param shape the shape
+     */
     private void shapeUpConfig(StaticContactShapes shape) {
         shape.setName("upContact");
         shape.setVec1(new Vector2(-4*MyGame.PIXEL_TO_METER,10*MyGame.PIXEL_TO_METER));
@@ -86,6 +157,11 @@ public class HeroBody{
         shape.shapeDef();
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public State getState() {
         if(hero.getHealth()==0){
             logicController.getGame().getHeroStats().setHearts(-1);
@@ -102,6 +178,11 @@ public class HeroBody{
         else return bodyQuietState();
     }
 
+    /**
+     * Body quiet state.
+     *
+     * @return the state
+     */
     private State bodyQuietState() {
         if (getPreviousState() == State.WALK_UP)
             return State.STAND_UP;
@@ -116,6 +197,11 @@ public class HeroBody{
         }
     }
 
+    /**
+     * Body moving state.
+     *
+     * @return the state
+     */
     private State bodyMovingState() {
         if (Math.abs(getBody().getLinearVelocity().x) > Math.abs(getBody().getLinearVelocity().y)) {
             if (getBody().getLinearVelocity().x > 0)
@@ -131,6 +217,13 @@ public class HeroBody{
         }
     }
 
+    /**
+     * Gets the frame.
+     *
+     * @param hero the hero
+     * @param dt the dt
+     * @return the frame
+     */
     public TextureRegion getFrame(Hero hero,float dt) {
         setCurrentState(getState());
         TextureRegion region=regionStateUpdate();
@@ -139,6 +232,11 @@ public class HeroBody{
         return region;
     }
 
+    /**
+     * Region state update.
+     *
+     * @return the texture region
+     */
     private TextureRegion regionStateUpdate() {
         if(getCurrentState() == State.HURT || getCurrentState() == State.DYING || getCurrentState() == State.GAME_OVER
                 || getCurrentState() == State.STAND_UP || getCurrentState() == State.STAND_DOWN)
@@ -150,6 +248,11 @@ public class HeroBody{
         else return hero.getStandFront();
     }
 
+    /**
+     * Region state update 1.
+     *
+     * @return the texture region
+     */
     private TextureRegion regionStateUpdate1() {
         if(getCurrentState() == State.HURT || getCurrentState() == State.DYING)
             return regionUpdate1();
@@ -157,6 +260,11 @@ public class HeroBody{
             return regionUpdate2();
     }
 
+    /**
+     * Region state update 2.
+     *
+     * @return the texture region
+     */
     private TextureRegion regionStateUpdate2(){
         if(getCurrentState() == State.STAND_LEFT || getCurrentState() == State.STAND_RIGHT || getCurrentState() == State.WALK_UP)
             return regionUpdate3();
@@ -164,6 +272,11 @@ public class HeroBody{
             return regionUpdate4();
     }
 
+    /**
+     * Region update 4.
+     *
+     * @return the texture region
+     */
     private TextureRegion regionUpdate4() {
         TextureRegion region = new TextureRegion();
         if(getCurrentState() == State.WALK_DOWN){
@@ -181,6 +294,11 @@ public class HeroBody{
         return region;
     }
 
+    /**
+     * Region update 3.
+     *
+     * @return the texture region
+     */
     private TextureRegion regionUpdate3() {
         TextureRegion region = new TextureRegion();
        if(getCurrentState() == State.STAND_LEFT){
@@ -198,6 +316,11 @@ public class HeroBody{
         return region;
     }
 
+    /**
+     * Region update 2.
+     *
+     * @return the texture region
+     */
     private TextureRegion regionUpdate2() {
         TextureRegion region = new TextureRegion();
         if(getCurrentState() ==State.GAME_OVER){
@@ -215,6 +338,11 @@ public class HeroBody{
        return region;
     }
 
+    /**
+     * Region update 1.
+     *
+     * @return the texture region
+     */
     private TextureRegion regionUpdate1() {
         TextureRegion region = new TextureRegion();
         if(getCurrentState() ==State.HURT){
@@ -231,6 +359,11 @@ public class HeroBody{
         return region;
     }
 
+    /**
+     * Update timers.
+     *
+     * @param dt the dt
+     */
     private void updateTimers(float dt) {
         hero.setUpDownTimer(getCurrentState() == getPreviousState() ? hero.getUpDownTimer() + dt : 0);
         if(getPreviousState() == getCurrentState()){
@@ -241,6 +374,11 @@ public class HeroBody{
         setPreviousState(getCurrentState());
     }
 
+    /**
+     * Flip body animation.
+     *
+     * @param region the region
+     */
     private void flipBodyAnimation(TextureRegion region) {
         if((getBody().getLinearVelocity().x<0|| getCurrentState() ==State.WALK_LEFT)&&!region.isFlipX()){
             region.flip(true, false);
@@ -252,6 +390,12 @@ public class HeroBody{
         }
     }
 
+    /**
+     * Input update.
+     *
+     * @param controller the controller
+     * @param dt the dt
+     */
     public void InputUpdate(Controller controller, float dt){
         if(controller.isRightPressed()){
             getBody().applyLinearImpulse(new Vector2(MyGame.VELOCITY*dt,0), getBody().getWorldCenter(), true);
@@ -278,6 +422,12 @@ public class HeroBody{
         }
     }
 
+    /**
+     * Aux control.
+     *
+     * @param controller the controller
+     * @param dt the dt
+     */
     private void auxControl(Controller controller, float dt) {
         if(controller.isaPressed()){
             if(hero.getOpenedChestId()>-1) {
@@ -298,6 +448,12 @@ public class HeroBody{
         else getBody().setLinearVelocity(0, 0);
     }
 
+    /**
+     * Movement press.
+     *
+     * @param controller the controller
+     * @param dt the dt
+     */
     private void movementPress(Controller controller, float dt) {
         if(controller.isbPressed()){
             if(hero.getAddBomb())
@@ -315,34 +471,74 @@ public class HeroBody{
         }
     }
 
+    /**
+     * Gets the fdef.
+     *
+     * @return the fdef
+     */
     public FixtureDef getFdef() {
         return fdef;
     }
 
+    /**
+     * Gets the hero.
+     *
+     * @return the hero
+     */
     public Hero getHero() {
         return hero;
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody() {
         return body;
     }
 
+    /**
+     * Sets the body.
+     *
+     * @param body the new body
+     */
     public void setBody(Body body) {
         this.body = body;
     }
 
+    /**
+     * Gets the current state.
+     *
+     * @return the current state
+     */
     public State getCurrentState() {
         return currentState;
     }
 
+    /**
+     * Sets the current state.
+     *
+     * @param currentState the new current state
+     */
     public void setCurrentState(State currentState) {
         this.currentState = currentState;
     }
 
+    /**
+     * Gets the previous state.
+     *
+     * @return the previous state
+     */
     public State getPreviousState() {
         return previousState;
     }
 
+    /**
+     * Sets the previous state.
+     *
+     * @param previousState the new previous state
+     */
     public void setPreviousState(State previousState) {
         this.previousState = previousState;
     }

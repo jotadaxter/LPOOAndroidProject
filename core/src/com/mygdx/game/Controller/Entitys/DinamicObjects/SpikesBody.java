@@ -9,15 +9,29 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.DinamicObjects.Spikes;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 28/04/2017.
  */
 
 public class SpikesBody {
+    
+    /** The body. */
     private Body body;
+    
+    /** The bdef. */
     private BodyDef bdef;
+    
+    /** The fdef. */
     private FixtureDef fdef;
 
+    /**
+     * Instantiates a new spikes body.
+     *
+     * @param world the world
+     * @param spikes the spikes
+     * @param vec the vec
+     */
     public SpikesBody(World world, Spikes spikes, Vector2 vec) {
         bdef = new BodyDef();
         bdef.position.set(vec.x * MyGame.PIXEL_TO_METER, vec.y * MyGame.PIXEL_TO_METER);
@@ -38,10 +52,20 @@ public class SpikesBody {
         body.createFixture(fdef).setUserData(spikes);
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody() {
         return body;
     }
 
+    /**
+     * Gets the fdef.
+     *
+     * @return the fdef
+     */
     public FixtureDef getFdef() {
         return fdef;
     }

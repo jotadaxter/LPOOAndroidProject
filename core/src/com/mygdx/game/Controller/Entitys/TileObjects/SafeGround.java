@@ -15,16 +15,27 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 21-05-2017.
  */
 
 public class SafeGround extends StaticTileObject{
+    
+    /**
+     * Instantiates a new safe ground.
+     *
+     * @param logicController the logic controller
+     * @param object the object
+     */
     public SafeGround(LogicController logicController, MapObject object) {
         super(logicController, object);
         setCategoryFilter(MyGame.SAFE_GROUND_BIT);
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.Controller.Entitys.TileObjects.StaticTileObject#setSensor()
+     */
     @Override
     protected boolean setSensor() {
         return true;

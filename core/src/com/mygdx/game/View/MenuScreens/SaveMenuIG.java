@@ -21,22 +21,48 @@ import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
 
 public class SaveMenuIG extends MenuScreen {
+    
+    /** The stage. */
     private Stage stage;
+    
+    /** The texture. */
     private Texture texture;
+    
+    /** The s1. */
     private Texture S1;
+    
+    /** The s2. */
     private Texture S2;
+    
+    /** The s3. */
     private Texture S3;
+    
+    /** The back. */
     private Texture back;
+    
+    /** The S 1 button. */
     private ImageButton S1Button;
+    
+    /** The S 2 button. */
     private ImageButton S2Button;
+    
+    /** The S 3 button. */
     private ImageButton S3Button;
+    
+    /** The back button. */
     private ImageButton backButton;
 
+    /**
+     * Instantiates a new save menu IG.
+     *
+     * @param game the game
+     */
     public SaveMenuIG(MyGame game) {
         super(game);
         stage= new Stage(viewPort,game.getBatch());
@@ -61,6 +87,9 @@ public class SaveMenuIG extends MenuScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Back button define.
+     */
     private void backButtonDefine() {
         Drawable backDrawable = new TextureRegionDrawable(new TextureRegion(back));
         backButton = new ImageButton(backDrawable);
@@ -68,6 +97,9 @@ public class SaveMenuIG extends MenuScreen {
         stage.addActor(backButton);
     }
 
+    /**
+     * Load assets.
+     */
     private void loadAssets() {
         texture = game.getAssetManager().get("Menus/main_menu.jpg", Texture.class);
         S1 =game.getAssetManager().get("Buttons/slot1.png", Texture.class);
@@ -76,6 +108,9 @@ public class SaveMenuIG extends MenuScreen {
         back = game.getAssetManager().get("Buttons/back_button.png", Texture.class);
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+     */
     @Override
     public void render(float delta) {
         //Clear the screen
@@ -86,6 +121,9 @@ public class SaveMenuIG extends MenuScreen {
         buttonUpdate();
     }
 
+    /**
+     * Button update.
+     */
     private void buttonUpdate() {
         if (S1Button.isPressed() || S2Button.isPressed() || S3Button.isPressed()){
 
@@ -130,6 +168,11 @@ public class SaveMenuIG extends MenuScreen {
         }
     }
 
+    /**
+     * Stack top name.
+     *
+     * @return the string
+     */
     private String stackTopName() {
         if(game.getGsm().getStates().peek().getGameScreen().getType()==FreeWorld.class){
             return "free_world";
@@ -143,12 +186,18 @@ public class SaveMenuIG extends MenuScreen {
         else return "";
     }
 
+    /**
+     * Menu draw.
+     */
     private void menuDraw() {
         game.getBatch().begin();
         game.getBatch().draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
         game.getBatch().end();
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

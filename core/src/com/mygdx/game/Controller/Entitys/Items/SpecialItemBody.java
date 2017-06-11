@@ -9,14 +9,26 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.Items.SpecialItem;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
 
 public class SpecialItemBody {
+    
+    /** The bdef. */
     private BodyDef bdef;
+    
+    /** The body. */
     private Body body;
 
+    /**
+     * Instantiates a new special item body.
+     *
+     * @param world the world
+     * @param specialItem the special item
+     * @param vec the vec
+     */
     public SpecialItemBody(World world, SpecialItem specialItem, Vector2 vec) {
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
@@ -37,6 +49,11 @@ public class SpecialItemBody {
         body.createFixture(fdef).setUserData(specialItem);
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody(){
         return body;
     }

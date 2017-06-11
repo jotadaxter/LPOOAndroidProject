@@ -10,15 +10,29 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 06-04-2017.
  */
 
 public class Jewel extends Item {
+    
+    /** The value. */
     private int value;
+    
+    /** The jewel body. */
     private JewelBody jewelBody;
+    
+    /** The sound. */
     private Sound sound;
 
+    /**
+     * Instantiates a new jewel.
+     *
+     * @param value the value
+     * @param logicController the logic controller
+     * @param vec the vec
+     */
     public Jewel(int value, LogicController logicController, Vector2 vec) {
         super(logicController, vec);
         this.value=value;
@@ -33,6 +47,11 @@ public class Jewel extends Item {
         jewelBody= new JewelBody(world, this, value, vec);
     }
 
+    /**
+     * Define texture.
+     *
+     * @param value the value
+     */
     private void defineTexture(int value) {
         if(value==1)
             sprite.setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/green_rupee.png", Texture.class), 0,0,7,14));
@@ -48,16 +67,25 @@ public class Jewel extends Item {
             sprite.setRegion(new TextureRegion(logicController.getGame().getAssetManager().get("Game/big_red_rupee.png", Texture.class), 0,0,12,16));
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.Model.Entitys.Items.Item#defineItem()
+     */
     @Override
     public void defineItem() {
         type="jewel";
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.Model.Entitys.Items.Item#use(com.mygdx.game.Model.Entitys.Hero.Hero)
+     */
     @Override
     public void use(Hero hero) {
         destroy();
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.Model.Entitys.Items.Item#update(float, com.mygdx.game.Model.Entitys.Hero.Hero)
+     */
     @Override
     public void update(float dt, Hero hero) {
         if(toDestroy && !destroyed){
@@ -73,10 +101,20 @@ public class Jewel extends Item {
         }
     }
 
+   /**
+    * Gets the value.
+    *
+    * @return the value
+    */
    public int getValue(){
         return value;
     }
 
+    /**
+     * Gets the jewel body.
+     *
+     * @return the jewel body
+     */
     public JewelBody getJewelBody() {
         return jewelBody;
     }

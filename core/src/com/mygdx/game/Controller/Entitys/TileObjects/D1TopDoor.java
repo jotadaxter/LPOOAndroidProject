@@ -12,18 +12,38 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 24/05/2017.
  */
 
 public class D1TopDoor extends Sprite {
+    
+    /** The world. */
     private World world;
+    
+    /** The body. */
     private Body body;
+    
+    /** The bdef. */
     private BodyDef bdef;
+    
+    /** The fdef. */
     private FixtureDef fdef;
+    
+    /** The texture region 1. */
     private TextureRegion textureRegion1;
+    
+    /** The texture region 2. */
     private TextureRegion textureRegion2;
 
+    /**
+     * Instantiates a new d 1 top door.
+     *
+     * @param logicController the logic controller
+     * @param vec the vec
+     * @param choose the choose
+     */
     public D1TopDoor(LogicController logicController, Vector2 vec, int choose){
         setPosition(vec.x,vec.y);
         bdef= new BodyDef();
@@ -56,10 +76,19 @@ public class D1TopDoor extends Sprite {
 
 
     }
+    
+    /**
+     * Update.
+     */
     public void update() {
        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody() {
         return body;
     }

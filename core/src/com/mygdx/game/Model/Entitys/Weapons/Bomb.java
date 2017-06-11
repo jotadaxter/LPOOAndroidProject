@@ -17,37 +17,94 @@ import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.Model.Entitys.Hero.Hero;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 18/05/2017.
  */
 
 public class Bomb{
+    
+    /** The Constant MAX_TIMING. */
     public static final float MAX_TIMING=2.575f;
+    
+    /** The hero. */
     private Hero hero;
+    
+    /** The world. */
     private World world;
+    
+    /** The to destroy. */
     private boolean toDestroy;
+    
+    /** The destroyed. */
     private boolean destroyed;
+    
+    /** The bomb body. */
     private BombBody bombBody;
+    
+    /** The explosion body. */
     private ExplosionBody explosionBody;
+    
+    /** The sound timer. */
     private float soundTimer;
-    public enum State {TIC_TAC, BOOM}
+    
+    /**
+     * The Enum State.
+     */
+    public enum State {
+/** The tic tac. */
+TIC_TAC, 
+ /** The boom. */
+ BOOM}
+    
+    /** The current state. */
     private State currentState;
+    
+    /** The previous state. */
     private State previousState;
 
+    /** The blue. */
     //textures
     private TextureRegion blue;
+    
+    /** The red. */
     private TextureRegion red;
+    
+    /** The tic tac. */
     //Animations
     private Animation<TextureRegion> tic_tac;
+    
+    /** The boom. */
     private Animation<TextureRegion> boom;
+    
+    /** The timer. */
     private float timer;
+    
+    /** The tic tac timer. */
     private float tic_tac_timer;
+    
+    /** The sound 1. */
     private Sound sound1;
+    
+    /** The sound 2. */
     private Sound sound2;
+    
+    /** The sprite. */
     private Sprite sprite;
+    
+    /** The logic controller. */
     private LogicController logicController;
+    
+    /** The position. */
     private Vector2 position;
 
+    /**
+     * Instantiates a new bomb.
+     *
+     * @param logicController the logic controller
+     * @param hero the hero
+     * @param vec the vec
+     */
     public Bomb(LogicController logicController, Hero hero, Vector2 vec) {
         this.world= logicController.getWorld();
         this.hero=hero;
@@ -72,6 +129,9 @@ public class Bomb{
         sound2=Gdx.audio.newSound(Gdx.files.internal("Sounds/bomb_boom.wav"));
     }
 
+    /**
+     * Animation load.
+     */
     private void animationLoad() {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         frames.add(blue);
@@ -87,15 +147,26 @@ public class Bomb{
 
     }
 
+    /**
+     * Texture load.
+     */
     private void textureLoad() {
         blue= new TextureRegion(logicController.getGame().getAssetManager().get("Game/bombs.png", Texture.class), 0,0,12,16);
         red= new TextureRegion(logicController.getGame().getAssetManager().get("Game/bombs.png", Texture.class), 12,0,12,16);
     }
 
+    /**
+     * Destroy.
+     */
     public void destroy() {
         toDestroy=true;
     }
 
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     */
     public void update(float dt) {
         if(toDestroy && !destroyed){
             world.destroyBody(bombBody.getBody());
@@ -114,6 +185,9 @@ public class Bomb{
         }
     }
 
+    /**
+     * Sound update.
+     */
     private void soundUpdate() {
         if(soundTimer>=0)
             soundTimer+=Gdx.graphics.getDeltaTime();
@@ -128,20 +202,41 @@ public class Bomb{
         }
     }
 
+    /**
+     * Draw.
+     *
+     * @param batch the batch
+     */
     public void draw(Batch batch){
         if(!destroyed)
             sprite.draw(batch);
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody(){
         return bombBody.getBody();
     }
 
+    /**
+     * Sets the new position.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void setNewPosition(float x, float y){
         bombBody.getBody().setTransform(x,y,0);
         explosionBody.getBody().setTransform(x,y,0);
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public State getState() {
         if(getTimer() <2){
             hero.setBombExploding(false);
@@ -153,6 +248,12 @@ public class Bomb{
         }
     }
 
+    /**
+     * Gets the frame.
+     *
+     * @param dt the dt
+     * @return the frame
+     */
     public TextureRegion getFrame(float dt) {
         setCurrentState(getState());
         TextureRegion region = getRegion();
@@ -160,6 +261,11 @@ public class Bomb{
         return region;
     }
 
+    /**
+     * Gets the region.
+     *
+     * @return the region
+     */
     public TextureRegion getRegion() {
         TextureRegion region= new TextureRegion();
         if(getCurrentState() ==State.TIC_TAC){
@@ -172,6 +278,11 @@ public class Bomb{
         return region;
     }
 
+    /**
+     * Timer update.
+     *
+     * @param dt the dt
+     */
     private void timerUpdate(float dt) {
         tic_tac_timer= getCurrentState() == previousState ?tic_tac_timer + dt : 0;
         if(previousState== getCurrentState()){
@@ -182,22 +293,47 @@ public class Bomb{
         previousState= getCurrentState();
     }
 
+    /**
+     * Gets the world.
+     *
+     * @return the world
+     */
     public World getWorld() {
         return world;
     }
 
+    /**
+     * Gets the current state.
+     *
+     * @return the current state
+     */
     public State getCurrentState() {
         return currentState;
     }
 
+    /**
+     * Sets the current state.
+     *
+     * @param currentState the new current state
+     */
     public void setCurrentState(State currentState) {
         this.currentState = currentState;
     }
 
+    /**
+     * Gets the timer.
+     *
+     * @return the timer
+     */
     public float getTimer() {
         return timer;
     }
 
+    /**
+     * Sets the timer.
+     *
+     * @param timer the new timer
+     */
     public void setTimer(float timer) {
         this.timer = timer;
     }

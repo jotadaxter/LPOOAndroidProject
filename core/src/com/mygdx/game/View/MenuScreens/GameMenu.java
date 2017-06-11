@@ -13,35 +13,76 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
 
 public class GameMenu extends MenuScreen {
+    
+    /** The stage. */
     private Stage stage;
+    
+    /** The texture. */
     private Texture texture;
+    
+    /** The title. */
     private Texture title;
+    
+    /** The music. */
     private Texture music;
+    
+    /** The sounds. */
     private Texture sounds;
+    
+    /** The vibration. */
     private Texture vibration;
 
+    /** The checked. */
     private Texture checked;
+    
+    /** The unchecked. */
     private Texture unchecked;
+    
+    /** The save game tex. */
     private Texture saveGameTex;
+    
+    /** The load game tex. */
     private Texture loadGameTex;
+    
+    /** The main menutex. */
     private Texture mainMenutex;
 
+    /** The music check. */
     private CheckBox musicCheck;
+    
+    /** The sound check. */
     private CheckBox soundCheck;
+    
+    /** The vibration check. */
     private CheckBox vibrationCheck;
 
+    /** The backtex. */
     private Texture backtex;
+    
+    /** The back button. */
     private ImageButton backButton;
+    
+    /** The load button. */
     private ImageButton loadButton;
+    
+    /** The save button. */
     private ImageButton saveButton;
+    
+    /** The main menu button. */
     private ImageButton mainMenuButton;
 
 
+    /**
+     * Instantiates a new game menu.
+     *
+     * @param game the game
+     */
     public GameMenu(MyGame game) {
         super(game);
         stage= new Stage(viewPort,game.getBatch());
@@ -79,6 +120,9 @@ public class GameMenu extends MenuScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /**
+     * Check box config.
+     */
     private void CheckBoxConfig() {
         musicCheck.setPosition(MENU_WIDTH/5,300+60);
         musicCheck.setSize(50,50);
@@ -91,6 +135,11 @@ public class GameMenu extends MenuScreen {
         vibrationCheck.setChecked(true);
     }
 
+    /**
+     * Check box style define.
+     *
+     * @param style the style
+     */
     private void CheckBoxStyleDefine(CheckBox.CheckBoxStyle style) {
         Drawable checkedDrawable = new TextureRegionDrawable(new TextureRegion(checked));
         Drawable uncheckedDrawable = new TextureRegionDrawable(new TextureRegion(unchecked));
@@ -99,6 +148,9 @@ public class GameMenu extends MenuScreen {
         style.font = new BitmapFont();
     }
 
+    /**
+     * Back button define.
+     */
     private void backButtonDefine() {
         Drawable backDrawable = new TextureRegionDrawable(new TextureRegion(backtex));
         backButton = new ImageButton(backDrawable);
@@ -106,6 +158,9 @@ public class GameMenu extends MenuScreen {
         stage.addActor(backButton);
     }
 
+    /**
+     * Load assets.
+     */
     private void loadAssets() {
         texture =game.getAssetManager().get("Menus/main_menu.jpg", Texture.class);
         title = game.getAssetManager().get("Menus/options_title.png", Texture.class);
@@ -120,6 +175,9 @@ public class GameMenu extends MenuScreen {
         mainMenutex = game.getAssetManager().get("Buttons/main_menu_button.png", Texture.class);
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+     */
     @Override
     public void render(float delta) {
         //Clear the screen
@@ -130,6 +188,9 @@ public class GameMenu extends MenuScreen {
         buttonUpdate();
     }
 
+    /**
+     * Button update.
+     */
     private void buttonUpdate() {
         if (backButton.isPressed())
             game.getGsm().pop();
@@ -157,6 +218,9 @@ public class GameMenu extends MenuScreen {
         }
     }
 
+    /**
+     * Menu draw.
+     */
     private void menuDraw() {
         game.getBatch().begin();
         game.getBatch().draw(texture, 0,0,MENU_WIDTH/3,MENU_HEIGHT/3);
@@ -167,6 +231,9 @@ public class GameMenu extends MenuScreen {
         game.getBatch().end();
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

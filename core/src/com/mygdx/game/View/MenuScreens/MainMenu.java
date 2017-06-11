@@ -17,21 +17,45 @@ import com.mygdx.game.View.GameScreens.FreeWorld;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
 
 public class MainMenu extends MenuScreen {
+    
+    /** The stage. */
     private Stage stage;
+    
+    /** The texture. */
     private Texture texture;
+    
+    /** The title. */
     private Texture title;
+    
+    /** The storytex. */
     private Texture storytex;
+    
+    /** The story button. */
     private ImageButton storyButton;
+    
+    /** The optionstex. */
     private Texture optionstex;
+    
+    /** The options button. */
     private ImageButton optionsButton;
+    
+    /** The quittex. */
     private Texture quittex;
+    
+    /** The quit button. */
     private ImageButton quitButton;
 
+    /**
+     * Instantiates a new main menu.
+     *
+     * @param game the game
+     */
     public MainMenu(MyGame game) {
         super(game);
         stage= new Stage(viewPort,game.getBatch());
@@ -60,6 +84,9 @@ public class MainMenu extends MenuScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+     */
     @Override
     public void render(float delta) {
         //Clear the screen
@@ -91,6 +118,9 @@ public class MainMenu extends MenuScreen {
 
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

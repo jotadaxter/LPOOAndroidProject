@@ -12,21 +12,35 @@ import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Chest;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
 
 public class Dungeon1 extends GameScreen{
+    
+    /**
+     * Instantiates a new dungeon 1.
+     *
+     * @param game the game
+     * @param vec the vec
+     */
     public Dungeon1(MyGame game, Vector2 vec) {
         super(game, vec);
         Gdx.input.setInputProcessor(logicController.getController().getStage());
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.GameScreens.GameScreen#getDescType()
+     */
     @Override
     protected Class<?> getDescType() {
         return Dungeon1.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.GameScreens.GameScreen#musicDefine()
+     */
     @Override
     protected void musicDefine() {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/dungeon1_music.mp3"));
@@ -34,6 +48,9 @@ public class Dungeon1 extends GameScreen{
         music.setVolume(MyGame.MUSIC_VOLUME);
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.GameScreens.GameScreen#objectsDraw()
+     */
     @Override
     public void objectsDraw() {
         for(WayBlocker wb : logicController.getWayblocks())
@@ -54,6 +71,9 @@ public class Dungeon1 extends GameScreen{
             m.draw(game.getBatch());
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.GameScreens.GameScreen#getMapName()
+     */
     @Override
     public String getMapName() {
         return "first_dungeon.tmx";

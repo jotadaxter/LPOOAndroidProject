@@ -10,14 +10,27 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.internal.matchers.Null;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 30-05-2017.
  */
 public class FirstTest extends GameTest{
+    
+    /** The Constant FIRST_POSX. */
     private static final double FIRST_POSX = 0.5;
+    
+    /** The Constant FIRST_POSY. */
     private static final double FIRST_POSY = 0.5;
+    
+    /** The logic controller. */
     private LogicController logicController;
+    
+    /** The game. */
     private MyGame game;
+    
+    /**
+     * Before.
+     */
     @Before
     public void before(){
         game=new MyGame(true);
@@ -25,11 +38,17 @@ public class FirstTest extends GameTest{
         logicController.defineMap("Maps/test_map.tmx");
     }
 
+    /**
+     * After.
+     */
     @After
     public void after(){
        // logicController.dispose();
     }
 
+    /**
+     * Test player move.
+     */
     @Test
     public void testPlayerMove() {
         assertEquals(4, logicController.getPlayer().getHeroBody().getBody().getPosition().x, FIRST_POSX);

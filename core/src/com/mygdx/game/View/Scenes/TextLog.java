@@ -15,19 +15,39 @@ import com.mygdx.game.MyGame;
 import com.mygdx.game.View.GameScreens.FreeWorld;
 import com.mygdx.game.View.GameScreens.GameScreen;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 22-05-2017.
  */
 
 public class TextLog {
+    
+    /** The stage. */
     private Stage stage;
+    
+    /** The viewport. */
     private Viewport viewport;
+    
+    /** The font. */
     private BitmapFont font;
+    
+    /** The text. */
     private String text;
+    
+    /** The text label. */
     private Label textLabel;
+    
+    /** The log image. */
     private Image logImage;
+    
+    /** The id. */
     private int id;
 
+    /**
+     * Instantiates a new text log.
+     *
+     * @param game the game
+     */
     public TextLog(MyGame game) {
         viewport = new FitViewport(MyGame.VIEWPORT_WIDTH, MyGame.VIEWPORT_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, game.getBatch());
@@ -38,6 +58,9 @@ public class TextLog {
         labels();
     }
 
+    /**
+     * Labels.
+     */
     private void labels() {
         Table table = new Table();
         table.center();
@@ -49,22 +72,46 @@ public class TextLog {
         table.add(textLabel).width(70).height(100);
         stage.addActor(table);
     }
+    
+    /**
+     * Update.
+     */
     public void update(){
         textLabel.setText(text);
     }
 
+    /**
+     * Sets the text.
+     *
+     * @param text the new text
+     */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id the new id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets the stage.
+     *
+     * @return the stage
+     */
     public Stage getStage() {
         return stage;
     }

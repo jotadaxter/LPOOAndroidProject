@@ -9,14 +9,27 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.Items.Jewel;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 28/04/2017.
  */
 
 public class JewelBody {
+    
+    /** The bdef. */
     private BodyDef bdef;
+    
+    /** The body. */
     private Body body;
 
+    /**
+     * Instantiates a new jewel body.
+     *
+     * @param world the world
+     * @param jewel the jewel
+     * @param value the value
+     * @param vec the vec
+     */
     public JewelBody(World world,Jewel jewel,int value, Vector2 vec) {
         bdef= new BodyDef();
         bdef.position.set(vec.x*MyGame.PIXEL_TO_METER, vec.y*MyGame.PIXEL_TO_METER);
@@ -39,6 +52,12 @@ public class JewelBody {
         fdef.shape= shape;
         body.createFixture(fdef).setUserData(jewel);
     }
+    
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody(){
         return body;
     }

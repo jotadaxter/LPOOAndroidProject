@@ -11,24 +11,45 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Model.States.GameState;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 08-05-2017.
  */
 
 public class GameOver extends MenuScreen {
+    
+    /** The stage. */
     private Stage stage;
+    
+    /** The texture. */
     private Texture texture;
+    
+    /** The title. */
     private Texture title;
 
+    /** The loadtex. */
     private Texture loadtex;
+    
+    /** The load button. */
     private ImageButton loadButton;
 
+    /** The main menutex. */
     private Texture mainMenutex;
+    
+    /** The main menu button. */
     private ImageButton mainMenuButton;
 
+    /** The quittex. */
     private Texture quittex;
+    
+    /** The quit button. */
     private ImageButton quitButton;
 
+    /**
+     * Instantiates a new game over.
+     *
+     * @param game the game
+     */
     public GameOver(MyGame game) {
         super(game);
         stage= new Stage(viewPort,game.getBatch());
@@ -57,6 +78,9 @@ public class GameOver extends MenuScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#render(float)
+     */
     @Override
     public void render(float delta) {
         //Clear the screen
@@ -85,6 +109,10 @@ public class GameOver extends MenuScreen {
 
 
     }
+    
+    /* (non-Javadoc)
+     * @see com.mygdx.game.View.MenuScreens.MenuScreen#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);

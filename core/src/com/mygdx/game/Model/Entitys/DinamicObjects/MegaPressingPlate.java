@@ -12,23 +12,52 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.MegaPressingPlateBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 20-05-2017.
  */
 
 public class MegaPressingPlate{
+    
+    /** The world. */
     private World world;
+    
+    /** The ispressed. */
     private int ispressed;//0 - false, >=2 - true
+    
+    /** The press and hold. */
     private boolean press_and_hold;
+    
+    /** The pressed tex. */
     private TextureRegion pressedTex;
+    
+    /** The notpressed tex. */
     private TextureRegion notpressedTex;
+    
+    /** The mega pressing plate body. */
     private MegaPressingPlateBody megaPressingPlateBody;
+    
+    /** The sound 1. */
     private Sound sound1;
+    
+    /** The sound 2. */
     private Sound sound2;
+    
+    /** The position. */
     private Vector2 position;
+    
+    /** The sprite. */
     private Sprite sprite;
+    
+    /** The logic controller. */
     private LogicController logicController;
 
+    /**
+     * Instantiates a new mega pressing plate.
+     *
+     * @param logicController the logic controller
+     * @param vec the vec
+     */
     public MegaPressingPlate(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
         ispressed=0;
@@ -47,11 +76,21 @@ public class MegaPressingPlate{
         sound2=  Gdx.audio.newSound(Gdx.files.internal("Sounds/lever.wav"));
     }
 
+    /**
+     * Texture load.
+     *
+     * @param game the game
+     */
     public void textureLoad(MyGame game){
         pressedTex = new TextureRegion(game.getAssetManager().get("Game/mega_pressing_plates.png", Texture.class), 64,0,64,64);
         notpressedTex = new TextureRegion(game.getAssetManager().get("Game/mega_pressing_plates.png", Texture.class), 0,0,64,64);
     }
 
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     */
     public void update(float dt){
         if(!logicController.getGame().getIsTest()) {
             sprite.setRegion(getFrame(dt));
@@ -61,10 +100,18 @@ public class MegaPressingPlate{
         }
     }
 
+    /**
+     * Checks if is pressed.
+     *
+     * @return the int
+     */
     public int isPressed() {
         return ispressed;
     }
 
+    /**
+     * Dec is pressed.
+     */
     public void decIsPressed() {
         ispressed--;
         if(isPressed()<2){
@@ -72,6 +119,9 @@ public class MegaPressingPlate{
         }
     }
 
+    /**
+     * Inc is pressed.
+     */
     public void incIsPressed() {
         ispressed++;
         if(isPressed()>=2){
@@ -79,14 +129,30 @@ public class MegaPressingPlate{
         }
     }
 
+    /**
+     * Gets the pressed tex.
+     *
+     * @return the pressed tex
+     */
     public TextureRegion getPressedTex(){
         return pressedTex;
     }
 
+    /**
+     * Gets the not pressed tex.
+     *
+     * @return the not pressed tex
+     */
     public TextureRegion getNotPressedTex(){
         return notpressedTex;
     }
 
+    /**
+     * Gets the frame.
+     *
+     * @param dt the dt
+     * @return the frame
+     */
     public TextureRegion getFrame(float dt) {
         TextureRegion region;
         if(isPressed()>=2) {
@@ -96,6 +162,12 @@ public class MegaPressingPlate{
         }
         return region;
     }
+    
+    /**
+     * Draw.
+     *
+     * @param batch the batch
+     */
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }

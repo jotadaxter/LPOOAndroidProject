@@ -12,22 +12,49 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.SmashableRockBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Jotadaxter on 24/05/2017.
  */
 
 public class SmashableRock{
+    
+    /** The world. */
     private World world;
+    
+    /** The block figure. */
     private TextureRegion blockFigure;
+    
+    /** The to destroy. */
     private boolean toDestroy;
+    
+    /** The destroyed. */
     private boolean destroyed;
+    
+    /** The rock body. */
     private SmashableRockBody rockBody;
+    
+    /** The timer. */
     private int timer;
+    
+    /** The inc timer. */
     private boolean incTimer;
+    
+    /** The position. */
     private Vector2 position;
+    
+    /** The sprite. */
     private Sprite sprite;
+    
+    /** The logic controller. */
     private LogicController logicController;
 
+    /**
+     * Instantiates a new smashable rock.
+     *
+     * @param logicController the logic controller
+     * @param vec the vec
+     */
     public SmashableRock(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
         rockBody= new SmashableRockBody(world,this,vec);
@@ -46,10 +73,18 @@ public class SmashableRock{
         }
     }
 
+    /**
+     * Destroy.
+     */
     public void destroy(){
         incTimer=true;
     }
 
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     */
     public void update(float dt){
         if(toDestroy && !destroyed){
             world.destroyBody(rockBody.getBody());
@@ -71,6 +106,11 @@ public class SmashableRock{
         }
     }
 
+    /**
+     * Draw.
+     *
+     * @param batch the batch
+     */
     public void draw(Batch batch) {
         if(!destroyed)
             sprite.draw(batch);

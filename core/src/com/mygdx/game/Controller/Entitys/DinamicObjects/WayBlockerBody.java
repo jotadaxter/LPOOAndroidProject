@@ -9,15 +9,29 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.DinamicObjects.WayBlocker;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 17-05-2017.
  */
 
 public class WayBlockerBody{
+    
+    /** The body. */
     private Body body;
+    
+    /** The bdef. */
     private BodyDef bdef;
+    
+    /** The fdef. */
     private FixtureDef fdef;
 
+    /**
+     * Instantiates a new way blocker body.
+     *
+     * @param world the world
+     * @param blocker the blocker
+     * @param vec the vec
+     */
     public WayBlockerBody(World world, WayBlocker blocker, Vector2 vec) {
         bdef = new BodyDef();
         bdef.position.set(vec.x * MyGame.PIXEL_TO_METER, vec.y * MyGame.PIXEL_TO_METER);
@@ -36,10 +50,20 @@ public class WayBlockerBody{
         body.createFixture(fdef).setUserData(blocker);
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody() {
         return body;
     }
 
+    /**
+     * Gets the fdef.
+     *
+     * @return the fdef
+     */
     public FixtureDef getFdef() {
         return fdef;
     }

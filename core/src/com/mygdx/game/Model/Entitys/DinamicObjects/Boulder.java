@@ -10,18 +10,37 @@ import com.mygdx.game.Controller.Entitys.DinamicObjects.BoulderBody;
 import com.mygdx.game.Controller.LogicController;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 06-04-2017.
  */
 
 public class Boulder{
+    
+    /** The world. */
     private World world;
+    
+    /** The boulder figure. */
     private TextureRegion boulderFigure;
+    
+    /** The boulder body. */
     private BoulderBody boulderBody;
+    
+    /** The sprite. */
     private Sprite sprite;
+    
+    /** The logic controller. */
     private LogicController logicController;
+    
+    /** The position. */
     private Vector2 position;
 
+    /**
+     * Instantiates a new boulder.
+     *
+     * @param logicController the logic controller
+     * @param vec the vec
+     */
     public Boulder(LogicController logicController, Vector2 vec) {
         this.world= logicController.getWorld();
         this.logicController=logicController;
@@ -35,6 +54,10 @@ public class Boulder{
             sprite.setRegion(boulderFigure);
         }
     }
+    
+    /**
+     * Update.
+     */
     public void update(){
         if(!logicController.getGame().getIsTest()) {
             sprite.setPosition(boulderBody.getBody().getPosition().x-sprite.getWidth()/2, boulderBody.getBody().getPosition().y-sprite.getHeight()/2);
@@ -43,10 +66,20 @@ public class Boulder{
         }
     }
 
+    /**
+     * Gets the boulder body.
+     *
+     * @return the boulder body
+     */
     public BoulderBody getBoulderBody() {
         return boulderBody;
     }
 
+    /**
+     * Draw.
+     *
+     * @param batch the batch
+     */
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }

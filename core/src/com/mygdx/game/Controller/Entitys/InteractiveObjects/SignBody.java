@@ -9,14 +9,26 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entitys.InteractiveObjects.Sign;
 import com.mygdx.game.MyGame;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 21-05-2017.
  */
 
 public class SignBody{
+    
+    /** The body. */
     private Body body;
+    
+    /** The bdef. */
     private BodyDef bdef;
 
+    /**
+     * Instantiates a new sign body.
+     *
+     * @param world the world
+     * @param sign the sign
+     * @param vec the vec
+     */
     public SignBody(World world, Sign sign, Vector2 vec) {
         bdef= new BodyDef();
         bdef.position.set(vec.x* MyGame.PIXEL_TO_METER, vec.y* MyGame.PIXEL_TO_METER);
@@ -40,6 +52,12 @@ public class SignBody{
         fdef.restitution = 0f;
         body.createFixture(fdef).setUserData(sign);
     }
+    
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public Body getBody(){
         return body;
     }
