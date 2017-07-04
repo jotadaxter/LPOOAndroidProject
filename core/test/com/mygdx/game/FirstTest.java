@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.internal.matchers.Null;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by Utilizador on 30-05-2017.
  */
